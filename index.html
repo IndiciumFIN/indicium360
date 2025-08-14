@@ -240,10 +240,12 @@
         }
 
         .access-section-title { font-weight: 700; color: var(--if-dark-blue); margin-top: 16px; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-        .access-option { display: flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 8px; transition: background-color 0.2s; color: var(--if-dark-gray); }
+        .access-option { display: flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 8px; transition: background-color 0.2s; color: var(--if-dark-gray); text-align: left;}
         .access-option:hover { background-color: rgba(0,0,0,0.1); }
         .access-option.active { background-color: var(--if-cyan); color: white; }
         .access-option.active i { color: white; }
+        .access-option i { color: var(--if-cyan); }
+        
         /* Critério 3.1.5 Nível de Leitura (AAA): A classe `simplified-language` aplica fontes e espaçamentos que melhoram a legibilidade. */
         .simplified-language {
             font-family: Arial, sans-serif !important;
@@ -275,17 +277,15 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, bottom 0.3s ease;
         }
         #whatsapp-cta:hover {
             transform: scale(1.1);
         }
         
-        /* Ajuste para o ícone do WhatsApp não sobrepor o banner de cookies em telas pequenas */
-        @media (max-width: 767px) {
-            #whatsapp-cta {
-                bottom: 100px;
-            }
+        /* Ajuste dinâmico para o ícone do WhatsApp */
+        .whatsapp-above-banner {
+            bottom: calc(var(--cookie-banner-height, 100px) + 20px);
         }
         
         .skip-link {
@@ -502,7 +502,7 @@
             </button>
 
             <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center space-x-6">
+            <div class="hidden md:flex items-center space-x-6 desktop-nav-container">
                 <ul role="menu" class="flex items-center space-x-6">
                     <li class="dropdown" role="none">
                         <a id="dropdown-about-us" href="javascript:void(0);" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2" title="Conheça a nossa história" aria-haspopup="true" aria-expanded="false">
@@ -998,7 +998,7 @@
                 feature4_cta: "Saber Más sobre Análisis",
                 feature5_title: "Planificación (FP&A)", feature5_desc: "Crie orçamentos, proyeções (forecasts) e simule cenários. Analise desviaciones (Real vs. Presupuestado) y tome decisões baseadas em dados.",
                 feature5_cta: "Saber Más sobre Planificación",
-                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las mejores práticas del mercado.",
+                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las melhores práticas del mercado.",
                 feature6_cta: "Saber Más sobre ESG",
                 newsletter_title: "Manténgase al día con las novedades", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nosotros", footer_terms: "Términos de Uso", footer_sitemap: "Mapa del Sitio",
@@ -1086,12 +1086,16 @@
         };
 
         const changeLanguage = (lang) => {
-            document.documentElement.lang = lang.toUpperCase();
+            document.documentElement.lang = lang.toLowerCase();
+            const isSimplified = document.body.classList.contains('simplified-language');
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
-                const simplified = document.body.classList.contains('simplified-language');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = simplified ? el.getAttribute('data-simplified') : translations[lang][key];
+                    if (isSimplified && el.hasAttribute('data-simplified')) {
+                        el.innerHTML = el.getAttribute('data-simplified');
+                    } else {
+                        el.innerHTML = translations[lang][key];
+                    }
                 }
             });
             document.querySelectorAll('.language-selector button').forEach(btn => btn.classList.remove('active'));
@@ -1249,6 +1253,7 @@
         const openMenu = () => {
             accessibilityMenu.classList.add('open');
             accessibilityBackdrop.classList.add('open');
+            accessibilityMenu.scrollTop = 0; // Move o scroll do menu para o topo
         };
 
         const closeMenu = () => {
@@ -1505,6 +1510,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Garante que a página inicie no topo
+            window.scrollTo(0, 0);
+
             const aosScript = document.createElement('script');
             aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
             aosScript.defer = true;
@@ -1520,6 +1528,7 @@
 
             // --- COOKIE LOGIC ---
             const cookieBanner = document.getElementById('cookie-banner');
+            const whatsappCta = document.getElementById('whatsapp-cta');
             const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
             const rejectCookiesBtn = document.getElementById('reject-cookies-btn');
             const manageBannerBtn = document.getElementById('manage-cookies-btn-banner');
@@ -1530,12 +1539,22 @@
             const analyticsToggle = document.getElementById('analytics-cookie-toggle');
             const marketingToggle = document.getElementById('marketing-cookie-toggle');
             
+            const updateWhatsappPosition = () => {
+                if (!cookieBanner.classList.contains('hidden')) {
+                     whatsappCta.classList.add('whatsapp-above-banner');
+                } else {
+                     whatsappCta.classList.remove('whatsapp-above-banner');
+                }
+            }
+
             const showCookieBanner = () => {
                 cookieBanner.classList.remove('hidden');
+                updateWhatsappPosition();
             };
 
             const hideCookieBanner = () => {
                 cookieBanner.classList.add('hidden');
+                updateWhatsappPosition();
             };
 
             const showCookieModal = () => {
@@ -1613,6 +1632,7 @@
             const openMenu = () => {
                 accessibilityMenu.classList.add('open');
                 accessibilityBackdrop.classList.add('open');
+                accessibilityMenu.scrollTop = 0;
             };
 
             const closeMenu = () => {
