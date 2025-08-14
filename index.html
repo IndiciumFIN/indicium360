@@ -150,7 +150,14 @@
         /* Critério 2.3.2 Três Flashes (AAA): A media query já ajuda a prevenir animações para usuários com preferência por movimento reduzido. */
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } #hero-animation-canvas { display: none; } }
 
-        #accessibility-widget { position: fixed; bottom: 20px; left: 20px; z-index: 1050; }
+        /* Estilo para o botão de acessibilidade no canto inferior esquerdo */
+        #accessibility-widget { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 20px; 
+            z-index: 9999;
+        }
+
         #accessibility-button { width: 60px; height: 60px; background-color: var(--if-dark-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s ease; }
         #accessibility-button:hover { transform: scale(1.1); }
         
@@ -277,6 +284,8 @@
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, bottom 0.3s ease;
+            max-width: 60px;
+            max-height: 60px;
         }
         #whatsapp-cta:hover {
             transform: scale(1.1);
@@ -284,7 +293,7 @@
         
         /* Ajuste dinâmico para o ícone do WhatsApp */
         #cookie-banner:not(.hidden) ~ #whatsapp-cta {
-            bottom: calc(var(--cookie-banner-height) + 20px);
+            bottom: 100px;
         }
         
         .skip-link {
@@ -418,10 +427,6 @@
             .mobile-nav-item.open > .mobile-submenu {
                 display: block;
             }
-            .mobile-nav-container .language-selector,
-            .mobile-nav-container .vlibras-container {
-                display: block;
-            }
         }
         
         .mobile-menu-open .hamburger-menu span:nth-child(1) {
@@ -436,25 +441,34 @@
           transform: rotate(-45deg) translate(5px, -5px);
         }
         
-        .mobile-nav-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh; /* Ajustado para 100vh */
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            z-index: 50;
-            padding-top: 80px;
-            transform: translateX(100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            overflow-y: auto; /* Adicionado overflow-y */
+        .mobile-nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 80%;
+          max-width: 320px;
+          height: 100vh;
+          background: #fff;
+          overflow-y: auto;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+          z-index: 10000;
+        }
+        .mobile-nav.open {
+          transform: translateX(0);
+        }
+        .close-menu {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 24px;
+          cursor: pointer;
+          border: none;
+          background: transparent;
+        }
+        .lang-selector-mobile {
+          padding: 10px;
+          border-bottom: 1px solid #ddd;
         }
         .show-shortcuts .shortcut-hint {
             display: inline;
@@ -462,7 +476,7 @@
         .shortcut-hint {
             display: none;
         }
-        /* FIM DA MUDANÇA */
+        
         @media (max-width: 480px) {
           .language-selector {
             flex-wrap: wrap;
@@ -473,13 +487,50 @@
           .language-selector button {
             flex: 1 1 auto;
           }
+          /* Responsividade total */
+          img, iframe, video {
+            max-width: 100%;
+            height: auto;
+          }
+          .container {
+            padding: 0 10px;
+          }
+           #whatsapp-cta {
+            right: 10px; 
+            bottom: 10px;
+            transform: none;
+          }
         }
-        #accessibility-widget {
-          position: fixed;
-          top: 80px; /* altura do header */
-          left: 10px;
-          z-index: 1050;
+        /* Responsividade para o banner e modal de cookies */
+        @media (max-width: 480px) {
+          #cookie-banner {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 10px;
+            text-align: center;
+          }
+          #cookie-modal {
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+          }
         }
+        .header-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        }
+        .header-content {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          width: 100%;
+        }
+        #btn-acessar {
+          margin-right: 1rem;
+        }
+
     </style>
     
     <!-- Google Tag Manager e Google Analytics 4 com lógica de consentimento -->
@@ -505,17 +556,21 @@
 
     <!-- ===== Header ===== -->
     <header role="banner" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav role="navigation" aria-label="Navegação Principal" class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav role="navigation" aria-label="Navegação Principal" class="container mx-auto px-6 py-4 flex justify-between items-center header-container">
             <a href="https://indiciumfin.github.io/indicium360/index.html" class="flex items-center" accesskey="1" aria-label="Voltar para a página inicial da Indicium360">
                 <img src="https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp" alt="Indicium360 Logo" class="h-10 w-auto">
             </a>
             
-            <!-- Botão de hambúrguer para mobile -->
-            <button id="hamburger-button" class="md:hidden flex flex-col justify-center items-center" aria-label="Abrir menu de navegação" aria-controls="mobile-menu-nav" aria-expanded="false">
-                <span class="block w-6 h-0.5 bg-gray-600"></span>
-                <span class="block w-6 h-0.5 bg-gray-600 my-1"></span>
-                <span class="block w-6 h-0.5 bg-gray-600"></span>
-            </button>
+            <div class="header-content">
+                <a id="btn-acessar" href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md md:hidden" data-lang="btn_access">Acessar</a>
+                <!-- Botão de hambúrguer para mobile -->
+                <button id="hamburger-button" class="md:hidden flex flex-col justify-center items-center" aria-label="Abrir menu de navegação" aria-controls="mobile-menu-nav" aria-expanded="false">
+                    <span class="block w-6 h-0.5 bg-gray-600"></span>
+                    <span class="block w-6 h-0.5 bg-gray-600 my-1"></span>
+                    <span class="block w-6 h-0.5 bg-gray-600"></span>
+                </button>
+            </div>
+            
 
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center space-x-6 desktop-nav-container">
@@ -564,8 +619,14 @@
         </nav>
         
         <!-- Menu Mobile reestruturado para refletir a hierarquia do desktop. -->
-        <div id="mobile-menu" class="mobile-nav-overlay md:hidden" role="navigation" aria-label="Navegação Principal do Mobile">
-            <ul class="mobile-nav flex flex-col space-y-4 text-xl" role="menu" id="mobile-menu-nav">
+        <div id="mobile-menu" class="mobile-nav md:hidden" role="navigation" aria-label="Navegação Principal do Mobile">
+            <button class="close-menu" aria-label="Fechar menu de navegação">&times;</button>
+            <div class="lang-selector-mobile flex items-center justify-center border border-gray-300 rounded-full p-1 text-sm m-4">
+                <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
+                <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
+                <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
+            </div>
+            <ul class="mobile-nav-list flex flex-col space-y-4 text-xl p-4" role="menu" id="mobile-menu-nav">
                 <li class="mobile-nav-item has-submenu" role="none">
                     <a href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="mobile-nav-item-link text-gray hover:text-cyan" data-lang="nav_about">Sobre Nós</a>
                     <button class="submenu-toggle-button" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
@@ -610,13 +671,6 @@
                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/blog-financeiro.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_blog" onclick="toggleMobileMenu()">Blog</a></li>
                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/contato.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_contact" onclick="toggleMobileMenu()">Contato</a></li>
             </ul>
-            <div class="mobile-nav-container flex flex-col items-center w-full px-6 space-y-4 mt-6">
-                <div class="language-selector flex items-center border border-gray-300 rounded-full p-1 text-sm w-full">
-                    <button onclick="changeLanguage('pt')" class="flex-1 px-3 py-1 rounded-full active" title="Português">PT</button>
-                    <button onclick="changeLanguage('en')" class="flex-1 px-3 py-1 rounded-full" title="English" lang="en">EN</button>
-                    <button onclick="changeLanguage('es')" class="flex-1 px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
-                </div>
-            </div>
         </div>
         <!-- FIM DA MUDANÇA -->
     </header>
@@ -907,9 +961,9 @@
     </div>
     <div id="reading-guide"></div>
     <div id="aria-live-region" class="sr-only" role="status" aria-live="polite"></div>
-
-    <!-- Botão VLibras - Adicionado fora do menu mobile e fixo -->
-    <div vw class="enabled" style="z-index:99999;">
+    
+    <!-- Botão Libras fixo -->
+    <div vw class="enabled" style="position: fixed; bottom: 90px; right: 20px; z-index: 99999;">
       <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
@@ -1126,15 +1180,23 @@
             });
             document.querySelectorAll('.language-selector button').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.language-selector button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
+            
+            const mobileLangSelector = document.querySelector('.lang-selector-mobile');
+            if(mobileLangSelector) {
+                mobileLangSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                mobileLangSelector.querySelector(`button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
+            }
         };
         
         // Lógica aprimorada para menu mobile e navegação por teclado.
-        const mobileMenuOverlay = document.getElementById('mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
         const hamburgerButton = document.getElementById('hamburger-button');
+        const closeMenuBtn = document.querySelector('.close-menu');
 
         const toggleMobileMenu = () => {
-            const isOpen = mobileMenuOverlay.classList.toggle('mobile-nav-open');
+            mobileMenu.classList.toggle('open');
             hamburgerButton.classList.toggle('mobile-menu-open');
+            const isOpen = mobileMenu.classList.contains('open');
             hamburgerButton.setAttribute('aria-expanded', isOpen);
             if (isOpen) {
                 document.body.style.overflow = 'hidden';
@@ -1142,6 +1204,21 @@
                 document.body.style.overflow = '';
             }
         };
+        
+        hamburgerButton.addEventListener('click', toggleMobileMenu);
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburgerButton.contains(e.target) && mobileMenu.classList.contains('open')) {
+                toggleMobileMenu();
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                toggleMobileMenu();
+            }
+        });
 
         const toggleMobileSubmenu = (button) => {
             const parentLi = button.closest('li');
@@ -1149,8 +1226,6 @@
             button.setAttribute('aria-expanded', isOpen);
         };
         
-        hamburgerButton.addEventListener('click', toggleMobileMenu);
-
         // Lógica de navegação por teclado e click para dropdowns do desktop
         const desktopDropdowns = document.querySelectorAll('.dropdown > a');
         desktopDropdowns.forEach(dropdown => {
@@ -1185,7 +1260,7 @@
         });
 
         // Clicar em um item de menu no mobile também fecha o menu
-        document.querySelectorAll('.mobile-nav a').forEach(link => {
+        document.querySelectorAll('.mobile-nav-list a').forEach(link => {
             link.addEventListener('click', () => {
                 const hasSubmenu = link.closest('.has-submenu');
                 if (!hasSubmenu) {
@@ -1576,24 +1651,12 @@
             const analyticsToggle = document.getElementById('analytics-cookie-toggle');
             const marketingToggle = document.getElementById('marketing-cookie-toggle');
             
-            const updateWhatsappPosition = () => {
-                const bannerHeight = cookieBanner.offsetHeight;
-                document.documentElement.style.setProperty('--cookie-banner-height', `${bannerHeight}px`);
-                if (!cookieBanner.classList.contains('hidden')) {
-                     whatsappCta.classList.add('whatsapp-above-banner');
-                } else {
-                     whatsappCta.classList.remove('whatsapp-above-banner');
-                }
-            }
-
             const showCookieBanner = () => {
                 cookieBanner.classList.remove('hidden');
-                updateWhatsappPosition();
             };
 
             const hideCookieBanner = () => {
                 cookieBanner.classList.add('hidden');
-                updateWhatsappPosition();
             };
 
             if (!localStorage.getItem('cookieConsent')) {
