@@ -486,12 +486,12 @@
         @media (max-width: 480px) {
           .language-selector {
             flex-wrap: wrap;
-            width: 100%;
-            justify-content: center;
+            justify-content: flex-end; /* Alinhar à direita */
+            width: auto;
           }
           .desktop-nav-container > a,
           .language-selector button {
-            flex: 1 1 auto;
+            flex: 0 1 auto;
           }
           /* Responsividade total */
           img, iframe, video {
@@ -505,12 +505,18 @@
             right: 10px; 
             bottom: 10px;
             transform: none;
+            width: 50px;
+            height: 50px;
+          }
+          #accessibility-button {
+            width: 50px;
+            height: 50px;
           }
           /* Botão Acessar - Ajuste para telas pequenas */
           #btn-acessar {
-            position: absolute;
-            top: 10px;
-            right: 60px;
+            position: relative;
+            top: auto;
+            right: auto;
             font-size: 12px;
             padding: 5px 10px;
           }
@@ -522,21 +528,29 @@
             right: 10px;
             transform: scale(0.9); /* botão levemente menor */
           }
-        }
-        /* Responsividade para o banner e modal de cookies */
-        @media (max-width: 480px) {
+
+          /* Ajustes para o modal e banner de cookies em telas menores */
+          #cookie-modal {
+            width: 95%;
+            margin: 10px;
+            padding: 15px;
+          }
           #cookie-banner {
             flex-direction: column;
             align-items: stretch;
             padding: 10px;
             text-align: center;
           }
-          #cookie-modal {
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-          }
         }
+        /* Ajuste para telas pequenas, garantindo que o seletor de idioma e o botão não quebrem a linha */
+        @media (max-width: 767px) {
+            #pwa-header-controls {
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+
         .header-container {
           display: flex;
           justify-content: space-between;
@@ -588,12 +602,10 @@
             color: white;
             font-weight: 700;
         }
-
-        /* Classes para esconder/mostrar botões de acesso */
-        .btn-access-pwa-only { display: none; }
-        .btn-access-desktop-only { display: block; }
-        .pwa-mode .btn-access-pwa-only { display: block; }
-        .pwa-mode .btn-access-desktop-only { display: none; }
+        /* Ajuste para o botão fechar do menu mobile */
+        .mobile-nav.open > .close-menu {
+            z-index: 10002;
+        }
     </style>
     
     <!-- Google Tag Manager e Google Analytics 4 com lógica de consentimento -->
@@ -645,7 +657,7 @@
             </div>
             
             <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center space-x-6 desktop-nav-container">
+            <div id="desktop-header-controls" class="hidden md:flex items-center space-x-6 desktop-nav-container">
                 <ul role="menu" class="flex items-center space-x-6 nav-menu">
                     <li class="dropdown" role="none">
                         <a id="dropdown-about-us" href="javascript:void(0);" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2" title="Conheça a nossa história" aria-haspopup="true" aria-expanded="false">
@@ -1146,7 +1158,7 @@
                 feature4_cta: "Saber Más sobre Análisis",
                 feature5_title: "Planificación (FP&A)", feature5_desc: "Cree presupuestos, proyecciones (forecasts) e simule cenários. Analice las desviaciones (Real vs. Presupuestado) y tome decisiones basadas en datos.",
                 feature5_cta: "Saber Más sobre Planificación",
-                feature6_title: "Informe ESG", feature6_desc: "Demuestre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alineados con as melhores práticas do mercado.",
+                feature6_title: "Informe ESG", feature6_desc: "Demostre o compromisso de sua empresa com a sustentabilidade. Genere relatórios ESG completos e alinhados com as melhores práticas do mercado.",
                 feature6_cta: "Saber Más sobre ESG",
                 newsletter_title: "Manténgase al día con las últimas noticias", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nosotros", footer_terms: "Términos de Uso", footer_sitemap: "Mapa del Sitio",
@@ -1156,7 +1168,7 @@
                 footer_seal_access: "Sello de Accesibilidad", footer_seal_sustain: "Sello de Sostenibilidad", footer_seal_lgpd: "Sello LGPD",
                 footer_social: "Redes Sociales", footer_manage_cookies: "Administrar la configuración de cookies",
                 footer_rights: "Todos los derechos reservados.", footer_developed_by: "Desarrollado por Indicium.",
-                compliance_statement: "Esta página cumple con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, Nível AAA.",
+                compliance_statement: "Esta página cumple con las Pautas de Accesibilidade para el Contenido Web (WCAG) 2.1, Nível AAA.",
                 access_keyboard_shortcuts: "Mostrar Atajos",
                 access_resume_animations: "Reanudar Animaciones",
                 cookie_banner_text: "Utilizamos cookies para asegurarnos de que tenga la mejor experiencia en nuestro sitio web. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Saber más</a>.",
@@ -1753,20 +1765,20 @@
                 }
             });
 
-            // Lógica para exibir o botão de 'Acessar'
+            // Lógica para exibir o cabeçalho correto (PWA vs. Desktop)
             const pwaHeaderControls = document.getElementById('pwa-header-controls');
-            const desktopNavContainer = document.querySelector('.desktop-nav-container');
+            const desktopHeaderControls = document.getElementById('desktop-header-controls');
 
             // Verifica se está em modo PWA (standalone)
             const isPwa = window.matchMedia('(display-mode: standalone)').matches;
 
-            if (pwaHeaderControls && desktopNavContainer) {
+            if (pwaHeaderControls && desktopHeaderControls) {
                 if (isPwa) {
                     pwaHeaderControls.style.display = 'flex';
-                    desktopNavContainer.style.display = 'none';
+                    desktopHeaderControls.style.display = 'none';
                 } else {
                     pwaHeaderControls.style.display = 'none';
-                    desktopNavContainer.style.display = 'flex';
+                    desktopHeaderControls.style.display = 'flex';
                 }
             }
 
