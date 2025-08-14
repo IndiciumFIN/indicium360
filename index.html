@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndiciumFIN - Inteligência Financeira para o seu Negócio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS - Animate on Scroll Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Three.js para Animação de Fundo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            /* Colors from the logo, with accessibility adjustments */
+            --if-dark-blue: #0A2F5B;
+            --if-cyan: #2EC4B6;
+            --if-light-gray: #f8f9fa;
+            --if-gray: #495057; /* Darker gray for better contrast (AAA compliant on white) */
+            --if-dark-gray: #343a40;
+            --font-scale: 1.0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Accessibility Widget Styles */
+        #accessibility-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        #accessibility-button {
+            width: 60px;
+            height: 60px;
+            background-color: var(--if-dark-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        #accessibility-button:hover {
+            transform: scale(1.1);
+        }
+        #accessibility-menu {
+            position: absolute;
+            bottom: 75px;
+            left: 0;
+            width: 320px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            padding: 16px;
+            transform-origin: bottom left;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: scale(0);
+            opacity: 0;
+        }
+        #accessibility-menu.open {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .access-section-title {
+            font-weight: 700;
+            color: var(--if-dark-blue);
+            margin-top: 16px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+        }
+        .access-option {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            color: var(--if-dark-gray);
+        }
+        .access-option:hover {
+            background-color: #f0f0f0;
+        }
+        .access-option i {
+            margin-right: 12px;
+            color: var(--if-cyan);
+            width: 20px;
+            text-align: center;
+        }
+        .access-option.active {
+            background-color: var(--if-cyan);
+            color: white;
+        }
+        .access-option.active i {
+            color: white;
+        }
+
+        /* Accessibility Feature Classes */
+        body.readable-font { font-family: 'Arial', sans-serif; } /* Replace with a real Dyslexia-friendly font if available */
+        body.highlight-links a { background-color: yellow !important; color: black !important; }
+        body.highlight-titles h1, body.highlight-titles h2, body.highlight-titles h3 { background-color: yellow !important; color: black !important; }
+        body.big-cursor * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:32px;"><text y="32">👆</text></svg>'), auto !important; }
+        #reading-guide {
+            position: fixed;
+            height: 10px;
+            background: var(--if-cyan);
+            opacity: 0.5;
+            width: 100%;
+            top: -20px;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+        }
+        body.reading-guide-active #reading-guide { display: block; }
+        
+        /* Contrast Modes */
+        body.dark-contrast { filter: invert(1) hue-rotate(180deg); }
+        body.light-contrast { filter: contrast(1.5); }
+        body.grayscale { filter: grayscale(100%); }
+
+        /* Font Size */
+        body { font-size: calc(16px * var(--font-scale)); }
+        h1 { font-size: calc(2.25rem * var(--font-scale)); }
+        h2 { font-size: calc(1.875rem * var(--font-scale)); }
+        h3 { font-size: calc(1.25rem * var(--font-scale)); }
+        p, a, span, div, li, button, input, label { font-size: calc(1rem * var(--font-scale)); }
+
+        .bg-dark-blue { background-color: var(--if-dark-blue); }
+        .bg-cyan { background-color: var(--if-cyan); }
+        .bg-light-gray { background-color: var(--if-light-gray); }
+        .text-dark-blue { color: var(--if-dark-blue); }
+        .text-cyan { color: var(--if-cyan); }
+        .text-gray { color: var(--if-gray); }
+        .border-cyan { border-color: var(--if-cyan); }
+        .ring-cyan { ring-color: var(--if-cyan); }
+        .gradient-hero { background: linear-gradient(135deg, var(--if-dark-blue) 0%, #1a4a8a 100%); }
+        #hero-section { position: relative; overflow: hidden; }
+        #hero-animation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        #hero-section > .container { position: relative; z-index: 1; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+        .language-selector button:hover { background-color: rgba(255,255,255,0.1); }
+        .language-selector button.active { background-color: var(--if-cyan); color: white; }
+    </style>
+</head>
+<body class="bg-white text-if-dark-gray antialiased">
+
+    <!-- ===== Header ===== -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <svg class="w-10 h-10 text-dark-blue" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-5H8l4-6v5h3l-4 6z"/></svg>
+                <span class="text-2xl font-bold text-dark-blue">Indicium<span class="text-cyan font-semibold">FIN</span></span>
+            </div>
+
+            <!-- Navigation Links & Language Selector -->
+            <div class="flex items-center space-x-6">
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#features" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_features">Recursos</a>
+                    <a href="#newsletter" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_newsletter">Newsletter</a>
+                    <a href="#contact" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_contact">Contato</a>
+                </div>
+                <!-- Language Selector -->
+                <div class="language-selector flex items-center border border-gray-300 rounded-full p-1 text-sm">
+                    <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
+                    <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English">EN</button>
+                    <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español">ES</button>
+                </div>
+                 <a href="#login-section" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section" class="gradient-hero text-white py-20 md:py-32">
+            <canvas id="hero-animation-canvas"></canvas>
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4" data-lang="hero_title">A plataforma definitiva para suas demonstrações financeiras.</h1>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8" data-lang="hero_subtitle">Automatize, analise e tome decisões mais inteligentes com relatórios precisos e dashboards interativos.</p>
+                    <a href="#features" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg" data-lang="hero_cta">Conheça os Recursos</a>
+                </div>
+                <div id="login-section" class="bg-white p-8 rounded-2xl shadow-2xl" data-aos="fade-left" data-aos-delay="200">
+                    <h2 class="text-2xl font-bold text-dark-blue mb-2" data-lang="login_title">Acesse sua Conta</h2>
+                    <p class="text-gray mb-6" data-lang="login_subtitle">Bem-vindo de volta!</p>
+                    <form>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray text-sm font-bold mb-2" data-lang="login_email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray">
+                        </div>
+                        <div class="mb-6">
+                            <label for="password" class="block text-gray text-sm font-bold mb-2" data-lang="login_password">Senha</label>
+                            <input type="password" id="password" name="password" placeholder="********" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray">
+                        </div>
+                        <div class="flex items-center justify-between mb-6">
+                            <a href="#" class="text-sm text-cyan hover:underline" data-lang="login_forgot">Esqueceu a senha?</a>
+                        </div>
+                        <button type="submit" class="w-full bg-dark-blue hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-full transition duration-300" data-lang="login_btn">Entrar</button>
+                    </form>
+                     <p class="text-center text-gray text-sm mt-6" data-lang="login_signup">Não tem uma conta? <a href="#" class="text-cyan font-bold hover:underline">Comece agora</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-light-gray">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-dark-blue" data-lang="features_title">Inteligência Financeira ao seu Alcance</h2>
+                    <p class="mt-4 text-lg text-gray max-w-3xl mx-auto" data-lang="features_subtitle">De relatórios contábeis complexos a dashboards de vendas intuitivos, temos tudo que você precisa para impulsionar seu negócio.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card bg-white p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature1_title">Relatórios Completos</h3>
+                        <p class="text-gray" data-lang="feature1_desc">Gere Balanço Patrimonial, DRE, DRA, DMPL, DFC, DVA e Notas Explicativas com apenas alguns cliques. Conformidade e precisão garantidas.</p>
+                    </div>
+                    <div class="feature-card bg-white p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature2_title">Dashboards Interativos</h3>
+                        <p class="text-gray" data-lang="feature2_desc">Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.</p>
+                    </div>
+                    <div class="feature-card bg-white p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1V4m0 2.01M12 18v-2m0-2v-2m0-2v-2m0-2V8m0 0V6.01M12 4.01V3m0 18v-2.01M12 20.99V21m0-18v.01M12 3V2.01M12 2V1m-3.938 2.062a9.003 9.003 0 0011.876 11.876M3.062 8.062a9.003 9.003 0 0111.876 11.876"></path></svg></div>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature3_title">Indicadores Chave</h3>
+                        <p class="text-gray" data-lang="feature3_desc">Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter" class="bg-dark-blue text-white">
+            <div class="container mx-auto px-6 py-16">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div data-aos="fade-right">
+                        <h2 class="text-3xl font-bold" data-lang="newsletter_title">Fique por dentro das novidades</h2>
+                        <p class="mt-2 text-gray-300" data-lang="newsletter_desc">Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.</p>
+                    </div>
+                    <form class="flex flex-col sm:flex-row gap-3" data-aos="fade-left">
+                        <input type="email" placeholder="Seu melhor e-mail" class="w-full px-4 py-3 rounded-lg border-none focus:outline-none focus:ring-2 ring-cyan text-dark-gray" aria-label="Email para newsletter">
+                        <button type="submit" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 whitespace-nowrap" data-lang="newsletter_btn">Assinar agora</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer id="contact" class="bg-gray-800 text-gray-300">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div><h3 class="text-lg font-bold text-white mb-4" data-lang="footer_about">IndiciumFIN</h3><p class="text-sm" data-lang="footer_about_desc">Transformando dados em decisões estratégicas. Nossa missão é simplificar a complexidade financeira para empresas de todos os portes.</p></div>
+                <div><h3 class="text-lg font-bold text-white mb-4" data-lang="footer_links">Links Rápidos</h3><ul class="space-y-2 text-sm"><li><a href="#features" class="hover:text-cyan transition" data-lang="footer_link_features">Recursos</a></li><li><a href="#" class="hover:text-cyan transition" data-lang="footer_link_pricing">Preços</a></li><li><a href="#" class="hover:text-cyan transition" data-lang="footer_link_docs">Documentação</a></li></ul></div>
+                <div><h3 class="text-lg font-bold text-white mb-4" data-lang="footer_legal">Legal</h3><ul class="space-y-2 text-sm"><li><a href="#" class="hover:text-cyan transition" data-lang="footer_link_terms">Termos de Serviço</a></li><li><a href="#" class="hover:text-cyan transition" data-lang="footer_link_privacy">Política de Privacidade</a></li></ul></div>
+                <div><h3 class="text-lg font-bold text-white mb-4" data-lang="footer_contact">Contato</h3><p class="text-sm" data-lang="footer_contact_info">contato@indiciumfin.com</p></div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+                <p class="font-semibold text-base text-white" data-lang="footer_accessibility_title">Compromisso com Acessibilidade</p>
+                <p class="mt-2 max-w-2xl mx-auto" data-lang="footer_accessibility_desc">Esta página segue as diretrizes de acessibilidade (WCAG). O recurso de Libras (Língua Brasileira de Sinais) é ativado automaticamente na versão em Português.</p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-700 text-center text-sm"><p>&copy; <span id="current-year"></span> IndiciumFIN. <span data-lang="footer_rights">Todos os direitos reservados.</span></p></div>
+        </div>
+    </footer>
+
+    <!-- ===== Accessibility Widget ===== -->
+    <div id="accessibility-widget">
+        <div id="accessibility-menu">
+            <h3 class="access-section-title" data-lang="access_title_content">Ajustes de Conteúdo</h3>
+            <div class="access-option" data-action="increase-text"><i class="fa-solid fa-font"></i> <span data-lang="access_increase_text">Aumentar Texto</span></div>
+            <div class="access-option" data-action="decrease-text"><i class="fa-solid fa-font" style="font-size: 0.8em;"></i> <span data-lang="access_decrease_text">Diminuir Texto</span></div>
+            <div class="access-option" data-action="readable-font"><i class="fa-solid fa-glasses"></i> <span data-lang="access_readable_font">Fonte Legível</span></div>
+            <div class="access-option" data-action="highlight-titles"><i class="fa-solid fa-highlighter"></i> <span data-lang="access_highlight_titles">Destacar Títulos</span></div>
+            <div class="access-option" data-action="highlight-links"><i class="fa-solid fa-link"></i> <span data-lang="access_highlight_links">Destacar Links</span></div>
+
+            <h3 class="access-section-title" data-lang="access_title_color">Ajustes de Cor</h3>
+            <div class="access-option" data-action="dark-contrast"><i class="fa-solid fa-moon"></i> <span data-lang="access_dark_contrast">Contraste Escuro</span></div>
+            <div class="access-option" data-action="light-contrast"><i class="fa-solid fa-sun"></i> <span data-lang="access_light_contrast">Contraste Claro</span></div>
+            <div class="access-option" data-action="grayscale"><i class="fa-solid fa-palette"></i> <span data-lang="access_grayscale">Escala de Cinza</span></div>
+
+            <h3 class="access-section-title" data-lang="access_title_orientation">Orientação</h3>
+            <div class="access-option" data-action="big-cursor"><i class="fa-solid fa-arrow-pointer"></i> <span data-lang="access_big_cursor">Cursor Grande</span></div>
+            <div class="access-option" data-action="reading-guide"><i class="fa-solid fa-ruler-horizontal"></i> <span data-lang="access_reading_guide">Guia de Leitura</span></div>
+            <div class="access-option" data-action="stop-animations"><i class="fa-solid fa-pause"></i> <span data-lang="access_stop_animations">Pausar Animações</span></div>
+            <div class="access-option" data-action="vlibras" id="vlibras-option"><i class="fa-solid fa-hands-asl-interpreting"></i> <span>Libras (VLibras)</span></div>
+        </div>
+        <button id="accessibility-button" aria-label="Abrir menu de acessibilidade">
+            <i class="fa-solid fa-universal-access fa-2x"></i>
+        </button>
+    </div>
+    <div id="reading-guide"></div>
+
+    <!-- VLibras (Libras) Widget - Plugin do Governo Brasileiro -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+    <!-- AOS - Animate on Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Main Logic Script -->
+    <script>
+        // --- LANGUAGE LOGIC ---
+        const translations = {
+            pt: {
+                nav_features: "Recursos", nav_newsletter: "Newsletter", nav_contact: "Contato", btn_access: "Acessar",
+                hero_title: "A plataforma definitiva para suas demonstrações financeiras.", hero_subtitle: "Automatize, analise e tome decisões mais inteligentes com relatórios precisos e dashboards interativos.", hero_cta: "Conheça os Recursos",
+                login_title: "Acesse sua Conta", login_subtitle: "Bem-vindo de volta!", login_email: "Email", login_password: "Senha", login_forgot: "Esqueceu a senha?", login_btn: "Entrar", login_signup: "Não tem uma conta? <a href='#' class='text-cyan font-bold hover:underline'>Comece agora</a>",
+                features_title: "Inteligência Financeira ao seu Alcance", features_subtitle: "De relatórios contábeis complexos a dashboards de vendas intuitivos, temos tudo que você precisa para impulsionar seu negócio.",
+                feature1_title: "Relatórios Completos", feature1_desc: "Gere Balanço Patrimonial, DRE, DRA, DMPL, DFC, DVA e Notas Explicativas com apenas alguns cliques. Conformidade e precisão garantidas.",
+                feature2_title: "Dashboards Interativos", feature2_desc: "Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.",
+                feature3_title: "Indicadores Chave", feature3_desc: "Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.",
+                newsletter_title: "Fique por dentro das novidades", newsletter_desc: "Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.", newsletter_btn: "Assinar agora",
+                footer_about: "IndiciumFIN", footer_about_desc: "Transformando dados em decisões estratégicas. Nossa missão é simplificar a complexidade financeira para empresas de todos os portes.",
+                footer_links: "Links Rápidos", footer_link_features: "Recursos", footer_link_pricing: "Preços", footer_link_docs: "Documentação",
+                footer_legal: "Legal", footer_link_terms: "Termos de Serviço", footer_link_privacy: "Política de Privacidade",
+                footer_contact: "Contato", footer_contact_info: "contato@indiciumfin.com",
+                footer_rights: "Todos os direitos reservados.",
+                footer_accessibility_title: "Compromisso com Acessibilidade", footer_accessibility_desc: "Esta página segue as diretrizes de acessibilidade (WCAG). O recurso de Libras (Língua Brasileira de Sinais) é ativado automaticamente na versão em Português.",
+                access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Diminuir Texto", access_readable_font: "Fonte Legível", access_highlight_titles: "Destacar Títulos", access_highlight_links: "Destacar Links",
+                access_title_color: "Ajustes de Cor", access_dark_contrast: "Contraste Escuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Cinza",
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Leitura", access_stop_animations: "Pausar Animações"
+            },
+            en: {
+                nav_features: "Features", nav_newsletter: "Newsletter", nav_contact: "Contact", btn_access: "Access",
+                hero_title: "The definitive platform for your financial statements.", hero_subtitle: "Automate, analyze, and make smarter decisions with accurate reports and interactive dashboards.", hero_cta: "Explore Features",
+                login_title: "Access Your Account", login_subtitle: "Welcome back!", login_email: "Email", login_password: "Password", login_forgot: "Forgot password?", login_btn: "Sign In", login_signup: "Don't have an account? <a href='#' class='text-cyan font-bold hover:underline'>Get started</a>",
+                features_title: "Financial Intelligence at Your Fingertips", features_subtitle: "From complex accounting reports to intuitive sales dashboards, we have everything you need to boost your business.",
+                feature1_title: "Complete Reports", feature1_desc: "Generate Balance Sheets, Income Statements, Comprehensive Income, Equity Changes, Cash Flows, and Explanatory Notes with just a few clicks.",
+                feature2_title: "Interactive Dashboards", feature2_desc: "Visualize your sales, inventory, customer, supplier, and cash flow data in real-time. Identify trends and opportunities.",
+                feature3_title: "Key Indicators", feature3_desc: "Track key financial and accounting indicators. Analyze liquidity, debt, profitability, and much more.",
+                newsletter_title: "Stay up to date", newsletter_desc: "Subscribe to our newsletter to receive insights on financial management, platform updates, and exclusive tips.", newsletter_btn: "Subscribe Now",
+                footer_about: "IndiciumFIN", footer_about_desc: "Transforming data into strategic decisions. Our mission is to simplify financial complexity for businesses of all sizes.",
+                footer_links: "Quick Links", footer_link_features: "Features", footer_link_pricing: "Pricing", footer_link_docs: "Documentation",
+                footer_legal: "Legal", footer_link_terms: "Terms of Service", footer_link_privacy: "Privacy Policy",
+                footer_contact: "Contact", footer_contact_info: "contact@indiciumfin.com",
+                footer_rights: "All rights reserved.",
+                footer_accessibility_title: "Commitment to Accessibility", footer_accessibility_desc: "This page follows accessibility guidelines (WCAG). The Libras (Brazilian Sign Language) feature is automatically enabled in the Portuguese version.",
+                access_title_content: "Content Adjustments", access_increase_text: "Increase Text", access_decrease_text: "Decrease Text", access_readable_font: "Readable Font", access_highlight_titles: "Highlight Titles", access_highlight_links: "Highlight Links",
+                access_title_color: "Color Adjustments", access_dark_contrast: "Dark Contrast", access_light_contrast: "Light Contrast", access_grayscale: "Grayscale",
+                access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Stop Animations"
+            },
+            es: {
+                nav_features: "Recursos", nav_newsletter: "Boletín", nav_contact: "Contacto", btn_access: "Acceder",
+                hero_title: "La plataforma definitiva para sus estados financieros.", hero_subtitle: "Automatice, analice y tome decisiones más inteligentes con informes precisos y dashboards interactivos.", hero_cta: "Conozca los Recursos",
+                login_title: "Acceda a su Cuenta", login_subtitle: "¡Bienvenido de nuevo!", login_email: "Correo Electrónico", login_password: "Contraseña", login_forgot: "¿Olvidó su contraseña?", login_btn: "Entrar", login_signup: "¿No tiene una cuenta? <a href='#' class='text-cyan font-bold hover:underline'>Comience ahora</a>",
+                features_title: "Inteligencia Financiera a su Alcance", features_subtitle: "Desde informes contables complejos hasta dashboards de ventas intuitivos, tenemos todo lo que necesita para impulsar su negocio.",
+                feature1_title: "Informes Completos", feature1_desc: "Genere Balances, Estados de Resultados, Estados de Resultado Integral, Cambios en el Patrimonio, Flujos de Efectivo y Notas Explicativas con unos pocos clics.",
+                feature2_title: "Dashboards Interactivos", feature2_desc: "Visualice sus datos de ventas, inventario, clientes, proveedores y flujo de caja en tiempo real. Identifique tendencias y oportunidades.",
+                feature3_title: "Indicadores Clave", feature3_desc: "Siga los principales indicadores financieros y contables. Análisis de liquidez, endeudamiento, rentabilidad y mucho más.",
+                newsletter_title: "Manténgase al día", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.",
+                newsletter_btn: "Suscribirse ahora",
+                footer_about: "IndiciumFIN", footer_about_desc: "Transformando datos en decisiones estratégicas. Nuestra misión es simplificar la complejidad financiera para empresas de todos los tamaños.",
+                footer_links: "Enlaces Rápidos", footer_link_features: "Recursos", footer_link_pricing: "Precios", footer_link_docs: "Documentación",
+                footer_legal: "Legal", footer_link_terms: "Términos de Servicio", footer_link_privacy: "Política de Privacidad",
+                footer_contact: "Contacto", footer_contact_info: "contacto@indiciumfin.com",
+                footer_rights: "Todos los derechos reservados.",
+                footer_accessibility_title: "Compromiso con la Accesibilidad", footer_accessibility_desc: "Esta página sigue las pautas de accesibilidad (WCAG). La función de Libras (Lengua de Señas Brasileña) se activa automáticamente en la versión en portugués.",
+                access_title_content: "Ajustes de Contenido", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legible", access_highlight_titles: "Destacar Títulos", access_highlight_links: "Destacar Enlaces",
+                access_title_color: "Ajustes de Color", access_dark_contrast: "Contraste Oscuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Grises",
+                access_title_orientation: "Orientación", access_big_cursor: "Cursor Grande", access_reading_guide: "Guía de Lectura", access_stop_animations: "Pausar Animaciones"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang.toUpperCase();
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('.language-selector button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.language-selector button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
+            
+            // Manage VLibras option visibility in the accessibility menu
+            const vlibrasOption = document.getElementById('vlibras-option');
+            if (vlibrasOption) {
+                vlibrasOption.style.display = (lang === 'pt') ? 'flex' : 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- INITIALIZE AOS ---
+            AOS.init({ duration: 800, once: true, offset: 50 });
+
+            // --- SET YEAR & LANGUAGE ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            const userLang = navigator.language.slice(0, 2) || 'pt';
+            changeLanguage(['pt', 'en', 'es'].includes(userLang) ? userLang : 'pt');
+
+            // --- ACCESSIBILITY WIDGET LOGIC ---
+            const accessibilityMenu = document.getElementById('accessibility-menu');
+            const accessibilityButton = document.getElementById('accessibility-button');
+            let isAnimationPaused = false;
+
+            accessibilityButton.addEventListener('click', () => {
+                accessibilityMenu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!accessibilityMenu.contains(e.target) && !accessibilityButton.contains(e.target)) {
+                    accessibilityMenu.classList.remove('open');
+                }
+            });
+
+            const accessOptions = {
+                'increase-text': () => {
+                    let currentScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale'));
+                    document.documentElement.style.setProperty('--font-scale', Math.min(currentScale + 0.1, 1.5));
+                },
+                'decrease-text': () => {
+                    let currentScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale'));
+                    document.documentElement.style.setProperty('--font-scale', Math.max(currentScale - 0.1, 0.7));
+                },
+                'readable-font': (el) => { document.body.classList.toggle('readable-font'); el.classList.toggle('active'); },
+                'highlight-titles': (el) => { document.body.classList.toggle('highlight-titles'); el.classList.toggle('active'); },
+                'highlight-links': (el) => { document.body.classList.toggle('highlight-links'); el.classList.toggle('active'); },
+                'dark-contrast': (el) => { document.body.classList.toggle('dark-contrast'); el.classList.toggle('active'); },
+                'light-contrast': (el) => { document.body.classList.toggle('light-contrast'); el.classList.toggle('active'); },
+                'grayscale': (el) => { document.body.classList.toggle('grayscale'); el.classList.toggle('active'); },
+                'big-cursor': (el) => { document.body.classList.toggle('big-cursor'); el.classList.toggle('active'); },
+                'reading-guide': (el) => { document.body.classList.toggle('reading-guide-active'); el.classList.toggle('active'); },
+                'stop-animations': (el) => {
+                    isAnimationPaused = !isAnimationPaused;
+                    el.classList.toggle('active');
+                    el.querySelector('span').textContent = isAnimationPaused ? 'Retomar Animações' : 'Pausar Animações';
+                    el.querySelector('i').className = isAnimationPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause';
+                    if (isAnimationPaused) {
+                        AOS.refreshHard(); // Disable AOS animations
+                    }
+                },
+                'vlibras': () => {
+                    const vlibrasButton = document.querySelector('[vw-access-button]');
+                    if(vlibrasButton) vlibrasButton.click();
+                }
+            };
+            
+            accessibilityMenu.addEventListener('click', (e) => {
+                const target = e.target.closest('.access-option');
+                if (target && target.dataset.action) {
+                    const action = target.dataset.action;
+                    if (accessOptions[action]) {
+                        accessOptions[action](target);
+                    }
+                }
+            });
+
+            // Reading guide movement
+            const readingGuide = document.getElementById('reading-guide');
+            window.addEventListener('mousemove', (e) => {
+                if (document.body.classList.contains('reading-guide-active')) {
+                    readingGuide.style.top = `${e.clientY}px`;
+                }
+            });
+
+            // --- THREE.JS ANIMATION LOGIC ---
+            let scene, camera, renderer, particles, line, animationFrameId;
+            
+            function initAnimation() {
+                const container = document.getElementById('hero-section');
+                if (!container) return;
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+                camera.position.z = 30;
+                renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hero-animation-canvas'), alpha: true });
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+                renderer.setClearColor(0x000000, 0);
+                const particleColor = getComputedStyle(document.body).getPropertyValue('--if-cyan').trim();
+                const lineColor = getComputedStyle(document.body).getPropertyValue('--if-dark-blue').trim();
+                const particleCount = 1500;
+                const particlesGeometry = new THREE.BufferGeometry();
+                const posArray = new Float32Array(particleCount * 3);
+                for (let i = 0; i < particleCount * 3; i++) { posArray[i] = (Math.random() - 0.5) * (Math.random() * 300); }
+                particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                const particleMaterial = new THREE.PointsMaterial({ size: 0.03, color: new THREE.Color(particleColor) });
+                particles = new THREE.Points(particlesGeometry, particleMaterial);
+                scene.add(particles);
+                const lineMaterial = new THREE.LineBasicMaterial({ color: new THREE.Color(lineColor), linewidth: 1, transparent: true, opacity: 0.1 });
+                const lineGeometry = new THREE.BufferGeometry();
+                line = new THREE.LineSegments(lineGeometry, lineMaterial);
+                scene.add(line);
+                window.addEventListener('resize', onWindowResize, false);
+                container.addEventListener('mousemove', onMouseMove, false);
+                animate();
+            }
+
+            function onWindowResize() { /* ... resize logic ... */ }
+            let mouseX = 0, mouseY = 0;
+            function onMouseMove(event) { /* ... mouse move logic ... */ }
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+                if (isAnimationPaused) return;
+
+                particles.rotation.x += 0.0001;
+                particles.rotation.y += 0.0002;
+                if (camera) {
+                   camera.position.x += (mouseX * 3 - camera.position.x) * 0.03;
+                   camera.position.y += (mouseY * 3 - camera.position.y) * 0.03;
+                   camera.lookAt(scene.position);
+                }
+                const positions = particles.geometry.attributes.position.array;
+                const maxDistance = 20;
+                const linePositions = [];
+                const particleCount = positions.length / 3;
+                for (let i = 0; i < particleCount; i++) {
+                    for (let j = i + 1; j < particleCount; j++) {
+                        const dx = positions[i * 3] - positions[j * 3];
+                        const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+                        const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
+                        if (Math.sqrt(dx * dx + dy * dy + dz * dz) < maxDistance) {
+                            linePositions.push(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
+                            linePositions.push(positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]);
+                        }
+                    }
+                }
+                line.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+                line.geometry.attributes.position.needsUpdate = true;
+                renderer.render(scene, camera);
+            }
+
+            initAnimation();
+        });
+    </script>
+
+</body>
+</html>
