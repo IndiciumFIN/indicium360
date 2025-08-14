@@ -240,12 +240,12 @@
         }
 
         .access-section-title { font-weight: 700; color: var(--if-dark-blue); margin-top: 16px; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
-        .access-option { display: flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 8px; transition: background-color 0.2s; color: var(--if-dark-gray); text-align: left;}
+        .access-option { display: flex; align-items: center; gap: 12px; padding: 10px 16px; font-size: 1rem; cursor: pointer; border-radius: 8px; transition: background-color 0.2s; color: var(--if-dark-gray); text-align: left; }
         .access-option:hover { background-color: rgba(0,0,0,0.1); }
         .access-option.active { background-color: var(--if-cyan); color: white; }
         .access-option.active i { color: white; }
-        .access-option i { color: var(--if-cyan); }
-        
+        .access-option i { color: var(--if-cyan); font-size: 1.2rem; text-align: center; width: 1.2em; }
+
         /* Critério 3.1.5 Nível de Leitura (AAA): A classe `simplified-language` aplica fontes e espaçamentos que melhoram a legibilidade. */
         .simplified-language {
             font-family: Arial, sans-serif !important;
@@ -939,7 +939,18 @@
                 footer_rights: "Todos os direitos reservados.", footer_developed_by: "Desenvolvido por Indicium.",
                 compliance_statement: "Esta página está em conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1, Nível AAA.",
                 access_keyboard_shortcuts: "Exibir Atalhos",
-                access_resume_animations: "Retomar Animações"
+                access_resume_animations: "Retomar Animações",
+                cookie_banner_text: "Usamos cookies para garantir que você tenha a melhor experiência em nosso site. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Saiba mais</a>.",
+                cookie_banner_accept: "Aceitar", cookie_banner_reject: "Recusar", cookie_banner_manage: "Gerenciar",
+                cookie_modal_title: "Configurações de Cookies", cookie_modal_desc: "Gerencie suas preferências de cookies. Você pode habilitar ou desabilitar os tipos de cookies abaixo a qualquer momento.",
+                cookie_modal_essential: "Cookies Essenciais", cookie_modal_essential_desc: "Necessários para o funcionamento do site. Não podem ser desativados.",
+                cookie_modal_analytics: "Cookies de Análise", cookie_modal_analytics_desc: "Ajudam-nos a entender como os visitantes interagem com o site.",
+                cookie_modal_marketing: "Cookies de Marketing", cookie_modal_marketing_desc: "Usados para rastrear visitantes e exibir anúncios relevantes.",
+                cookie_modal_save: "Salvar",
+                access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Diminuir Texto", access_readable_font: "Fonte Legível", access_wide_spacing: "Espaçamento Amplo", access_simplified_language: "Linguagem Simplificada", access_highlight_titles: "Destacar Títulos", access_highlight_links: "Destacar Links",
+                access_title_color: "Ajustes de Cor", access_dark_contrast: "Contraste Escuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Cinza",
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Leitura", access_stop_animations: "Pausar Animações", access_read_animation_desc: "Ouvir Descrição da Animação", access_voice_nav: "Navegação por Voz",
+                footer_carbon_footprint: "Pegada de carbono anual estimada: <strong>0,82 kg CO₂e</strong>",
             },
             en: {
                 nav_about: "About Us", nav_features: "Features", nav_blog: "Blog", nav_contact: "Contact", btn_access: "Access",
@@ -967,6 +978,9 @@
                 footer_seal_access: "Accessibility Seal", footer_seal_sustain: "Sustainability Seal", footer_seal_lgpd: "LGPD Seal",
                 footer_social: "Social Networks", footer_manage_cookies: "Manage Cookie Settings",
                 footer_rights: "All rights reserved.", footer_developed_by: "Developed by Indicium.",
+                compliance_statement: "This page is compliant with Web Content Accessibility Guidelines (WCAG) 2.1, Level AAA.",
+                access_keyboard_shortcuts: "Display Shortcuts",
+                access_resume_animations: "Resume Animations",
                 cookie_banner_text: "We use cookies to ensure you get the best experience on our website. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Learn more</a>.",
                 cookie_banner_accept: "Accept", cookie_banner_reject: "Decline", cookie_banner_manage: "Manage",
                 cookie_modal_title: "Cookie Settings", cookie_modal_desc: "Manage your cookie preferences. You can enable or disable the types of cookies below at any time.",
@@ -978,9 +992,6 @@
                 access_title_color: "Color Adjustments", access_dark_contrast: "Dark Contrast", access_light_contrast: "Light Contrast", access_grayscale: "Grayscale",
                 access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations", access_read_animation_desc: "Listen to Animation Description", access_voice_nav: "Voice Navigation",
                 footer_carbon_footprint: "Estimated annual carbon footprint: <strong>0.82 kg CO₂e</strong>",
-                compliance_statement: "This page is compliant with Web Content Accessibility Guidelines (WCAG) 2.1, Level AAA.",
-                access_keyboard_shortcuts: "Display Shortcuts",
-                access_resume_animations: "Resume Animations"
             },
             es: {
                 nav_about: "Sobre Nosotros", nav_features: "Recursos", nav_blog: "Blog", nav_contact: "Contacto", btn_access: "Acceder",
@@ -1086,7 +1097,7 @@
         };
 
         const changeLanguage = (lang) => {
-            document.documentElement.lang = lang.toLowerCase();
+            document.documentElement.lang = lang;
             const isSimplified = document.body.classList.contains('simplified-language');
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
@@ -1540,6 +1551,8 @@
             const marketingToggle = document.getElementById('marketing-cookie-toggle');
             
             const updateWhatsappPosition = () => {
+                const bannerHeight = cookieBanner.offsetHeight;
+                document.documentElement.style.setProperty('--cookie-banner-height', `${bannerHeight}px`);
                 if (!cookieBanner.classList.contains('hidden')) {
                      whatsappCta.classList.add('whatsapp-above-banner');
                 } else {
@@ -1555,17 +1568,6 @@
             const hideCookieBanner = () => {
                 cookieBanner.classList.add('hidden');
                 updateWhatsappPosition();
-            };
-
-            const showCookieModal = () => {
-                const prefs = JSON.parse(localStorage.getItem('cookiePreferences')) || { analytics: false, marketing: false };
-                analyticsToggle.checked = prefs.analytics;
-                marketingToggle.checked = prefs.marketing;
-                cookieModalBackdrop.classList.remove('hidden');
-            };
-
-            const hideCookieModal = () => {
-                cookieModalBackdrop.classList.add('hidden');
             };
 
             if (!localStorage.getItem('cookieConsent')) {
@@ -1632,7 +1634,7 @@
             const openMenu = () => {
                 accessibilityMenu.classList.add('open');
                 accessibilityBackdrop.classList.add('open');
-                accessibilityMenu.scrollTop = 0;
+                accessibilityMenu.scrollTop = 0; // Move o scroll do menu para o topo
             };
 
             const closeMenu = () => {
