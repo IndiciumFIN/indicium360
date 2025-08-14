@@ -292,7 +292,9 @@
         }
         
         /* Ajuste dinâmico para o ícone do WhatsApp */
-        #cookie-banner:not(.hidden) ~ #whatsapp-cta {
+        #cookie-banner.active ~ #whatsapp-cta,
+        #cookie-banner.active ~ #accessibility-widget,
+        #cookie-banner.active ~ #vlibras-btn {
             bottom: 100px;
         }
         
@@ -408,24 +410,28 @@
                 border-bottom: 1px solid #eee;
             }
             .mobile-nav-item-link {
-                display: block;
-                padding: 1rem 2rem;
-            }
-            .mobile-nav-item.has-submenu > button {
-                width: 100%;
-                text-align: left;
-                padding: 1rem 2rem;
-                display: flex;
+                display: flex; /* Utilizado flexbox para alinhamento */
                 justify-content: space-between;
                 align-items: center;
-                cursor: pointer;
+                padding: 1rem 2rem;
             }
+            .mobile-nav-item.has-submenu > a {
+              position: relative;
+            }
+            .mobile-nav-item.has-submenu > a .icon {
+                margin-left: 8px;
+                flex-shrink: 0;
+            }
+
             .mobile-nav-item .mobile-submenu {
                 display: none;
                 padding-left: 1rem;
             }
             .mobile-nav-item.open > .mobile-submenu {
                 display: block;
+            }
+            .mobile-nav-item .submenu-toggle-button {
+              display: none; /* Oculta o botão antigo */
             }
         }
         
@@ -500,6 +506,22 @@
             bottom: 10px;
             transform: none;
           }
+          /* Botão Acessar - Ajuste para telas pequenas */
+          #btn-acessar {
+            position: absolute;
+            top: 10px;
+            right: 60px;
+            font-size: 12px;
+            padding: 5px 10px;
+          }
+          .header-container {
+              position: relative; /* Adiciona contexto para o posicionamento absoluto */
+          }
+          #vlibras-btn {
+            bottom: 80px; /* menos espaço no mobile */
+            right: 10px;
+            transform: scale(0.9); /* botão levemente menor */
+          }
         }
         /* Responsividade para o banner e modal de cookies */
         @media (max-width: 480px) {
@@ -530,7 +552,48 @@
         #btn-acessar {
           margin-right: 1rem;
         }
+        /* Garantir que o botão de acessar do mobile seja a versão fixa, sobrepondo o menu desktop */
+        #btn-acessar.md:hidden {
+            position: absolute;
+            top: 10px;
+            right: 60px;
+            z-index: 10001; /* Z-index alto para garantir visibilidade */
+        }
+        .header-logo {
+          display: flex;
+          align-items: center;
+        }
+        .header-logo img {
+          max-height: 50px;
+          height: auto;
+        }
+        .nav-menu li {
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+        }
+        .menu-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        }
+        .menu-item .icon {
+          margin-left: 8px;
+          flex-shrink: 0;
+        }
+        /* Estilo do botão de idioma ativo no menu mobile */
+        .language-selector button.active {
+            background-color: var(--if-cyan);
+            color: white;
+            font-weight: 700;
+        }
 
+        /* Classes para esconder/mostrar botões de acesso */
+        .btn-access-pwa-only { display: none; }
+        .btn-access-desktop-only { display: block; }
+        .pwa-mode .btn-access-pwa-only { display: block; }
+        .pwa-mode .btn-access-desktop-only { display: none; }
     </style>
     
     <!-- Google Tag Manager e Google Analytics 4 com lógica de consentimento -->
@@ -557,24 +620,33 @@
     <!-- ===== Header ===== -->
     <header role="banner" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav role="navigation" aria-label="Navegação Principal" class="container mx-auto px-6 py-4 flex justify-between items-center header-container">
-            <a href="https://indiciumfin.github.io/indicium360/index.html" class="flex items-center" accesskey="1" aria-label="Voltar para a página inicial da Indicium360">
+            <a href="https://indiciumfin.github.io/indicium360/index.html" class="flex items-center header-logo" accesskey="1" aria-label="Voltar para a página inicial da Indicium360">
                 <img src="https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp" alt="Indicium360 Logo" class="h-10 w-auto">
             </a>
             
-            <div class="header-content">
-                <a id="btn-acessar" href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md md:hidden" data-lang="btn_access">Acessar</a>
+            <!-- Ações do cabeçalho: seletor de idioma, botão de acesso e menu hamburger -->
+            <div class="header-actions flex items-center gap-2">
+                 <!-- Seletor de idioma e botão de acesso para PWA/Mobile -->
+                 <div id="pwa-header-controls" class="flex items-center gap-2 md:hidden">
+                    <div class="language-selector flex items-center border border-gray-300 rounded-full p-1 text-sm">
+                        <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
+                        <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
+                        <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
+                    </div>
+                    <a id="btn-acessar" href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
+                </div>
+                
                 <!-- Botão de hambúrguer para mobile -->
-                <button id="hamburger-button" class="md:hidden flex flex-col justify-center items-center" aria-label="Abrir menu de navegação" aria-controls="mobile-menu-nav" aria-expanded="false">
+                <button id="hamburger-button" class="md:hidden flex flex-col justify-center items-center ml-2" aria-label="Abrir menu de navegação" aria-controls="mobile-menu-nav" aria-expanded="false">
                     <span class="block w-6 h-0.5 bg-gray-600"></span>
                     <span class="block w-6 h-0.5 bg-gray-600 my-1"></span>
                     <span class="block w-6 h-0.5 bg-gray-600"></span>
                 </button>
             </div>
             
-
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center space-x-6 desktop-nav-container">
-                <ul role="menu" class="flex items-center space-x-6">
+                <ul role="menu" class="flex items-center space-x-6 nav-menu">
                     <li class="dropdown" role="none">
                         <a id="dropdown-about-us" href="javascript:void(0);" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2" title="Conheça a nossa história" aria-haspopup="true" aria-expanded="false">
                             Sobre Nós <i class="fa-solid fa-caret-down"></i> <span class="shortcut-hint">[Alt+Shift+2]</span>
@@ -614,40 +686,36 @@
                     <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
                     <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
                 </div>
-                 <a href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
+                 <!-- Botão de Acessar (Desktop) -->
+                 <a id="btn-acessar-desktop" href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
             </div>
         </nav>
         
         <!-- Menu Mobile reestruturado para refletir a hierarquia do desktop. -->
         <div id="mobile-menu" class="mobile-nav md:hidden" role="navigation" aria-label="Navegação Principal do Mobile">
             <button class="close-menu" aria-label="Fechar menu de navegação">&times;</button>
-            <div class="lang-selector-mobile flex items-center justify-center border border-gray-300 rounded-full p-1 text-sm m-4">
-                <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
-                <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
-                <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
-            </div>
             <ul class="mobile-nav-list flex flex-col space-y-4 text-xl p-4" role="menu" id="mobile-menu-nav">
                 <li class="mobile-nav-item has-submenu" role="none">
-                    <a href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="mobile-nav-item-link text-gray hover:text-cyan" data-lang="nav_about">Sobre Nós</a>
-                    <button class="submenu-toggle-button" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
-                        <i class="fa-solid fa-caret-down"></i>
-                    </button>
+                    <a href="javascript:void(0);" class="mobile-nav-item-link text-gray hover:text-cyan menu-item" data-lang="nav_about" aria-haspopup="true" aria-expanded="false">
+                      <span>Sobre Nós</span>
+                      <span class="icon">></span>
+                    </a>
                     <ul class="mobile-submenu" role="menu">
                         <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="hover:text-cyan mobile-nav-item-link" data-lang="about_indicium">A Indicium360</a></li>
                         <li class="mobile-nav-item has-submenu" role="none">
-                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="digital_accessibility" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                            <a href="javascript:void(0);" class="flex items-center justify-between w-full text-gray hover:text-cyan menu-item" data-lang="digital_accessibility" aria-haspopup="true" aria-expanded="false">
                                 <span>Acessibilidade Digital</span>
-                                <i class="fa-solid fa-caret-down"></i>
-                            </button>
+                                <span class="icon">></span>
+                            </a>
                             <ul class="mobile-submenu" role="menu">
                                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/declaracao-acessibilidade-digital.html" class="hover:text-cyan mobile-nav-item-link" data-lang="accessibility_statement">Declaração de Acessibilidade Digital</a></li>
                             </ul>
                         </li>
                         <li class="mobile-nav-item has-submenu" role="none">
-                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="digital_sustainability" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                            <a href="javascript:void(0);" class="flex items-center justify-between w-full text-gray hover:text-cyan menu-item" data-lang="digital_sustainability" aria-haspopup="true" aria-expanded="false">
                                 <span>Sustentabilidade Digital</span>
-                                <i class="fa-solid fa-caret-down"></i>
-                            </button>
+                                <span class="icon">></span>
+                            </a>
                             <ul class="mobile-submenu" role="menu">
                                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/nosso-compromisso.html" class="hover:text-cyan mobile-nav-item-link" data-lang="our_commitment">Nosso Compromisso</a></li>
                                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/relatorio-impacto.html" class="hover:text-cyan mobile-nav-item-link" data-lang="impact_report">Relatório de Impacto</a></li>
@@ -655,10 +723,10 @@
                             </ul>
                         </li>
                         <li class="mobile-nav-item has-submenu" role="none">
-                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="site_policies" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                            <a href="javascript:void(0);" class="flex items-center justify-between w-full text-gray hover:text-cyan menu-item" data-lang="site_policies" aria-haspopup="true" aria-expanded="false">
                                 <span>Políticas do Site</span>
-                                <i class="fa-solid fa-caret-down"></i>
-                            </button>
+                                <span class="icon">></span>
+                            </a>
                             <ul class="mobile-submenu" role="menu">
                                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-cookies.html" class="hover:text-cyan mobile-nav-item-link" data-lang="cookie_policy">Política de Cookies</a></li>
                                 <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-privacidade.html" class="hover:text-cyan mobile-nav-item-link" data-lang="privacy_policy">Política de Privacidade</a></li>
@@ -667,12 +735,11 @@
                         </li>
                     </ul>
                 </li>
-                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/recursos.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_features" onclick="toggleMobileMenu()">Recursos</a></li>
-                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/blog-financeiro.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_blog" onclick="toggleMobileMenu()">Blog</a></li>
-                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/contato.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_contact" onclick="toggleMobileMenu()">Contato</a></li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/recursos.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_features">Recursos</a></li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/blog-financeiro.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_blog">Blog</a></li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/contato.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_contact">Contato</a></li>
             </ul>
         </div>
-        <!-- FIM DA MUDANÇA -->
     </header>
 
     <!-- ===== Main Content ===== -->
@@ -708,7 +775,7 @@
                         </div>
                         <button type="submit" class="w-full bg-dark-blue hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-full transition duration-300" data-lang="login_btn" aria-label="Acessar sua conta">Entrar</button>
                     </form>
-                     <p class="text-center text-gray text-sm mt-6" data-lang="login_signup">Não tem uma conta? <a href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="text-cyan font-bold hover:underline">Comece agora</a></p>
+                     <p class="text-center text-gray text-sm mt-6" data-lang="login_signup">Não tem uma conta? <a href="https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline">Comece agora</a></p>
                 </div>
             </div>
         </section>
@@ -963,7 +1030,7 @@
     <div id="aria-live-region" class="sr-only" role="status" aria-live="polite"></div>
     
     <!-- Botão Libras fixo -->
-    <div vw class="enabled" style="position: fixed; bottom: 90px; right: 20px; z-index: 99999;">
+    <div vw class="enabled" id="vlibras-btn" style="position: fixed; bottom: 90px; right: 20px; z-index: 99999;">
       <div vw-access-button class="active"></div>
       <div vw-plugin-wrapper>
         <div class="vw-plugin-top-wrapper"></div>
@@ -1024,7 +1091,7 @@
             en: {
                 nav_about: "About Us", nav_features: "Features", nav_blog: "Blog", nav_contact: "Contact", btn_access: "Access",
                 about_indicium: "About Indicium360", digital_accessibility: "Digital Accessibility", accessibility_statement: "Accessibility Statement", digital_sustainability: "Digital Sustainability", our_commitment: "Our Commitment", impact_report: "Impact Report", green_tech: "Green Technology", site_policies: "Site Policies", cookie_policy: "Cookie Policy", privacy_policy: "Privacy Policy", terms_of_use: "Terms of Use",
-                hero_title: "The definitive platform for your financial statements.", hero_subtitle: "Automate, analyze, and make smarter decisions with accurate reports and interactive dashboards.", hero_cta: "Discover Features",
+                hero_title: "The definitive platform for your financial statements.", hero_subtitle: "Automate, analyze and make smarter decisions with our financial statement software and interactive dashboards.", hero_cta: "Discover Features",
                 login_title: "Access Your Account", login_email: "Email", login_password: "Password", login_forgot: "Forgot password?", login_btn: "Sign In", login_signup: "Don't have an account? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Start now</a>",
                 features_title: "Financial Intelligence at Your Fingertips", features_subtitle: "From complex accounting reports to intuitive sales dashboards, we have everything you need to boost your business.",
                 feature1_title: "Complete Reports", feature1_desc: "Generate Balance Sheets, Income Statements, and more with just a few clicks. Compliance and accuracy guaranteed.", cta_saiba_mais: "Learn More",
@@ -1037,7 +1104,7 @@
                 feature4_cta: "Learn More about Analysis",
                 feature5_title: "Planning (FP&A)", feature5_desc: "Create budgets, forecasts, and simulate scenarios. Analyze deviations (Actual vs. Budget) and make data-driven decisions.",
                 feature5_cta: "Learn More about Planning",
-                feature6_title: "ESG Report", feature6_desc: "Demonstrate your company's commitment to sustainability. Generate complete ESG reports aligned with best market practices.",
+                feature6_title: "ESG Report", feature6: "Demonstrate your company's commitment to sustainability. Generate complete ESG reports aligned with best market practices.",
                 feature6_cta: "Learn More about ESG",
                 newsletter_title: "Stay up to date with the latest news", newsletter_desc: "Subscribe to our newsletter to receive insights on financial management, platform updates, and exclusive tips.", newsletter_btn: "Subscribe now",
                 footer_institutional: "Institutional", footer_about_us: "About Us", footer_terms: "Terms of Use", footer_sitemap: "Sitemap",
@@ -1061,46 +1128,50 @@
                 access_title_color: "Color Adjustments", access_dark_contrast: "Dark Contrast", access_light_contrast: "Light Contrast", access_grayscale: "Grayscale",
                 access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations", access_read_animation_desc: "Listen to Animation Description", access_voice_nav: "Voice Navigation",
                 footer_carbon_footprint: "Estimated annual carbon footprint: <strong>0.82 kg CO₂e</strong>",
+                compliance_statement: "This page is compliant with Web Content Accessibility Guidelines (WCAG) 2.1, Level AAA.",
             },
             es: {
                 nav_about: "Sobre Nosotros", nav_features: "Recursos", nav_blog: "Blog", nav_contact: "Contacto", btn_access: "Acceder",
-                about_indicium: "Acerca de Indicium360", digital_accessibility: "Accesibilidade Digital", accessibility_statement: "Declaración de Accesibilidad", digital_sustainability: "Sostenibilidad Digital", our_commitment: "Nuestro Compromiso", impact_report: "Informe de Impacto", green_tech: "Tecnologia Verde", site_policies: "Políticas del Sitio", cookie_policy: "Política de Cookies", privacy_policy: "Política de Privacidad", terms_of_use: "Términos de Uso",
-                hero_title: "La plataforma definitiva para sus estados financieros.", hero_subtitle: "Automatice, analice y tome decisiones más inteligentes con informes precisos y dashboards interactivos.", hero_cta: "Conozca los Recursos",
-                login_title: "Acceda a su Cuenta", login_email: "Email", login_password: "Contraseña", login_forgot: "¿Olvidó su contraseña?", login_btn: "Entrar", login_signup: "¿No tiene una cuenta? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Comience ahora</a>",
-                features_title: "Inteligencia Financiera a su Alcance", features_subtitle: "Desde informes contables complejos hasta dashboards de ventas intuitivos, tenemos todo lo que necesita para impulsar su negocio.",
-                feature1_title: "Informes Completos", feature1_desc: "Genere Balances, Estados de Resultados y más con solo unos pocos clics. Cumplimiento y precisión garantizados.", cta_saiba_mais: "Saber Más",
+                about_indicium: "Acerca de Indicium360", digital_accessibility: "Accesibilidad Digital", accessibility_statement: "Declaración de Accesibilidad", digital_sustainability: "Sostenibilidad Digital", our_commitment: "Nuestro Compromiso", impact_report: "Informe de Impacto", green_tech: "Tecnología Verde", site_policies: "Políticas del Sitio", cookie_policy: "Política de Cookies", privacy_policy: "Política de Privacidad", terms_of_use: "Términos de Uso",
+                hero_title: "La plataforma definitiva para sus estados financieros.", hero_subtitle: "Automatice, analice y tome decisiones más inteligentes con nuestro software de estados financieros y paneles interactivos.", hero_cta: "Conozca las Características",
+                login_title: "Acceda a su cuenta", login_email: "Correo electrónico", login_password: "Contraseña", login_forgot: "¿Olvidó su contraseña?", login_btn: "Iniciar sesión", login_signup: "¿No tiene una cuenta? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Comience ahora</a>",
+                features_title: "Inteligencia Financiera a su Alcance", features_subtitle: "Desde informes contables complejos hasta paneles de ventas intuitivos, tenemos todo lo que necesita para impulsar su negocio.",
+                feature1_title: "Informes Completos", feature1_desc: "Genere Balance General, Estado de Resultados, etc. con solo unos pocos clics. Cumplimiento y precisión garantizados.", cta_saiba_mais: "Saber Más",
                 feature1_cta: "Saber Más sobre Informes",
-                feature2_title: "Dashboards Interactivos", feature2_desc: "Visualice sus datos de ventas, inventario, clientes y flujo de caja en tiempo real. Identifique tendencias y oportunidades.",
-                feature2_cta: "Saber Más sobre Dashboards",
-                feature3_title: "Indicadores Clave", feature3_desc: "Siga los principales indicadores financieros y contables. Análisis de liquidez, endeudamiento, rentabilidad y mucho más.",
+                feature2_title: "Paneles Interactivos", feature2_desc: "Visualice sus datos de ventas, inventario, clientes y flujo de caja en tiempo real. Identifique tendencias y oportunidades.",
+                feature2_cta: "Saber Más sobre Paneles",
+                feature3_title: "Indicadores Clave", feature3_desc: "Realice un seguimiento de los indicadores financieros y contables clave. Análisis de liquidez, endeudamiento, rentabilidad y más.",
                 feature3_cta: "Saber Más sobre Indicadores",
-                feature4_title: "Análisis Estratégico", feature4_desc: "Vaya más allá de los números con análises AV/AH, indicadores de liquidez, rentabilidade, DuPont, Break-Even Point y Capital de Trabajo.",
+                feature4_title: "Análisis Estratégico", feature4_desc: "Vaya más allá de los números con análisis AV/AH, índices de liquidez, rentabilidad, DuPont, punto de equilibrio y capital de trabajo.",
                 feature4_cta: "Saber Más sobre Análisis",
-                feature5_title: "Planificación (FP&A)", feature5_desc: "Crie orçamentos, proyeções (forecasts) e simule cenários. Analise desviaciones (Real vs. Presupuestado) y tome decisões baseadas em dados.",
+                feature5_title: "Planificación (FP&A)", feature5_desc: "Cree presupuestos, proyecciones (forecasts) e simule cenários. Analice las desviaciones (Real vs. Presupuestado) y tome decisiones basadas en datos.",
                 feature5_cta: "Saber Más sobre Planificación",
-                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las melhores práticas del mercado.",
+                feature6_title: "Informe ESG", feature6_desc: "Demuestre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alineados con as melhores práticas do mercado.",
                 feature6_cta: "Saber Más sobre ESG",
-                newsletter_title: "Manténgase al día con las novedades", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
+                newsletter_title: "Manténgase al día con las últimas noticias", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nosotros", footer_terms: "Términos de Uso", footer_sitemap: "Mapa del Sitio",
-                footer_accessibility: "Accesibilidade Digital", footer_access_statement: "Declaración de Accesibilidad",
-                footer_sustainability: "Sostenibilidad Digital", footer_our_commitment_sus: "Nuestro Compromiso", footer_impact_report: "Informe de Impacto", green_tech: "Tecnologia Verde",
-                footer_our_commitment: "Nuestro Compromiso", footer_commitment_desc: "Nuestro sitio web adota como princípio de governanza el compromiso con altos estándares de acessibilidade digital, sostenibilidad digital y protección de datos.",
+                footer_accessibility: "Accesibilidad Digital", footer_access_statement: "Declaración de accesibilidad",
+                footer_sustainability: "Sostenibilidad Digital", footer_our_commitment_sus: "Nuestro Compromiso", footer_impact_report: "Informe de Impacto", green_tech: "Tecnología Verde",
+                footer_our_commitment: "Nuestro Compromiso", footer_commitment_desc: "Nuestro sitio web adopta como principio de gobernanza el compromiso con altos estándares de accesibilidad digital, sostenibilidad digital y protección de datos.",
                 footer_seal_access: "Sello de Accesibilidad", footer_seal_sustain: "Sello de Sostenibilidad", footer_seal_lgpd: "Sello LGPD",
-                footer_social: "Social Networks", footer_manage_cookies: "Gestionar configuración de Cookies",
+                footer_social: "Redes Sociales", footer_manage_cookies: "Administrar la configuración de cookies",
                 footer_rights: "Todos los derechos reservados.", footer_developed_by: "Desarrollado por Indicium.",
-                cookie_banner_text: "We use cookies to ensure you get the best experience on our website. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Saber más</a>.",
-                cookie_banner_accept: "Aceptar", cookie_banner_reject: "Rechazar", cookie_banner_manage: "Gestionar",
-                cookie_modal_title: "Configuración de Cookies", cookie_modal_desc: "Administre sus preferencias de cookies. Puede habilitar ou desabilitar os tipos de cookies a continuación en cualquier momento.",
-                cookie_modal_essential: "Cookies Esenciales", cookie_modal_essential_desc: "Necesarias para el funcionamiento del sitio web. No se pueden desativar.",
+                compliance_statement: "Esta página cumple con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, Nível AAA.",
+                access_keyboard_shortcuts: "Mostrar Atajos",
+                access_resume_animations: "Reanudar Animaciones",
+                cookie_banner_text: "Utilizamos cookies para asegurarnos de que tenga la mejor experiencia en nuestro sitio web. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Saber más</a>.",
+                cookie_banner_accept: "Aceptar", cookie_banner_reject: "Rechazar", cookie_banner_manage: "Administrar",
+                cookie_modal_title: "Configuración de Cookies", cookie_modal_desc: "Administre sus preferencias de cookies. Puede habilitar o desabilitar los tipos de cookies a continuación en qualquer momento.",
+                cookie_modal_essential: "Cookies Esenciales", cookie_modal_essential_desc: "Necesarias para el funcionamiento del sitio web. No se pueden desactivar.",
                 cookie_modal_analytics: "Cookies de Análisis", cookie_modal_analytics_desc: "Nos ayudan a comprender cómo los visitantes interactúan con el sitio web.",
-                cookie_modal_marketing: "Marketing Cookies", cookie_modal_marketing_desc: "Se utilizan para rastrear a los visitantes y mostrar anuncios relevantes.",
+                cookie_modal_marketing: "Cookies de Marketing", cookie_modal_marketing_desc: "Se utilizan para rastrear visitantes y mostrar anuncios relevantes.",
                 cookie_modal_save: "Guardar",
-                access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legível", access_wide_spacing: "Espaçamento Amplo", access_simplified_language: "Simplified Language", access_highlight_titles: "Resaltar Títulos", access_highlight_links: "Resaltar Enlaces",
+                access_title_content: "Ajustes de Contenido", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legible", access_wide_spacing: "Espaciado Amplio", access_simplified_language: "Lenguaje Simplificado", access_highlight_titles: "Resaltar Títulos", access_highlight_links: "Resaltar Enlaces",
                 access_title_color: "Ajustes de Color", access_dark_contrast: "Contraste Oscuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Grises",
-                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guía de Lectura", access_stop_animations: "Pausar Animações", access_read_animation_desc: "Escuchar descripción de la animación", access_voice_nav: "Voice Navigation",
-                footer_carbon_footprint: "Huella de carbono anual estimada: <strong>0.82 kg CO₂e</strong>",
-                compliance_statement: "Esta página es conforme a las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, Nivel AAA.",
-            }
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Lectura", access_stop_animations: "Pausar Animações", access_read_animation_desc: "Escuchar Descripción de la Animación", access_voice_nav: "Navegação por Voz",
+                footer_carbon_footprint: "Huella de carbono anual estimada: <strong>0.82 kg de CO₂e</strong>",
+                compliance_statement: "Esta página cumple con las Pautas de Accesibilidade para el Contenido Web (WCAG) 2.1, Nível AAA.",
+            },
         };
 
         // Funções para a audiodescrição da animação
@@ -1178,20 +1249,17 @@
                     }
                 }
             });
+            // Adiciona a classe 'active' apenas aos botões de idioma do seletor correto
             document.querySelectorAll('.language-selector button').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.language-selector button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
-            
-            const mobileLangSelector = document.querySelector('.lang-selector-mobile');
-            if(mobileLangSelector) {
-                mobileLangSelector.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-                mobileLangSelector.querySelector(`button[onclick="changeLanguage('${lang}')"]`).classList.add('active');
-            }
+            document.querySelectorAll(`.language-selector button[onclick="changeLanguage('${lang}')"]`).forEach(btn => btn.classList.add('active'));
         };
         
         // Lógica aprimorada para menu mobile e navegação por teclado.
         const mobileMenu = document.getElementById('mobile-menu');
         const hamburgerButton = document.getElementById('hamburger-button');
         const closeMenuBtn = document.querySelector('.close-menu');
+        // Seleciona os links do submenu para o mobile
+        const mobileSubmenuToggles = document.querySelectorAll('.mobile-nav-item.has-submenu > a');
 
         const toggleMobileMenu = () => {
             mobileMenu.classList.toggle('open');
@@ -1205,7 +1273,21 @@
             }
         };
         
+        const toggleMobileSubmenu = (e) => {
+            e.preventDefault();
+            const parentItem = e.currentTarget.closest('.mobile-nav-item');
+            if (parentItem) {
+                parentItem.classList.toggle('open');
+                const isOpen = parentItem.classList.contains('open');
+                e.currentTarget.setAttribute('aria-expanded', isOpen);
+            }
+        };
+
+        // Adiciona o event listener para os toggles do submenu mobile
+        mobileSubmenuToggles.forEach(link => link.addEventListener('click', toggleMobileSubmenu));
+        
         hamburgerButton.addEventListener('click', toggleMobileMenu);
+        // Event listener corrigido para o botão de fechar do menu mobile
         closeMenuBtn.addEventListener('click', toggleMobileMenu);
 
         document.addEventListener('click', (e) => {
@@ -1220,53 +1302,9 @@
             }
         });
 
-        const toggleMobileSubmenu = (button) => {
-            const parentLi = button.closest('li');
-            const isOpen = parentLi.classList.toggle('open');
-            button.setAttribute('aria-expanded', isOpen);
-        };
-        
-        // Lógica de navegação por teclado e click para dropdowns do desktop
-        const desktopDropdowns = document.querySelectorAll('.dropdown > a');
-        desktopDropdowns.forEach(dropdown => {
-            dropdown.addEventListener('click', (e) => {
-                e.preventDefault();
-                const parentLi = e.target.closest('.dropdown');
-                const isOpen = parentLi.classList.toggle('open');
-                e.target.setAttribute('aria-expanded', isOpen);
-            });
-            dropdown.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    const parentLi = e.target.closest('.dropdown');
-                    const isOpen = parentLi.classList.toggle('open');
-                    e.target.setAttribute('aria-expanded', isOpen);
-                }
-            });
-        });
-        
-        // Adicionando um listener para fechar dropdowns ao clicar em qualquer lugar fora deles
-        document.addEventListener('click', (e) => {
-            const isDropdownClick = e.target.closest('.dropdown');
-            if (!isDropdownClick) {
-                document.querySelectorAll('.dropdown.open').forEach(dropdown => {
-                    dropdown.classList.remove('open');
-                    const dropdownButton = dropdown.querySelector('a');
-                    if (dropdownButton) {
-                        dropdownButton.setAttribute('aria-expanded', 'false');
-                    }
-                });
-            }
-        });
-
-        // Clicar em um item de menu no mobile também fecha o menu
-        document.querySelectorAll('.mobile-nav-list a').forEach(link => {
-            link.addEventListener('click', () => {
-                const hasSubmenu = link.closest('.has-submenu');
-                if (!hasSubmenu) {
-                     toggleMobileMenu();
-                }
-            });
+        // Clicar em um item de menu no mobile que não tem submenu também fecha o menu
+        document.querySelectorAll('.mobile-nav-list > li > a:not(.has-submenu > a)').forEach(link => {
+            link.addEventListener('click', toggleMobileMenu);
         });
 
         // Lógica para atalhos de teclado
@@ -1586,7 +1624,7 @@
             const prefs = JSON.parse(localStorage.getItem('cookiePreferences'));
             const consent = localStorage.getItem('cookieConsent');
             
-            if (consent === 'true') {
+            if (consent === 'true' && prefs) {
                 if (prefs.analytics) {
                     const analyticsScript = document.querySelector('script[data-cookiecategory="analytics"]');
                     if (analyticsScript) {
@@ -1613,6 +1651,7 @@
             document.getElementById('marketing-cookie-toggle').checked = prefs.marketing;
             cookieModalBackdrop.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            document.getElementById('cookie-modal-title').focus();
         }
         
         function hideCookieModal() {
@@ -1635,6 +1674,8 @@
             };
             
             document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Lógica para detectar o idioma do usuário e aplicar
             const userLang = navigator.language.slice(0, 2) || 'pt';
             changeLanguage(['pt', 'en', 'es'].includes(userLang) ? userLang : 'pt');
 
@@ -1653,20 +1694,28 @@
             
             const showCookieBanner = () => {
                 cookieBanner.classList.remove('hidden');
+                cookieBanner.classList.add('active'); // Adiciona a classe active para os botões flutuantes
             };
 
             const hideCookieBanner = () => {
                 cookieBanner.classList.add('hidden');
+                cookieBanner.classList.remove('active'); // Remove a classe active
             };
 
-            if (!localStorage.getItem('cookieConsent')) {
+            // Lógica para mostrar/esconder o banner de cookies na carga da página
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (cookieConsent === null || cookieConsent === 'false') {
                 showCookieBanner();
+            } else {
+                hideCookieBanner();
+                initializeAnalyticsAndMarketing();
             }
 
             acceptCookiesBtn.addEventListener('click', () => {
                 localStorage.setItem('cookieConsent', 'true');
                 localStorage.setItem('cookiePreferences', JSON.stringify({ analytics: true, marketing: true }));
                 hideCookieBanner();
+                initializeAnalyticsAndMarketing();
             });
             
             rejectCookiesBtn.addEventListener('click', () => {
@@ -1675,6 +1724,7 @@
                 hideCookieBanner();
             });
 
+            // Event listeners corrigidos para o modal de cookies
             manageBannerBtn.addEventListener('click', showCookieModal);
             manageFooterBtn.addEventListener('click', showCookieModal);
             closeCookieModalBtn.addEventListener('click', hideCookieModal);
@@ -1694,6 +1744,7 @@
                 localStorage.setItem('cookiePreferences', JSON.stringify(newPrefs));
                 hideCookieModal();
                 hideCookieBanner();
+                initializeAnalyticsAndMarketing();
             });
             
             document.addEventListener('keydown', (e) => {
@@ -1701,6 +1752,32 @@
                     hideCookieModal();
                 }
             });
+
+            // Lógica para exibir o botão de 'Acessar'
+            const pwaHeaderControls = document.getElementById('pwa-header-controls');
+            const desktopNavContainer = document.querySelector('.desktop-nav-container');
+
+            // Verifica se está em modo PWA (standalone)
+            const isPwa = window.matchMedia('(display-mode: standalone)').matches;
+
+            if (pwaHeaderControls && desktopNavContainer) {
+                if (isPwa) {
+                    pwaHeaderControls.style.display = 'flex';
+                    desktopNavContainer.style.display = 'none';
+                } else {
+                    pwaHeaderControls.style.display = 'none';
+                    desktopNavContainer.style.display = 'flex';
+                }
+            }
+
+            // --- VLIBRAS WIDGET LOGIC ---
+            // A inicialização do VLibras já está no head, mas a visibilidade
+            // e outras interações podem ser controladas aqui.
+            const vlibrasBtn = document.getElementById('vlibras-btn');
+            if (vlibrasBtn) {
+                // Adiciona uma classe para controlar a visibilidade de forma mais flexível
+                vlibrasBtn.style.display = 'block';
+            }
         });
     </script>
 </body>
