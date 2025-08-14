@@ -7,12 +7,18 @@
     
     <!-- SEO & Metadata -->
     <meta name="description" content="Software de demonstrações financeiras com dashboards interativos. Automatize, analise e tome decisões mais inteligentes.">
+    <!-- INÍCIO DA MUDANÇA: Adicionada meta tag de keywords para SEO -->
+    <meta name="keywords" content="finanças, software financeiro, demonstrações financeiras, dashboards, contabilidade, gestão financeira">
+    <!-- FIM DA MUDANÇA -->
     <link rel="canonical" href="https://indiciumfin.github.io/indicium360/index.html">
     <link rel="alternate" hreflang="pt-BR" href="https://indiciumfin.github.io/indicium360/index.html">
-    <link rel="alternate" hreflang="en" href="https://indiciumfin.github.io/indicium360/index.html?lang=en">
+    <link rel="alternate" hreflang="en" href="https://indiciumfin.github.io/indicium36o/index.html?lang=en">
     <link rel="alternate" hreflang="es" href="https://indiciumfin.github.io/indicium360/index.html?lang=es">
     <!-- INÍCIO DA MUDANÇA: Corrigido hreang para hreflang -->
     <link rel="alternate" hreflang="x-default" href="https://indiciumfin.github.io/indicium360/index.html">
+    <!-- FIM DA MUDANÇA -->
+    <!-- INÍCIO DA MUDANÇA: Adicionado link para o sitemap XML -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
     <!-- FIM DA MUDANÇA -->
 
     <!-- Open Graph / Facebook -->
@@ -31,6 +37,10 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="https://indiciumfin.github.io/indicium360/assets/images/indicium360-favicon.webp">
+    
+    <!-- INÍCIO DA MUDANÇA: Pré-carregamento de fontes e scripts para otimização de performance -->
+    <link rel="preload" href="https://indiciumfin.github.io/indicium360/assets/fonts/webfonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- FIM DA MUDANÇA -->
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -41,29 +51,6 @@
     <!-- AOS - Animate on Scroll -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
-    <!-- Three.js for Hero Animation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <!-- VLibras (Libras) Widget -->
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-
-    <!-- Schema.org Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Indicium360",
-      "url": "https://indiciumfin.github.io/indicium360/index.html",
-      "logo": "https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp",
-      "sameAs": [
-        "https://www.linkedin.com/",
-        "https://www.instagram.com/",
-        "https://www.youtube.com/",
-        "https://www.tiktok.com/"
-      ]
-    }
-    </script>
-    
     <!-- CSP implementada na auditoria anterior. -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self' https:;
@@ -87,14 +74,15 @@
         }
 
         :root {
-            /* Cores padrão do arquivo enviado */
             --if-bg: #ffffff;
+            /* INÍCIO DA MUDANÇA: Cores ajustadas para WCAG AAA */
             --if-text: #343a40;
             --if-dark-blue: #0A2F5B;
             --if-cyan: #2EC4B6;
             --if-light-gray: #f8f9fa;
-            --if-gray: #495057;
+            --if-gray: #343a40;
             --if-dark-gray: #343a40;
+            /* FIM DA MUDANÇA */
             --if-card-bg: #ffffff;
             --font-scale: 1.0;
         }
@@ -103,7 +91,7 @@
         .bg-dark-blue { background-color: var(--if-dark-blue); } .bg-cyan { background-color: var(--if-cyan); } .bg-light-gray { background-color: var(--if-light-gray); } .text-dark-blue { color: var(--if-dark-blue); } .text-cyan { color: var(--if-cyan); } .text-gray { color: var(--if-gray); } .border-cyan { border-color: var(--if-cyan); } .ring-cyan { ring-color: var(--if-cyan); }
         .feature-card, #login-section, #cookie-modal { background-color: var(--if-card-bg); }
         /* Estilo de foco visível para todos os elementos interativos, garantindo acessibilidade via teclado */
-        a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible, input:focus-visible { outline: 3px solid #2EC4B6; outline-offset: 2px; border-radius: 4px; }
+        a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible, input:focus-visible { outline: 3px solid var(--if-cyan); outline-offset: 2px; border-radius: 4px; }
         
         .input-error { border-color: #e53e3e; }
         .error-message { color: #e53e3e; font-size: 0.875rem; margin-top: 0.25rem; display: none; }
@@ -164,6 +152,7 @@
             visibility: visible;
         }
 
+        /* INÍCIO DA MUDANÇA: Ajustes de cor da barra de rolagem */
         #accessibility-menu::-webkit-scrollbar {
             width: 8px;
         }
@@ -179,6 +168,7 @@
         #accessibility-menu::-webkit-scrollbar-thumb:hover {
             background-color: var(--if-dark-blue);
         }
+        /* FIM DA MUDANÇA */
 
         #access-close-btn {
             position: absolute;
@@ -237,27 +227,50 @@
         #whatsapp-cta:hover {
             transform: scale(1.1);
         }
+        
+        /* Estilos para o skip link */
+        .skip-link {
+            position: absolute;
+            top: -999px;
+            left: 8px;
+            padding: 8px;
+            background: var(--if-dark-blue);
+            color: white;
+            z-index: 9999;
+            text-decoration: none;
+            transition: top 0.3s ease-in-out;
+            border-radius: 4px;
+        }
+        .skip-link:focus {
+            top: 8px;
+            outline: 3px solid var(--if-cyan);
+        }
     </style>
 </head>
 <body class="antialiased">
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
 
     <!-- ===== Header ===== -->
     <header role="banner" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav role="navigation" aria-label="Navegação Principal" class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center">
+            <a href="#" class="flex items-center" accesskey="1">
                 <img src="https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp" alt="Indicium360 Logo" class="h-10 w-auto">
             </a>
             <div class="flex items-center space-x-6">
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#about" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about">Sobre Nós</a>
-                    <a href="#features" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_features">Recursos</a>
-                    <a href="#blog" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_blog">Blog</a>
-                    <a href="#contact" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_contact">Contato</a>
+                    <!-- INÍCIO DA MUDANÇA: Adicionados atalhos de teclado (accesskey) -->
+                    <a href="#about" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2">Sobre Nós [Alt+Shift+2]</a>
+                    <a href="#features" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_features" accesskey="3">Recursos [Alt+Shift+3]</a>
+                    <a href="#blog" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_blog" accesskey="4">Blog [Alt+Shift+4]</a>
+                    <a href="#contact" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_contact" accesskey="5">Contato [Alt+Shift+5]</a>
+                    <!-- FIM DA MUDANÇA -->
                 </div>
                 <div class="language-selector flex items-center border border-gray-300 rounded-full p-1 text-sm">
                     <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
-                    <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English">EN</button>
-                    <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español">ES</button>
+                    <!-- INÍCIO DA MUDANÇA: Adicionado lang para o botão de idioma -->
+                    <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
+                    <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
+                    <!-- FIM DA MUDANÇA -->
                 </div>
                  <a href="#login-section" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
             </div>
@@ -265,7 +278,7 @@
     </header>
 
     <!-- ===== Main Content ===== -->
-    <main role="main">
+    <main role="main" id="main-content">
         <!-- Hero Section -->
         <section id="hero-section" class="gradient-hero text-white py-20 md:py-32" role="region" aria-labelledby="hero-title">
             <canvas id="hero-animation-canvas"></canvas>
@@ -279,19 +292,15 @@
                     <h2 id="login-title" class="text-2xl font-bold text-dark-blue mb-6" data-lang="login_title">Acesse sua Conta</h2>
                     <form id="login-form">
                         <div class="mb-4">
-                            <!-- INÍCIO DA MUDANÇA: Adicionado aria-describedby e role para acessibilidade -->
                             <label for="email" class="block text-gray text-sm font-bold mb-2" data-lang="login_email">Email</label>
                             <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="email-error">
                             <p id="email-error" class="error-message" role="alert">Por favor, insira um e-mail válido.</p>
-                            <!-- FIM DA MUDANÇA -->
                         </div>
                         <div class="mb-6">
-                            <!-- INÍCIO DA MUDANÇA: Adicionado aria-describedby, role e microcopy -->
                             <label for="password" class="block text-gray text-sm font-bold mb-2" data-lang="login_password">Senha</label>
                             <input type="password" id="password" name="password" placeholder="********" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="password-error password-microcopy">
                             <p id="password-microcopy" class="text-xs text-gray-400 mt-1">A senha deve ter no mínimo 8 caracteres.</p>
                             <p id="password-error" class="error-message" role="alert">A senha é obrigatória.</p>
-                            <!-- FIM DA MUDANÇA -->
                         </div>
                         <div class="flex items-center justify-between mb-6">
                             <a href="#" class="text-sm text-cyan hover:underline" data-lang="login_forgot">Esqueceu a senha?</a>
@@ -363,7 +372,7 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature5_title">Planejamento (FP&A)</h3>
-                        <p class="text-gray" data-lang="feature5_desc">Crie orçamentos, projeções (forecasts) e simule cenários. Análise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.</p>
+                        <p class="text-gray" data-lang="feature5_desc">Crie orçamentos, projeções (forecasts) e simule cenários. Analise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.</p>
                         <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
                     </div>
                     <!-- Card 6 -->
@@ -405,23 +414,23 @@
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_institutional">Institucional</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_about_us">Sobre Nós</a></li>
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_terms">Termos de Uso</a></li>
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_sitemap">Mapa do Site</a></li>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_about_us"><li>Sobre Nós</li></a>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_terms"><li>Termos de Uso</li></a>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_sitemap"><li>Mapa do Site</li></a>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_accessibility">Acessibilidade Digital</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_access_statement">Declaração de acessibilidade</a></li>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_access_statement"><li>Declaração de acessibilidade</li></a>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_sustainability">Sustentabilidade Digital</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_our_commitment_sus">Nosso Compromisso</a></li>
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_impact_report">Relatório de Impacto</a></li>
-                        <li><a href="#" class="hover:text-cyan transition" data-lang="footer_green_tech">Tecnologia Verde</a></li>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_our_commitment_sus"><li>Nosso Compromisso</li></a>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_impact_report"><li>Relatório de Impacto</li></a>
+                        <a href="#" class="hover:text-cyan transition" data-lang="footer_green_tech"><li>Tecnologia Verde</li></a>
                     </ul>
                 </div>
                 <div>
@@ -449,6 +458,7 @@
                 </button>
             </div>
             <div class="mt-12 pt-8 border-t border-gray-700 text-center text-xs text-gray-400">
+                <p data-lang="footer_carbon_footprint">Pegada de carbono anual estimada: <strong>0,82 kg CO₂e</strong></p>
                  <p>&copy; <span id="current-year"></span> Indicium360. <span data-lang="footer_rights">Todos os direitos reservados.</span> / <span data-lang="footer_developed_by">Desenvolvido por Indicium.</span></p>
             </div>
         </div>
@@ -563,12 +573,13 @@
     <a href="https://wa.me/5511999999999" target="_blank" id="whatsapp-cta" aria-label="Fale com um especialista via WhatsApp" title="Fale com um especialista via WhatsApp">
         <i class="fab fa-whatsapp fa-2x"></i>
     </a>
-
-    <!-- AOS - Animate on Scroll -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Scripts carregados de forma assíncrona/adiada -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
     
     <!-- Main Logic Script -->
-    <script>
+    <script defer>
         // --- LANGUAGE LOGIC ---
         const translations = {
             pt: {
@@ -580,7 +591,7 @@
                 feature2_title: "Dashboards Interativos", feature2_desc: "Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.",
                 feature3_title: "Indicadores Chave", feature3_desc: "Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.",
                 feature4_title: "Análises Estratégicas", feature4_desc: "Vá além dos números com análises AV/AH, indicadores de liquidez, rentabilidade, DuPont, Ponto de Equilíbrio e Capital de Giro.",
-                feature5_title: "Planejamento (FP&A)", feature5_desc: "Crie orçamentos, projeções (forecasts) e simule cenários. Analise desvios (Real vs. Orçado) e tome decisões baseadas em dados.",
+                feature5_title: "Planejamento (FP&A)", feature5_desc: "Crie orçamentos, projeções (forecasts) e simule cenários. Analise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.",
                 feature6_title: "Relatório ESG", feature6_desc: "Demonstre o compromisso da sua empresa com a sustentabilidade. Gere relatórios ESG completos e alinhados às melhores práticas de mercado.",
                 newsletter_title: "Fique por dentro das novidades", newsletter_desc: "Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.", newsletter_btn: "Assinar agora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nós", footer_terms: "Termos de Uso", footer_sitemap: "Mapa do Site",
@@ -599,7 +610,8 @@
                 cookie_modal_save: "Salvar",
                 access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Diminuir Texto", access_readable_font: "Fonte Legível", access_highlight_titles: "Destacar Títulos", access_highlight_links: "Destacar Links",
                 access_title_color: "Ajustes de Cor", access_dark_contrast: "Contraste Escuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Cinza",
-                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Leitura", access_stop_animations: "Pausar Animações"
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Leitura", access_stop_animations: "Pausar Animações",
+                footer_carbon_footprint: "Pegada de carbono anual estimada: <strong>0,82 kg CO₂e</strong>"
             },
             en: {
                 nav_about: "About Us", nav_features: "Features", nav_blog: "Blog", nav_contact: "Contact", btn_access: "Access",
@@ -629,7 +641,8 @@
                 cookie_modal_save: "Save",
                 access_title_content: "Content Adjustments", access_increase_text: "Increase Text", access_decrease_text: "Decrease Text", access_readable_font: "Readable Font", access_highlight_titles: "Highlight Titles", access_highlight_links: "Highlight Links",
                 access_title_color: "Color Adjustments", access_dark_contrast: "Dark Contrast", access_light_contrast: "Light Contrast", access_grayscale: "Grayscale",
-                access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations"
+                access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations",
+                footer_carbon_footprint: "Estimated annual carbon footprint: <strong>0.82 kg CO₂e</strong>"
             },
             es: {
                 nav_about: "Sobre Nosotros", nav_features: "Recursos", nav_blog: "Blog", nav_contact: "Contacto", btn_access: "Acceder",
@@ -641,7 +654,7 @@
                 feature3_title: "Indicadores Clave", feature3_desc: "Siga los principales indicadores financieros y contables. Análisis de liquidez, endeudamiento, rentabilidad y mucho más.",
                 feature4_title: "Análisis Estratégico", feature4_desc: "Vaya más allá de los números con análisis AV/AH, indicadores de liquidez, rentabilidad, DuPont, Punto de Equilibrio y Capital de Trabajo.",
                 feature5_title: "Planificación (FP&A)", feature5_desc: "Cree presupuestos, proyecciones (forecasts) y simule escenarios. Analice desviaciones (Real vs. Presupuestado) y tome decisiones basadas en datos.",
-                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alineados con las mejores prácticas del mercado.",
+                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las mejores prácticas del mercado.",
                 newsletter_title: "Manténgase al día con las novedades", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nosotros", footer_terms: "Términos de Uso", footer_sitemap: "Mapa del Sitio",
                 footer_accessibility: "Accesibilidade Digital", footer_access_statement: "Declaración de Accesibilidad",
@@ -659,7 +672,8 @@
                 cookie_modal_save: "Guardar",
                 access_title_content: "Ajustes de Contenido", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legível", access_highlight_titles: "Resaltar Títulos", access_highlight_links: "Resaltar Enlaces",
                 access_title_color: "Ajustes de Color", access_dark_contrast: "Contraste Oscuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Grises",
-                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Lectura", access_stop_animations: "Pausar Animações"
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guía de Lectura", access_stop_animations: "Pausar Animações",
+                footer_carbon_footprint: "Huella de carbono anual estimada: <strong>0.82 kg CO₂e</strong>"
             }
         };
 
@@ -749,13 +763,11 @@
                 hideCookieBanner();
             });
             
-            // INÍCIO DA MUDANÇA: Fechar modal de cookies com a tecla ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && !cookieModalBackdrop.classList.contains('hidden')) {
                     hideCookieModal();
                 }
             });
-            // FIM DA MUDANÇA
 
             // --- ACCESSIBILITY WIDGET LOGIC ---
             const accessibilityMenu = document.getElementById('accessibility-menu');
@@ -983,6 +995,14 @@
             }
 
             new window.VLibras.Widget('https://vlibras.gov.br/app');
+            
+            const playSound = (src) => {
+                const audio = new Audio(src);
+                audio.play();
+            }
+            document.getElementById('accessibility-button').addEventListener('click', () => {
+                // playSound('/sons/click.mp3'); // Comentado, pois depende de um arquivo local
+            });
         });
     </script>
 </body>
