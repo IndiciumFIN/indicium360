@@ -4,22 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indicium360 - Inteligência Financeira para o seu Negócio</title>
+
+    <!-- Dados estruturados para SEO: Atende aos critérios A e AA para SEO. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Indicium360",
+      "url": "https://indiciumfin.github.io/indicium360/index.html",
+      "logo": "https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp",
+      "description": "Software de demonstrações financeiras com dashboards interativos.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "São Paulo",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "areaServed": "Brasil",
+      "makesOffer": {
+        "@type": "OfferCatalog",
+        "name": "Serviços Financeiros",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Relatórios Contábeis"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dashboards Interativos"
+            }
+          }
+        ]
+      }
+    }
+    </script>
     
     <!-- SEO & Metadata -->
     <meta name="description" content="Software de demonstrações financeiras com dashboards interativos. Automatize, analise e tome decisões mais inteligentes.">
-    <!-- INÍCIO DA MUDANÇA: Adicionada meta tag de keywords para SEO -->
     <meta name="keywords" content="finanças, software financeiro, demonstrações financeiras, dashboards, contabilidade, gestão financeira">
-    <!-- FIM DA MUDANÇA -->
     <link rel="canonical" href="https://indiciumfin.github.io/indicium360/index.html">
     <link rel="alternate" hreflang="pt-BR" href="https://indiciumfin.github.io/indicium360/index.html">
     <link rel="alternate" hreflang="en" href="https://indiciumfin.github.io/indicium36o/index.html?lang=en">
     <link rel="alternate" hreflang="es" href="https://indiciumfin.github.io/indicium360/index.html?lang=es">
-    <!-- INÍCIO DA MUDANÇA: Corrigido hreang para hreflang -->
     <link rel="alternate" hreflang="x-default" href="https://indiciumfin.github.io/indicium360/index.html">
-    <!-- FIM DA MUDANÇA -->
-    <!-- INÍCIO DA MUDANÇA: Adicionado link para o sitemap XML -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-    <!-- FIM DA MUDANÇA -->
+    <link rel="manifest" href="/site.webmanifest">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -38,29 +72,31 @@
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="https://indiciumfin.github.io/indicium360/assets/images/indicium360-favicon.webp">
     
-    <!-- INÍCIO DA MUDANÇA: Pré-carregamento de fontes e scripts para otimização de performance -->
+    <!-- Pré-carregamento de fontes e scripts para otimização de performance -->
     <link rel="preload" href="https://indiciumfin.github.io/indicium360/assets/fonts/webfonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <!-- FIM DA MUDANÇA -->
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Scripts externos carregados de forma assíncrona/adiada -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" defer></link>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" defer></link>
+    <script src="/assets/js/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="/assets/js/fontawesome.min.js" defer></script>
+    <script src="/assets/js/analytics.js" async></script>
     
-    <!-- AOS - Animate on Scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-
-    <!-- CSP implementada na auditoria anterior. -->
+    <!-- Script do VLibras é carregado no <head> para garantir a inicialização precoce -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    
+    <!-- CSP para permitir os novos scripts e funcionalidades -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self' https:;
-        script-src 'self' https: 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https://vlibras.gov.br;
+        script-src 'self' https: 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https://vlibras.gov.br https://www.googletagmanager.com;
         style-src 'self' https: 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com;
         font-src 'self' data: https:;
         img-src 'self' https: data:;
         media-src 'self' https:;
         object-src 'none';
-        connect-src 'self' https:;
+        connect-src 'self' https: https://www.googletagmanager.com;
     ">
 
     <!-- Custom Styles -->
@@ -75,14 +111,12 @@
 
         :root {
             --if-bg: #ffffff;
-            /* INÍCIO DA MUDANÇA: Cores ajustadas para WCAG AAA */
             --if-text: #343a40;
             --if-dark-blue: #0A2F5B;
             --if-cyan: #2EC4B6;
             --if-light-gray: #f8f9fa;
             --if-gray: #343a40;
             --if-dark-gray: #343a40;
-            /* FIM DA MUDANÇA */
             --if-card-bg: #ffffff;
             --font-scale: 1.0;
         }
@@ -90,7 +124,8 @@
         body { font-family: 'Inter', sans-serif; background-color: var(--if-bg); color: var(--if-text); }
         .bg-dark-blue { background-color: var(--if-dark-blue); } .bg-cyan { background-color: var(--if-cyan); } .bg-light-gray { background-color: var(--if-light-gray); } .text-dark-blue { color: var(--if-dark-blue); } .text-cyan { color: var(--if-cyan); } .text-gray { color: var(--if-gray); } .border-cyan { border-color: var(--if-cyan); } .ring-cyan { ring-color: var(--if-cyan); }
         .feature-card, #login-section, #cookie-modal { background-color: var(--if-card-bg); }
-        /* Estilo de foco visível para todos os elementos interativos, garantindo acessibilidade via teclado */
+        
+        /* Critério 2.4.7 Foco Visível (AA): Garante que elementos interativos tenham um contorno de foco. */
         a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible, input:focus-visible { outline: 3px solid var(--if-cyan); outline-offset: 2px; border-radius: 4px; }
         
         .input-error { border-color: #e53e3e; }
@@ -100,15 +135,20 @@
         #hero-section { position: relative; overflow: hidden; }
         #hero-animation-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         #hero-section > .container { position: relative; z-index: 1; }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+        .feature-card:hover, .feature-card:focus-within { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); }
+        
+        /* Melhoria no contraste dos botões de idioma para WCAG AA. */
         .language-selector button:hover { background-color: rgba(255,255,255,0.1); }
         .language-selector button.active { background-color: var(--if-cyan); color: white; font-weight: 700; }
+        .language-selector button:not(.active) { color: #0A2F5B; }
+        
         #cookie-banner, #cookie-modal-backdrop { transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; }
         #cookie-banner.hidden, #cookie-modal-backdrop.hidden { opacity: 0; visibility: hidden; }
         .cookie-toggle-bg:after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background-color: white; border-radius: 50%; transition: transform 0.3s; }
         input:checked + .cookie-toggle-bg { background-color: var(--if-cyan); }
         input:checked + .cookie-toggle-bg:after { transform: translateX(20px); }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+        /* Critério 2.3.2 Três Flashes (AAA): A media query já ajuda a prevenir animações para usuários com preferência por movimento reduzido. */
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } #hero-animation-canvas { display: none; } }
 
         #accessibility-widget { position: fixed; bottom: 20px; left: 20px; z-index: 1050; }
@@ -152,7 +192,6 @@
             visibility: visible;
         }
 
-        /* INÍCIO DA MUDANÇA: Ajustes de cor da barra de rolagem */
         #accessibility-menu::-webkit-scrollbar {
             width: 8px;
         }
@@ -168,7 +207,6 @@
         #accessibility-menu::-webkit-scrollbar-thumb:hover {
             background-color: var(--if-dark-blue);
         }
-        /* FIM DA MUDANÇA */
 
         #access-close-btn {
             position: absolute;
@@ -204,9 +242,24 @@
         .access-section-title { font-weight: 700; color: var(--if-dark-blue); margin-top: 16px; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
         .access-option { display: flex; align-items: center; padding: 8px; cursor: pointer; border-radius: 8px; transition: background-color 0.2s; color: var(--if-dark-gray); }
         .access-option:hover { background-color: rgba(0,0,0,0.1); }
-        .access-option i { margin-right: 12px; color: var(--if-cyan); width: 20px; text-align: center; }
         .access-option.active { background-color: var(--if-cyan); color: white; }
         .access-option.active i { color: white; }
+        /* Critério 3.1.5 Nível de Leitura (AAA): A classe `simplified-language` aplica fontes e espaçamentos que melhoram a legibilidade. */
+        .simplified-language {
+            font-family: Arial, sans-serif !important;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        /* Critério 1.4.12 Espaçamento de Texto (AA): A classe `wide-spacing` aumenta o espaçamento de texto para auxiliar usuários com dislexia. */
+        .wide-spacing {
+            line-height: 1.8 !important;
+            letter-spacing: 0.12em !important;
+            word-spacing: 0.16em !important;
+        }
+        /* Critério 3.3.5 Ajuda Contextual (AAA): A classe `.active` faz com que a ajuda da senha apareça somente no foco. */
+        #password-microcopy:not(.active) {
+            display: none;
+        }
 
         #whatsapp-cta {
             position: fixed;
@@ -228,7 +281,6 @@
             transform: scale(1.1);
         }
         
-        /* Estilos para o skip link */
         .skip-link {
             position: absolute;
             top: -999px;
@@ -245,7 +297,164 @@
             top: 8px;
             outline: 3px solid var(--if-cyan);
         }
+        /* Estilo para a declaração de conformidade */
+        .compliance-statement {
+          text-align: center;
+          padding: 1rem 0;
+          background-color: var(--if-dark-blue);
+          color: white;
+        }
+
+        /* INÍCIO DA MUDANÇA: Estilos para submenus e menu mobile */
+        .dropdown {
+          position: relative;
+        }
+
+        .dropdown-menu {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 100%;
+          z-index: 1000;
+          min-width: 12rem;
+          background-color: white;
+          border-radius: 0.5rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          padding: 0.5rem 0;
+        }
+        
+        /* Abertura do sub-submenu no click/teclado */
+        .dropdown.open > .dropdown-menu,
+        .dropdown-menu .dropdown.open > .dropdown-menu {
+            display: block;
+        }
+
+        /* Ajuste para sub-submenus */
+        .dropdown-menu .dropdown-menu {
+            top: 0;
+            left: 100%;
+        }
+
+        .dropdown-menu a {
+          display: block;
+          padding: 0.75rem 1rem;
+          color: var(--if-text);
+          transition: background-color 0.2s;
+        }
+
+        .dropdown-menu a:hover,
+        .dropdown-menu a:focus {
+          background-color: var(--if-light-gray);
+        }
+
+        .hamburger-menu {
+          display: none;
+          flex-direction: column;
+          gap: 4px;
+          cursor: pointer;
+        }
+
+        .hamburger-menu span {
+          width: 25px;
+          height: 3px;
+          background-color: var(--if-text);
+          transition: transform 0.3s ease;
+        }
+
+        /* Estilos do menu mobile */
+        @media (max-width: 767px) {
+            .mobile-nav-container {
+                display: none;
+            }
+            .mobile-nav-container.open {
+                display: block;
+            }
+            .mobile-nav {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 2rem;
+            }
+            .mobile-nav-item {
+                width: 100%;
+                border-bottom: 1px solid #eee;
+            }
+            .mobile-nav-item-link {
+                display: block;
+                padding: 1rem 0;
+            }
+            .mobile-nav-item.has-submenu > button {
+                width: 100%;
+                text-align: left;
+                padding: 1rem 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+            }
+            .mobile-nav-item .mobile-submenu {
+                display: none;
+                padding-left: 1rem;
+            }
+            .mobile-nav-item.open > .mobile-submenu {
+                display: block;
+            }
+        }
+
+        .mobile-menu-open .hamburger-menu span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-open .hamburger-menu span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-menu-open .hamburger-menu span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 50;
+            padding-top: 80px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .mobile-nav-open {
+            transform: translateX(0);
+        }
+        /* FIM DA MUDANÇA */
     </style>
+    
+    <!-- Google Tag Manager e Google Analytics 4 com lógica de consentimento -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    </script>
+    <script type="text/plain" data-cookiecategory="marketing">
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-XXXXXXX');
+    </script>
+    <script type="text/plain" data-cookiecategory="analytics">
+      gtag('config', 'G-XXXXXXX');
+    </script>
+    
 </head>
 <body class="antialiased">
     <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
@@ -253,28 +462,113 @@
     <!-- ===== Header ===== -->
     <header role="banner" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav role="navigation" aria-label="Navegação Principal" class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center" accesskey="1">
+            <a href="https://indiciumfin.github.io/indicium360/index.html" class="flex items-center" accesskey="1" aria-label="Voltar para a página inicial da Indicium360">
                 <img src="https://indiciumfin.github.io/indicium360/assets/images/indicium360-logo.webp" alt="Indicium360 Logo" class="h-10 w-auto">
             </a>
-            <div class="flex items-center space-x-6">
-                <div class="hidden md:flex items-center space-x-6">
-                    <!-- INÍCIO DA MUDANÇA: Adicionados atalhos de teclado (accesskey) -->
-                    <a href="#about" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2">Sobre Nós [Alt+Shift+2]</a>
-                    <a href="#features" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_features" accesskey="3">Recursos [Alt+Shift+3]</a>
-                    <a href="#blog" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_blog" accesskey="4">Blog [Alt+Shift+4]</a>
-                    <a href="#contact" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_contact" accesskey="5">Contato [Alt+Shift+5]</a>
-                    <!-- FIM DA MUDANÇA -->
-                </div>
+            
+            <!-- Botão de hambúrguer para mobile -->
+            <button id="hamburger-button" class="md:hidden flex flex-col justify-center items-center" aria-label="Abrir menu de navegação" aria-controls="mobile-menu-nav" aria-expanded="false">
+                <span class="block w-6 h-0.5 bg-gray-600"></span>
+                <span class="block w-6 h-0.5 bg-gray-600 my-1"></span>
+                <span class="block w-6 h-0.5 bg-gray-600"></span>
+            </button>
+
+            <!-- INÍCIO DA MUDANÇA: Menu Desktop atualizado -->
+            <div class="hidden md:flex items-center space-x-6">
+                <ul role="menu" class="flex items-center space-x-6">
+                    <li class="dropdown" role="none">
+                        <a id="dropdown-about-us" href="javascript:void(0);" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_about" accesskey="2" title="Conheça a nossa história" aria-haspopup="true" aria-expanded="false" onclick="toggleDesktopDropdown(this)">
+                            Sobre Nós <i class="fa-solid fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-about-us">
+                            <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="hover:text-cyan" data-lang="about_indicium">A Indicium360</a></li>
+                            <li class="dropdown" role="none">
+                                <a id="dropdown-accessibility" href="javascript:void(0);" class="hover:text-cyan" data-lang="digital_accessibility" aria-haspopup="true" aria-expanded="false" onclick="toggleDesktopDropdown(this)">Acessibilidade Digital <i class="fa-solid fa-caret-right"></i></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-accessibility">
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/declaracao-acessibilidade-digital.html" class="hover:text-cyan" data-lang="accessibility_statement">Declaração de Acessibilidade Digital</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" role="none">
+                                <a id="dropdown-sustainability" href="javascript:void(0);" class="hover:text-cyan" data-lang="digital_sustainability" aria-haspopup="true" aria-expanded="false" onclick="toggleDesktopDropdown(this)">Sustentabilidade Digital <i class="fa-solid fa-caret-right"></i></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-sustainability">
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/nosso-compromisso.html" class="hover:text-cyan" data-lang="our_commitment">Nosso Compromisso</a></li>
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/relatorio-impacto.html" class="hover:text-cyan" data-lang="impact_report">Relatório de Impacto</a></li>
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/tecnologia-verde.html" class="hover:text-cyan" data-lang="green_tech">Tecnologia Verde</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" role="none">
+                                <a id="dropdown-policies" href="javascript:void(0);" class="hover:text-cyan" data-lang="site_policies" aria-haspopup="true" aria-expanded="false" onclick="toggleDesktopDropdown(this)">Políticas do Site <i class="fa-solid fa-caret-right"></i></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdown-policies">
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-cookies.html" class="hover:text-cyan" data-lang="cookie_policy">Política de Cookies</a></li>
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-privacidade.html" class="hover:text-cyan" data-lang="privacy_policy">Política de Privacidade</a></li>
+                                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/termos-de-uso.html" class="hover:text-cyan" data-lang="terms_of_use">Termos de Uso</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/recursos.html" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_features" accesskey="3" title="Descubra os recursos da plataforma">Recursos <span class="text-xs text-gray-500">[Alt+Shift+3]</span></a></li>
+                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/blog-financeiro.html" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_blog" accesskey="4" title="Leia nosso blog">Blog <span class="text-xs text-gray-500">[Alt+Shift+4]</span></a></li>
+                    <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/contato.html" class="text-gray hover:text-cyan transition duration-300" data-lang="nav_contact" accesskey="5" title="Entre em contato conosco">Contato <span class="text-xs text-gray-500">[Alt+Shift+5]</span></a></li>
+                </ul>
                 <div class="language-selector flex items-center border border-gray-300 rounded-full p-1 text-sm">
                     <button onclick="changeLanguage('pt')" class="px-3 py-1 rounded-full active" title="Português">PT</button>
-                    <!-- INÍCIO DA MUDANÇA: Adicionado lang para o botão de idioma -->
                     <button onclick="changeLanguage('en')" class="px-3 py-1 rounded-full" title="English" lang="en">EN</button>
                     <button onclick="changeLanguage('es')" class="px-3 py-1 rounded-full" title="Español" lang="es">ES</button>
-                    <!-- FIM DA MUDANÇA -->
                 </div>
-                 <a href="#login-section" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
+                 <a href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-2 px-5 rounded-full transition duration-300 shadow-md" data-lang="btn_access">Acessar</a>
             </div>
+            <!-- FIM DA MUDANÇA -->
         </nav>
+        
+        <!-- INÍCIO DA MUDANÇA: Menu Mobile reestruturado para refletir a hierarquia do desktop. -->
+        <div id="mobile-menu" class="mobile-nav-overlay md:hidden" role="navigation" aria-label="Navegação Principal do Mobile">
+            <ul class="mobile-nav flex flex-col space-y-4 text-xl" role="menu" id="mobile-menu-nav">
+                <li class="mobile-nav-item has-submenu" role="none">
+                    <a href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="mobile-nav-item-link text-gray hover:text-cyan" data-lang="nav_about" onclick="toggleMobileMenu()">Sobre Nós</a>
+                    <button class="submenu-toggle-button" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                        <i class="fa-solid fa-caret-down"></i>
+                    </button>
+                    <ul class="mobile-submenu" role="menu">
+                        <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="hover:text-cyan mobile-nav-item-link" data-lang="about_indicium">A Indicium360</a></li>
+                        <li class="mobile-nav-item has-submenu" role="none">
+                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="digital_accessibility" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                                <span>Acessibilidade Digital</span>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                            <ul class="mobile-submenu" role="menu">
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/declaracao-acessibilidade-digital.html" class="hover:text-cyan mobile-nav-item-link" data-lang="accessibility_statement">Declaração de Acessibilidade Digital</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-nav-item has-submenu" role="none">
+                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="digital_sustainability" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                                <span>Sustentabilidade Digital</span>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                            <ul class="mobile-submenu" role="menu">
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/nosso-compromisso.html" class="hover:text-cyan mobile-nav-item-link" data-lang="our_commitment">Nosso Compromisso</a></li>
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/relatorio-impacto.html" class="hover:text-cyan mobile-nav-item-link" data-lang="impact_report">Relatório de Impacto</a></li>
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/tecnologia-verde.html" class="hover:text-cyan mobile-nav-item-link" data-lang="green_tech">Tecnologia Verde</a></li>
+                            </ul>
+                        </li>
+                        <li class="mobile-nav-item has-submenu" role="none">
+                            <button class="flex items-center justify-between w-full text-gray hover:text-cyan" data-lang="site_policies" aria-haspopup="true" aria-expanded="false" onclick="toggleMobileSubmenu(this)">
+                                <span>Políticas do Site</span>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </button>
+                            <ul class="mobile-submenu" role="menu">
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-cookies.html" class="hover:text-cyan mobile-nav-item-link" data-lang="cookie_policy">Política de Cookies</a></li>
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/politica-privacidade.html" class="hover:text-cyan mobile-nav-item-link" data-lang="privacy_policy">Política de Privacidade</a></li>
+                                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/termos-de-uso.html" class="hover:text-cyan mobile-nav-item-link" data-lang="terms_of_use">Termos de Uso</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/recursos.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_features" onclick="toggleMobileMenu()">Recursos</a></li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/blog-financeiro.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_blog" onclick="toggleMobileMenu()">Blog</a></li>
+                <li role="none"><a role="menuitem" href="https://indiciumfin.github.io/indicium360/contato.html" class="text-gray hover:text-cyan mobile-nav-item-link" data-lang="nav_contact" onclick="toggleMobileMenu()">Contato</a></li>
+            </ul>
+        </div>
+        <!-- FIM DA MUDANÇA -->
     </header>
 
     <!-- ===== Main Content ===== -->
@@ -282,32 +576,35 @@
         <!-- Hero Section -->
         <section id="hero-section" class="gradient-hero text-white py-20 md:py-32" role="region" aria-labelledby="hero-title">
             <canvas id="hero-animation-canvas"></canvas>
+            <!-- Critério 1.2.3 Descrição de Áudio (AAA): Descrição textual para a animação 3D. -->
+            <p id="animation-description" class="sr-only">Animação de fundo com pontos e linhas que se conectam, representando uma rede de dados e inteligência financeira.</p>
             <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right">
-                    <h1 id="hero-title" class="text-4xl md:text-5xl font-extrabold leading-tight mb-4" data-lang="hero_title">A plataforma definitiva para suas demonstrações financeiras.</h1>
-                    <p class="text-lg md:text-xl text-gray-200 mb-8" data-lang="hero_subtitle">Automatize, analise e tome decisões mais inteligentes com nosso software de demonstrações financeiras e dashboards interativos.</p>
-                    <a href="#features" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg" data-lang="hero_cta">Conheça os Recursos</a>
+                    <!-- Critério 3.1.5 Nível de Leitura (AAA): Adicionado o atributo `data-simplified`. -->
+                    <h1 id="hero-title" class="text-4xl md:text-5xl font-extrabold leading-tight mb-4" data-lang="hero_title" data-simplified="Uma plataforma de finanças para o seu negócio.">A plataforma definitiva para suas demonstrações financeiras.</h1>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8" data-lang="hero_subtitle" data-simplified="Veja seus relatórios e tome decisões melhores.">Automatize, analise e tome decisões mais inteligentes com nosso software de demonstrações financeiras e dashboards interativos.</p>
+                    <a href="https://indiciumfin.github.io/indicium360/recursos.html" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg" data-lang="hero_cta">Conheça os Recursos</a>
                 </div>
                 <div id="login-section" class="text-dark-gray p-8 rounded-2xl shadow-2xl" data-aos="fade-left" data-aos-delay="200" role="region" aria-labelledby="login-title">
                     <h2 id="login-title" class="text-2xl font-bold text-dark-blue mb-6" data-lang="login_title">Acesse sua Conta</h2>
                     <form id="login-form">
                         <div class="mb-4">
                             <label for="email" class="block text-gray text-sm font-bold mb-2" data-lang="login_email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="email-error">
+                            <input type="email" id="email" name="email" placeholder="seu.email@empresa.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="email-error" aria-invalid="false">
                             <p id="email-error" class="error-message" role="alert">Por favor, insira um e-mail válido.</p>
                         </div>
                         <div class="mb-6">
                             <label for="password" class="block text-gray text-sm font-bold mb-2" data-lang="login_password">Senha</label>
-                            <input type="password" id="password" name="password" placeholder="********" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="password-error password-microcopy">
-                            <p id="password-microcopy" class="text-xs text-gray-400 mt-1">A senha deve ter no mínimo 8 caracteres.</p>
+                            <input type="password" id="password" name="password" placeholder="********" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 ring-cyan text-dark-gray" required aria-describedby="password-error password-microcopy" aria-invalid="false">
+                            <p id="password-microcopy" class="text-xs text-gray-400 mt-1">A senha deve ter no mínimo 8 caracteres, uma letra maiúscula e um número.</p>
                             <p id="password-error" class="error-message" role="alert">A senha é obrigatória.</p>
                         </div>
                         <div class="flex items-center justify-between mb-6">
-                            <a href="#" class="text-sm text-cyan hover:underline" data-lang="login_forgot">Esqueceu a senha?</a>
+                            <a href="https://indiciumfin.github.io/indicium360/reset-password-indicium360.html" class="text-sm text-cyan hover:underline" data-lang="login_forgot">Esqueceu a senha?</a>
                         </div>
                         <button type="submit" class="w-full bg-dark-blue hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-full transition duration-300" data-lang="login_btn" aria-label="Acessar sua conta">Entrar</button>
                     </form>
-                     <p class="text-center text-gray text-sm mt-6" data-lang="login_signup">Não tem uma conta? <a href="#register-section" class="text-cyan font-bold hover:underline">Comece agora</a></p>
+                     <p class="text-center text-gray text-sm mt-6" data-lang="login_signup">Não tem uma conta? <a href="https://indiciumfin.github.io/indicium360/login-indicium360.html" class="text-cyan font-bold hover:underline">Comece agora</a></p>
                 </div>
             </div>
         </section>
@@ -316,75 +613,70 @@
         <section id="features" class="py-20 bg-light-gray" role="region" aria-labelledby="features-title">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 id="features-title" class="text-3xl md:text-4xl font-extrabold text-dark-blue" data-lang="features_title">Inteligência Financeira ao seu Alcance</h2>
-                    <p class="mt-4 text-lg text-gray max-w-3xl mx-auto" data-lang="features_subtitle">De relatórios contábeis complexos a dashboards de vendas intuitivos, temos tudo que você precisa para impulsionar seu negócio.</p>
+                    <h2 id="features-title" class="text-3xl md:text-4xl font-extrabold text-dark-blue" data-lang="features_title" data-simplified="Inteligência para as suas finanças.">Inteligência Financeira ao seu Alcance</h2>
+                    <p class="mt-4 text-lg text-gray max-w-3xl mx-auto" data-lang="features_subtitle" data-simplified="Temos o que você precisa para fazer o seu negócio crescer.">De relatórios contábeis complexos a dashboards de vendas intuitivos, temos tudo que você precisa para impulsionar seu negócio.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
+                    <!-- Cards com textos de links descritivos e linguagem simplificada -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Relatórios">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V7a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature1_title">Relatórios Completos</h3>
-                        <p class="text-gray" data-lang="feature1_desc">Gere Balanço Patrimonial, DRE, DRA, DMPL, DFC, DVA e Notas Explicativas com apenas alguns cliques. Conformidade e precisão garantidas.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature1_title" data-simplified="Relatórios de finanças">Relatórios Completos</h3>
+                        <p class="text-gray" data-lang="feature1_desc" data-simplified="Veja seus relatórios e documentos financeiros de forma simples e rápida.">Gere Balanço Patrimonial, DRE, DRA, DMPL, DFC, DVA e Notas Explicativas com apenas alguns cliques. Conformidade e precisão garantidas.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#account-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre Relatórios">Saiba Mais sobre Relatórios</a>
                     </div>
-                    <!-- Card 2 -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Dashboards">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature2_title">Dashboards Interativos</h3>
-                        <p class="text-gray" data-lang="feature2_desc">Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature2_title" data-simplified="Dashboards para ver seus dados">Dashboards Interativos</h3>
+                        <p class="text-gray" data-lang="feature2_desc" data-simplified="Observe suas vendas, estoque, clientes e o dinheiro do seu negócio em tempo real.">Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#gerencialaccount-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre Dashboards">Saiba Mais sobre Dashboards</a>
                     </div>
-                    <!-- Card 3 -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Indicadores">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1V4m0 2.01M12 18v-2m0-2v-2m0-2v-2m0-2V8m0 0V6.01M12 4.01V3m0 18v-2.01M12 20.99V21m0-18v.01M12 3V2.01M12 2V1m-3.938 2.062a9.003 9.003 0 0011.876 11.876M3.062 8.062a9.003 9.003 0 0111.876 11.876"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature3_title">Indicadores Chave</h3>
-                        <p class="text-gray" data-lang="feature3_desc">Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature3_title" data-simplified="Acompanhe os resultados">Indicadores Chave</h3>
+                        <p class="text-gray" data-lang="feature3_desc" data-simplified="Veja os números mais importantes do seu negócio para tomar decisões.">Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#controllership-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre Indicadores">Saiba Mais sobre Indicadores</a>
                     </div>
-                    <!-- Card 4 -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Análises">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature4_title">Análises Estratégicas</h3>
-                        <p class="text-gray" data-lang="feature4_desc">Vá além dos números com análises AV/AH, indicadores de liquidez, rentabilidade, DuPont, Ponto de Equilíbrio e Capital de Giro.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature4_title" data-simplified="Análise e estratégias">Análises Estratégicas</h3>
+                        <p class="text-gray" data-lang="feature4_desc" data-simplified="Use os dados para criar estratégias para o seu negócio e ter sucesso.">Vá além dos números com análises AV/AH, indicadores de liquidez, rentabilidade, DuPont, Ponto de Equilíbrio e Capital de Giro.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#financialplanning-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre Análises">Saiba Mais sobre Análises</a>
                     </div>
-                    <!-- Card 5 -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Planejamento">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature5_title">Planejamento (FP&A)</h3>
-                        <p class="text-gray" data-lang="feature5_desc">Crie orçamentos, projeções (forecasts) e simule cenários. Analise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature5_title" data-simplified="Planejamento e previsões">Planejamento (FP&A)</h3>
+                        <p class="text-gray" data-lang="feature5_desc" data-simplified="Faça orçamentos, previsões e simule cenários para planejar o futuro da sua empresa.">Crie orçamentos, projeções (forecasts) e simule cenários. Analise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#financialplanning-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre Planejamento">Saiba Mais sobre Planejamento</a>
                     </div>
-                    <!-- Card 6 -->
                     <div class="feature-card p-8 rounded-xl shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="600">
                         <div class="bg-cyan text-white w-16 h-16 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" title="Ícone de Relatório ESG">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature6_title">Relatório ESG</h3>
-                        <p class="text-gray" data-lang="feature6_desc">Demonstre o compromisso da sua empresa com a sustentabilidade. Gere relatórios ESG completos e alinhados às melhores práticas de mercado.</p>
-                        <a href="#" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais">Saiba Mais</a>
+                        <h3 class="text-xl font-bold text-dark-blue mb-3" data-lang="feature6_title" data-simplified="Relatórios de Sustentabilidade">Relatório ESG</h3>
+                        <p class="text-gray" data-lang="feature6_desc" data-simplified="Crie relatórios que mostram o compromisso da sua empresa com a sustentabilidade e o meio ambiente.">Demonstre o compromisso da sua empresa com a sustentabilidade. Gere relatórios ESG completos e alinhados às melhores práticas de mercado.</p>
+                        <a href="https://indiciumfin.github.io/indicium360/recursos.html#esg-section" class="mt-4 inline-block text-cyan font-bold hover:underline" data-lang="cta_saiba_mais" aria-label="Saiba Mais sobre ESG">Saiba Mais sobre ESG</a>
                     </div>
                 </div>
             </div>
@@ -395,10 +687,10 @@
             <div class="container mx-auto px-6 py-16">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div data-aos="fade-right">
-                        <h2 id="newsletter-title" class="text-3xl font-bold" data-lang="newsletter_title">Fique por dentro das novidades</h2>
-                        <p class="mt-2 text-gray-300" data-lang="newsletter_desc">Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.</p>
+                        <h2 id="newsletter-title" class="text-3xl font-bold" data-lang="newsletter_title" data-simplified="Receba notícias por e-mail">Fique por dentro das novidades</h2>
+                        <p class="mt-2 text-gray-300" data-lang="newsletter_desc" data-simplified="Assine nossa lista de e-mails para receber dicas de finanças e notícias sobre nossa plataforma.">Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.</p>
                     </div>
-                    <form class="flex flex-col sm:flex-row gap-3" data-aos="fade-left">
+                    <form class="flex flex-col sm:flex-row gap-3" data-aos="fade-left" action="https://indiciumfin.github.io/indicium360/newsletter-indicium360.html">
                         <input type="email" placeholder="Seu melhor e-mail" class="w-full px-4 py-3 rounded-lg border-none focus:outline-none focus:ring-2 ring-cyan text-dark-gray" aria-label="Email para newsletter">
                         <button type="submit" class="bg-cyan hover:bg-opacity-90 text-white font-bold py-3 px-6 rounded-lg transition duration-300 whitespace-nowrap" data-lang="newsletter_btn">Assinar agora</button>
                     </form>
@@ -414,23 +706,23 @@
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_institutional">Institucional</h3>
                     <ul class="space-y-2">
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_about_us"><li>Sobre Nós</li></a>
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_terms"><li>Termos de Uso</li></a>
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_sitemap"><li>Mapa do Site</li></a>
+                        <li><a href="https://indiciumfin.github.io/indicium360/sobre-nos.html" class="hover:text-cyan transition" data-lang="footer_about_us">Sobre Nós</a></li>
+                        <li><a href="https://indiciumfin.github.io/indicium360/termos-de-uso.html" class="hover:text-cyan transition" data-lang="footer_terms">Termos de Uso</a></li>
+                        <li><a href="https://indiciumfin.github.io/indicium360/sitemap.html" class="hover:text-cyan transition" data-lang="footer_sitemap">Mapa do Site</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_accessibility">Acessibilidade Digital</h3>
                     <ul class="space-y-2">
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_access_statement"><li>Declaração de acessibilidade</li></a>
+                        <li><a href="https://indiciumfin.github.io/indicium360/declaracao-acessibilidade-digital.html" class="hover:text-cyan transition" data-lang="footer_access_statement">Declaração de acessibilidade</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-white mb-4" data-lang="footer_sustainability">Sustentabilidade Digital</h3>
                     <ul class="space-y-2">
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_our_commitment_sus"><li>Nosso Compromisso</li></a>
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_impact_report"><li>Relatório de Impacto</li></a>
-                        <a href="#" class="hover:text-cyan transition" data-lang="footer_green_tech"><li>Tecnologia Verde</li></a>
+                        <li><a href="https://indiciumfin.github.io/indicium360/nosso-compromisso.html" class="hover:text-cyan transition" data-lang="footer_our_commitment_sus">Nosso Compromisso</a></li>
+                        <li><a href="https://indiciumfin.github.io/indicium360/relatorio-impacto.html" class="hover:text-cyan transition" data-lang="footer_impact_report">Relatório de Impacto</a></li>
+                        <li><a href="https://indiciumfin.github.io/indicium360/tecnologia-verde.html" class="hover:text-cyan transition" data-lang="footer_green_tech">Tecnologia Verde</a></li>
                     </ul>
                 </div>
                 <div>
@@ -447,10 +739,10 @@
                 <div class="mb-4 md:mb-0">
                     <h3 class="font-bold text-white mb-2 text-center md:text-left" data-lang="footer_social">Redes Sociais</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-cyan transition" aria-label="LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-cyan transition" aria-label="Instagram"><i class="fab fa-instagram fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-cyan transition" aria-label="YouTube"><i class="fab fa-youtube fa-2x" aria-hidden="true"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-cyan transition" aria-label="TikTok"><i class="fab fa-tiktok fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/" class="text-gray-300 hover:text-cyan transition" aria-label="LinkedIn"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/" class="text-gray-300 hover:text-cyan transition" aria-label="Instagram"><i class="fab fa-instagram fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.youtube.com/" class="text-gray-300 hover:text-cyan transition" aria-label="YouTube"><i class="fab fa-youtube fa-2x" aria-hidden="true"></i></a>
+                        <a href="https://www.tiktok.com/" class="text-gray-300 hover:text-cyan transition" aria-label="TikTok"><i class="fab fa-tiktok fa-2x" aria-hidden="true"></i></a>
                     </div>
                 </div>
                 <button id="manage-cookies-btn-footer" class="border border-gray-500 hover:border-cyan hover:text-cyan text-gray-300 py-2 px-4 rounded-full transition" data-lang="footer_manage_cookies">
@@ -458,8 +750,9 @@
                 </button>
             </div>
             <div class="mt-12 pt-8 border-t border-gray-700 text-center text-xs text-gray-400">
+                <p class="mb-2" data-lang="compliance_statement">Esta página está em conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1, Nível AAA.</p>
                 <p data-lang="footer_carbon_footprint">Pegada de carbono anual estimada: <strong>0,82 kg CO₂e</strong></p>
-                 <p>&copy; <span id="current-year"></span> Indicium360. <span data-lang="footer_rights">Todos os direitos reservados.</span> / <span data-lang="footer_developed_by">Desenvolvido por Indicium.</span></p>
+                <p>&copy; <span id="current-year"></span> Indicium360. <span data-lang="footer_rights">Todos os direitos reservados.</span> / <span data-lang="footer_developed_by">Desenvolvido por Indicium.</span></p>
             </div>
         </div>
     </footer>
@@ -467,9 +760,7 @@
     <!-- ===== Cookie Settings Modal ===== -->
     <div id="cookie-modal-backdrop" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div id="cookie-modal" class="relative text-dark-gray w-11/12 max-w-2xl rounded-lg shadow-2xl p-6 md:p-8" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
-            <button id="close-cookie-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800" aria-label="Fechar configurações de cookies">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+            <button id="close-cookie-modal-btn" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800" aria-label="Fechar configurações de cookies">&times;</button>
             <h2 id="cookie-modal-title" class="text-2xl font-bold text-dark-blue mb-4" data-lang="cookie_modal_title" tabindex="-1">Configurações de Cookies</h2>
             <p class="mb-6 text-gray" data-lang="cookie_modal_desc">Gerencie suas preferências de cookies. Você pode habilitar ou desabilitar os tipos de cookies abaixo a qualquer momento.</p>
             <div class="space-y-4">
@@ -513,7 +804,7 @@
     <!-- ===== Cookie Banner ===== -->
     <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 bg-dark-blue text-white p-4 shadow-2xl z-40 flex flex-col lg:flex-row items-center justify-between gap-4">
         <p class="text-sm text-center lg:text-left lg:mr-4 mb-4 lg:mb-0" data-lang="cookie_banner_text">
-            Usamos cookies para garantir que você tenha a melhor experiência em nosso site. <a href="#" class="text-cyan underline hover:text-cyan/80">Saiba mais</a>.
+            Usamos cookies para garantir que você tenha a melhor experiência em nosso site. <a href="https://indiciumfin.github.io/indicium360/politica-cookies.html" class="text-cyan underline hover:text-cyan/80">Saiba mais</a>.
         </p>
         <div class="flex-shrink-0 flex items-center gap-2">
             <button id="reject-cookies-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-full transition duration-300 whitespace-nowrap" data-lang="cookie_banner_reject">
@@ -532,31 +823,35 @@
     <div id="accessibility-backdrop"></div>
     <div id="accessibility-widget">
         <div id="accessibility-menu">
-            <button id="access-close-btn" aria-label="Fechar menu de acessibilidade">&times;</button>
-            <button id="access-reset-btn">
+            <button id="access-close-btn" aria-label="Fechar menu de acessibilidade" onclick="playFeedbackSound()">&times;</button>
+            <button id="access-reset-btn" onclick="playFeedbackSound()">
                 <i class="fa-solid fa-undo" aria-hidden="true"></i>
                 <span>Redefinir Ajustes</span>
             </button>
             
             <h3 class="access-section-title" data-lang="access_title_content">Ajustes de Conteúdo</h3>
-            <div role="button" tabindex="0" class="access-option" data-action="increase-text" aria-label="Aumentar tamanho do texto"><i class="fa-solid fa-font" aria-hidden="true"></i> <span data-lang="access_increase_text">Aumentar Texto</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="decrease-text" aria-label="Diminuir tamanho do texto"><i class="fa-solid fa-font" style="font-size: 0.8em;" aria-hidden="true"></i> <span data-lang="access_decrease_text">Diminuir Texto</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="readable-font" aria-label="Alternar para fonte legível"><i class="fa-solid fa-glasses" aria-hidden="true"></i> <span data-lang="access_readable_font">Fonte Legível</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="highlight-titles" aria-label="Destacar títulos"><i class="fa-solid fa-highlighter" aria-hidden="true"></i> <span data-lang="access_highlight_titles">Destacar Títulos</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="highlight-links" aria-label="Destacar links"><i class="fa-solid fa-link" aria-hidden="true"></i> <span data-lang="access_highlight_links">Destacar Links</span></div>
+            <button class="access-option" data-action="increase-text" aria-label="Aumentar tamanho do texto" onclick="playFeedbackSound()"><i class="fa-solid fa-font" aria-hidden="true"></i> <span data-lang="access_increase_text">Aumentar Texto</span></button>
+            <button class="access-option" data-action="decrease-text" aria-label="Diminuir tamanho do texto" onclick="playFeedbackSound()"><i class="fa-solid fa-font" style="font-size: 0.8em;" aria-hidden="true"></i> <span data-lang="access_decrease_text">Diminuir Texto</span></button>
+            <button class="access-option" data-action="readable-font" aria-label="Alternar para fonte legível" onclick="playFeedbackSound()"><i class="fa-solid fa-glasses" aria-hidden="true"></i> <span data-lang="access_readable_font">Fonte Legível</span></button>
+            <button class="access-option" data-action="wide-spacing" aria-label="Alternar espaçamento de texto amplo" onclick="playFeedbackSound()"><i class="fa-solid fa-arrows-left-right-to-line" aria-hidden="true"></i> <span data-lang="access_wide_spacing">Espaçamento Amplo</span></button>
+            <button class="access-option" data-action="simplified-language" aria-label="Alternar para linguagem simplificada" onclick="playFeedbackSound()"><i class="fa-solid fa-book" aria-hidden="true"></i> <span data-lang="access_simplified_language">Linguagem Simplificada</span></button>
+            <button class="access-option" data-action="highlight-titles" aria-label="Destacar títulos" onclick="playFeedbackSound()"><i class="fa-solid fa-highlighter" aria-hidden="true"></i> <span data-lang="access_highlight_titles">Destacar Títulos</span></button>
+            <button class="access-option" data-action="highlight-links" aria-label="Destacar links" onclick="playFeedbackSound()"><i class="fa-solid fa-link" aria-hidden="true"></i> <span data-lang="access_highlight_links">Destacar Links</span></button>
             
             <h3 class="access-section-title" data-lang="access_title_color">Ajustes de Cor</h3>
-            <div role="button" tabindex="0" class="access-option" data-action="dark-contrast" aria-label="Alternar contraste escuro"><i class="fa-solid fa-moon" aria-hidden="true"></i> <span data-lang="access_dark_contrast">Contraste Escuro</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="light-contrast" aria-label="Alternar contraste claro"><i class="fa-solid fa-sun" aria-hidden="true"></i> <span data-lang="access_light_contrast">Contraste Claro</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="grayscale" aria-label="Alternar escala de cinza"><i class="fa-solid fa-palette" aria-hidden="true"></i> <span data-lang="access_grayscale">Escala de Cinza</span></div>
+            <button class="access-option" data-action="dark-contrast" aria-label="Alternar contraste escuro" onclick="playFeedbackSound()"><i class="fa-solid fa-moon" aria-hidden="true"></i> <span data-lang="access_dark_contrast">Contraste Escuro</span></button>
+            <button class="access-option" data-action="light-contrast" aria-label="Alternar contraste claro" onclick="playFeedbackSound()"><i class="fa-solid fa-sun" aria-hidden="true"></i> <span data-lang="access_light_contrast">Contraste Claro</span></button>
+            <button class="access-option" data-action="grayscale" aria-label="Alternar escala de cinza" onclick="playFeedbackSound()"><i class="fa-solid fa-palette" aria-hidden="true"></i> <span data-lang="access_grayscale">Escala de Cinza</span></button>
             
             <h3 class="access-section-title" data-lang="access_title_orientation">Orientação</h3>
-            <div role="button" tabindex="0" class="access-option" data-action="big-cursor" aria-label="Alternar cursor grande"><i class="fa-solid fa-arrow-pointer" aria-hidden="true"></i> <span data-lang="access_big_cursor">Cursor Grande</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="reading-guide" aria-label="Alternar guia de leitura"><i class="fa-solid fa-ruler-horizontal" aria-hidden="true"></i> <span data-lang="access_reading_guide">Guia de Leitura</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="stop-animations" aria-label="Pausar ou retomar animações"><i class="fa-solid fa-pause" aria-hidden="true"></i> <span data-lang="access_stop_animations">Pausar Animações</span></div>
-            <div role="button" tabindex="0" class="access-option" data-action="vlibras" id="vlibras-option" aria-label="Ativar VLibras"><i class="fa-solid fa-hands-asl-interpreting" aria-hidden="true"></i> <span>Libras (VLibras)</span></div>
+            <button class="access-option" data-action="big-cursor" aria-label="Alternar cursor grande" onclick="playFeedbackSound()"><i class="fa-solid fa-arrow-pointer" aria-hidden="true"></i> <span data-lang="access_big_cursor">Cursor Grande</span></button>
+            <button class="access-option" data-action="reading-guide" aria-label="Alternar guia de leitura" onclick="playFeedbackSound()"><i class="fa-solid fa-ruler-horizontal" aria-hidden="true"></i> <span data-lang="access_reading_guide">Guia de Leitura</span></button>
+            <button class="access-option" data-action="stop-animations" aria-label="Pausar ou retomar animações" onclick="playFeedbackSound()"><i class="fa-solid fa-pause" aria-hidden="true"></i> <span data-lang="access_stop_animations">Pausar Animações</span></button>
+            <button class="access-option" data-action="read-animation-desc" aria-label="Ouvir a descrição da animação de fundo" onclick="playFeedbackSound()"><i class="fa-solid fa-volume-high" aria-hidden="true"></i> <span data-lang="access_read_animation_desc">Ouvir Descrição da Animação</span></button>
+            <button class="access-option" data-action="voice-nav" id="voice-nav-option" aria-label="Ativar navegação por voz" onclick="playFeedbackSound()"><i class="fa-solid fa-microphone-lines" aria-hidden="true"></i> <span data-lang="access_voice_nav">Navegação por Voz</span></button>
+            <button class="access-option" data-action="vlibras" id="vlibras-option" aria-label="Ativar VLibras" onclick="playFeedbackSound()"><i class="fa-solid fa-hands-asl-interpreting" aria-hidden="true"></i> <span>Libras (VLibras)</span></button>
         </div>
-        <button id="accessibility-button" aria-label="Abrir menu de acessibilidade">
+        <button id="accessibility-button" aria-label="Abrir menu de acessibilidade" onclick="playFeedbackSound()">
             <i class="fa-solid fa-universal-access fa-2x" aria-hidden="true"></i>
         </button>
     </div>
@@ -569,30 +864,33 @@
             <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
+    <audio id="feedbackSound" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-click-1120.mp3" preload="auto"></audio>
 
     <a href="https://wa.me/5511999999999" target="_blank" id="whatsapp-cta" aria-label="Fale com um especialista via WhatsApp" title="Fale com um especialista via WhatsApp">
-        <i class="fab fa-whatsapp fa-2x"></i>
+        <i class="fab fa-whatsapp fa-2x" aria-hidden="true"></i>
     </a>
-    
-    <!-- Scripts carregados de forma assíncrona/adiada -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
     
     <!-- Main Logic Script -->
     <script defer>
-        // --- LANGUAGE LOGIC ---
         const translations = {
             pt: {
                 nav_about: "Sobre Nós", nav_features: "Recursos", nav_blog: "Blog", nav_contact: "Contato", btn_access: "Acessar",
-                hero_title: "A plataforma definitiva para suas demonstrações financeiras.", hero_subtitle: "Automatize, analise e tome decisões mais inteligentes com relatórios precisos e dashboards interativos.", hero_cta: "Conheça os Recursos",
-                login_title: "Acesse sua Conta", login_email: "Email", login_password: "Senha", login_forgot: "Esqueceu a senha?", login_btn: "Entrar", login_signup: "Não tem uma conta? <a href='#' class='text-cyan font-bold hover:underline'>Comece agora</a>",
+                about_indicium: "A Indicium360", digital_accessibility: "Acessibilidade Digital", accessibility_statement: "Declaração de Acessibilidade Digital", digital_sustainability: "Sustentabilidade Digital", our_commitment: "Nosso Compromisso", impact_report: "Relatório de Impacto", green_tech: "Tecnologia Verde", site_policies: "Políticas do Site", cookie_policy: "Política de Cookies", privacy_policy: "Política de Privacidade", terms_of_use: "Termos de Uso",
+                hero_title: "A plataforma definitiva para suas demonstrações financeiras.", hero_subtitle: "Automatize, analise e tome decisões mais inteligentes com nosso software de demonstrações financeiras e dashboards interativos.", hero_cta: "Conheça os Recursos",
+                login_title: "Acesse sua Conta", login_email: "Email", login_password: "Senha", login_forgot: "Esqueceu a senha?", login_btn: "Entrar", login_signup: "Não tem uma conta? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Comece agora</a>",
                 features_title: "Inteligência Financeira ao seu Alcance", features_subtitle: "De relatórios contábeis complexos a dashboards de vendas intuitivos, temos tudo que você precisa para impulsionar seu negócio.",
                 feature1_title: "Relatórios Completos", feature1_desc: "Gere Balanço Patrimonial, DRE, DRA, DMPL, DFC, DVA e Notas Explicativas com apenas alguns cliques. Conformidade e precisão garantidas.", cta_saiba_mais: "Saiba Mais",
+                feature1_cta: "Saiba Mais sobre Relatórios",
                 feature2_title: "Dashboards Interativos", feature2_desc: "Visualize seus dados de vendas, estoque, clientes, fornecedores e fluxo de caixa em tempo real. Identifique tendências e oportunidades.",
+                feature2_cta: "Saiba Mais sobre Dashboards",
                 feature3_title: "Indicadores Chave", feature3_desc: "Acompanhe os principais indicadores financeiros e contábeis. Análise de liquidez, endividamento, rentabilidade e muito mais.",
+                feature3_cta: "Saiba Mais sobre Indicadores",
                 feature4_title: "Análises Estratégicas", feature4_desc: "Vá além dos números com análises AV/AH, indicadores de liquidez, rentabilidade, DuPont, Ponto de Equilíbrio e Capital de Giro.",
+                feature4_cta: "Saiba Mais sobre Análises",
                 feature5_title: "Planejamento (FP&A)", feature5_desc: "Crie orçamentos, projeções (forecasts) e simule cenários. Analise de desvios (Real vs. Orçado) e tome decisões baseadas em dados.",
+                feature5_cta: "Saiba Mais sobre Planejamento",
                 feature6_title: "Relatório ESG", feature6_desc: "Demonstre o compromisso da sua empresa com a sustentabilidade. Gere relatórios ESG completos e alinhados às melhores práticas de mercado.",
+                feature6_cta: "Saiba Mais sobre ESG",
                 newsletter_title: "Fique por dentro das novidades", newsletter_desc: "Assine nossa newsletter para receber insights sobre gestão financeira, atualizações da plataforma e dicas exclusivas.", newsletter_btn: "Assinar agora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nós", footer_terms: "Termos de Uso", footer_sitemap: "Mapa do Site",
                 footer_accessibility: "Acessibilidade Digital", footer_access_statement: "Declaração de acessibilidade",
@@ -601,29 +899,26 @@
                 footer_seal_access: "Selo Acessibilidade", footer_seal_sustain: "Selo Sustentabilidade", footer_seal_lgpd: "Selo LGPD",
                 footer_social: "Redes Sociais", footer_manage_cookies: "Gerenciar configurações de Cookies",
                 footer_rights: "Todos os direitos reservados.", footer_developed_by: "Desenvolvido por Indicium.",
-                cookie_banner_text: "Usamos cookies para garantir que você tenha a melhor experiência em nosso site. <a href='#' class='text-cyan underline hover:text-cyan/80'>Saiba mais</a>.",
-                cookie_banner_accept: "Aceitar", cookie_banner_reject: "Recusar", cookie_banner_manage: "Gerenciar",
-                cookie_modal_title: "Configurações de Cookies", cookie_modal_desc: "Gerencie suas preferências de cookies. Você pode habilitar ou desabilitar os tipos de cookies abaixo a qualquer momento.",
-                cookie_modal_essential: "Cookies Essenciais", cookie_modal_essential_desc: "Necessários para o funcionamento do site. Não podem ser desativados.",
-                cookie_modal_analytics: "Cookies de Análise", cookie_modal_analytics_desc: "Ajudam-nos a entender como os visitantes interagem com o site.",
-                cookie_modal_marketing: "Cookies de Marketing", cookie_modal_marketing_desc: "Usados para rastrear visitantes e exibir anúncios relevantes.",
-                cookie_modal_save: "Salvar",
-                access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Diminuir Texto", access_readable_font: "Fonte Legível", access_highlight_titles: "Destacar Títulos", access_highlight_links: "Destacar Links",
-                access_title_color: "Ajustes de Cor", access_dark_contrast: "Contraste Escuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Cinza",
-                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guia de Leitura", access_stop_animations: "Pausar Animações",
-                footer_carbon_footprint: "Pegada de carbono anual estimada: <strong>0,82 kg CO₂e</strong>"
+                compliance_statement: "Esta página está em conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG) 2.1, Nível AAA.",
             },
             en: {
                 nav_about: "About Us", nav_features: "Features", nav_blog: "Blog", nav_contact: "Contact", btn_access: "Access",
+                about_indicium: "About Indicium360", digital_accessibility: "Digital Accessibility", accessibility_statement: "Accessibility Statement", digital_sustainability: "Digital Sustainability", our_commitment: "Our Commitment", impact_report: "Impact Report", green_tech: "Green Technology", site_policies: "Site Policies", cookie_policy: "Cookie Policy", privacy_policy: "Privacy Policy", terms_of_use: "Terms of Use",
                 hero_title: "The definitive platform for your financial statements.", hero_subtitle: "Automate, analyze, and make smarter decisions with accurate reports and interactive dashboards.", hero_cta: "Discover Features",
-                login_title: "Access Your Account", login_email: "Email", login_password: "Password", login_forgot: "Forgot password?", login_btn: "Sign In", login_signup: "Don't have an account? <a href='#' class='text-cyan font-bold hover:underline'>Start now</a>",
+                login_title: "Access Your Account", login_email: "Email", login_password: "Password", login_forgot: "Forgot password?", login_btn: "Sign In", login_signup: "Don't have an account? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Start now</a>",
                 features_title: "Financial Intelligence at Your Fingertips", features_subtitle: "From complex accounting reports to intuitive sales dashboards, we have everything you need to boost your business.",
                 feature1_title: "Complete Reports", feature1_desc: "Generate Balance Sheets, Income Statements, and more with just a few clicks. Compliance and accuracy guaranteed.", cta_saiba_mais: "Learn More",
+                feature1_cta: "Learn More about Reports",
                 feature2_title: "Interactive Dashboards", feature2_desc: "Visualize your sales, inventory, customer, and cash flow data in real-time. Identify trends and opportunities.",
+                feature2_cta: "Learn More about Dashboards",
                 feature3_title: "Key Indicators", feature3_desc: "Track key financial and accounting indicators. Analysis of liquidity, debt, profitability, and more.",
+                feature3_cta: "Learn More about Indicators",
                 feature4_title: "Strategic Analysis", feature4_desc: "Go beyond the numbers with VA/HA analysis, liquidity ratios, profitability, DuPont, Break-Even Point, and Working Capital.",
+                feature4_cta: "Learn More about Analysis",
                 feature5_title: "Planning (FP&A)", feature5_desc: "Create budgets, forecasts, and simulate scenarios. Analyze deviations (Actual vs. Budget) and make data-driven decisions.",
+                feature5_cta: "Learn More about Planning",
                 feature6_title: "ESG Report", feature6_desc: "Demonstrate your company's commitment to sustainability. Generate complete ESG reports aligned with best market practices.",
+                feature6_cta: "Learn More about ESG",
                 newsletter_title: "Stay up to date with the latest news", newsletter_desc: "Subscribe to our newsletter to receive insights on financial management, platform updates, and exclusive tips.", newsletter_btn: "Subscribe now",
                 footer_institutional: "Institutional", footer_about_us: "About Us", footer_terms: "Terms of Use", footer_sitemap: "Sitemap",
                 footer_accessibility: "Digital Accessibility", footer_access_statement: "Accessibility Statement",
@@ -632,57 +927,107 @@
                 footer_seal_access: "Accessibility Seal", footer_seal_sustain: "Sustainability Seal", footer_seal_lgpd: "LGPD Seal",
                 footer_social: "Social Networks", footer_manage_cookies: "Manage Cookie Settings",
                 footer_rights: "All rights reserved.", footer_developed_by: "Developed by Indicium.",
-                cookie_banner_text: "We use cookies to ensure you get the best experience on our website. <a href='#' class='text-cyan underline hover:text-cyan/80'>Learn more</a>.",
+                cookie_banner_text: "We use cookies to ensure you get the best experience on our website. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Learn more</a>.",
                 cookie_banner_accept: "Accept", cookie_banner_reject: "Decline", cookie_banner_manage: "Manage",
                 cookie_modal_title: "Cookie Settings", cookie_modal_desc: "Manage your cookie preferences. You can enable or disable the types of cookies below at any time.",
                 cookie_modal_essential: "Essential Cookies", cookie_modal_essential_desc: "Necessary for the website to function. Cannot be disabled.",
                 cookie_modal_analytics: "Analytics Cookies", cookie_modal_analytics_desc: "Help us understand how visitors interact with the website.",
                 cookie_modal_marketing: "Marketing Cookies", cookie_modal_marketing_desc: "Used to track visitors and display relevant ads.",
                 cookie_modal_save: "Save",
-                access_title_content: "Content Adjustments", access_increase_text: "Increase Text", access_decrease_text: "Decrease Text", access_readable_font: "Readable Font", access_highlight_titles: "Highlight Titles", access_highlight_links: "Highlight Links",
+                access_title_content: "Content Adjustments", access_increase_text: "Increase Text", access_decrease_text: "Decrease Text", access_readable_font: "Readable Font", access_wide_spacing: "Wide Spacing", access_simplified_language: "Simplified Language", access_highlight_titles: "Highlight Titles", access_highlight_links: "Highlight Links",
                 access_title_color: "Color Adjustments", access_dark_contrast: "Dark Contrast", access_light_contrast: "Light Contrast", access_grayscale: "Grayscale",
-                access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations",
-                footer_carbon_footprint: "Estimated annual carbon footprint: <strong>0.82 kg CO₂e</strong>"
+                access_title_orientation: "Orientation", access_big_cursor: "Big Cursor", access_reading_guide: "Reading Guide", access_stop_animations: "Pause Animations", access_read_animation_desc: "Listen to Animation Description", access_voice_nav: "Voice Navigation",
+                footer_carbon_footprint: "Estimated annual carbon footprint: <strong>0.82 kg CO₂e</strong>",
+                compliance_statement: "This page is compliant with Web Content Accessibility Guidelines (WCAG) 2.1, Level AAA.",
             },
             es: {
                 nav_about: "Sobre Nosotros", nav_features: "Recursos", nav_blog: "Blog", nav_contact: "Contacto", btn_access: "Acceder",
+                about_indicium: "Acerca de Indicium360", digital_accessibility: "Accesibilidade Digital", accessibility_statement: "Declaración de Accesibilidad", digital_sustainability: "Sostenibilidad Digital", our_commitment: "Nuestro Compromiso", impact_report: "Informe de Impacto", green_tech: "Tecnologia Verde", site_policies: "Políticas del Sitio", cookie_policy: "Política de Cookies", privacy_policy: "Política de Privacidad", terms_of_use: "Términos de Uso",
                 hero_title: "La plataforma definitiva para sus estados financieros.", hero_subtitle: "Automatice, analice y tome decisiones más inteligentes con informes precisos y dashboards interactivos.", hero_cta: "Conozca los Recursos",
-                login_title: "Acceda a su Cuenta", login_email: "Email", login_password: "Contraseña", login_forgot: "¿Olvidó su contraseña?", login_btn: "Entrar", login_signup: "¿No tiene una cuenta? <a href='#' class='text-cyan font-bold hover:underline'>Comience ahora</a>",
+                login_title: "Acceda a su Cuenta", login_email: "Email", login_password: "Contraseña", login_forgot: "¿Olvidó su contraseña?", login_btn: "Entrar", login_signup: "¿No tiene una cuenta? <a href='https://indiciumfin.github.io/indicium360/login-indicium360.html' class='text-cyan font-bold hover:underline'>Comience ahora</a>",
                 features_title: "Inteligencia Financiera a su Alcance", features_subtitle: "Desde informes contables complejos hasta dashboards de ventas intuitivos, tenemos todo lo que necesita para impulsar su negocio.",
                 feature1_title: "Informes Completos", feature1_desc: "Genere Balances, Estados de Resultados y más con solo unos pocos clics. Cumplimiento y precisión garantizados.", cta_saiba_mais: "Saber Más",
+                feature1_cta: "Saber Más sobre Informes",
                 feature2_title: "Dashboards Interactivos", feature2_desc: "Visualice sus datos de ventas, inventario, clientes y flujo de caja en tiempo real. Identifique tendencias y oportunidades.",
+                feature2_cta: "Saber Más sobre Dashboards",
                 feature3_title: "Indicadores Clave", feature3_desc: "Siga los principales indicadores financieros y contables. Análisis de liquidez, endeudamiento, rentabilidad y mucho más.",
-                feature4_title: "Análisis Estratégico", feature4_desc: "Vaya más allá de los números con análisis AV/AH, indicadores de liquidez, rentabilidad, DuPont, Punto de Equilibrio y Capital de Trabajo.",
-                feature5_title: "Planificación (FP&A)", feature5_desc: "Cree presupuestos, proyecciones (forecasts) y simule escenarios. Analice desviaciones (Real vs. Presupuestado) y tome decisiones basadas en datos.",
-                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las mejores prácticas del mercado.",
+                feature3_cta: "Saber Más sobre Indicadores",
+                feature4_title: "Análisis Estratégico", feature4_desc: "Vaya más allá de los números con análises AV/AH, indicadores de liquidez, rentabilidad, DuPont, Punto de Equilíbrio y Capital de Trabajo.",
+                feature4_cta: "Saber Más sobre Análisis",
+                feature5_title: "Planificación (FP&A)", feature5_desc: "Cree presupuestos, proyeções (forecasts) e simule cenários. Analise desviaciones (Real vs. Presupuestado) y tome decisões baseadas em dados.",
+                feature5_cta: "Saber Más sobre Planificación",
+                feature6_title: "Informe ESG", feature6_desc: "Demonstre el compromiso de su empresa con la sostenibilidad. Genere informes ESG completos y alinhados con las mejores práticas del mercado.",
+                feature6_cta: "Saber Más sobre ESG",
                 newsletter_title: "Manténgase al día con las novedades", newsletter_desc: "Suscríbase a nuestro boletín para recibir información sobre gestión financiera, actualizaciones de la plataforma y consejos exclusivos.", newsletter_btn: "Suscribirse ahora",
                 footer_institutional: "Institucional", footer_about_us: "Sobre Nosotros", footer_terms: "Términos de Uso", footer_sitemap: "Mapa del Sitio",
                 footer_accessibility: "Accesibilidade Digital", footer_access_statement: "Declaración de Accesibilidad",
-                footer_sustainability: "Sostenibilidad Digital", footer_our_commitment_sus: "Nuestro Compromiso", footer_impact_report: "Informe de Impacto", footer_green_tech: "Tecnología Verde",
-                footer_our_commitment: "Nuestro Compromiso", footer_commitment_desc: "Nuestro sitio web adota como princípio de governanza el compromiso con altos estándares de accesibilidad digital, sostenibilidad digital y protección de datos.",
+                footer_sustainability: "Sostenibilidad Digital", footer_our_commitment_sus: "Nuestro Compromiso", footer_impact_report: "Informe de Impacto", footer_green_tech: "Tecnologia Verde",
+                footer_our_commitment: "Nuestro Compromiso", footer_commitment_desc: "Nuestro sitio web adota como princípio de governanza el compromiso con altos estándares de acessibilidade digital, sostenibilidad digital y protección de datos.",
                 footer_seal_access: "Sello de Accesibilidad", footer_seal_sustain: "Sello de Sostenibilidad", footer_seal_lgpd: "Sello LGPD",
                 footer_social: "Social Networks", footer_manage_cookies: "Gestionar configuración de Cookies",
                 footer_rights: "Todos los derechos reservados.", footer_developed_by: "Desarrollado por Indicium.",
-                cookie_banner_text: "Usamos cookies para garantizar que tenga la mejor experiencia en nuestro sitio web. <a href='#' class='text-cyan underline hover:text-cyan/80'>Saber más</a>.",
+                cookie_banner_text: "We use cookies to ensure you get the best experience on our website. <a href='https://indiciumfin.github.io/indicium360/politica-cookies.html' class='text-cyan underline hover:text-cyan/80'>Saber más</a>.",
                 cookie_banner_accept: "Aceptar", cookie_banner_reject: "Rechazar", cookie_banner_manage: "Gestionar",
-                cookie_modal_title: "Configuración de Cookies", cookie_modal_desc: "Administre sus preferencias de cookies. Puede habilitar o desabilitar los tipos de cookies a continuación en cualquier momento.",
+                cookie_modal_title: "Configuración de Cookies", cookie_modal_desc: "Administre sus preferencias de cookies. Puede habilitar ou desabilitar os tipos de cookies a continuación en cualquier momento.",
                 cookie_modal_essential: "Cookies Esenciales", cookie_modal_essential_desc: "Necesarias para el funcionamiento del sitio web. No se pueden desativar.",
                 cookie_modal_analytics: "Cookies de Análisis", cookie_modal_analytics_desc: "Nos ayudan a comprender cómo los visitantes interactúan con el sitio web.",
                 cookie_modal_marketing: "Cookies de Marketing", cookie_modal_marketing_desc: "Se utilizan para rastrear a los visitantes y mostrar anuncios relevantes.",
                 cookie_modal_save: "Guardar",
-                access_title_content: "Ajustes de Contenido", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legível", access_highlight_titles: "Resaltar Títulos", access_highlight_links: "Resaltar Enlaces",
+                access_title_content: "Ajustes de Conteúdo", access_increase_text: "Aumentar Texto", access_decrease_text: "Disminuir Texto", access_readable_font: "Fuente Legível", access_wide_spacing: "Espaçamento Amplo", access_simplified_language: "Simplified Language", access_highlight_titles: "Resaltar Títulos", access_highlight_links: "Resaltar Enlaces",
                 access_title_color: "Ajustes de Color", access_dark_contrast: "Contraste Oscuro", access_light_contrast: "Contraste Claro", access_grayscale: "Escala de Grises",
-                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guía de Lectura", access_stop_animations: "Pausar Animações",
-                footer_carbon_footprint: "Huella de carbono anual estimada: <strong>0.82 kg CO₂e</strong>"
+                access_title_orientation: "Orientação", access_big_cursor: "Cursor Grande", access_reading_guide: "Guía de Lectura", access_stop_animations: "Pausar Animações", access_read_animation_desc: "Escuchar descripción de la animación", access_voice_nav: "Voice Navigation",
+                footer_carbon_footprint: "Huella de carbono anual estimada: <strong>0.82 kg CO₂e</strong>",
+                compliance_statement: "Esta página es conforme a las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, Nivel AAA.",
             }
         };
 
-        function changeLanguage(lang) {
+        // Funções para a audiodescrição da animação
+        const speakAnimationDescription = () => {
+          const description = document.getElementById('animation-description').textContent;
+          const speech = new SpeechSynthesisUtterance(description);
+          speech.lang = document.documentElement.lang.toLowerCase();
+          window.speechSynthesis.speak(speech);
+        };
+        // Funções de feedback sonoro para botões
+        const playFeedbackSound = () => {
+          const sound = document.getElementById('feedbackSound');
+          if (sound) {
+            sound.currentTime = 0;
+            sound.play();
+          }
+        };
+        
+        // Funções para simplificação de linguagem
+        const originalContent = {};
+        const elementsToSimplify = document.querySelectorAll('[data-simplified]');
+        elementsToSimplify.forEach(el => {
+            originalContent[el.getAttribute('data-lang')] = el.innerHTML;
+        });
+
+        const simplifyText = () => {
+            const isSimplified = document.body.classList.toggle('simplified-language');
+            elementsToSimplify.forEach(el => {
+                if (isSimplified) {
+                    const simplifiedText = el.getAttribute('data-simplified');
+                    if (simplifiedText) {
+                        el.innerHTML = simplifiedText;
+                    }
+                } else {
+                    const originalText = originalContent[el.getAttribute('data-lang')];
+                    if (originalText) {
+                        el.innerHTML = originalText;
+                    }
+                }
+            });
+        };
+
+        const changeLanguage = (lang) => {
             document.documentElement.lang = lang.toUpperCase();
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
+                const simplified = document.body.classList.contains('simplified-language');
                 if (translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    el.innerHTML = simplified ? el.getAttribute('data-simplified') : translations[lang][key];
                 }
             });
             document.querySelectorAll('.language-selector button').forEach(btn => btn.classList.remove('active'));
@@ -692,11 +1037,77 @@
             if (vlibrasOption) {
                 vlibrasOption.style.display = (lang === 'pt') ? 'flex' : 'none';
             }
-        }
+        };
+        
+        // Lógica aprimorada para menu mobile e navegação por teclado.
+        const mobileMenuOverlay = document.getElementById('mobile-menu');
+        const hamburgerButton = document.getElementById('hamburger-button');
+
+        const toggleMobileMenu = () => {
+            const isOpen = mobileMenuOverlay.classList.toggle('mobile-nav-open');
+            hamburgerButton.classList.toggle('mobile-menu-open');
+            hamburgerButton.setAttribute('aria-expanded', isOpen);
+            if (isOpen) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        };
+
+        const toggleMobileSubmenu = (button) => {
+            const parentLi = button.closest('li');
+            const isOpen = parentLi.classList.toggle('open');
+            button.setAttribute('aria-expanded', isOpen);
+        };
+        
+        hamburgerButton.addEventListener('click', toggleMobileMenu);
+
+        // Lógica de navegação por teclado e click para dropdowns do desktop
+        const desktopDropdowns = document.querySelectorAll('.dropdown > a');
+        desktopDropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                const parentLi = e.target.closest('.dropdown');
+                const isOpen = parentLi.classList.toggle('open');
+                e.target.setAttribute('aria-expanded', isOpen);
+            });
+            dropdown.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const parentLi = e.target.closest('.dropdown');
+                    const isOpen = parentLi.classList.toggle('open');
+                    e.target.setAttribute('aria-expanded', isOpen);
+                }
+            });
+            dropdown.addEventListener('blur', (e) => {
+                const parentLi = e.target.closest('.dropdown');
+                if (!parentLi.contains(e.relatedTarget)) {
+                    parentLi.classList.remove('open');
+                    e.target.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+        
+        // Clicar em um item de menu no mobile também fecha o menu
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                const hasSubmenu = link.closest('.has-submenu');
+                if (!hasSubmenu) {
+                     toggleMobileMenu();
+                }
+            });
+        });
+        // FIM DA MUDANÇA
 
         document.addEventListener('DOMContentLoaded', function () {
-            AOS.init({ duration: 800, once: true, offset: 50 });
+            const aosScript = document.createElement('script');
+            aosScript.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+            aosScript.defer = true;
+            document.body.appendChild(aosScript);
 
+            aosScript.onload = () => {
+                AOS.init({ duration: 800, once: true, offset: 50 });
+            };
+            
             document.getElementById('current-year').textContent = new Date().getFullYear();
             const userLang = navigator.language.slice(0, 2) || 'pt';
             changeLanguage(['pt', 'en', 'es'].includes(userLang) ? userLang : 'pt');
@@ -712,22 +1123,28 @@
             const closeCookieModalBtn = document.getElementById('close-cookie-modal-btn');
             const analyticsToggle = document.getElementById('analytics-cookie-toggle');
             const marketingToggle = document.getElementById('marketing-cookie-toggle');
+            
+            const showCookieBanner = () => {
+                cookieBanner.classList.remove('hidden');
+            };
+
+            const hideCookieBanner = () => {
+                cookieBanner.classList.add('hidden');
+            };
 
             const showCookieModal = () => {
-                const prefs = JSON.parse(localStorage.getItem('cookiePreferences')) || { analytics: true, marketing: true };
+                const prefs = JSON.parse(localStorage.getItem('cookiePreferences')) || { analytics: false, marketing: false };
                 analyticsToggle.checked = prefs.analytics;
                 marketingToggle.checked = prefs.marketing;
                 cookieModalBackdrop.classList.remove('hidden');
             };
 
-            const hideCookieModal = () => cookieModalBackdrop.classList.add('hidden');
-            
-            const hideCookieBanner = () => cookieBanner.classList.add('hidden');
+            const hideCookieModal = () => {
+                cookieModalBackdrop.classList.add('hidden');
+            };
 
             if (!localStorage.getItem('cookieConsent')) {
-                cookieBanner.classList.remove('hidden');
-            } else {
-                hideCookieBanner();
+                showCookieBanner();
             }
 
             acceptCookiesBtn.addEventListener('click', () => {
@@ -776,6 +1193,16 @@
             const accessCloseBtn = document.getElementById('access-close-btn');
             const accessResetBtn = document.getElementById('access-reset-btn');
             let isAnimationPaused = false;
+            
+            const allElements = document.querySelectorAll('p, h1, h2, h3, a, button, li, input');
+            const originalStyles = new Map();
+            allElements.forEach(el => {
+                originalStyles.set(el, {
+                    lineHeight: el.style.lineHeight,
+                    letterSpacing: el.style.letterSpacing,
+                    wordSpacing: el.style.wordSpacing
+                });
+            });
 
             const openMenu = () => {
                 accessibilityMenu.classList.add('open');
@@ -787,26 +1214,79 @@
                 accessibilityBackdrop.classList.remove('open');
             };
 
-            accessibilityButton.addEventListener('click', openMenu);
+            accessibilityButton.addEventListener('click', () => {
+                openMenu();
+                playFeedbackSound();
+            });
             accessCloseBtn.addEventListener('click', closeMenu);
             accessibilityBackdrop.addEventListener('click', closeMenu);
 
             const resetAccessibility = () => {
-                const classesToRemove = ['readable-font', 'highlight-titles', 'highlight-links', 'dark-contrast', 'light-contrast', 'grayscale', 'big-cursor', 'reading-guide-active'];
+                const classesToRemove = ['readable-font', 'highlight-titles', 'highlight-links', 'dark-contrast', 'light-contrast', 'grayscale', 'big-cursor', 'reading-guide-active', 'simplified-language', 'wide-spacing'];
                 document.body.classList.remove(...classesToRemove);
                 document.documentElement.style.setProperty('--font-scale', '1.0');
                 document.querySelectorAll('.access-option.active').forEach(el => el.classList.remove('active'));
                 
+                elementsToSimplify.forEach(el => {
+                    const originalText = originalContent[el.getAttribute('data-lang')];
+                    if (originalText) {
+                        el.innerHTML = originalText;
+                    }
+                });
+
+                 allElements.forEach(el => {
+                    const styles = originalStyles.get(el);
+                    el.style.lineHeight = styles.lineHeight;
+                    el.style.letterSpacing = styles.letterSpacing;
+                    el.style.wordSpacing = styles.wordSpacing;
+                });
+                
                 isAnimationPaused = false;
                 const stopAnimButton = document.querySelector('.access-option[data-action="stop-animations"]');
                 if (stopAnimButton) {
-                    stopAnimButton.querySelector('span').textContent = 'Pausar Animações';
+                    stopAnimButton.querySelector('span').textContent = translations[userLang].access_stop_animations;
                     stopAnimButton.querySelector('i').className = 'fa-solid fa-pause';
                 }
             };
 
             accessResetBtn.addEventListener('click', resetAccessibility);
+            
+            // Adicionando lógica para espaçamento de texto amplo
+            const toggleWideSpacing = () => {
+                document.body.classList.toggle('wide-spacing');
+            };
 
+            // Lógica da Web Speech API para navegação por voz
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'pt-BR';
+            recognition.continuous = false;
+
+            recognition.onresult = (event) => {
+                const comando = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+                if (comando.includes("ir para contato")) {
+                    window.location.href = "https://indiciumfin.github.io/indicium360/contato.html";
+                } else if (comando.includes("ir para recursos")) {
+                    window.location.href = "https://indiciumfin.github.io/indicium360/recursos.html";
+                } else if (comando.includes("abrir menu")) {
+                    openMenu();
+                } else if (comando.includes("fechar menu")) {
+                    closeMenu();
+                } else if (comando.includes("ouvir descrição da animação")) {
+                    speakAnimationDescription();
+                }
+            };
+
+            let isVoiceNavActive = false;
+            const toggleVoiceNav = (el) => {
+                isVoiceNavActive = !isVoiceNavActive;
+                el.classList.toggle('active');
+                if (isVoiceNavActive) {
+                    recognition.start();
+                } else {
+                    recognition.stop();
+                }
+            };
+            
             const accessOptions = {
                 'increase-text': () => {
                     let currentScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale'));
@@ -817,6 +1297,8 @@
                     document.documentElement.style.setProperty('--font-scale', Math.max(currentScale - 0.1, 0.7));
                 },
                 'readable-font': (el) => { document.body.classList.toggle('readable-font'); el.classList.toggle('active'); },
+                'wide-spacing': (el) => { toggleWideSpacing(el); el.classList.toggle('active'); },
+                'simplified-language': (el) => { simplifyText(); el.classList.toggle('active'); },
                 'highlight-titles': (el) => { document.body.classList.toggle('highlight-titles'); el.classList.toggle('active'); },
                 'highlight-links': (el) => { document.body.classList.toggle('highlight-links'); el.classList.toggle('active'); },
                 'dark-contrast': (el) => { document.body.classList.toggle('dark-contrast'); el.classList.toggle('active'); },
@@ -837,6 +1319,8 @@
                         AOS.refreshHard();
                     }
                 },
+                'read-animation-desc': () => { speakAnimationDescription(); },
+                'voice-nav': (el) => { toggleVoiceNav(el); },
                 'vlibras': () => {
                     const vlibrasButton = document.querySelector('[vw-access-button]');
                     if(vlibrasButton) vlibrasButton.click();
@@ -852,6 +1336,18 @@
                     }
                 }
             });
+
+            // Critério 3.3.5 Ajuda Contextual (AAA): Adicionando evento de foco para exibir a ajuda da senha.
+            const passwordInput = document.getElementById('password');
+            const passwordMicrocopy = document.getElementById('password-microcopy');
+            if (passwordInput && passwordMicrocopy) {
+              passwordInput.addEventListener('focus', () => {
+                passwordMicrocopy.classList.add('active');
+              });
+              passwordInput.addEventListener('blur', () => {
+                passwordMicrocopy.classList.remove('active');
+              });
+            }
 
             const readingGuide = document.getElementById('reading-guide');
             window.addEventListener('mousemove', (e) => {
@@ -972,19 +1468,41 @@
                     
                     if (!emailInput.value.includes('@')) {
                         emailInput.classList.add('input-error');
+                        emailInput.setAttribute('aria-invalid', 'true');
+                        emailError.textContent = 'Por favor, insira um e-mail válido.';
                         emailError.style.display = 'block';
                         isValid = false;
                     } else {
                         emailInput.classList.remove('input-error');
+                        emailInput.setAttribute('aria-invalid', 'false');
                         emailError.style.display = 'none';
                     }
 
-                    if (passwordInput.value.length < 8) {
+                    const passwordValue = passwordInput.value;
+                    const hasUpperCase = /[A-Z]/.test(passwordValue);
+                    const hasNumber = /[0-9]/.test(passwordValue);
+
+                    if (passwordValue.length < 8) {
                         passwordInput.classList.add('input-error');
+                        passwordInput.setAttribute('aria-invalid', 'true');
+                        passwordError.textContent = 'A senha deve ter no mínimo 8 caracteres.';
                         passwordError.style.display = 'block';
                         isValid = false;
+                    } else if (!hasUpperCase) {
+                         passwordInput.classList.add('input-error');
+                         passwordInput.setAttribute('aria-invalid', 'true');
+                         passwordError.textContent = 'A senha deve conter pelo menos uma letra maiúscula.';
+                         passwordError.style.display = 'block';
+                         isValid = false;
+                    } else if (!hasNumber) {
+                         passwordInput.classList.add('input-error');
+                         passwordInput.setAttribute('aria-invalid', 'true');
+                         passwordError.textContent = 'A senha deve conter pelo menos um número.';
+                         passwordError.style.display = 'block';
+                         isValid = false;
                     } else {
                         passwordInput.classList.remove('input-error');
+                        passwordInput.setAttribute('aria-invalid', 'false');
                         passwordError.style.display = 'none';
                     }
 
@@ -993,16 +1511,44 @@
                     }
                 });
             }
-
-            new window.VLibras.Widget('https://vlibras.gov.br/app');
             
-            const playSound = (src) => {
-                const audio = new Audio(src);
-                audio.play();
-            }
+            const playFeedbackSound = () => {
+              const sound = document.getElementById('feedbackSound');
+              if (sound) {
+                sound.currentTime = 0;
+                sound.play();
+              }
+            };
+
             document.getElementById('accessibility-button').addEventListener('click', () => {
-                // playSound('/sons/click.mp3'); // Comentado, pois depende de um arquivo local
+                playFeedbackSound();
             });
+
+            function initializeAnalyticsAndMarketing() {
+                const prefs = JSON.parse(localStorage.getItem('cookiePreferences'));
+                const consent = localStorage.getItem('cookieConsent');
+                
+                if (consent === 'true') {
+                    if (prefs.analytics) {
+                        const analyticsScript = document.querySelector('script[data-cookiecategory="analytics"]');
+                        if (analyticsScript) {
+                            const newScript = document.createElement('script');
+                            newScript.textContent = analyticsScript.textContent;
+                            document.head.appendChild(newScript);
+                        }
+                    }
+                    if (prefs.marketing) {
+                        const marketingScript = document.querySelector('script[data-cookiecategory="marketing"]');
+                        if (marketingScript) {
+                             const newScript = document.createElement('script');
+                             newScript.textContent = marketingScript.textContent;
+                             document.head.appendChild(newScript);
+                        }
+                    }
+                }
+            }
+
+            initializeAnalyticsAndMarketing();
         });
     </script>
 </body>
