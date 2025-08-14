@@ -1792,5 +1792,437 @@
             }
         });
     </script>
+
+<style id="i360-accessibility-styles">
+/* ===== Indicium360 A11Y Widget (Hand Talk style) ===== */
+:root{
+  --i360-primary:#0A2F5B;
+  --i360-accent:#2EC4B6;
+  --i360-focus:#FFD24D;
+  --i360-text:#0A2F5B;
+  --i360-bg:#FFFFFF;
+  --i360-shadow:0 10px 30px rgba(0,0,0,.15);
+  --i360-font-scale:1;
+  --i360-zoom:1;
+}
+
+/* base scale */
+html { font-size: calc(16px * var(--i360-font-scale)); }
+
+/* widget button */
+#i360-a11y-fab{
+  position:fixed; inset:auto 20px 20px auto;
+  display:flex; align-items:center; gap:.5rem;
+  background:linear-gradient(135deg,var(--i360-primary),var(--i360-accent));
+  color:#fff; border:none; border-radius:999px; padding:.75rem 1rem;
+  box-shadow:var(--i360-shadow); cursor:pointer; z-index:10050;
+  font-weight:600;
+}
+#i360-a11y-fab svg{ width:22px; height:22px; }
+#i360-a11y-fab:focus{ outline:3px solid var(--i360-focus); outline-offset:2px; }
+
+/* panel */
+#i360-a11y-panel{
+  position:fixed; left:20px; bottom:100px; width:320px; max-width:92vw;
+  background:linear-gradient(180deg,var(--i360-primary),var(--i360-accent));
+  color:#fff; border-radius:16px; box-shadow:var(--i360-shadow);
+  padding:14px; z-index:10049; display:none;
+}
+#i360-a11y-panel.open{ display:block; }
+#i360-a11y-panel h3{ font-size:1rem; margin:.25rem 0 .5rem 0; font-weight:700; }
+.i360-row{ display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
+.i360-opt{
+  display:flex; align-items:center; gap:.5rem;
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.15);
+  border-radius:12px; padding:.6rem; cursor:pointer;
+}
+.i360-opt svg{ width:20px; height:20px; flex:none; }
+.i360-opt span{ line-height:1.1; }
+.i360-opt small{ display:block; font-size:.7rem; opacity:.9; }
+.i360-opt:focus{ outline:3px solid var(--i360-focus); outline-offset:2px; }
+.i360-opt.active{ background:#fff; color:var(--i360-primary); }
+.i360-badge{ font-size:.7rem; padding:.15rem .4rem; border-radius:6px; background:rgba(0,0,0,.15); margin-left:auto; }
+
+/* position selector */
+#i360-position { width:100%; border-radius:8px; padding:.35rem; border:none; color:var(--i360-primary); }
+
+/* operational classes */
+.i360-highlight-titles h1,.i360-highlight-titles h2,.i360-highlight-titles h3{ background:#FFD24D; color:#111; padding:.1em .3em; border-radius:.2em; }
+.i360-highlight-links a{ text-decoration:underline; background:#FFD24D; color:#111; }
+.i360-contrast-dark{ filter:none; background:#000 !important; color:#fff !important; }
+.i360-contrast-light{ filter:none; background:#fff !important; color:#000 !important; }
+.i360-grayscale{ filter:grayscale(1); }
+.i360-big-cursor, .i360-big-cursor *{ cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><path d="M0 0 L24 12 L0 24 Z" fill="black"/></svg>'), auto !important; }
+#i360-reading-guide{ display:none; position:fixed; left:0; width:100%; height:3px; background:#FFD24D; pointer-events:none; z-index:10060; }
+.i360-reading-on #i360-reading-guide{ display:block; }
+
+/* reduced motion */
+.i360-reduced *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+
+/* zoom (lupa) */
+.i360-zoom-100{ --i360-zoom:1; }
+.i360-zoom-125{ --i360-zoom:1.25; }
+.i360-zoom-150{ --i360-zoom:1.5; }
+body.i360-zoom-125, body.i360-zoom-150{ transform:scale(var(--i360-zoom)); transform-origin: top left; width: calc(100% / var(--i360-zoom)); }
+
+/* OpenDyslexic */
+@font-face{
+  font-family:'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/gh/antijingoist/open-dyslexic/alternatives/OpenDyslexicAlt-Regular.otf') format('opentype');
+  font-display: swap;
+}
+.i360-dyslexia{ font-family:'OpenDyslexic', Arial, sans-serif !important; background:#fff !important; color:#000 !important; }
+
+/* VLibras button ensure visible */
+#vlibras-btn,[vw]{ display:block !important; z-index:10080 !important; position:fixed; right:20px; bottom:90px; }
+
+/* general width limits */
+#cookie-banner, #cookie-modal, #btn-acessar, .language-selector, #whatsapp-cta, .floating-whatsapp {
+  max-width:90vw; margin-left:auto; margin-right:auto;
+}
+
+/* mobile submenu z-index */
+.dropdown-menu,.mobile-submenu{ z-index:10010; }
+
+/* cookie banner injected */
+#i360-cookie { position:fixed; bottom:0; left:0; right:0; background:#0A2F5B; color:#fff; padding:12px; z-index:10070; display:none; }
+#i360-cookie .inner{ display:flex; gap:.75rem; align-items:center; justify-content:space-between; max-width:1100px; margin:0 auto; }
+#i360-cookie button { background:#2EC4B6; color:#003B4A; border:none; border-radius:8px; padding:.5rem .75rem; font-weight:700; }
+#i360-cookie a { color:#FFD24D; text-decoration:underline; }
+
+/* desktop/pwa flags */
+.only-desktop{ display:none; }
+@media (min-width:768px){ .only-desktop{ display:flex !important; } .only-pwa{ display:none !important; } }
+@media (max-width:767px){ .only-desktop{ display:none !important; } .only-pwa{ display:flex !important; } }
+</style>
+
+<!-- ===== Indicium360 A11Y Widget ===== -->
+<button id="i360-a11y-fab" aria-haspopup="true" aria-controls="i360-a11y-panel" aria-expanded="false">
+  <!-- accessibility icon -->
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4a2 2 0 1 1 0 4a2 2 0 0 1 0-4M4 8v2h6v10h2V10h6V8z"/></svg>
+  Acessibilidade
+</button>
+
+<div id="i360-a11y-panel" role="dialog" aria-label="Menu de Acessibilidade" aria-modal="false">
+  <h3>Texto</h3>
+  <div class="i360-row">
+    <button class="i360-opt" id="i360-text-normal"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M5 20V18H10V6H7V4H17V6H14V18H19V20Z"/></svg><span>Texto <small id="i360-text-level">Normal</small></span></button>
+    <button class="i360-opt" id="i360-text-plus"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 18V6H9V4H15V6H13V18M4 13V11H8V13M16 13V11H20V13"/></svg><span>Aumentar</span><span class="i360-badge">+10%</span></button>
+  </div>
+  <div class="i360-row" style="margin-top:.5rem">
+    <button class="i360-opt" id="i360-text-minus"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 18V6H9V4H15V6H13V18M4 13V11H8V13"/></svg><span>Diminuir</span><span class="i360-badge">-10%</span></button>
+    <button class="i360-opt" id="i360-dyslexia"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 4h18v2H3m0 7h18v2H3m0 7h18v2H3"/></svg><span>Fonte Dislexia</span></button>
+  </div>
+
+  <h3 style="margin-top:.75rem">Destaques e Contraste</h3>
+  <div class="i360-row">
+    <button class="i360-opt" id="i360-highlight-titles"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 20V18H20V20M4 16V8H6V12H10V8H12V16H10V14H6V16Z"/></svg><span>Títulos</span></button>
+    <button class="i360-opt" id="i360-highlight-links"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M10.59 13.41L9.17 12l4.24-4.24l1.41 1.41M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 1 0 0 6h3v2h-3a5 5 0 0 1-5-5m7.1 1h2v-2h-2m4-6h3a5 5 0 1 1 0 10h-3v-2h3a3 3 0 0 0 0-6h-3z"/></svg><span>Links</span></button>
+  </div>
+  <div class="i360-row" style="margin-top:.5rem">
+    <button class="i360-opt" id="i360-contrast-dark"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A10,10 0 1,0 22,12A10,10 0 0,0 12,2M12,4V20A8,8 0 0,1 12,4Z"/></svg><span>Contraste Escuro</span></button>
+    <button class="i360-opt" id="i360-contrast-light"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 12a9 9 0 0 1 9-9v18a9 9 0 0 1-9-9Z"/></svg><span>Contraste Claro</span></button>
+  </div>
+  <div class="i360-row" style="margin-top:.5rem">
+    <button class="i360-opt" id="i360-grayscale"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg><span>Escala Cinza</span></button>
+    <button class="i360-opt" id="i360-pause-anim"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6M14 5v14h4V5"/></svg><span>Pausar Animações</span></button>
+  </div>
+
+  <h3 style="margin-top:.75rem">Navegação</h3>
+  <div class="i360-row">
+    <button class="i360-opt" id="i360-big-cursor"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 20.5L10 14l-6.5 3.5L9 3l8.5 6.5L13 13l7.5 3z"/></svg><span>Cursor Grande</span></button>
+    <button class="i360-opt" id="i360-reading-guide-btn"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M3 12h18v2H3z"/></svg><span>Guia de Leitura</span></button>
+  </div>
+  <div class="i360-row" style="margin-top:.5rem">
+    <button class="i360-opt" id="i360-zoom-100"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><span>Lupa 100%</span></button>
+    <button class="i360-opt" id="i360-zoom-125"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27..."/></svg><span>Lupa 125%</span></button>
+  </div>
+  <div class="i360-row" style="margin-top:.5rem">
+    <button class="i360-opt" id="i360-zoom-150"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27..."/></svg><span>Lupa 150%</span></button>
+    <select id="i360-position" aria-label="Posição do widget">
+      <option value="bl">Posição: Inferior Esquerda</option>
+      <option value="br" selected>Posição: Inferior Direita</option>
+      <option value="tl">Posição: Superior Esquerda</option>
+      <option value="tr">Posição: Superior Direita</option>
+    </select>
+  </div>
+
+  <h3 style="margin-top:.75rem">Língua de Sinais</h3>
+  <div class="i360-row">
+    <button class="i360-opt" id="i360-sign-toggle"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M2 12h20v2H2z"/></svg><span>Ativar/Desativar</span></button>
+    <button class="i360-opt" id="i360-sign-options"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a4 4 0 1 1 0 8a4 4 0 0 1 0-8m8-2v2h-4V6zM8 6v2H4V6zM4 16h4v2H4zm12 0h4v2h-4z"/></svg><span>Idioma atual</span><span class="i360-badge" id="i360-sign-badge">pt-BR</span></button>
+  </div>
+</div>
+
+<div id="i360-reading-guide" aria-hidden="true"></div>
+
+<script id="i360-accessibility-scripts">
+(function(){
+  const $ = (q,ctx=document)=>ctx.querySelector(q);
+  const $$ = (q,ctx=document)=>Array.from(ctx.querySelectorAll(q));
+  const state = {
+    fontScale: 1,
+    zoom: '100',
+    position: localStorage.getItem('i360-pos') || 'br',
+    signLang: localStorage.getItem('i360-sign') || 'pt-BR',
+    signOn: localStorage.getItem('i360-sign-on') === '1'
+  };
+
+  // FAB toggle
+  const fab = document.getElementById('i360-a11y-fab');
+  const panel = document.getElementById('i360-a11y-panel');
+  if(fab && panel){
+    fab.addEventListener('click', ()=>{
+      const open = panel.classList.toggle('open');
+      fab.setAttribute('aria-expanded', open?'true':'false');
+    });
+  }
+
+  // Helpers for active styles
+  function activate(btn, on=true){
+    if(!btn) return;
+    btn.classList.toggle('active', !!on);
+  }
+
+  // Text controls
+  const elLevel = document.getElementById('i360-text-level');
+  const btnNormal = document.getElementById('i360-text-normal');
+  const btnPlus = document.getElementById('i360-text-plus');
+  const btnMinus = document.getElementById('i360-text-minus');
+
+  function applyScale(){
+    document.documentElement.style.setProperty('--i360-font-scale', state.fontScale.toFixed(2));
+    let label = 'Normal';
+    if(state.fontScale >= 1.25) label = 'Grande';
+    else if(state.fontScale > 1.0) label = 'Médio';
+    elLevel && (elLevel.textContent = label);
+    activate(btnNormal, state.fontScale===1);
+  }
+  btnNormal && btnNormal.addEventListener('click', ()=>{ state.fontScale = 1; applyScale(); });
+  btnPlus && btnPlus.addEventListener('click', ()=>{ state.fontScale = Math.min(2, state.fontScale + 0.10); applyScale(); });
+  btnMinus && btnMinus.addEventListener('click', ()=>{ state.fontScale = Math.max(0.5, state.fontScale - 0.10); applyScale(); });
+  applyScale();
+
+  // Dyslexia font
+  const btnDys = document.getElementById('i360-dyslexia');
+  btnDys && btnDys.addEventListener('click', ()=>{
+    document.body.classList.toggle('i360-dyslexia');
+    activate(btnDys, document.body.classList.contains('i360-dyslexia'));
+  });
+
+  // Highlights / Contrast / Gray
+  const mapToggles = [
+    ['i360-highlight-titles','i360-highlight-titles'],
+    ['i360-highlight-links','i360-highlight-links'],
+    ['i360-contrast-dark','i360-contrast-dark'],
+    ['i360-contrast-light','i360-contrast-light'],
+    ['i360-grayscale','i360-grayscale'],
+    ['i360-big-cursor','i360-big-cursor'],
+  ];
+  mapToggles.forEach(([id,cls])=>{
+    const el = document.getElementById(id);
+    el && el.addEventListener('click', ()=> {
+      document.body.classList.toggle(cls);
+      activate(el, document.body.classList.contains(cls));
+    });
+  });
+
+  // Pause animations
+  const btnPause = document.getElementById('i360-pause-anim');
+  btnPause && btnPause.addEventListener('click', ()=>{
+    document.body.classList.toggle('i360-reduced');
+    activate(btnPause, document.body.classList.contains('i360-reduced'));
+  });
+
+  // Reading guide
+  const btnRG = document.getElementById('i360-reading-guide-btn');
+  btnRG && btnRG.addEventListener('click', ()=>{
+    document.body.classList.toggle('i360-reading-on');
+    activate(btnRG, document.body.classList.contains('i360-reading-on'));
+  });
+  document.addEventListener('mousemove', (e)=>{
+    const rg = document.getElementById('i360-reading-guide');
+    if(rg && document.body.classList.contains('i360-reading-on')){
+      rg.style.top = (e.clientY)+'px';
+    }
+  });
+
+  // Zoom (lupa)
+  function setZoom(level){ 
+    ['i360-zoom-100','i360-zoom-125','i360-zoom-150'].forEach(c=>document.body.classList.remove(c));
+    document.body.classList.add('i360-zoom-'+level);
+    state.zoom = level;
+    ['100','125','150'].forEach(l=>activate(document.getElementById('i360-zoom-'+l), l===level));
+  }
+  ['100','125','150'].forEach(level=>{
+    const b = document.getElementById('i360-zoom-'+level);
+    b && b.addEventListener('click', ()=> setZoom(level));
+  });
+  setZoom(state.zoom);
+
+  // Position selector
+  const posSel = document.getElementById('i360-position');
+  function applyPos(val){
+    const fab = document.getElementById('i360-a11y-fab');
+    const panel = document.getElementById('i360-a11y-panel');
+    const map = { bl:['auto auto 20px 20px','20px'], br:['auto 20px 20px auto','20px'], tl:['20px auto auto 20px','-20px'], tr:['20px 20px auto auto','-20px'] };
+    if(fab){ 
+      const [fabInset] = [map[val]||map.br];
+      fab.style.inset = fabInset[0];
+    }
+    if(panel){
+      if(val==='bl'){ panel.style.left='20px'; panel.style.right='auto'; panel.style.bottom='100px'; panel.style.top='auto'; }
+      if(val==='br'){ panel.style.left='auto'; panel.style.right='20px'; panel.style.bottom='100px'; panel.style.top='auto'; }
+      if(val==='tl'){ panel.style.left='20px'; panel.style.right='auto'; panel.style.top='100px'; panel.style.bottom='auto'; }
+      if(val==='tr'){ panel.style.left='auto'; panel.style.right='20px'; panel.style.top='100px'; panel.style.bottom='auto'; }
+    }
+    localStorage.setItem('i360-pos', val);
+  }
+  posSel && (posSel.value = state.position, applyPos(state.position), posSel.addEventListener('change', e=>applyPos(e.target.value)));
+
+  // ===== Sign Language Loader =====
+  const signBadge = document.getElementById('i360-sign-badge');
+  const btnSignToggle = document.getElementById('i360-sign-toggle');
+  const btnSignOptions = document.getElementById('i360-sign-options');
+
+  function removeExistingSign(){
+    // Remove any previous widget elements
+    $$('[vw], #vlibras, #vpw, .ht-signer, .asl-widget, .bsl-widget, .lse-widget, .lgp-widget').forEach(n=>n.remove());
+    // remove injected script tags
+    $$('script[data-i360-sign]').forEach(s=>s.remove());
+  }
+
+  function loadScript(src){
+    return new Promise((resolve,reject)=>{
+      const s=document.createElement('script');
+      s.src=src; s.async=true; s.defer=true; s.dataset.i360Sign='1';
+      s.onload=()=>resolve();
+      s.onerror=()=>reject(new Error('Erro ao carregar plugin: '+src));
+      document.body.appendChild(s);
+    });
+  }
+
+  // Config de plugins gratuitos (VLibras é gratuito/open source)
+  const SIGN_PLUGINS = {
+    'pt-BR': { type:'vlibras', url:'https://vlibras.gov.br/app/vlibras-plugin.js' },
+    // Para ASL/BSL/LSE/LGP não há, hoje, um widget público/gratuito robusto similar ao VLibras.
+    // Mantemos placeholders para integrar soluções gratuitas quando disponíveis.
+    'en-US': { type:'placeholder', url:'' }, // ASL
+    'en-CA': { type:'placeholder', url:'' }, // ASL (Canada)
+    'en-GB': { type:'placeholder', url:'' }, // BSL
+    'es-MX': { type:'placeholder', url:'' }, // LSM/LSE
+    'es-ES': { type:'placeholder', url:'' }, // LSE
+    'pt-PT': { type:'placeholder', url:'' }  // LGP
+  };
+
+  async function activateSign(forcedLang){
+    const lang = forcedLang || state.signLang;
+    signBadge && (signBadge.textContent = lang);
+    removeExistingSign();
+    const cfg = SIGN_PLUGINS[lang];
+    if(!cfg){ return; }
+    if(cfg.type==='vlibras'){
+      // container for VLibras
+      const c = document.createElement('div');
+      c.setAttribute('vw','');
+      c.className='enabled';
+      c.innerHTML = '<div vw-access-button id="vlibras-btn" class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>';
+      document.body.appendChild(c);
+      await loadScript(cfg.url).catch(console.warn);
+      try{ new window.VLibras.Widget('https://vlibras.gov.br/app'); }catch(e){/* ignore */}
+    }else{
+      // Placeholder: exibir aviso acessível
+      const info = document.createElement('div');
+      info.setAttribute('role','status');
+      info.style.cssText='position:fixed; right:20px; bottom:90px; background:#fff; color:#0A2F5B; border:2px solid #2EC4B6; padding:8px 10px; border-radius:10px; z-index:10080; max-width: 260px;';
+      info.className='i360-sign-placeholder';
+      info.innerHTML = '<strong>Recurso de língua de sinais</strong><br/>Para "'+lang+'", integre um plugin gratuito quando disponível. (VLibras ativo para pt-BR)';
+      document.body.appendChild(info);
+    }
+    localStorage.setItem('i360-sign', lang);
+  }
+
+  btnSignToggle && btnSignToggle.addEventListener('click', ()=>{
+    state.signOn = !state.signOn;
+    localStorage.setItem('i360-sign-on', state.signOn ? '1':'0');
+    if(state.signOn){ activateSign(); } else { removeExistingSign(); }
+  });
+
+  btnSignOptions && btnSignOptions.addEventListener('click', ()=>{
+    // simples ciclo de idiomas suportados
+    const order = ['pt-BR','en-US','en-CA','en-GB','es-MX','es-ES','pt-PT'];
+    let idx = order.indexOf(state.signLang);
+    idx = (idx+1)%order.length;
+    state.signLang = order[idx];
+    if(state.signOn){ activateSign(state.signLang); } else { signBadge.textContent = state.signLang; }
+  });
+
+  // Auto-ativar VLibras se já estava ligado
+  if(state.signOn){ activateSign(state.signLang); }
+
+  // ===== Mobile "Sobre Nós" submenu ensure items =====
+  function ensureMobileSubmenu(){
+    const mobileMenus = $$('.mobile-nav-item.has-submenu');
+    // Procura por "Sobre Nós" (por texto do link)
+    const sobre = mobileMenus.find(it=>/sobre\s*n[óo]s/i.test(it.textContent||'')) || null;
+    if(!sobre) return;
+    let sub = $('.mobile-submenu', sobre);
+    if(!sub){
+      sub = document.createElement('ul');
+      sub.className='mobile-submenu';
+      sobre.appendChild(sub);
+    }
+    const wanted = [
+      { text:'Acessibilidade Digital', href:'/acessibilidade' },
+      { text:'Sustentabilidade Digital', href:'/sustentabilidade' },
+      { text:'Políticas do Site', href:'/politicas' },
+    ];
+    wanted.forEach(w=>{
+      if(!Array.from(sub.querySelectorAll('a')).some(a=>a.textContent.trim()===w.text)){
+        const li=document.createElement('li');
+        const a=document.createElement('a');
+        a.href=w.href; a.textContent=w.text; a.setAttribute('role','menuitem');
+        li.appendChild(a); sub.appendChild(li);
+      }
+    });
+  }
+  ensureMobileSubmenu();
+
+  // ===== Cookie banner: show on first visit; inject if missing =====
+  function showCookie(){
+    const b = document.getElementById('cookie-banner') || document.getElementById('i360-cookie');
+    if(b){ b.style.display='block'; }
+  }
+  if(!localStorage.getItem('cookieConsent')){
+    // inject if missing
+    if(!document.getElementById('cookie-banner')){
+      const wrap = document.createElement('div');
+      wrap.id='i360-cookie';
+      wrap.innerHTML = '<div class="inner"><span>Usamos cookies para melhorar sua experiência. Leia a nossa <a href="/politica-de-cookies">Política de Cookies</a>.</span><span><button id="i360-cookie-accept">Aceitar</button> <button id="i360-cookie-deny" style="background:#fff;color:#0A2F5B;">Negar</button></span></div>';
+      document.body.appendChild(wrap);
+    }
+    showCookie();
+  }
+  document.addEventListener('click',(e)=>{
+    if(e.target && e.target.id==='i360-cookie-accept'){
+      localStorage.setItem('cookieConsent','accepted');
+      const b = document.getElementById('i360-cookie'); if(b) b.remove();
+      const legacy = document.getElementById('cookie-banner'); if(legacy) legacy.style.display='none';
+    }
+    if(e.target && e.target.id==='i360-cookie-deny'){
+      localStorage.setItem('cookieConsent','denied');
+      const b = document.getElementById('i360-cookie'); if(b) b.remove();
+      const legacy = document.getElementById('cookie-banner'); if(legacy) legacy.style.display='none';
+    }
+  });
+
+  // ===== Ensure VLibras button visible even under grayscale =====
+  window.addEventListener('load', ()=>{
+    const vlb = document.querySelector('#vlibras-btn,[vw]');
+    if(vlb){ vlb.style.display='block'; vlb.style.filter='none'; }
+  });
+
+})();
+</script>
 </body>
 </html>
