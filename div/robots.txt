@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://indiciumfin.github.io/indicium360/sitemap.xml
