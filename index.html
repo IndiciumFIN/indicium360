@@ -314,13 +314,18 @@
             const mtlLoader = new MTLLoader(manager);
             const objLoader = new OBJLoader(manager);
 
-            // Carregar o MTL e depois o OBJ
-            mtlLoader.load('uploaded:Graph_Ascendicon_0815104238_texture.mtl', (materials) => {
+            // Carregar o MTL e depois o OBJ.
+            // O URL da textura foi fornecido pelo usuário.
+            // Os URLs do OBJ e MTL foram inferidos com base na estrutura de URL do PNG.
+            const baseUrl = 'https://indiciumfin.github.io/indicium360/assets/images/';
+            const mtlUrl = baseUrl + 'Graph_Ascendicon_0815104238_texture.mtl';
+            const objUrl = baseUrl + 'Graph_Ascendicon_0815104238_texture.obj';
+            
+            mtlLoader.load(mtlUrl, (materials) => {
                 materials.preload();
                 objLoader.setMaterials(materials);
-                objLoader.load('uploaded:Graph_Ascendicon_0815104238_texture.obj', (obj) => {
+                objLoader.load(objUrl, (obj) => {
                     logoMesh = obj;
-                    // Escala e posição do logo para se ajustar à cena
                     logoMesh.scale.set(0.1, 0.1, 0.1);
                     logoMesh.position.set(0, 0, 0);
                     scene.add(logoMesh);
@@ -331,7 +336,8 @@
             }, undefined, (error) => {
                 console.error('An error occurred loading MTL:', error);
                 showMessage('Erro ao carregar o material.');
-                });
+            });
+
             // Quando tudo estiver carregado
             manager.onLoad = () => {
                 console.log('Todos os assets carregados.');
@@ -347,6 +353,7 @@
             if (isPlaying) return;
             isPlaying = true;
             playButton.style.display = 'none';
+            logoContainer.style.opacity = '1';
 
             // Preparar a fila de narração
             narrationQueue = [];
@@ -364,7 +371,6 @@
 
             let scriptIndex = 0;
             let currentSlogan = "";
-            let animationStartTime = Date.now();
 
             function updateSlogan(newText) {
                 if (currentSlogan !== newText) {
@@ -379,14 +385,13 @@
                     updateSlogan(narration.text);
                     audioPlayer = new Audio(narration.url);
                     audioPlayer.volume = 0.8;
-                    await audioPlayer.play();
                     
-                    const nextScript = script[scriptIndex + 1];
-                    const delay = (nextScript?.duration || 0) * 1000;
-                    setTimeout(() => {
-                        scriptIndex++;
-                        playNextNarration();
-                    }, audioPlayer.duration * 1000);
+                    audioPlayer.onended = () => {
+                      scriptIndex++;
+                      playNextNarration();
+                    }
+                    
+                    await audioPlayer.play();
                 } else {
                     isPlaying = false;
                     backgroundMusic.pause();
@@ -401,8 +406,6 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                const elapsedTime = clock.getElapsedTime();
-
                 controls.update();
                 
                 // Animação da rotação do logo
