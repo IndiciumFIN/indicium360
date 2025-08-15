@@ -309,33 +309,37 @@
                 const progress = (loaded / total) * 100;
                 loadingBar.style.width = `${progress}%`;
             };
+            manager.onError = (url) => {
+                showMessage(`Erro ao carregar o arquivo: ${url}. Por favor, verifique se o caminho está correto.`);
+                console.error('Erro de carregamento:', url);
+            };
 
             // OBJ e MTL Loaders
             const mtlLoader = new MTLLoader(manager);
             const objLoader = new OBJLoader(manager);
 
-            // Carregar o MTL e depois o OBJ.
-            // O URL da textura foi fornecido pelo usuário.
-            // Os URLs do OBJ e MTL foram inferidos com base na estrutura de URL do PNG.
+            // O URL base para os assets (onde estão os arquivos .obj, .mtl e .png)
+            // Substitua esta URL se seus arquivos estiverem em um local diferente.
             const baseUrl = 'https://indiciumfin.github.io/indicium360/assets/images/';
-            const mtlUrl = baseUrl + 'Graph_Ascendicon_0815104238_texture.mtl';
-            const objUrl = baseUrl + 'Graph_Ascendicon_0815104238_texture.obj';
+            const mtlFileName = 'Graph_Ascendicon_0815104238_texture.mtl';
+            const objFileName = 'Graph_Ascendicon_0815104238_texture.obj';
             
-            mtlLoader.load(mtlUrl, (materials) => {
+            // Adicionando o caminho base para que o MTLLoader e OBJLoader
+            // possam encontrar os arquivos de material e modelo, e também a textura
+            // que está no mesmo diretório.
+            mtlLoader.setPath(baseUrl);
+            objLoader.setPath(baseUrl);
+            
+            // Carregar o MTL e depois o OBJ
+            mtlLoader.load(mtlFileName, (materials) => {
                 materials.preload();
                 objLoader.setMaterials(materials);
-                objLoader.load(objUrl, (obj) => {
+                objLoader.load(objFileName, (obj) => {
                     logoMesh = obj;
                     logoMesh.scale.set(0.1, 0.1, 0.1);
                     logoMesh.position.set(0, 0, 0);
                     scene.add(logoMesh);
-                }, undefined, (error) => {
-                    console.error('An error occurred loading OBJ:', error);
-                    showMessage('Erro ao carregar o modelo 3D.');
                 });
-            }, undefined, (error) => {
-                console.error('An error occurred loading MTL:', error);
-                showMessage('Erro ao carregar o material.');
             });
 
             // Quando tudo estiver carregado
