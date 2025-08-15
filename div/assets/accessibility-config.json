@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "features": {
+    "screenReader": true,
+    "keyboardNavigation": true,
+    "highContrast": true,
+    "fontSize": true,
+    "colorBlindness": true,
+    "dyslexia": true,
+    "virtualKeyboard": true,
+    "textToSpeech": true,
+    "readingGuide": true,
+    "magnifier": true
+  },
+  "wcag": {
+    "level": "AAA",
+    "version": "2.1"
+  },
+  "languages": [
+    "pt-BR",
+    "en",
+    "es"
+  ],
+  "lastUpdated": "2025-08-15T03:02:33.474Z"
+}
