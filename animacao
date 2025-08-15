@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animação de Logo 3D</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Nunito+Sans:opsz,wght@6..12,800&display=swap" rel="stylesheet">
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at center, #0d2a4f 0%, #010a1f 70%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #logo-container {
+            position: absolute;
+            z-index: 2;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #main-title {
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 3rem;
+            color: #1A3e74;
+            text-shadow: 0 0 10px rgba(26, 62, 116, 0.8), 0 0 20px rgba(26, 62, 116, 0.6);
+            margin: 0;
+        }
+
+        #slogan {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ccc;
+            margin-top: 10px;
+            max-width: 80%;
+        }
+
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #010a1f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #loading-text {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        #loading-bar-container {
+            width: 200px;
+            height: 8px;
+            background-color: #444;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #1A3e74;
+            transition: width 0.1s linear;
+        }
+        
+        #message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 10;
+            display: none;
+        }
+
+        #play-button {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background-color: #1A3e74;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 5;
+            display: none; /* Inicia oculto */
+        }
+
+        #play-button:hover {
+            transform: translateX(-50%) scale(1.05);
+            background-color: #2a5a9d;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">
+        <div id="loading-text">Carregando Modelo...</div>
+        <div id="loading-bar-container">
+            <div id="loading-bar"></div>
+        </div>
+    </div>
+    <div id="logo-container">
+        <h1 id="main-title">Calculadoras de Enfermagem</h1>
+        <p id="slogan"></p>
+    </div>
+    <button id="play-button">Iniciar Animação</button>
+    <div id="message-box"></div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+        import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+        // Helper para mostrar mensagens na tela
+        function showMessage(message) {
+            const messageBox = document.getElementById('message-box');
+            messageBox.innerText = message;
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+
+        // Dados do roteiro
+        const script = [
+            { text: "A excelência na enfermagem exige precisão.", duration: 5 },
+            { text: "A inovação exige novas soluções.", duration: 5 },
+            { text: "Da complexidade à clareza. Da incerteza à eficiência. A ferramenta que capacita a sua equipe.", duration: 8 },
+            { text: "Realize seus cálculos e aplique suas escalas de enfermagem com apenas alguns cliques!", duration: 6 }
+        ];
+
+        let scene, camera, renderer, controls;
+        let logoMesh;
+        let clock = new THREE.Clock();
+        let audioPlayer;
+        let isPlaying = false;
+        let narrationQueue = [];
+
+        const mainTitle = document.getElementById('main-title');
+        const slogan = document.getElementById('slogan');
+        const logoContainer = document.getElementById('logo-container');
+        const playButton = document.getElementById('play-button');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingBar = document.getElementById('loading-bar');
+        
+        async function fetchAudio(prompt) {
+            let retries = 0;
+            const maxRetries = 5;
+            const baseDelay = 1000;
+
+            while (retries < maxRetries) {
+                try {
+                    const payload = {
+                        contents: [{ parts: [{ text: prompt }] }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: { prebuiltVoiceConfig: { voiceName: "Rasalgethi" } }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API call failed with status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (!audioData || !mimeType || !mimeType.startsWith("audio/")) {
+                        throw new Error("Invalid audio data from API");
+                    }
+                    
+                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                    const pcmData = Uint8Array.from(atob(audioData), c => c.charCodeAt(0));
+                    const pcm16 = new Int16Array(pcmData.buffer);
+
+                    function pcmToWav(pcm, sampleRate) {
+                        const buffer = new ArrayBuffer(44 + pcm.length * 2);
+                        const view = new DataView(buffer);
+                        writeString(view, 0, 'RIFF');
+                        view.setUint32(4, 36 + pcm.length * 2, true);
+                        writeString(view, 8, 'WAVE');
+                        writeString(view, 12, 'fmt ');
+                        view.setUint32(16, 16, true);
+                        view.setUint16(20, 1, true);
+                        view.setUint16(22, 1, true);
+                        view.setUint32(24, sampleRate, true);
+                        view.setUint32(28, sampleRate * 1 * 16 / 8, true);
+                        view.setUint16(32, 1 * 16 / 8, true);
+                        view.setUint16(34, 16, true);
+                        writeString(view, 36, 'data');
+                        view.setUint32(40, pcm.length * 2, true);
+                        for (let i = 0; i < pcm.length; i++) {
+                            view.setInt16(44 + i * 2, pcm[i], true);
+                        }
+                        return new Blob([view], { type: 'audio/wav' });
+                    }
+
+                    function writeString(view, offset, string) {
+                        for (let i = 0; i < string.length; i++) {
+                            view.setUint8(offset + i, string.charCodeAt(i));
+                        }
+                    }
+
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    return URL.createObjectURL(wavBlob);
+                } catch (error) {
+                    console.error('Error fetching audio, retrying:', error);
+                    retries++;
+                    await new Promise(resolve => setTimeout(resolve, baseDelay * Math.pow(2, retries - 1)));
+                }
+            }
+            showMessage('Não foi possível carregar a narração após várias tentativas.');
+            return null;
+        }
+
+        async function init() {
+            // Cena, Câmera, Renderizador
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            camera.position.z = 10;
+            
+            // Controles de câmera
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 5;
+            controls.maxDistance = 20;
+
+            // Iluminação
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+
+            // Gerenciador de carregamento
+            const manager = new THREE.LoadingManager();
+            manager.onProgress = (item, loaded, total) => {
+                const progress = (loaded / total) * 100;
+                loadingBar.style.width = `${progress}%`;
+            };
+
+            // OBJ e MTL Loaders
+            const mtlLoader = new MTLLoader(manager);
+            const objLoader = new OBJLoader(manager);
+
+            // Carregar o MTL e depois o OBJ
+            mtlLoader.load('uploaded:Graph_Ascendicon_0815104238_texture.mtl', (materials) => {
+                materials.preload();
+                objLoader.setMaterials(materials);
+                objLoader.load('uploaded:Graph_Ascendicon_0815104238_texture.obj', (obj) => {
+                    logoMesh = obj;
+                    // Escala e posição do logo para se ajustar à cena
+                    logoMesh.scale.set(0.1, 0.1, 0.1);
+                    logoMesh.position.set(0, 0, 0);
+                    scene.add(logoMesh);
+                }, undefined, (error) => {
+                    console.error('An error occurred loading OBJ:', error);
+                    showMessage('Erro ao carregar o modelo 3D.');
+                });
+            }, undefined, (error) => {
+                console.error('An error occurred loading MTL:', error);
+                showMessage('Erro ao carregar o material.');
+            });
+
+            // Quando tudo estiver carregado
+            manager.onLoad = () => {
+                console.log('Todos os assets carregados.');
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                    playButton.style.display = 'block';
+                }, 1000); // Aguarda o fade-out
+            };
+        }
+        
+        async function playAnimation() {
+            if (isPlaying) return;
+            isPlaying = true;
+            playButton.style.display = 'none';
+
+            // Preparar a fila de narração
+            narrationQueue = [];
+            for (const item of script) {
+                const audioUrl = await fetchAudio(item.text);
+                if (audioUrl) {
+                    narrationQueue.push({ url: audioUrl, duration: item.duration, text: item.text });
+                }
+            }
+
+            const backgroundMusic = new Audio('https://cdn.jsdelivr.net/npm/@tonejs/audio-examples/examples/assets/audio/synth.mp3');
+            backgroundMusic.loop = true;
+            backgroundMusic.volume = 0.3;
+            backgroundMusic.play();
+
+            let scriptIndex = 0;
+            let currentSlogan = "";
+            let animationStartTime = Date.now();
+
+            function updateSlogan(newText) {
+                if (currentSlogan !== newText) {
+                    slogan.innerText = newText;
+                    currentSlogan = newText;
+                }
+            }
+            
+            async function playNextNarration() {
+                if (scriptIndex < narrationQueue.length) {
+                    const narration = narrationQueue[scriptIndex];
+                    updateSlogan(narration.text);
+                    audioPlayer = new Audio(narration.url);
+                    audioPlayer.volume = 0.8;
+                    await audioPlayer.play();
+                    
+                    const nextScript = script[scriptIndex + 1];
+                    const delay = (nextScript?.duration || 0) * 1000;
+                    setTimeout(() => {
+                        scriptIndex++;
+                        playNextNarration();
+                    }, audioPlayer.duration * 1000);
+                } else {
+                    isPlaying = false;
+                    backgroundMusic.pause();
+                    backgroundMusic.currentTime = 0;
+                    logoContainer.style.transition = 'opacity 1s';
+                    logoContainer.style.opacity = '0';
+                    playButton.style.display = 'block';
+                }
+            }
+            
+            playNextNarration();
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+
+                controls.update();
+                
+                // Animação da rotação do logo
+                if (logoMesh) {
+                    logoMesh.rotation.y += 0.005;
+                }
+                
+                renderer.render(scene, camera);
+            }
+
+            animate();
+        }
+
+        window.onload = function() {
+            init();
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            playButton.addEventListener('click', playAnimation);
+        }
+    </script>
+</body>
+</html>
