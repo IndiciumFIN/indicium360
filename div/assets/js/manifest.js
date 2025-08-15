@@ -1,0 +1,49 @@
+{
+  "name": "Indicium360 - Inteligência Financeira",
+  "short_name": "Indicium360",
+  "description": "Software de demonstrações financeiras com dashboards interativos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A2F5B",
+  "theme_color": "#2EC4B6",
+  "icons": [
+    {
+      "src": "assets/images/indicium360-favicon.webp",
+      "sizes": "192x192",
+      "type": "image/webp"
+    }
+  ],
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "screenshots": [
+    {
+      "src": "assets/images/screenshot-wide.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/images/screenshot-narrow.webp",
+      "sizes": "640x1136",
+      "type": "image/webp",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Acessibilidade",
+      "short_name": "A11y",
+      "description": "Abrir menu de acessibilidade",
+      "url": "/#accessibility",
+      "icons": [
+        {
+          "src": "assets/images/accessibility-icon.webp",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
