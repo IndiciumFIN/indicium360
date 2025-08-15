@@ -319,9 +319,10 @@
             const objLoader = new OBJLoader(manager);
 
             // O URL base para os assets (onde estão os arquivos .obj, .mtl e .png)
-            // Substitua esta URL se seus arquivos estiverem em um local diferente.
             const baseUrl = 'https://indiciumfin.github.io/indicium360/assets/images/';
-            const mtlFileName = 'Graph_Ascendicon_0815104238_texture.mtl';
+            
+            // Corrigido para carregar 'model.mtl' que é referenciado no seu arquivo .obj
+            const mtlFileName = 'model.mtl'; 
             const objFileName = 'Graph_Ascendicon_0815104238_texture.obj';
             
             // Adicionando o caminho base para que o MTLLoader e OBJLoader
