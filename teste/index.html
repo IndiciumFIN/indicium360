@@ -45,7 +45,7 @@
     <div id="global-footer-placeholder"></div>
 
     <!-- Nosso JavaScript Global -->
-    <script src="global-scripts.js" type="module"></script>
+    <script src="global-scripts.js"></script>
 
     <!-- Script para carregar Header e Footer -->
     <script>
@@ -58,6 +58,7 @@
          * ambientes que podem não ter o Firebase carregado via CDN.
          */
         document.addEventListener('DOMContentLoaded', () => {
+
             // Função para carregar e injetar HTML
             const loadComponent = (url, placeholderId, callback = () => {}) => {
                 fetch(url)
