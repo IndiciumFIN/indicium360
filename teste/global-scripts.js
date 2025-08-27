@@ -9,12 +9,14 @@ function loadScript(src) {
 // Carregar o badge de carbono no final do corpo, conforme o script original
 loadScript("https://unpkg.com/website-carbon-badges@1.1.3/b.min.js");
 
-// Função principal que contém toda a lógica de inicialização de botões e modais
-// Esta função será chamada pelo Index.html apenas quando todos os componentes
-// tiverem sido carregados.
-window.initializeAllScripts = () => {
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- FIREBASE INITIALIZATION & DYNAMIC FORMS ---
     // A configuração do Firebase está agora no arquivo HTML principal para
     // que possa ser usada em outros scripts no futuro, se necessário.
+
+    // A lógica de newsletter e sugestão agora usa uma função utilitária para reutilização
+    // A API Key foi substituída por um placeholder para processamento em ambiente homologado
     const firebaseConfig = {
         apiKey: "__FIREBASE_API_KEY__",
         authDomain: "site-calculadoras.firebaseapp.com",
@@ -110,58 +112,79 @@ window.initializeAllScripts = () => {
         closeMenuBtn.addEventListener('click', toggleMenu);
     }
     
-    // --- ACCORDION MENU MÓVEL ---
-    document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const content = button.nextElementSibling;
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            content.classList.toggle('hidden');
-            const icon = button.querySelector('i');
-            icon.classList.toggle('fa-chevron-down');
-            icon.classList.toggle('fa-chevron-up');
-            icon.classList.toggle('rotate-180');
-        });
-    });
+    // --- LÓGICA DE NAVEGAÇÃO UNIFICADA (DESKTOP E MÓVEL) ---
+    // Esta função lida com todos os dropdowns de navegação, unificando a lógica.
+    function setupNavigation() {
+        // Encontra todos os botões que controlam um menu dropdown
+        const dropdownButtons = document.querySelectorAll('[aria-haspopup="true"]');
 
-    // --- DROPDOWNS DESKTOP & MOBILE ---
-    function setupDropdown(btnId, menuId) {
-        const button = document.getElementById(btnId);
-        const menu = document.getElementById(menuId);
-        if (!button || !menu) return;
+        dropdownButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const menuId = button.getAttribute('aria-controls');
+                const menu = document.getElementById(menuId);
+                
+                if (!menu) return;
 
-        button.addEventListener('click', (event) => {
-            event.stopPropagation();
-            const isCurrentlyOpen = !menu.classList.contains('hidden');
+                const isCurrentlyOpen = button.getAttribute('aria-expanded') === 'true';
 
-            // Fecha todos os menus primeiro
-            document.querySelectorAll('[id$="-menu"], [id$="-menu-desktop"], [id$="-menu-mobile"]').forEach(m => {
-                 m.classList.add('hidden');
-                 const btn = document.querySelector(`[aria-controls="${m.id}"]`);
-                 if (btn) btn.setAttribute('aria-expanded', 'false');
+                // Fecha todos os menus abertos, exceto o pai do menu atual, para evitar fechamentos indesejados em sub-menus
+                document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
+                    const openMenuId = openBtn.getAttribute('aria-controls');
+                    const openMenu = document.getElementById(openMenuId);
+                    if (openMenu && openMenu !== menu && !openMenu.contains(menu) && !menu.contains(openMenu)) {
+                        openBtn.setAttribute('aria-expanded', 'false');
+                        openMenu.classList.add('hidden');
+                        // Também ajusta o ícone se for um menu móvel
+                        const icon = openBtn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                            icon.classList.remove('rotate-180');
+                        }
+                    }
+                });
+
+                // Alterna o menu clicado
+                if (!isCurrentlyOpen) {
+                    button.setAttribute('aria-expanded', 'true');
+                    menu.classList.remove('hidden');
+                } else {
+                    button.setAttribute('aria-expanded', 'false');
+                    menu.classList.add('hidden');
+                }
+
+                // Ajusta o ícone do botão clicado
+                const icon = button.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-chevron-up', !isCurrentlyOpen);
+                    icon.classList.toggle('fa-chevron-down', isCurrentlyOpen);
+                    icon.classList.toggle('rotate-180', !isCurrentlyOpen);
+                }
             });
+        });
 
-            // Se o menu clicado não estava aberto antes, abre-o agora.
-            if (!isCurrentlyOpen) {
-                menu.classList.remove('hidden');
-                button.setAttribute('aria-expanded', 'true');
-            }
+        // Fecha menus ao clicar fora
+        window.addEventListener('click', () => {
+            document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
+                const openMenuId = openBtn.getAttribute('aria-controls');
+                const openMenu = document.getElementById(openMenuId);
+                openBtn.setAttribute('aria-expanded', 'false');
+                if (openMenu) openMenu.classList.add('hidden');
+                // Ajusta o ícone
+                const icon = openBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                    icon.classList.remove('rotate-180');
+                }
+            });
         });
     }
 
-    // Desktop Dropdowns
-    ['sobre-nos-btn', 'calculadoras-btn', 'conteudo-btn', 'carreira-btn', 'fale-conosco-btn', 'language-btn-desktop'].forEach(id => setupDropdown(id, id.replace('-btn', '-menu')));
-    
-    // Mobile Dropdown
-    setupDropdown('language-btn-mobile', 'language-menu-mobile');
-    
-    window.addEventListener('click', function() {
-        document.querySelectorAll('[id$="-menu"], [id$="-menu-desktop"], [id$="-menu-mobile"]').forEach(m => {
-            const btn = document.querySelector(`[aria-controls="${m.id}"]`);
-            if(btn) btn.setAttribute('aria-expanded', 'false');
-            m.classList.add('hidden');
-        });
-    });
+    // Inicia a navegação unificada
+    setupNavigation();
+
 
     // --- LÓGICA DE MODAIS E COOKIES (GLOBAL) ---
     const suggestToolBtn = document.getElementById('suggest-tool-btn');
@@ -501,23 +524,12 @@ window.initializeAllScripts = () => {
     // --- BOTÃO LIBRAS ---
     const librasBtn = document.getElementById('libras-btn');
     if(librasBtn) {
-        // Usa um MutationObserver para esperar que o botão do VLibras seja adicionado
-        // Esta é a solução mais robusta para lidar com carregamento assíncrono.
-        const observer = new MutationObserver((mutations, obs) => {
+        // Inicializa o widget VLibras se ainda não estiver ativo e clica no botão oficial
+        librasBtn.addEventListener('click', () => {
             const vw_widget = document.querySelector('[vw-access-button]');
             if (vw_widget) {
-                console.log('VLibras widget found, enabling button.');
-                librasBtn.addEventListener('click', () => {
-                    vw_widget.click();
-                });
-                obs.disconnect(); // Para de observar assim que o elemento for encontrado
+                vw_widget.click();
             }
-        });
-
-        // Inicia a observação no body para mudanças nos filhos e nos sub-árvores
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
         });
     }
 
@@ -542,22 +554,6 @@ window.initializeAllScripts = () => {
         });
     }
 
-    // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
-    // Simula um ambiente de desenvolvimento ou staging onde o Firebase está
-    // disponível via CDN, mas pode ter a chave da API modificada ou ser um
-    // projeto de teste separado.
-    if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
-        // Importação dinâmica do Firebase no ambiente de homologação
-        const firebaseScript = document.createElement('script');
-        firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-        firebaseScript.onload = () => {
-            const firestoreScript = document.createElement('script');
-            firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-            document.head.appendChild(firestoreScript);
-        };
-        document.head.appendChild(firebaseScript);
-    }
-    
     // --- REGISTRO DO SERVICE WORKER PARA PWA ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -570,17 +566,4 @@ window.initializeAllScripts = () => {
                 });
         });
     }
-};
-
-// Quando o DOM estiver pronto, chamamos a função de inicialização se o script não for um módulo
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    if (window.initializeAllScripts) {
-        window.initializeAllScripts();
-    }
-} else {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.initializeAllScripts) {
-            window.initializeAllScripts();
-        }
-    });
-}
+}); // Fim do DOMContentLoaded
