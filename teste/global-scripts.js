@@ -542,6 +542,22 @@ window.initializeAllScripts = () => {
         });
     }
 
+    // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
+    // Simula um ambiente de desenvolvimento ou staging onde o Firebase está
+    // disponível via CDN, mas pode ter a chave da API modificada ou ser um
+    // projeto de teste separado.
+    if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
+        // Importação dinâmica do Firebase no ambiente de homologação
+        const firebaseScript = document.createElement('script');
+        firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        firebaseScript.onload = () => {
+            const firestoreScript = document.createElement('script');
+            firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+            document.head.appendChild(firestoreScript);
+        };
+        document.head.appendChild(firebaseScript);
+    }
+    
     // --- REGISTRO DO SERVICE WORKER PARA PWA ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -555,3 +571,16 @@ window.initializeAllScripts = () => {
         });
     }
 };
+
+// Quando o DOM estiver pronto, chamamos a função de inicialização se o script não for um módulo
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    if (window.initializeAllScripts) {
+        window.initializeAllScripts();
+    }
+} else {
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.initializeAllScripts) {
+            window.initializeAllScripts();
+        }
+    });
+}
