@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA DE NAVEGAÇÃO UNIFICADA (DESKTOP E MÓVEL) ---
     // Esta função lida com todos os dropdowns de navegação, unificando a lógica.
     function setupNavigation() {
-        // Encontra todos os botões que controlam um menu dropdown
+        // Seleciona todos os botões de dropdown, incluindo os de sub-níveis
         const dropdownButtons = document.querySelectorAll('[aria-haspopup="true"]');
 
         dropdownButtons.forEach(button => {
@@ -127,38 +127,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!menu) return;
 
                 const isCurrentlyOpen = button.getAttribute('aria-expanded') === 'true';
-
-                // Fecha todos os menus abertos, exceto o pai do menu atual, para evitar fechamentos indesejados em sub-menus
-                document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
-                    const openMenuId = openBtn.getAttribute('aria-controls');
-                    const openMenu = document.getElementById(openMenuId);
-                    if (openMenu && openMenu !== menu && !openMenu.contains(menu) && !menu.contains(openMenu)) {
-                        openBtn.setAttribute('aria-expanded', 'false');
-                        openMenu.classList.add('hidden');
-                        // Também ajusta o ícone se for um menu móvel
-                        const icon = openBtn.querySelector('i');
-                        if (icon) {
-                            icon.classList.remove('fa-chevron-up');
-                            icon.classList.add('fa-chevron-down');
-                            icon.classList.remove('rotate-180');
-                        }
-                    }
-                });
-
-                // Alterna o menu clicado
-                if (!isCurrentlyOpen) {
-                    button.setAttribute('aria-expanded', 'true');
-                    menu.classList.remove('hidden');
-                } else {
+                
+                // Fecha o menu se ele já estiver aberto
+                if (isCurrentlyOpen) {
                     button.setAttribute('aria-expanded', 'false');
                     menu.classList.add('hidden');
+                } else {
+                    // Se o menu não estiver aberto, fecha todos os outros menus antes de abri-lo
+                    document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
+                        const openMenuId = openBtn.getAttribute('aria-controls');
+                        const openMenu = document.getElementById(openMenuId);
+                        openBtn.setAttribute('aria-expanded', 'false');
+                        if (openMenu) openMenu.classList.add('hidden');
+                    });
+                    
+                    button.setAttribute('aria-expanded', 'true');
+                    menu.classList.remove('hidden');
                 }
 
-                // Ajusta o ícone do botão clicado
-                const icon = button.querySelector('i');
+                // Alterna o ícone do botão
+                const icon = button.querySelector('svg');
                 if (icon) {
-                    icon.classList.toggle('fa-chevron-up', !isCurrentlyOpen);
-                    icon.classList.toggle('fa-chevron-down', isCurrentlyOpen);
                     icon.classList.toggle('rotate-180', !isCurrentlyOpen);
                 }
             });
@@ -172,16 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 openBtn.setAttribute('aria-expanded', 'false');
                 if (openMenu) openMenu.classList.add('hidden');
                 // Ajusta o ícone
-                const icon = openBtn.querySelector('i');
+                const icon = openBtn.querySelector('svg');
                 if (icon) {
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
                     icon.classList.remove('rotate-180');
                 }
             });
         });
     }
-
+    
     // Inicia a navegação unificada
     setupNavigation();
 
@@ -563,17 +550,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if(librasBtn) {
         // Inicializa o widget VLibras apenas se necessário e clica no botão oficial
         librasBtn.addEventListener('click', () => {
-            let vw_widget = document.querySelector('[vw-access-button]');
-            if (!vw_widget) {
-                // Carrega o script se ainda não estiver no DOM
-                loadScript("https://vlibras.gov.br/app/vlibras-plugin.js");
-                // Espera o script carregar e o widget ser criado
-                setTimeout(() => {
-                    vw_widget = document.querySelector('[vw-access-button]');
-                    if (vw_widget) vw_widget.click();
-                }, 2000); 
-            } else {
+            const vw_widget = document.querySelector('[vw-access-button]');
+            if (vw_widget) {
                 vw_widget.click();
+            } else {
+                console.error("Widget VLibras não encontrado. Certifique-se de que o script foi carregado e o widget está no DOM.");
             }
         });
     }
