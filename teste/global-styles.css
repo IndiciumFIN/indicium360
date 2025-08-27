@@ -127,7 +127,7 @@ body {
 .contrast-inverted { filter: invert(1); }
 /* CORREÇÃO: Evita que imagens, vídeos e SVGs fiquem distorcidos no modo de alto contraste */
 .contrast-dark img, .contrast-dark video, .contrast-dark svg {
-    filter: invert(1) hue-rotate(180deg);
+    filter: invert(1) hue-rotate(180deg) !important;
 }
 
 .saturation-low { filter: saturate(50%); }
