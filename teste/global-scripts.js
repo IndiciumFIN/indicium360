@@ -381,6 +381,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.state = {};
             this.readingMask = null;
             this.readingGuide = null;
+            
+            // Carrega o estado salvo do localStorage
+            this.loadState();
             this.init();
         }
 
@@ -402,7 +405,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            this.resetBtn.addEventListener('click', () => this.resetAll());
+            this.resetBtn.addEventListener('click', () => {
+                this.resetAll();
+                this.saveState();
+            });
             
             this.menu.addEventListener('click', (e) => {
                 const target = e.target.closest('.acc-option');
@@ -423,6 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof this[funcName] === 'function') { this[funcName](this.state[group]); }
 
             this.updateActiveState();
+            this.saveState(); // Salva o estado após a mudança
         }
 
         applyFontSize(value) { this.body.style.fontSize = value ? `${value}em` : ''; }
@@ -449,6 +456,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         applySiteReader(active) {
             if (active) { 
+                // Aviso sobre conflito com leitores de tela
+                console.warn("Leitor de sites ativado. Pode haver conflito com outros leitores de tela instalados.");
                 this.body.addEventListener('click', this.readText, false); 
             } else { 
                 this.body.removeEventListener('click', this.readText, false); 
@@ -517,6 +526,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 feature.classList.toggle('active', hasActive);
             });
         }
+        
+        // Salva o estado atual no localStorage
+        saveState() {
+            try {
+                localStorage.setItem('accessibilityState', JSON.stringify(this.state));
+            } catch (e) {
+                console.error("Falha ao salvar estado de acessibilidade:", e);
+            }
+        }
+
+        // Carrega o estado do localStorage e o aplica
+        loadState() {
+            try {
+                const stored = localStorage.getItem('accessibilityState');
+                if (stored) {
+                    this.state = JSON.parse(stored);
+                    for (const key in this.state) {
+                        const funcName = 'apply' + key.charAt(0).toUpperCase() + key.slice(1);
+                        if (typeof this[funcName] === 'function') {
+                            this[funcName](this.state[key]);
+                        }
+                    }
+                    this.updateActiveState();
+                }
+            } catch (e) {
+                console.error("Falha ao carregar estado de acessibilidade:", e);
+            }
+        }
     }
 
     new AccessibilityManager();
@@ -524,10 +561,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- BOTÃO LIBRAS ---
     const librasBtn = document.getElementById('libras-btn');
     if(librasBtn) {
-        // Inicializa o widget VLibras se ainda não estiver ativo e clica no botão oficial
+        // Inicializa o widget VLibras apenas se necessário e clica no botão oficial
         librasBtn.addEventListener('click', () => {
-            const vw_widget = document.querySelector('[vw-access-button]');
-            if (vw_widget) {
+            let vw_widget = document.querySelector('[vw-access-button]');
+            if (!vw_widget) {
+                // Carrega o script se ainda não estiver no DOM
+                loadScript("https://vlibras.gov.br/app/vlibras-plugin.js");
+                // Espera o script carregar e o widget ser criado
+                setTimeout(() => {
+                    vw_widget = document.querySelector('[vw-access-button]');
+                    if (vw_widget) vw_widget.click();
+                }, 2000); 
+            } else {
                 vw_widget.click();
             }
         });
