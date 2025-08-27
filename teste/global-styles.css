@@ -125,6 +125,11 @@ body {
 .contrast-dark { filter: invert(1) hue-rotate(180deg); background-color: #111; }
 .contrast-light { filter: brightness(1.2) contrast(1.2); }
 .contrast-inverted { filter: invert(1); }
+/* CORREÇÃO: Evita que imagens, vídeos e SVGs fiquem distorcidos no modo de alto contraste */
+.contrast-dark img, .contrast-dark video, .contrast-dark svg {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 .saturation-low { filter: saturate(50%); }
 .saturation-high { filter: saturate(200%); }
 .saturation-mono { filter: grayscale(100%); }
