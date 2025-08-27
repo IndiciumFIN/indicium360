@@ -45,10 +45,7 @@
     <!-- O Footer será injetado aqui -->
     <div id="global-footer-placeholder"></div>
 
-    <!-- Nosso JavaScript Global -->
-    <script src="global-scripts.js" type="module"></script>
-
-    <!-- Script para carregar Header e Footer -->
+    <!-- Scripts são carregados aqui, após o conteúdo ser carregado -->
     <script>
         /**
          * @fileoverview Script para carregar e injetar dinamicamente componentes HTML.
@@ -58,46 +55,63 @@
          * Também inclui uma lógica de fallback para o Firebase para garantir a funcionalidade em
          * ambientes que podem não ter o Firebase carregado via CDN.
          */
+        
+        // Define a URL base para scripts, útil para ambientes de homologação
+        const SCRIPT_BASE_URL = window.location.hostname.includes('homolog') ? './' : 'https://www.calculadorasdeenfermagem.com.br/';
+
+        // Função para carregar e injetar HTML
+        const loadComponent = (url, placeholderId) => {
+            return fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    const placeholder = document.getElementById(placeholderId);
+                    if (placeholder) {
+                        placeholder.outerHTML = data;
+                    }
+                })
+                .catch(error => console.error(`Erro ao carregar componente ${url}:`, error));
+        };
+        
+        // Função para carregar e iniciar os scripts globais
+        const initGlobalScripts = () => {
+             // Cria um script para carregar o arquivo global-scripts.js
+             const script = document.createElement('script');
+             script.src = 'global-scripts.js';
+             script.type = 'module';
+             document.body.appendChild(script);
+
+             // Lógica de Carregamento de Scripts em Ambiente Homologado
+             // Verifica se está em localhost ou ambiente de homologação e carrega o Firebase
+             if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
+                 const firebaseScript = document.createElement('script');
+                 firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+                 firebaseScript.onload = () => {
+                     const firestoreScript = document.createElement('script');
+                     firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+                     document.head.appendChild(firestoreScript);
+                 };
+                 document.head.appendChild(firebaseScript);
+             }
+        };
+
+        // Carrega os componentes globais e só depois inicia os scripts
         document.addEventListener('DOMContentLoaded', () => {
-
-            // Função para carregar e injetar HTML
-            const loadComponent = (url, placeholderId) => {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
-                        const placeholder = document.getElementById(placeholderId);
-                        if (placeholder) {
-                            placeholder.outerHTML = data;
-                        }
-                    })
-                    .catch(error => console.error(`Erro ao carregar ${url}:`, error));
-            };
-            
-            // Carrega os componentes globais
-            loadComponent('global-header.html', 'global-header-placeholder');
-            loadComponent('global-footer.html', 'global-footer-placeholder');
-
-            // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
-            // Simula um ambiente de desenvolvimento ou staging onde o Firebase está
-            // disponível via CDN, mas pode ter a chave da API modificada ou ser um
-            // projeto de teste separado.
-            if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
-                // Importação dinâmica do Firebase no ambiente de homologação
-                // O código original importava o Firebase dentro de um <script type="module">
-                // Onde o código da página inteira estava. Com a separação,
-                // vamos simular o carregamento do Firebase aqui, se ele ainda não estiver
-                // disponível.
-                const firebaseScript = document.createElement('script');
-                firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-                firebaseScript.onload = () => {
-                    const firestoreScript = document.createElement('script');
-                    firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-                    document.head.appendChild(firestoreScript);
-                };
-                document.head.appendChild(firebaseScript);
-            }
+            Promise.all([
+                loadComponent('global-header.html', 'global-header-placeholder'),
+                loadComponent('global-footer.html', 'global-footer-placeholder')
+            ]).then(() => {
+                // Inicia os scripts globais somente após o carregamento bem-sucedido
+                initGlobalScripts();
+                console.log('Componentes globais carregados e scripts inicializados.');
+            }).catch(() => {
+                console.error('Falha ao carregar um ou mais componentes globais. Os scripts não foram inicializados.');
+            });
         });
     </script>
 </body>
 </html>
-	
