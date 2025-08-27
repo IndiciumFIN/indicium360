@@ -499,28 +499,23 @@ window.initializeGlobalScripts = () => {
     // --- BOTÃO LIBRAS ---
     const librasBtn = document.getElementById('libras-btn');
     if(librasBtn) {
-        // Lógica de espera para garantir que o plugin do VLibras esteja pronto
-        let attempts = 0;
-        const maxAttempts = 20; // Tenta por até 2 segundos
-        const checkVlibrasWidget = () => {
+        // Usa um MutationObserver para esperar que o botão do VLibras seja adicionado
+        const observer = new MutationObserver((mutations, obs) => {
             const vw_widget = document.querySelector('[vw-access-button]');
             if (vw_widget) {
-                // Se o widget for encontrado, adicione o event listener
                 console.log('VLibras widget found, enabling button.');
                 librasBtn.addEventListener('click', () => {
                     vw_widget.click();
                 });
-            } else if (attempts < maxAttempts) {
-                // Se não for encontrado, tente novamente após um curto período
-                attempts++;
-                setTimeout(checkVlibrasWidget, 100);
-            } else {
-                // Se atingiu o limite de tentativas, avise no console
-                console.error('VLibras widget not found after multiple attempts. The Libras button may not work.');
+                obs.disconnect(); // Para de observar assim que o elemento for encontrado
             }
-        };
-        // Inicia a verificação
-        checkVlibrasWidget();
+        });
+
+        // Inicia a observação no body para mudanças nos filhos e nos sub-árvores
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     }
 
     // --- BOTÃO VOLTAR AO TOPO ---
