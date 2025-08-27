@@ -9,8 +9,8 @@ function loadScript(src) {
 // Carregar o badge de carbono no final do corpo, conforme o script original
 loadScript("https://unpkg.com/website-carbon-badges@1.1.3/b.min.js");
 
-// Exporta as classes e funções para serem usadas no index.html
-export const initGlobalElements = () => {
+// Esta é a função que será chamada pelo index.html
+const initGlobalElements = () => {
     // --- LÓGICA DE MODAIS E COOKIES (GLOBAL) ---
     const suggestToolBtn = document.getElementById('suggest-tool-btn');
     const suggestionModal = document.getElementById('suggestion-modal');
