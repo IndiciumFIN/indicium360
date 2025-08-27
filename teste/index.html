@@ -78,8 +78,8 @@
                 // Carrega o footer e depois inicializa a lógica dos botões
                 loadComponent('global-footer.html', 'global-footer-placeholder', () => {
                     // Inicializa a lógica dos botões e modais após o DOM estar completo com os componentes
-                    if (window.initializeGlobalScripts) {
-                        window.initializeGlobalScripts();
+                    if (window.initializeAllScripts) {
+                        window.initializeAllScripts();
                     }
 
                     // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
