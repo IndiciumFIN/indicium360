@@ -14,10 +14,10 @@
             <h3 class="main-title text-3xl mb-2">Subscreva a nossa Newsletter</h3>
             <p class="text-gray-600 mb-6">Mantenha-se atualizado com as últimas ferramentas, notícias e oportunidades na área da enfermagem.</p>
             <form id="newsletter-form" class="max-w-md mx-auto flex">
-                <input id="newsletter-email" type="email" placeholder="O seu melhor email" class="w-full px-4 py-3 rounded-l-lg border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent" required aria-label="Email para newsletter">
+                <input id="newsletter-email" type="email" placeholder="O seu melhor email" class="w-full px-4 py-3 rounded-l-lg border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent" required aria-label="Email para newsletter" aria-describedby="newsletter-feedback">
                 <button type="submit" class="btn-primary font-bold py-3 px-6 rounded-r-lg">Subscrever</button>
             </form>
-            <div id="newsletter-feedback" class="mt-4 text-sm" aria-live="polite"></div>
+            <div id="newsletter-feedback" class="mt-4 text-sm" role="status"></div>
         </div>
     </section>
 
@@ -134,9 +134,9 @@
             <p class="text-gray-600 mb-4 text-sm">Sentiu falta de alguma calculadora ou escala? Diga-nos qual! O seu feedback é muito importante para nós.</p>
             <form id="suggestion-form">
                 <textarea id="suggestion-text" class="w-full border-gray-300 rounded-md shadow-sm p-2" rows="4" placeholder="Descreva a sua sugestão..." required aria-label="Caixa de texto para a sua sugestão"></textarea>
-                <div id="suggestion-feedback" class="mt-2 text-sm text-left" aria-live="polite"></div>
+                <div id="suggestion-feedback" class="mt-2 text-sm text-left" role="status"></div>
                 <div class="mt-4 flex justify-end gap-4">
-                    <button type="button" class="close-modal-btn bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg text-sm">Cancelar</button>
+                    <button type="button" class="close-modal-btn bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg text-sm" aria-label="Cancelar">Cancelar</button>
                     <button type="submit" id="suggestion-submit-btn" class="btn-primary font-bold py-2 px-4 rounded-lg text-sm">Enviar Sugestão</button>
                 </div>
             </form>
@@ -205,6 +205,7 @@
     </div>
     
     <!-- Integração do VLibras (Plugin do Gov.br) -->
+    <!-- Estrutura oficial do VLibras para garantir o funcionamento completo -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
