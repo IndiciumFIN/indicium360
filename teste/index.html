@@ -45,15 +45,8 @@
     <div id="global-footer-placeholder"></div>
 
     <!-- Script principal para carregar os componentes e scripts globais -->
-    <script>
-        /**
-         * @fileoverview Script para carregar e injetar dinamicamente componentes HTML.
-         * Este script utiliza a API Fetch para carregar arquivos HTML parciais
-         * (cabeçalho e rodapé) e injetá-los na página principal.
-         * A função `loadComponent` garante a reutilização de código e a modularização.
-         */
-
-        const SCRIPT_BASE_URL = window.location.hostname.includes('homolog') ? './' : 'https://www.calculadorasdeenfermagem.com.br/';
+    <script type="module">
+        import { initGlobalElements, initDynamicForms } from './global-scripts.js';
 
         // Função para carregar um componente HTML
         const loadComponent = async (url, placeholderId) => {
@@ -75,18 +68,6 @@
             }
         };
 
-        // Função para carregar e iniciar scripts
-        const loadScript = (src, type = 'text/javascript') => {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = src;
-                script.type = type;
-                script.onload = resolve;
-                script.onerror = reject;
-                document.body.appendChild(script);
-            });
-        };
-
         // Sequência de carregamento
         document.addEventListener('DOMContentLoaded', async () => {
             try {
@@ -94,10 +75,11 @@
                 await loadComponent('global-header.html', 'global-header-placeholder');
                 await loadComponent('global-footer.html', 'global-footer-placeholder');
 
-                // Depois de carregar os componentes, carregar o script global
-                await loadScript('global-scripts.js', 'text/javascript');
+                // Depois de carregar os componentes, inicializar os scripts
+                initGlobalElements();
+                initDynamicForms();
+
                 console.log('Componentes globais e scripts inicializados com sucesso.');
-                
             } catch (error) {
                 console.error('Falha na inicialização do site.', error);
             }
