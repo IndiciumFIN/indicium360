@@ -58,7 +58,6 @@
          * ambientes que podem não ter o Firebase carregado via CDN.
          */
         document.addEventListener('DOMContentLoaded', () => {
-
             // Função para carregar e injetar HTML
             const loadComponent = (url, placeholderId, callback = () => {}) => {
                 fetch(url)
@@ -79,8 +78,24 @@
                 // Carrega o footer e depois inicializa a lógica dos botões
                 loadComponent('global-footer.html', 'global-footer-placeholder', () => {
                     // Inicializa a lógica dos botões e modais após o DOM estar completo com os componentes
-                    if (window.initializeAllScripts) {
-                        window.initializeAllScripts();
+                    if (window.initializeGlobalScripts) {
+                        window.initializeGlobalScripts();
+                    }
+
+                    // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
+                    // Simula um ambiente de desenvolvimento ou staging onde o Firebase está
+                    // disponível via CDN, mas pode ter a chave da API modificada ou ser um
+                    // projeto de teste separado.
+                    if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
+                        // Importação dinâmica do Firebase no ambiente de homologação
+                        const firebaseScript = document.createElement('script');
+                        firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+                        firebaseScript.onload = () => {
+                            const firestoreScript = document.createElement('script');
+                            firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+                            document.head.appendChild(firestoreScript);
+                        };
+                        document.head.appendChild(firebaseScript);
                     }
                 });
             });
