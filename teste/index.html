@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadoras de Enfermagem - Ferramentas Essenciais</title>
-
+    
     <!-- Metatags e SEO específicas da página (se houver) -->
     <meta name="description" content="Sua descrição aqui...">
 
@@ -14,10 +14,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <!-- Nosso CSS Global -->
     <link rel="stylesheet" href="global-styles.css">
-
+    
     <!-- Scripts de Analytics (manter no head) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-952633102"></script>
     <script>
@@ -44,45 +44,61 @@
     <!-- O Footer será injetado aqui -->
     <div id="global-footer-placeholder"></div>
 
-    <!-- Script principal para carregar os componentes e scripts globais -->
-    <script type="module">
-        import { initGlobalElements, initDynamicForms } from './global-scripts.js';
+    <!-- Nosso JavaScript Global -->
+    <script src="global-scripts.js" type="module"></script>
 
-        // Função para carregar um componente HTML
-        const loadComponent = async (url, placeholderId) => {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.text();
-                const placeholder = document.getElementById(placeholderId);
-                if (placeholder) {
-                    placeholder.outerHTML = data;
-                } else {
-                    console.error(`Placeholder com id "${placeholderId}" não encontrado.`);
-                }
-            } catch (error) {
-                console.error(`Erro ao carregar componente ${url}:`, error);
-                throw error;
-            }
-        };
+    <!-- Script para carregar Header e Footer -->
+    <script>
+        /**
+         * @fileoverview Script para carregar e injetar dinamicamente componentes HTML.
+         * Este script utiliza a API Fetch para carregar arquivos HTML parciais 
+         * (cabeçalho e rodapé) e injetá-los na página principal. 
+         * A função `loadComponent` garante a reutilização de código e a modularização.
+         * Também inclui uma lógica de fallback para o Firebase para garantir a funcionalidade em
+         * ambientes que podem não ter o Firebase carregado via CDN.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Função para carregar e injetar HTML
+            const loadComponent = (url, placeholderId, callback = () => {}) => {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        const placeholder = document.getElementById(placeholderId);
+                        if (placeholder) {
+                            placeholder.outerHTML = data;
+                            // Executa o callback depois que o componente for injetado
+                            callback();
+                        }
+                    })
+                    .catch(error => console.error(`Erro ao carregar ${url}:`, error));
+            };
+            
+            // Carrega o header e depois o footer, garantindo a ordem
+            loadComponent('global-header.html', 'global-header-placeholder', () => {
+                // Carrega o footer e depois inicializa a lógica dos botões
+                loadComponent('global-footer.html', 'global-footer-placeholder', () => {
+                    // Inicializa a lógica dos botões e modais após o DOM estar completo com os componentes
+                    if (window.initializeGlobalScripts) {
+                        window.initializeGlobalScripts();
+                    }
 
-        // Sequência de carregamento
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Carregar o cabeçalho e o rodapé sequencialmente
-                await loadComponent('global-header.html', 'global-header-placeholder');
-                await loadComponent('global-footer.html', 'global-footer-placeholder');
-
-                // Depois de carregar os componentes, inicializar os scripts
-                initGlobalElements();
-                initDynamicForms();
-
-                console.log('Componentes globais e scripts inicializados com sucesso.');
-            } catch (error) {
-                console.error('Falha na inicialização do site.', error);
-            }
+                    // --- Lógica de Carregamento de Scripts em Ambiente Homologado ---
+                    // Simula um ambiente de desenvolvimento ou staging onde o Firebase está
+                    // disponível via CDN, mas pode ter a chave da API modificada ou ser um
+                    // projeto de teste separado.
+                    if (window.location.hostname === 'localhost' || window.location.hostname.includes('homolog')) {
+                        // Importação dinâmica do Firebase no ambiente de homologação
+                        const firebaseScript = document.createElement('script');
+                        firebaseScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+                        firebaseScript.onload = () => {
+                            const firestoreScript = document.createElement('script');
+                            firestoreScript.src = "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+                            document.head.appendChild(firestoreScript);
+                        };
+                        document.head.appendChild(firebaseScript);
+                    }
+                });
+            });
         });
     </script>
 </body>
