@@ -10,7 +10,9 @@ function loadScript(src) {
 loadScript("https://unpkg.com/website-carbon-badges@1.1.3/b.min.js");
 
 // Função principal que contém toda a lógica de inicialização de botões e modais
-window.initializeGlobalScripts = () => {
+// Esta função será chamada pelo Index.html apenas quando todos os componentes
+// tiverem sido carregados.
+window.initializeAllScripts = () => {
     // A configuração do Firebase está agora no arquivo HTML principal para
     // que possa ser usada em outros scripts no futuro, se necessário.
     const firebaseConfig = {
@@ -500,6 +502,7 @@ window.initializeGlobalScripts = () => {
     const librasBtn = document.getElementById('libras-btn');
     if(librasBtn) {
         // Usa um MutationObserver para esperar que o botão do VLibras seja adicionado
+        // Esta é a solução mais robusta para lidar com carregamento assíncrono.
         const observer = new MutationObserver((mutations, obs) => {
             const vw_widget = document.querySelector('[vw-access-button]');
             if (vw_widget) {
@@ -552,16 +555,3 @@ window.initializeGlobalScripts = () => {
         });
     }
 };
-
-// Quando o DOM estiver pronto, chamamos a função de inicialização se o script não for um módulo
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    if (window.initializeGlobalScripts) {
-        window.initializeGlobalScripts();
-    }
-} else {
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.initializeGlobalScripts) {
-            window.initializeGlobalScripts();
-        }
-    });
-}
