@@ -1,5 +1,5 @@
 // Ação de fallback para o carregamento dinâmico de scripts
-function loadScript(src) {
+function loadExternalScript(src) {
     const script = document.createElement('script');
     script.src = src;
     script.defer = true;
@@ -7,92 +7,100 @@ function loadScript(src) {
 }
 
 // Carregar o badge de carbono no final do corpo, conforme o script original
-loadScript("https://unpkg.com/website-carbon-badges@1.1.3/b.min.js");
+loadExternalScript("https://unpkg.com/website-carbon-badges@1.1.3/b.min.js");
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Função principal que inicializa todos os componentes interativos do site.
+ * Esta função deve ser chamada depois de o DOM estar totalmente populado,
+ * incluindo os componentes carregados dinamicamente (cabeçalho/rodapé).
+ */
+function initializeApp() {
+    console.log("Inicializando a aplicação...");
 
     // --- FIREBASE INITIALIZATION & DYNAMIC FORMS ---
-    // A configuração do Firebase está agora no arquivo HTML principal para
-    // que possa ser usada em outros scripts no futuro, se necessário.
-
-    // A lógica de newsletter e sugestão agora usa uma função utilitária para reutilização
-    // A API Key foi substituída por um placeholder para processamento em ambiente homologado
+    // A configuração do Firebase foi atualizada com a chave de API correta.
     const firebaseConfig = {
-        apiKey: "__FIREBASE_API_KEY__",
+        apiKey: "AIzaSyAuJ-f5ZyQ4df_5-EPUw8QlUUfpDRdyKH8",
         authDomain: "site-calculadoras.firebaseapp.com",
         projectId: "site-calculadoras",
-        storageBucket: "site-calculadoras.appspot.com",
+        storageBucket: "site-calculadoras.firebasestorage.app",
         messagingSenderId: "57518126485",
         appId: "1:57518126485:web:06e8853cedea7697c5729c",
         measurementId: "G-GD0NBBTFYR"
     };
 
     if (typeof firebase !== 'undefined') {
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        try {
+            const app = firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
 
-        // --- NEWSLETTER FORM LOGIC ---
-        const newsletterForm = document.getElementById('newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const emailInput = document.getElementById('newsletter-email');
-                const feedbackDiv = document.getElementById('newsletter-feedback');
-                const email = emailInput.value.trim();
+            // --- NEWSLETTER FORM LOGIC ---
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('newsletter-email');
+                    const feedbackDiv = document.getElementById('newsletter-feedback');
+                    const email = emailInput.value.trim();
 
-                if (email) {
-                    feedbackDiv.textContent = 'A processar...';
-                    feedbackDiv.style.color = 'gray';
-                    try {
-                        await db.collection("newsletterSubscribers").add({
-                            email: email,
-                            subscribedAt: new Date()
-                        });
-                        feedbackDiv.textContent = 'Obrigado por subscrever!';
-                        feedbackDiv.style.color = 'green';
-                        emailInput.value = '';
-                    } catch (error) {
-                        console.error("Erro ao adicionar subscrição: ", error);
-                        feedbackDiv.textContent = 'Ocorreu um erro. Por favor, tente novamente.';
-                        feedbackDiv.style.color = 'red';
+                    if (email) {
+                        feedbackDiv.textContent = 'A processar...';
+                        feedbackDiv.style.color = 'gray';
+                        try {
+                            await db.collection("newsletterSubscribers").add({
+                                email: email,
+                                subscribedAt: new Date()
+                            });
+                            feedbackDiv.textContent = 'Obrigado por subscrever!';
+                            feedbackDiv.style.color = 'green';
+                            emailInput.value = '';
+                        } catch (error) {
+                            console.error("Erro ao adicionar subscrição: ", error);
+                            feedbackDiv.textContent = 'Ocorreu um erro. Por favor, tente novamente.';
+                            feedbackDiv.style.color = 'red';
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
 
-        // --- SUGGESTION FORM LOGIC ---
-        const suggestionForm = document.getElementById('suggestion-form');
-        if (suggestionForm) {
-            suggestionForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const suggestionText = document.getElementById('suggestion-text');
-                const feedbackDiv = document.getElementById('suggestion-feedback');
-                const submitBtn = document.getElementById('suggestion-submit-btn');
-                const suggestion = suggestionText.value.trim();
+            // --- SUGGESTION FORM LOGIC ---
+            const suggestionForm = document.getElementById('suggestion-form');
+            if (suggestionForm) {
+                suggestionForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const suggestionText = document.getElementById('suggestion-text');
+                    const feedbackDiv = document.getElementById('suggestion-feedback');
+                    const submitBtn = document.getElementById('suggestion-submit-btn');
+                    const suggestion = suggestionText.value.trim();
 
-                if (suggestion) {
-                    submitBtn.disabled = true;
-                    feedbackDiv.textContent = 'A enviar sugestão...';
-                    feedbackDiv.style.color = 'gray';
+                    if (suggestion) {
+                        submitBtn.disabled = true;
+                        feedbackDiv.textContent = 'A enviar sugestão...';
+                        feedbackDiv.style.color = 'gray';
 
-                    try {
-                        await db.collection("toolSuggestions").add({
-                            suggestion: suggestion,
-                            submittedAt: new Date()
-                        });
-                        feedbackDiv.textContent = 'Sugestão enviada com sucesso. Obrigado!';
-                        feedbackDiv.style.color = 'green';
-                        suggestionText.value = '';
-                    } catch (error) {
-                        console.error("Erro ao enviar sugestão: ", error);
-                        feedbackDiv.textContent = 'Ocorreu um erro. Por favor, tente novamente.';
-                        feedbackDiv.style.color = 'red';
-                    } finally {
-                        submitBtn.disabled = false;
+                        try {
+                            await db.collection("toolSuggestions").add({
+                                suggestion: suggestion,
+                                submittedAt: new Date()
+                            });
+                            feedbackDiv.textContent = 'Sugestão enviada com sucesso. Obrigado!';
+                            feedbackDiv.style.color = 'green';
+                            suggestionText.value = '';
+                        } catch (error) {
+                            console.error("Erro ao enviar sugestão: ", error);
+                            feedbackDiv.textContent = 'Ocorreu um erro. Por favor, tente novamente.';
+                            feedbackDiv.style.color = 'red';
+                        } finally {
+                            submitBtn.disabled = false;
+                        }
                     }
-                }
-            });
+                });
+            }
+        } catch (e) {
+            console.error("Falha ao inicializar Firebase. Verifique a configuração e a disponibilidade dos scripts.", e);
         }
+    } else {
+        console.warn("Firebase não está definido. As funcionalidades de formulário (newsletter, sugestões) estarão desativadas.");
     }
 
 
@@ -113,9 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // --- LÓGICA DE NAVEGAÇÃO UNIFICADA (DESKTOP E MÓVEL) ---
-    // Esta função lida com todos os dropdowns de navegação, unificando a lógica.
     function setupNavigation() {
-        // Seleciona todos os botões de dropdown, incluindo os de sub-níveis
         const dropdownButtons = document.querySelectorAll('[aria-haspopup="true"]');
 
         dropdownButtons.forEach(button => {
@@ -128,48 +134,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const isCurrentlyOpen = button.getAttribute('aria-expanded') === 'true';
                 
-                // Fecha o menu se ele já estiver aberto
+                document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
+                    if (openBtn !== button) {
+                       const openMenuId = openBtn.getAttribute('aria-controls');
+                       const openMenu = document.getElementById(openMenuId);
+                       openBtn.setAttribute('aria-expanded', 'false');
+                       if (openMenu) openMenu.classList.add('hidden');
+                       const icon = openBtn.querySelector('svg, i.fas');
+                       if (icon) icon.classList.remove('rotate-180');
+                    }
+                });
+                
                 if (isCurrentlyOpen) {
                     button.setAttribute('aria-expanded', 'false');
                     menu.classList.add('hidden');
                 } else {
-                    // Se o menu não estiver aberto, fecha todos os outros menus antes de abri-lo
-                    document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
-                        const openMenuId = openBtn.getAttribute('aria-controls');
-                        const openMenu = document.getElementById(openMenuId);
-                        openBtn.setAttribute('aria-expanded', 'false');
-                        if (openMenu) openMenu.classList.add('hidden');
-                    });
-                    
                     button.setAttribute('aria-expanded', 'true');
                     menu.classList.remove('hidden');
                 }
 
-                // Alterna o ícone do botão
-                const icon = button.querySelector('svg');
-                if (icon) {
-                    icon.classList.toggle('rotate-180', !isCurrentlyOpen);
-                }
+                const icon = button.querySelector('svg, i.fas');
+                if (icon) icon.classList.toggle('rotate-180', !isCurrentlyOpen);
             });
         });
 
-        // Fecha menus ao clicar fora
         window.addEventListener('click', () => {
             document.querySelectorAll('[aria-expanded="true"]').forEach(openBtn => {
                 const openMenuId = openBtn.getAttribute('aria-controls');
                 const openMenu = document.getElementById(openMenuId);
                 openBtn.setAttribute('aria-expanded', 'false');
                 if (openMenu) openMenu.classList.add('hidden');
-                // Ajusta o ícone
-                const icon = openBtn.querySelector('svg');
-                if (icon) {
-                    icon.classList.remove('rotate-180');
-                }
+                const icon = openBtn.querySelector('svg, i.fas');
+                if (icon) icon.classList.remove('rotate-180');
             });
         });
     }
     
-    // Inicia a navegação unificada
     setupNavigation();
 
 
@@ -218,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
         suggestToolBtn.addEventListener('click', () => openModal(suggestionModal, suggestToolBtn));
     }
     
-    // --- GESTOR DE COOKIES ---
     class CookieManager {
         constructor() {
             this.banner = document.getElementById('cookie-banner');
@@ -227,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 analiticos: document.getElementById('cookies-analiticos'),
                 marketing: document.getElementById('cookies-marketing')
             };
-            // Define marketing como VERDADEIRO por padrão (opt-out)
             this.prefs = { analiticos: true, marketing: true };
             this.init();
         }
@@ -241,40 +239,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         applyCurrentConsent() {
             const adSection = document.getElementById('ad-section');
-            
-            // Atualiza o Google Consent Mode e a visibilidade da seção de anúncios
             if (this.prefs.marketing) {
                 if(adSection) adSection.style.display = 'block';
-                if (typeof gtag === 'function') {
-                    gtag('consent', 'update', { 'ad_storage': 'granted' });
-                }
+                if (typeof gtag === 'function') gtag('consent', 'update', { 'ad_storage': 'granted' });
             } else {
                 if(adSection) adSection.style.display = 'none';
-                if (typeof gtag === 'function') {
-                    gtag('consent', 'update', { 'ad_storage': 'denied' });
-                }
+                if (typeof gtag === 'function') gtag('consent', 'update', { 'ad_storage': 'denied' });
             }
 
             if (this.prefs.analiticos) {
-                 if (typeof gtag === 'function') {
-                    gtag('consent', 'update', { 'analytics_storage': 'granted' });
-                 }
+                 if (typeof gtag === 'function') gtag('consent', 'update', { 'analytics_storage': 'granted' });
             } else {
-                 if (typeof gtag === 'function') {
-                    gtag('consent', 'update', { 'analytics_storage': 'denied' });
-                 }
+                 if (typeof gtag === 'function') gtag('consent', 'update', { 'analytics_storage': 'denied' });
             }
         }
 
         loadPreferences() {
             try {
                 const storedPrefs = localStorage.getItem('cookiePrefs');
-                if (storedPrefs) {
-                   this.prefs = JSON.parse(storedPrefs);
-                }
-            } catch (e) {
-                console.error('Falha ao carregar preferências de cookies do localStorage:', e);
-            }
+                if (storedPrefs) this.prefs = JSON.parse(storedPrefs);
+            } catch (e) { console.error('Falha ao carregar preferências de cookies:', e); }
             this.updateUI();
         }
 
@@ -282,12 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 localStorage.setItem('cookiePrefs', JSON.stringify(this.prefs));
                 localStorage.setItem('cookieConsent', 'managed');
-            } catch (e) {
-                 console.error('Falha ao salvar preferências de cookies no localStorage:', e);
-            }
+            } catch (e) { console.error('Falha ao salvar preferências de cookies:', e); }
             this.hideBanner();
             if(this.prefsModal) closeModal(this.prefsModal);
-            this.applyCurrentConsent(); // Aplica as novas preferências salvas
+            this.applyCurrentConsent();
         }
 
         updateUI() {
@@ -301,32 +283,20 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('accept-all-cookies-btn')?.addEventListener('click', () => this.acceptAll());
             document.getElementById('decline-cookies-btn')?.addEventListener('click', () => this.declineAll());
             document.getElementById('save-cookie-prefs-btn')?.addEventListener('click', () => this.managePrefsFromModal());
-
-            const manageBannerBtn = document.getElementById('manage-cookies-banner-btn');
-            if(manageBannerBtn) manageBannerBtn.addEventListener('click', () => openModal(this.prefsModal, manageBannerBtn));
-
-            const manageFooterBtn = document.getElementById('manage-cookies-footer-btn');
-            if(manageFooterBtn) manageFooterBtn.addEventListener('click', () => openModal(this.prefsModal, manageFooterBtn));
+            document.getElementById('manage-cookies-banner-btn')?.addEventListener('click', (e) => openModal(this.prefsModal, e.target));
+            document.getElementById('manage-cookies-footer-btn')?.addEventListener('click', (e) => openModal(this.prefsModal, e.target));
         }
 
         acceptAll() {
             this.prefs = { analiticos: true, marketing: true };
-            try {
-                localStorage.setItem('cookieConsent', 'accepted');
-            } catch (e) {
-                console.error('Falha ao salvar consentimento de cookies no localStorage:', e);
-            }
+            try { localStorage.setItem('cookieConsent', 'accepted'); } catch (e) { console.error('Falha ao salvar consentimento:', e); }
             this.savePreferences();
             this.updateUI();
         }
 
         declineAll() {
             this.prefs = { analiticos: false, marketing: false };
-            try {
-                localStorage.setItem('cookieConsent', 'declined');
-            } catch (e) {
-                console.error('Falha ao salvar consentimento de cookies no localStorage:', e);
-            }
+            try { localStorage.setItem('cookieConsent', 'declined'); } catch (e) { console.error('Falha ao salvar consentimento:', e); }
             this.savePreferences();
             this.updateUI();
         }
@@ -343,9 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!localStorage.getItem('cookieConsent') && this.banner) {
                     setTimeout(() => this.showBanner(), 2000);
                 }
-            } catch (e) {
-                console.error('Falha ao verificar consentimento de cookies:', e);
-            }
+            } catch (e) { console.error('Falha ao verificar consentimento:', e); }
         }
 
         showBanner() { if(this.banner) this.banner.classList.add('show'); }
@@ -354,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     new CookieManager();
     
-    // --- MÓDULO DE ACESSIBILIDADE (GLOBAL) ---
     class AccessibilityManager {
         constructor() {
             this.body = document.body;
@@ -369,7 +336,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.readingMask = null;
             this.readingGuide = null;
             
-            // Carrega o estado salvo do localStorage
             this.loadState();
             this.init();
         }
@@ -416,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof this[funcName] === 'function') { this[funcName](this.state[group]); }
 
             this.updateActiveState();
-            this.saveState(); // Salva o estado após a mudança
+            this.saveState();
         }
 
         applyFontSize(value) { this.body.style.fontSize = value ? `${value}em` : ''; }
@@ -430,7 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const carbonBadge = document.getElementById('wcb');
             if(carbonBadge) {
-                // Adicionado a lógica para o modo dark do badge de carbono
                 if(value === 'dark') {
                     carbonBadge.classList.add('wcb-d');
                 } else {
@@ -443,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         applySiteReader(active) {
             if (active) { 
-                // Aviso sobre conflito com leitores de tela
                 console.warn("Leitor de sites ativado. Pode haver conflito com outros leitores de tela instalados.");
                 this.body.addEventListener('click', this.readText, false); 
             } else { 
@@ -514,7 +478,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         
-        // Salva o estado atual no localStorage
         saveState() {
             try {
                 localStorage.setItem('accessibilityState', JSON.stringify(this.state));
@@ -523,7 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Carrega o estado do localStorage e o aplica
         loadState() {
             try {
                 const stored = localStorage.getItem('accessibilityState');
@@ -544,17 +506,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     new AccessibilityManager();
-    
+
     // --- BOTÃO LIBRAS ---
     const librasBtn = document.getElementById('libras-btn');
     if(librasBtn) {
-        // Inicializa o widget VLibras apenas se necessário e clica no botão oficial
         librasBtn.addEventListener('click', () => {
             const vw_widget = document.querySelector('[vw-access-button]');
             if (vw_widget) {
                 vw_widget.click();
             } else {
-                console.error("Widget VLibras não encontrado. Certifique-se de que o script foi carregado e o widget está no DOM.");
+                console.error("Widget VLibras não encontrado.");
             }
         });
     }
@@ -570,11 +531,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         
-        // Verifica o estado inicial ao carregar a página e adiciona o listener
         toggleBackToTopButton();
         window.addEventListener('scroll', toggleBackToTopButton);
 
-        // Adiciona o listener para o evento de clique
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -584,12 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registrado com sucesso: ', registration.scope);
-                })
-                .catch(err => {
-                    console.error('Falha ao registrar Service Worker:', err);
-                });
+                .then(registration => console.log('Service Worker registrado:', registration.scope))
+                .catch(err => console.error('Falha ao registrar Service Worker:', err));
         });
     }
-}); // Fim do DOMContentLoaded
+
+    console.log("Aplicação inicializada com sucesso.");
+}
