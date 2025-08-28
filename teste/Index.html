@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadoras de Enfermagem - Ferramentas Essenciais</title>
     
-    <!-- Metatags e SEO específicas da página (se houver) -->
     <meta name="description" content="Sua descrição aqui...">
 
     <!-- Scripts e Estilos Globais -->
@@ -15,10 +14,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Nosso CSS Global -->
     <link rel="stylesheet" href="global-styles.css">
     
-    <!-- Scripts de Analytics (manter no head) -->
+    <!-- Scripts de Analytics e Firebase -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-952633102"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -27,103 +25,89 @@
         gtag('consent', 'default', { 'analytics_storage': 'granted', 'ad_storage': 'granted', 'wait_for_update': 500 });
         gtag('config', 'AW-952633102');
     </script>
+    <!-- Carregamento dos scripts do Firebase movido para o <head> para garantir disponibilidade -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
 </head>
 <body class="bg-gray-100">
 
-    <!-- Skip link para navegação de teclado -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- Placeholders para o conteúdo modular -->
     <div id="global-header-placeholder"></div>
 
-    <!-- Conteúdo Específico da Página -->
     <main id="main-content" class="container mx-auto p-8">
         <section id="calculators-app">
-            <!-- Título principal da página -->
             <h1 class="main-title">Bem-vindo à Página Principal!</h1>
             <p>Este é o conteúdo que muda de uma página para outra.</p>
         </section>
     </main>
 
-    <!-- Placeholder para o rodapé -->
     <div id="global-footer-placeholder"></div>
 
-    <!-- LÓGICA DE CARREGAMENTO MELHORADA E VALIDADA -->
+    <!-- LÓGICA DE CARREGAMENTO DEFINITIVA -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            /**
-             * Função para carregar um componente HTML e inseri-lo num placeholder.
-             * Retorna uma Promise que é resolvida quando o componente é carregado.
-             * @param {string} url - O URL do ficheiro HTML a ser carregado.
-             * @param {string} placeholderId - O ID do elemento onde o HTML será inserido.
-             * @returns {Promise<void>}
-             */
             const loadComponent = (url, placeholderId) => {
                 return fetch(url)
                     .then(response => {
-                        if (!response.ok) {
-                            // Lança um erro específico se o ficheiro não for encontrado ou houver outro problema de rede.
-                            throw new Error(`Erro HTTP ${response.status} ao carregar ${url}`);
-                        }
+                        if (!response.ok) throw new Error(`Erro HTTP ${response.status} ao carregar ${url}`);
                         return response.text();
                     })
                     .then(data => {
                         const placeholder = document.getElementById(placeholderId);
-                        if (placeholder) {
-                            placeholder.outerHTML = data;
-                        } else {
-                            // Emite um aviso se o placeholder não for encontrado, o que ajuda na depuração.
-                            console.warn(`Placeholder com ID '${placeholderId}' não foi encontrado no DOM.`);
-                        }
+                        if (placeholder) placeholder.outerHTML = data;
+                        else console.warn(`Placeholder '${placeholderId}' não encontrado.`);
                     });
             };
 
-            /**
-             * Função para carregar um script dinamicamente.
-             * Retorna uma Promise que é resolvida quando o script é carregado.
-             * @param {string} src - O URL do script.
-             * @returns {Promise<void>}
-             */
             const loadScript = (src) => {
                 return new Promise((resolve, reject) => {
                     const script = document.createElement('script');
                     script.src = src;
-                    script.type = 'module'; // Mantém o comportamento de módulo.
                     script.onload = () => resolve();
-                    script.onerror = () => reject(new Error(`Falha ao carregar o script: ${src}`));
+                    script.onerror = () => reject(new Error(`Falha ao carregar script: ${src}`));
                     document.body.appendChild(script);
                 });
             };
 
-            // **VALIDAÇÃO PRINCIPAL**: Envolvemos a lógica de carregamento num bloco try...catch assíncrono.
-            // Isso garante que qualquer erro durante o processo de fetch ou execução do script seja capturado
-            // e registado na consola, evitando que a página quebre silenciosamente.
             (async () => {
                 try {
-                    // Array de promessas para carregar os componentes HTML.
-                    const componentPromises = [
+                    // 1. Carrega os componentes HTML em paralelo
+                    await Promise.all([
                         loadComponent('global-header.html', 'global-header-placeholder'),
                         loadComponent('global-footer.html', 'global-footer-placeholder')
-                    ];
+                    ]);
+                    console.log('Componentes HTML carregados.');
 
-                    // Promise.all garante que ambos os fetch() sejam concluídos antes de prosseguir.
-                    await Promise.all(componentPromises);
-                    
-                    console.log('VALIDAÇÃO: Cabeçalho e Rodapé carregados com sucesso.');
-
-                    // AGORA que o HTML está garantidamente na página, carregamos o script principal.
+                    // 2. Carrega o ficheiro de script
                     await loadScript('global-scripts.js');
+                    console.log('Ficheiro global-scripts.js carregado.');
 
-                    console.log('VALIDAÇÃO: Script global executado com sucesso após o carregamento dos componentes.');
+                    // 3. VERIFICA e EXECUTA a função de inicialização
+                    if (typeof initializeApp === 'function') {
+                        initializeApp();
+                    } else {
+                        throw new Error('A função de inicialização "initializeApp" não foi encontrada em global-scripts.js.');
+                    }
 
                 } catch (error) {
-                    // Se qualquer uma das Promises (loadComponent ou loadScript) falhar, o erro será capturado aqui.
-                    console.error('VALIDAÇÃO FALHOU: Ocorreu um erro crítico durante o carregamento modular:', error);
-                    // Poderia adicionar aqui uma mensagem para o utilizador, se desejado.
-                    // Ex: document.body.innerHTML = "Ocorreu um erro ao carregar a página. Por favor, tente novamente.";
+                    console.error('ERRO CRÍTICO no carregamento da página:', error);
+                    document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: sans-serif;"><h1>Erro ao carregar a página</h1><p>Não foi possível carregar os componentes necessários. Por favor, tente novamente mais tarde.</p></div>';
                 }
             })();
         });
+    </script>
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
     </script>
 </body>
 </html>
