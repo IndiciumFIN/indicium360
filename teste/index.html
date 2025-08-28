@@ -5,47 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadoras de Enfermagem - Ferramentas Essenciais</title>
     
-    <meta name="description" content="Sua descrição aqui...">
-
-    <!-- Scripts e Estilos Globais -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="global-styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Nunito+Sans:wght@700;900&display=swap" rel="stylesheet">
     
-    <!-- Scripts de Analytics e Firebase -->
+    <!-- Scripts do Firebase e Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-952633102"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('consent', 'default', { 'analytics_storage': 'granted', 'ad_storage': 'granted', 'wait_for_update': 500 });
+        gtag('consent', 'default', { 'analytics_storage': 'granted', 'ad_storage': 'granted' });
         gtag('config', 'AW-952633102');
     </script>
-    <!-- Carregamento dos scripts do Firebase movido para o <head> para garantir disponibilidade -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
 </head>
 <body class="bg-gray-100">
 
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
+    <!-- Placeholders que serão substituídos -->
     <div id="global-header-placeholder"></div>
 
     <main id="main-content" class="container mx-auto p-8">
-        <section id="calculators-app">
-            <h1 class="main-title">Bem-vindo à Página Principal!</h1>
-            <p>Este é o conteúdo que muda de uma página para outra.</p>
-        </section>
+        <h1 class="main-title">Bem-vindo à Página Principal!</h1>
+        <p>Este é o conteúdo que muda de uma página para outra.</p>
     </main>
 
     <div id="global-footer-placeholder"></div>
+    <div id="body-end-placeholder"></div>
 
-    <!-- LÓGICA DE CARREGAMENTO DEFINITIVA -->
+    <!-- Lógica de Carregamento Robusta com Fetch -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loadComponent = (url, placeholderId) => {
@@ -57,7 +49,6 @@
                     .then(data => {
                         const placeholder = document.getElementById(placeholderId);
                         if (placeholder) placeholder.outerHTML = data;
-                        else console.warn(`Placeholder '${placeholderId}' não encontrado.`);
                     });
             };
 
@@ -65,8 +56,7 @@
                 return new Promise((resolve, reject) => {
                     const script = document.createElement('script');
                     script.src = src;
-                    // Removido type="module" para compatibilidade mais ampla e para garantir a execução no escopo global
-                    script.onload = () => resolve();
+                    script.onload = resolve;
                     script.onerror = () => reject(new Error(`Falha ao carregar script: ${src}`));
                     document.body.appendChild(script);
                 });
@@ -79,22 +69,21 @@
                         loadComponent('global-header.html', 'global-header-placeholder'),
                         loadComponent('global-footer.html', 'global-footer-placeholder')
                     ]);
-                    console.log('Componentes HTML carregados.');
+                    console.log('Componentes HTML (header/footer) carregados.');
 
-                    // 2. Carrega o ficheiro de script
+                    // 2. Carrega o script principal
                     await loadScript('global-scripts.js');
                     console.log('Ficheiro global-scripts.js carregado.');
 
-                    // 3. VERIFICA e EXECUTA a função de inicialização
+                    // 3. Executa a função de inicialização
                     if (typeof initializeApp === 'function') {
                         initializeApp();
                     } else {
-                        throw new Error('A função de inicialização "initializeApp" não foi encontrada em global-scripts.js.');
+                        throw new Error('Função initializeApp não encontrada.');
                     }
-
                 } catch (error) {
-                    console.error('ERRO CRÍTICO no carregamento da página:', error);
-                    document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: sans-serif;"><h1>Erro ao carregar a página</h1><p>Não foi possível carregar os componentes necessários. Por favor, tente novamente mais tarde.</p></div>';
+                    console.error('ERRO CRÍTICO na construção da página:', error);
+                    document.body.innerHTML = '<h1>Ocorreu um erro ao carregar a página.</h1>';
                 }
             })();
         });
