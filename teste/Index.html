@@ -5,74 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadoras de Enfermagem - Ferramentas Essenciais</title>
     
-    <link rel="stylesheet" href="global-styles.css">
+    <meta name="description" content="Ferramentas essenciais e interativas para profissionais e estudantes de enfermagem">
+
+    <!-- Scripts e Estilos Globais -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito+Sans:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Nunito+Sans:wght@700;900&display=swap" rel="stylesheet">
     
-    <!-- Scripts do Firebase e Analytics -->
+    <link rel="stylesheet" href="global-styles.css">
+    
+    <!-- Scripts de Analytics e Firebase -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-952633102"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('consent', 'default', { 'analytics_storage': 'granted', 'ad_storage': 'granted' });
+        gtag('consent', 'default', { 'analytics_storage': 'granted', 'ad_storage': 'granted', 'wait_for_update': 500 });
         gtag('config', 'AW-952633102');
     </script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body class="bg-gray-100">
 
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- Placeholders que serão substituídos -->
     <div id="global-header-placeholder"></div>
 
     <main id="main-content" class="container mx-auto p-8">
-        <h1 class="main-title">Bem-vindo à Página Principal!</h1>
-        <p>Este é o conteúdo que muda de uma página para outra.</p>
+        <section id="calculators-app">
+            <h1 class="main-title">Bem-vindo à Página Principal!</h1>
+            <p>Este é o conteúdo que muda de uma página para outra.</p>
+        </section>
     </main>
 
     <div id="global-footer-placeholder"></div>
 
-    <!-- Nova Lógica de Carregamento Robusta -->
-    <script src="components.js"></script>
+    <!-- Scripts do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+
     <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAuJ-f5ZyQ4df_5-EPUw8QlUUfpDRdyKH8",
+            authDomain: "site-calculadoras.firebaseapp.com",
+            projectId: "site-calculadoras",
+            storageBucket: "site-calculadoras.firebasestorage.app",
+            messagingSenderId: "57518126485",
+            appId: "1:57518126485:web:06e8853cedea7697c5729c",
+            measurementId: "G-GD0NBBTFYR"
+        };
+        
+        // Inicializar Firebase
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            if (typeof firebase.analytics !== 'undefined') {
+                firebase.analytics();
+            }
+        }
+    </script>
+
+    <!-- LÓGICA DE CARREGAMENTO DEFINITIVA -->
+    <script>
+        // Variável global para controlar o estado de carregamento
+        window.appComponents = {
+            loaded: false,
+            onLoadCallbacks: []
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
-            try {
-                // 1. Injeta o HTML síncronamente. É instantâneo e à prova de falhas de rede.
-                loadHeader();
-                loadFooter();
-                console.log('Componentes HTML injetados com sucesso.');
+            const loadComponent = (url, placeholderId) => {
+                return fetch(url)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`Erro HTTP ${response.status} ao carregar ${url}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        const placeholder = document.getElementById(placeholderId);
+                        if (placeholder) {
+                            placeholder.outerHTML = data;
+                            return true;
+                        }
+                        console.warn(`Placeholder '${placeholderId}' não encontrado.`);
+                        return false;
+                    });
+            };
 
-                // 2. Carrega o script do VLibras dinamicamente após o footer ser injetado
-                const vlibrasScript = document.createElement('script');
-                vlibrasScript.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-                vlibrasScript.onload = () => {
-                    new window.VLibras.Widget("https://vlibras.gov.br/app");
-                    console.log('VLibras inicializado.');
-                };
-                document.body.appendChild(vlibrasScript);
+            const loadScript = (src) => {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = src;
+                    script.onload = () => resolve();
+                    script.onerror = () => reject(new Error(`Falha ao carregar script: ${src}`));
+                    document.body.appendChild(script);
+                });
+            };
 
-                // 3. Carrega o script de interatividade principal
-                const mainScript = document.createElement('script');
-                mainScript.src = 'global-scripts.js';
-                mainScript.onload = () => {
-                    // 4. Executa a função de inicialização APÓS o script ser carregado
+            (async () => {
+                try {
+                    console.log('Iniciando carregamento dos componentes...');
+                    
+                    // 1. Carrega os componentes HTML
+                    const [headerLoaded, footerLoaded] = await Promise.all([
+                        loadComponent('global-header.html', 'global-header-placeholder'),
+                        loadComponent('global-footer.html', 'global-footer-placeholder')
+                    ]);
+                    
+                    console.log('Componentes HTML carregados:', { headerLoaded, footerLoaded });
+
+                    // 2. Carrega o script global
+                    await loadScript('global-scripts.js');
+                    console.log('Script global carregado.');
+
+                    // 3. Pequeno delay para garantir que o DOM está atualizado
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    // 4. Verifica e executa a função de inicialização
                     if (typeof initializeApp === 'function') {
                         initializeApp();
+                        window.appComponents.loaded = true;
+                        // Executar callbacks pendentes
+                        window.appComponents.onLoadCallbacks.forEach(callback => callback());
+                        window.appComponents.onLoadCallbacks = [];
                     } else {
-                        throw new Error('Função initializeApp não encontrada.');
+                        console.error('Função initializeApp não encontrada');
                     }
-                };
-                document.body.appendChild(mainScript);
 
-            } catch (error) {
-                console.error('ERRO CRÍTICO na construção da página:', error);
-                document.body.innerHTML = '<h1>Ocorreu um erro ao carregar a página.</h1>';
-            }
+                } catch (error) {
+                    console.error('Erro no carregamento:', error);
+                    // Não quebrar a página completamente, apenas mostrar aviso
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; background: #ffebee; color: #c62828; padding: 10px; z-index: 10000; text-align: center;';
+                    errorDiv.textContent = 'Alguns recursos podem não estar funcionando corretamente.';
+                    document.body.appendChild(errorDiv);
+                    
+                    setTimeout(() => {
+                        if (typeof initializeApp === 'function') {
+                            initializeApp();
+                        }
+                    }, 1000);
+                }
+            })();
         });
+
+        // Função utilitária para executar código após carregamento dos componentes
+        window.onAppComponentsLoaded = function(callback) {
+            if (window.appComponents.loaded) {
+                callback();
+            } else {
+                window.appComponents.onLoadCallbacks.push(callback);
+            }
+        };
     </script>
 </body>
 </html>
