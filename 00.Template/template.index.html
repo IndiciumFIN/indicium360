@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6472730056006847" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow, max-snippet:320, max-image-preview:large" />
+    <meta name="theme-color" content="#1A3E74" />
     <title>Calculadoras de Enfermagem - Ferramentas e Recursos para Profissionais</title>
     <meta name="description" content="Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.">
     
+
+    <!-- Google Tag Manager & Ads Conversion -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=AW-952633102"></script>
+
     <!-- ============================================================ -->
     <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
     <!-- ============================================================ -->
-    <script src="assets/js/config.js"></script>
+    <script src="/indicium360/00.Template/assets/js/config.js"></script>
     
     <!-- ============================================================ -->
     <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
@@ -59,6 +67,24 @@
     <link rel="alternate" hreflang="uk" href="https://www.calculadorasdeenfermagem.com.br/uk/" />
     <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/" />
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.calculadorasdeenfermagem.com.br/">
+    <meta property="og:title" content="Calculadoras de Enfermagem - Ferramentas e Recursos para Profissionais">
+    <meta property="og:description" content="Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.">
+    <meta property="og:image" content="https://www.calculadorasdeenfermagem.com.br/assets/images/og-image-home.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Calculadoras de Enfermagem">
+    <meta property="og:locale" content="pt_BR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.calculadorasdeenfermagem.com.br/">
+    <meta name="twitter:title" content="Calculadoras de Enfermagem - Ferramentas e Recursos para Profissionais">
+    <meta name="twitter:description" content="Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.">
+    <meta name="twitter:image" content="https://www.calculadorasdeenfermagem.com.br/assets/images/og-image-home.jpg">
+
     <!-- Schema.org - Organization (configurado via CONFIG) -->
     <script>
     if (typeof CONFIG !== 'undefined') {
@@ -78,7 +104,27 @@
                 "@type": "ContactPoint",
                 "email": "contato@calculadorasdeenfermagem.com.br",
                 "contactType": "customer support",
-                "availableLanguage": ["Portuguese", "English", "Spanish"]
+                "availableLanguage": [
+                    "Portuguese",
+                    "English",
+                    "Spanish",
+                    "French",
+                    "German",
+                    "Italian",
+                    "Japanese",
+                    "Korean",
+                    "Chinese",
+                    "Hindi",
+                    "Arabic",
+                    "Russian",
+                    "Turkish",
+                    "Dutch",
+                    "Polish",
+                    "Swedish",
+                    "Indonesian",
+                    "Vietnamese",
+                    "Ukrainian"
+                ]
             }
         };
         
@@ -135,19 +181,40 @@
     </script>
 
     <!-- Fontes Locais -->
-    <link rel="stylesheet" href="assets/fonts/google-fonts.css">
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/fonts/google-fonts.css">
     
     <!-- Font Awesome Local -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/css/fontawesome.min.css">
     
     <!-- CSS Centralizado -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/css/styles.css">
     
     <!-- Header Icons CSS - Desktop e Mobile -->
-    <link rel="stylesheet" href="assets/css/header-icons.css">
-    <link rel="stylesheet" href="assets/css/header-icons-mobile-fix.css">
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/css/header-icons.css">
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- Modal Feedback CSS -->
+    <link rel="stylesheet" href="/indicium360/00.Template/assets/css/modal-feedback.css">
 </head>
 <body>
+
+    <!-- FALLBACK PARA NAVEGADORES SEM JAVASCRIPT -->
+    <noscript>
+        <div style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white; padding: 1.5rem; text-align: center; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;">
+            <h1 style="margin: 0 0 1rem 0; font-size: 1.5rem;">
+                ⚠️ JavaScript Necessário
+            </h1>
+            <p style="margin: 0 0 0.5rem 0; font-size: 1rem; opacity: 0.95;">
+                Esta página requer JavaScript para funcionar corretamente.
+            </p>
+            <p style="margin: 0; font-size: 0.9rem; opacity: 0.85;">
+                Por favor, habilite o JavaScript no seu navegador ou visite 
+                <a href="https://www.calculadorasdeenfermagem.com.br/" style="color: #00D9FF; text-decoration: underline;">
+                    nossa página inicial
+                </a>
+            </p>
+        </div>
+    </noscript>
 
     <!-- SKIP LINKS - Injetado via JS -->
     <div id="skip-links-container"></div>
@@ -167,8 +234,11 @@
     <!-- CONSENT BANNER - Injetado via JS -->
     <div id="consent-container"></div>
     
+    <!-- MODALS CONTAINER -->
+    <div id="modals-container"></div>
+    
     <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
-    <script src="assets/js/components.js"></script>
+    <script src="/indicium360/00.Template/assets/js/components.js"></script>
     
     <!-- Script de inicialização ÚNICO dos componentes -->
     <script>
@@ -253,14 +323,18 @@
     </script>
     
     <!-- Funcionalidades JS -->
-    <script src="assets/js/scripts.js"></script>
+    <script src="/indicium360/00.Template/assets/js/scripts.js"></script>
     
     <!-- Header Icons JS - Comportamento do cabeçalho mobile/desktop -->
-    <script src="assets/js/header-icons.js"></script>
+    <script src="/indicium360/00.Template/assets/js/header-icons.js"></script>
     
     <!-- VLibras Script -->
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    
+    <!-- Modal Feedback JS -->
+    <script src="/indicium360/00.Template/assets/js/modal-feedback.js"></script>
+
 
 </body>
 </html>
