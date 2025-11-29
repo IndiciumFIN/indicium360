@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Política de privacidade e proteção de dados pessoais em conformidade com a LGPD. Saiba como coletamos, usamos e protegemos suas informações.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/politica-de-privacidade" />
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/politica-de-privacidade" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/politica-de-privacidade" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Política de Privacidade",
+            "description": "Política de privacidade e proteção de dados pessoais em conformidade com a LGPD.",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-11-23",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/politica-de-privacidade"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="../00.Template/assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="/sobre-nos">Sobre Nós</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>Política de Privacidade</span>
+            </nav>
+            
+            <!-- Article Header -->
+            <header class="article-header">
+                <span class="article-category" style="color: white;">LEGAL</span>
+                <h1>Política de Privacidade</h1>
+                <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                <p class="article-subtitle">
+                    Proteção de dados pessoais em conformidade com a Lei Geral de Proteção de Dados (LGPD). Saiba como coletamos, usamos e protegemos suas informações.
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>Publicado em 01/01/2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Leitura: 8 min</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Por Calculadoras de Enfermagem</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-sync"></i>
+                        <span>Atualizado em 23/11/2025</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Featured Image -->
+            <img src="../00.Template/assets/images/privacidade_dados_9.jpg" 
+                 alt="Proteção de dados e privacidade digital" 
+                 class="featured-image"
+                 loading="lazy">
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <p>
+                        A <strong>Calculadoras de Enfermagem</strong> está comprometida com a proteção da privacidade e dos dados pessoais de nossos usuários. Esta Política de Privacidade descreve como coletamos, usamos, armazenamos e protegemos suas informações em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018)</strong>.
+                    </p>
+                    
+                    <h2 id="dados-coletados">1. Dados Coletados</h2>
+                    
+                    <h3>1.1 Dados de Navegação</h3>
+                    <p>Coletamos automaticamente informações sobre sua visita:</p>
+                    <ul>
+                        <li>Endereço IP</li>
+                        <li>Tipo de navegador e sistema operacional</li>
+                        <li>Páginas visitadas e tempo de permanência</li>
+                        <li>Origem de acesso (site de referência)</li>
+                        <li>Data e hora de acesso</li>
+                    </ul>
+                    
+                    <h3>1.2 Dados Fornecidos Voluntariamente</h3>
+                    <p>Quando você entra em contato conosco, podemos coletar:</p>
+                    <ul>
+                        <li>Nome</li>
+                        <li>Endereço de e-mail</li>
+                        <li>Mensagem ou comentário</li>
+                    </ul>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Importante:</strong> Não coletamos dados sensíveis de saúde. As calculadoras são ferramentas consultivas e os cálculos são processados localmente no seu navegador.
+                        </div>
+                    </div>
+                    
+                    <h2 id="finalidade">2. Finalidade do Uso dos Dados</h2>
+                    
+                    <p>Utilizamos seus dados para:</p>
+                    <ul>
+                        <li><strong>Melhorar a experiência do usuário:</strong> Análise de navegação para otimizar o site</li>
+                        <li><strong>Comunicação:</strong> Responder a contatos e solicitações</li>
+                        <li><strong>Segurança:</strong> Prevenir fraudes e abusos</li>
+                        <li><strong>Estatísticas:</strong> Gerar relatórios agregados e anônimos sobre o uso do site</li>
+                        <li><strong>Conformidade legal:</strong> Cumprir obrigações legais e regulatórias</li>
+                    </ul>
+                    
+                    <h2 id="cookies">3. Cookies e Tecnologias Similares</h2>
+                    
+                    <p>Utilizamos cookies para melhorar sua experiência de navegação:</p>
+                    
+                    <table class="content-table">
+                        <thead>
+                            <tr><th>Tipo de Cookie</th><th>Finalidade</th><th>Duração</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Essenciais</strong></td>
+                                <td>Funcionamento básico do site</td>
+                                <td>Sessão</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Analíticos</strong></td>
+                                <td>Google Analytics (análise de uso)</td>
+                                <td>24 meses</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Preferências</strong></td>
+                                <td>Configurações de acessibilidade</td>
+                                <td>12 meses</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Publicidade</strong></td>
+                                <td>Google AdSense (anúncios personalizados)</td>
+                                <td>24 meses</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p>Você pode gerenciar suas preferências de cookies através do banner de consentimento ou configurações do navegador.</p>
+                    
+                    <h2 id="compartilhamento">4. Compartilhamento de Dados</h2>
+                    
+                    <p>Não vendemos, alugamos ou comercializamos seus dados pessoais. Compartilhamos informações apenas com:</p>
+                    
+                    <ul>
+                        <li><strong>Google Analytics:</strong> Para análise de tráfego e comportamento de usuários (dados anonimizados)</li>
+                        <li><strong>Google AdSense:</strong> Para exibição de anúncios relevantes</li>
+                        <li><strong>Autoridades legais:</strong> Quando exigido por lei ou ordem judicial</li>
+                    </ul>
+                    
+                    <div class="alert alert-success">
+                        <i class="fa-solid fa-shield-alt"></i>
+                        <div>
+                            <strong>Segurança:</strong> Todas as transferências de dados para terceiros são realizadas com contratos de proteção de dados e em conformidade com a LGPD.
+                        </div>
+                    </div>
+                    
+                    <h2 id="direitos">5. Seus Direitos (LGPD)</h2>
+                    
+                    <p>De acordo com a LGPD, você tem direito a:</p>
+                    
+                    <ul>
+                        <li><strong>Confirmação e acesso:</strong> Saber se processamos seus dados e acessá-los</li>
+                        <li><strong>Correção:</strong> Corrigir dados incompletos, inexatos ou desatualizados</li>
+                        <li><strong>Anonimização, bloqueio ou eliminação:</strong> Solicitar a remoção de dados desnecessários ou excessivos</li>
+                        <li><strong>Portabilidade:</strong> Receber seus dados em formato estruturado</li>
+                        <li><strong>Eliminação:</strong> Solicitar a exclusão de dados tratados com base no consentimento</li>
+                        <li><strong>Revogação do consentimento:</strong> Retirar o consentimento a qualquer momento</li>
+                        <li><strong>Oposição:</strong> Opor-se ao tratamento de dados em determinadas hipóteses</li>
+                    </ul>
+                    
+                    <h2 id="seguranca">6. Segurança dos Dados</h2>
+                    
+                    <p>Adotamos medidas técnicas e organizacionais para proteger seus dados:</p>
+                    <ul>
+                        <li>Criptografia SSL/TLS (HTTPS) em todas as páginas</li>
+                        <li>Servidores protegidos por firewall</li>
+                        <li>Backups regulares</li>
+                        <li>Acesso restrito a dados pessoais</li>
+                        <li>Políticas internas de segurança da informação</li>
+                    </ul>
+                    
+                    <h2 id="retencao">7. Retenção de Dados</h2>
+                    
+                    <p>Mantemos seus dados pessoais apenas pelo tempo necessário para cumprir as finalidades descritas nesta política, salvo obrigação legal de retenção por período superior.</p>
+                    
+                    <h2 id="contato">8. Contato e Exercício de Direitos</h2>
+                    
+                    <p>Para exercer seus direitos ou esclarecer dúvidas sobre privacidade:</p>
+                    <ul>
+                        <li><strong>E-mail:</strong> <a href="mailto:ciadeenfermagem@gmail.com">ciadeenfermagem@gmail.com</a></li>
+                        <li><strong>Assunto:</strong> "LGPD - Privacidade de Dados"</li>
+                    </ul>
+                    
+                    <div class="inline-cta">
+                        <h3>Dúvidas sobre Privacidade?</h3>
+                        <p>Entre em contato conosco para exercer seus direitos ou esclarecer dúvidas</p>
+                        <a href="mailto:ciadeenfermagem@gmail.com" class="cta-button">
+                            <i class="fa-solid fa-envelope"></i> Contato LGPD
+                        </a>
+                    </div>
+                    
+                    <h2 id="alteracoes">9. Alterações nesta Política</h2>
+                    
+                    <p>Podemos atualizar esta Política de Privacidade periodicamente. A data de "Última Atualização" no topo da página indica quando a política foi revisada pela última vez. Recomendamos que você revise esta política regularmente.</p>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Última atualização:</strong> 23/11/2025. Em caso de alterações substanciais, notificaremos os usuários através do site.
+                        </div>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="content-sidebar">
+                    
+                    <!-- Índice -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-list" aria-hidden="true"></i> Índice</h3>
+                        <ul class="toc-list" style="color: rgba(255,255,255,0.95);">
+                            <li><a href="#dados-coletados" style="color: rgba(255,255,255,0.95);">1. Dados Coletados</a></li>
+                            <li><a href="#finalidade" style="color: rgba(255,255,255,0.95);">2. Finalidade do Uso dos Dados</a></li>
+                            <li><a href="#cookies" style="color: rgba(255,255,255,0.95);">3. Cookies e Tecnologias</a></li>
+                            <li><a href="#compartilhamento" style="color: rgba(255,255,255,0.95);">4. Compartilhamento de Dados</a></li>
+                            <li><a href="#direitos" style="color: rgba(255,255,255,0.95);">5. Seus Direitos (LGPD)</a></li>
+                            <li><a href="#seguranca" style="color: rgba(255,255,255,0.95);">6. Segurança dos Dados</a></li>
+                            <li><a href="#retencao" style="color: rgba(255,255,255,0.95);">7. Retenção de Dados</a></li>
+                            <li><a href="#contato" style="color: rgba(255,255,255,0.95);">8. Contato e Exercício de Direitos</a></li>
+                            <li><a href="#alteracoes" style="color: rgba(255,255,255,0.95);">9. Alterações nesta Política</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Compartilhar -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-share-nodes" aria-hidden="true"></i> Compartilhar</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" title="Facebook" aria-label="Compartilhar no Facebook">
+                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn twitter" title="Twitter" aria-label="Compartilhar no Twitter">
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn linkedin" title="LinkedIn" aria-label="Compartilhar no LinkedIn">
+                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn whatsapp" title="WhatsApp" aria-label="Compartilhar no WhatsApp">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA LGPD -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-shield-alt" aria-hidden="true"></i> LGPD</h3>
+                        <p style="font-size: 0.95rem; opacity: 0.95; margin-bottom: 1rem;">
+                            Exercite seus direitos de privacidade
+                        </p>
+                        <a href="mailto:ciadeenfermagem@gmail.com?subject=LGPD - Privacidade de Dados" style="display: block; width: 100%; padding: 0.875rem; background: white; color: var(--color-primary); border: none; border-radius: 0.5rem; font-weight: 600; text-align: center; text-decoration: none; transition: all 0.3s ease;" aria-label="Contato sobre privacidade">
+                            <i class="fa-solid fa-envelope"></i> Contato LGPD
+                        </a>
+                    </div>
+                    
+                </aside>
+                
+            </div>
+            
+            <!-- Author Box -->
+            <div class="author-box">
+                <img src="https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp" 
+                     alt="Calculadoras de Enfermagem" 
+                     class="author-avatar"
+                     onerror="if(typeof CONFIG !== 'undefined') this.src = CONFIG.site.logo.url">
+                <div class="author-info">
+                    <h3>Calculadoras de Enfermagem</h3>
+                    <p>
+                        Ferramentas essenciais para profissionais e estudantes de enfermagem, oferecendo calculadoras de escalas clínicas e de dosagem de medicamentos para otimizar a prática diária e a segurança do paciente. São mais de 50 escalas clínicas disponíveis.
+                    </p>
+                    <blockquote style="margin-top: 1rem; font-style: italic; color: var(--color-grey-medium); border-left: 3px solid var(--color-primary); padding-left: 1rem;">
+                        "Conhecer e ter domínio em escalas clínicas é fundamental para o enfermeiro, auxilia na tomada de decisões, otimiza a assistência e empodera!"
+                    </blockquote>
+                </div>
+            </div>
+            
+            <!-- Referências Bibliográficas -->
+            <section class="references-section">
+                <h2><i class="fa-solid fa-book"></i> Referências Legais</h2>
+                
+                <div class="reference-item">
+                    1. Brasil. (2018). <em>Lei nº 13.709/2018 - Lei Geral de Proteção de Dados Pessoais (LGPD)</em>. Brasília: Planalto. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+                </div>
+                
+                <div class="reference-item">
+                    2. ANPD. (2024). <em>Guia Orientativo: Tratamento de Dados Pessoais</em>. Autoridade Nacional de Proteção de Dados. Disponível em: https://www.gov.br/anpd/
+                </div>
+                
+                <div class="reference-item">
+                    3. União Europeia. (2016). <em>Regulamento Geral de Proteção de Dados (GDPR)</em>. Disponível em: https://gdpr.eu/
+                </div>
+                
+                <div class="reference-item">
+                    4. Brasil. (2014). <em>Marco Civil da Internet - Lei nº 12.965/2014</em>. Brasília: Planalto.
+                </div>
+            </section>
+            
+            <!-- Tags -->
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--color-grey-medium); font-size: 0.875rem; margin-bottom: 1rem;">TAGS</h4>
+                <div class="tags-list">
+                    <a href="#" class="tag">LGPD</a>
+                    <a href="#" class="tag">Privacidade</a>
+                    <a href="#" class="tag">Proteção de Dados</a>
+                    <a href="#" class="tag">Cookies</a>
+                    <a href="#" class="tag">Segurança Digital</a>
+                    <a href="#" class="tag">Direitos do Usuário</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Curva Decorativa Superior -->
+        <svg class="bg-wave-top" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,60 C320,100 420,100 740,60 C1060,20 1200,40 1440,60 L1440,0 L0,0 Z"></path>
+        </svg>
+        
+        <!-- Seção de Conteúdo Relacionado -->
+        <section class="related-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in" style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                    Conteúdos Relacionados
+                </h2>
+            </div>
+            
+            <div class="related-grid">
+                
+                <a href="/termos-de-uso" class="related-card animate-on-scroll scale-in delay-1">
+                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400" 
+                         alt="Termos de Uso" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Legal</span>
+                        <h3>Termos de Uso</h3>
+                        <p>Condições gerais para utilização da plataforma.</p>
+                    </div>
+                </a>
+                
+                <a href="/acessibilidade" class="related-card animate-on-scroll scale-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400" 
+                         alt="Acessibilidade" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Inclusão</span>
+                        <h3>Política de Acessibilidade</h3>
+                        <p>Nosso compromisso com a inclusão digital.</p>
+                    </div>
+                </a>
+                
+                <a href="/compromisso" class="related-card animate-on-scroll scale-in delay-3">
+                    <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400" 
+                         alt="Compromisso" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Sustentabilidade</span>
+                        <h3>Compromisso com a Sustentabilidade</h3>
+                        <p>Práticas sustentáveis em nossa plataforma.</p>
+                    </div>
+                </a>
+                
+            </div>
+        </section>
+        
+        <!-- Curva Decorativa Inferior -->
+        <svg class="bg-wave-bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" style="position: absolute; bottom: 0; left: 0;">
+            <path d="M0,60 C320,20 620,40 960,60 C1280,80 1360,80 1440,60 L1440,120 L0,120 Z"></path>
+        </svg>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- Container para Modais Institucionais -->
+    <div id="modals-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="../00.Template/assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+
+</body>
+</html>

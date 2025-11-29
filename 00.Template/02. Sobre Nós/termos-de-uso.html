@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Termos e condições de uso da plataforma Calculadoras de Enfermagem: direitos, responsabilidades, propriedade intelectual e limitações legais.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/termos-de-uso.html" />
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/termos-de-uso.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/termos-de-uso.html" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Termos de Uso - Calculadoras de Enfermagem",
+            "description": "Termos e condições de uso da plataforma Calculadoras de Enfermagem: direitos, responsabilidades, propriedade intelectual e limitações legais.",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-11-23",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/termos-de-uso.html"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="../00.Template/assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="/sobre-nos">Sobre Nós</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>Termos de Uso</span>
+            </nav>
+            
+            <!-- Article Header -->
+            <header class="article-header">
+                <span class="article-category">LEGAL</span>
+                <h1>Termos de Uso</h1>
+                <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                <p class="article-subtitle">
+                    Termos e condições que regem o uso da plataforma Calculadoras de Enfermagem. Leia atentamente para entender seus direitos e responsabilidades ao utilizar nossos serviços.
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>Publicado em 01/01/2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Leitura: 10 min</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Por Calculadoras de Enfermagem</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-sync"></i>
+                        <span>Atualizado em 23/11/2025</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Featured Image -->
+            <img src="../00.Template/assets/images/termos_uso_7.jpg" 
+                 alt="Termos de Uso - Calculadoras de Enfermagem" 
+                 class="featured-image">
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <!-- Introdução -->
+                    <p>
+                        Bem-vindo à plataforma Calculadoras de Enfermagem. Estes Termos de Uso estabelecem as condições gerais aplicáveis ao acesso e utilização da plataforma, seus conteúdos, ferramentas e serviços disponibilizados.
+                    </p>
+                    
+                    <p>
+                        Ao acessar e utilizar esta plataforma, você declara ter lido, compreendido e concordado com todos os termos e condições aqui estabelecidos. Caso não concorde com qualquer disposição destes termos, solicitamos que não utilize nossa plataforma.
+                    </p>
+                    
+                    <!-- Alerta de Destaque -->
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Importante:</strong> Estes termos podem ser atualizados periodicamente. É responsabilidade do usuário verificar regularmente esta página para estar ciente de quaisquer alterações.
+                        </div>
+                    </div>
+                    
+                    <!-- Seção 1 -->
+                    <h2 id="aceitacao-termos">1. Aceitação dos Termos</h2>
+                    
+                    <p>
+                        Ao acessar e utilizar a plataforma Calculadoras de Enfermagem, você concorda em cumprir e estar sujeito aos seguintes termos e condições de uso. Se você não concordar com algum destes termos, não deverá utilizar esta plataforma.
+                    </p>
+                    
+                    <h3>1.1 Capacidade Legal</h3>
+                    
+                    <p>
+                        O uso desta plataforma é destinado a profissionais de saúde, estudantes de enfermagem e demais interessados que possuam capacidade legal para contratar. Menores de idade devem utilizar a plataforma sob supervisão de responsável legal.
+                    </p>
+                    
+                    <h3>1.2 Modificações dos Termos</h3>
+                    
+                    <ul>
+                        <li>Reservamo-nos o direito de modificar estes termos a qualquer momento</li>
+                        <li>As modificações entrarão em vigor imediatamente após sua publicação</li>
+                        <li>O uso continuado da plataforma após alterações constitui aceitação dos novos termos</li>
+                        <li>Recomendamos a revisão periódica destes termos</li>
+                    </ul>
+                    
+                    <!-- Seção 2 -->
+                    <h2 id="descricao-servicos">2. Descrição dos Serviços</h2>
+                    
+                    <p>
+                        A plataforma Calculadoras de Enfermagem oferece ferramentas educacionais e de apoio à prática clínica de enfermagem, incluindo calculadoras de dosagem de medicamentos, escalas clínicas validadas e conteúdo educativo baseado em evidências científicas.
+                    </p>
+                    
+                    <h3>2.1 Natureza dos Serviços</h3>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-info-circle"></i> Ferramentas de Apoio</h4>
+                        <p>
+                            As ferramentas disponibilizadas são recursos de apoio à decisão clínica e não substituem o julgamento profissional, a avaliação clínica individual ou o acompanhamento por profissional habilitado.
+                        </p>
+                    </div>
+                    
+                    <h3>2.2 Disponibilidade</h3>
+                    
+                    <ul>
+                        <li>Buscamos manter a plataforma disponível 24 horas por dia, 7 dias por semana</li>
+                        <li>Podem ocorrer interrupções para manutenção, atualizações ou por motivos técnicos</li>
+                        <li>Não garantimos disponibilidade ininterrupta ou livre de erros</li>
+                        <li>Reservamo-nos o direito de modificar ou descontinuar serviços sem aviso prévio</li>
+                    </ul>
+                    
+                    <!-- Tabela de Dados -->
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>Tipo de Serviço</th>
+                                <th>Descrição</th>
+                                <th>Finalidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Calculadoras</td>
+                                <td>Ferramentas de cálculo de dosagens</td>
+                                <td>Apoio à decisão clínica</td>
+                            </tr>
+                            <tr>
+                                <td>Escalas Clínicas</td>
+                                <td>Instrumentos validados de avaliação</td>
+                                <td>Padronização de avaliações</td>
+                            </tr>
+                            <tr>
+                                <td>Conteúdo Educativo</td>
+                                <td>Artigos e recursos baseados em evidências</td>
+                                <td>Educação continuada</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Seção 3 -->
+                    <h2 id="responsabilidades-usuario">3. Responsabilidades do Usuário</h2>
+                    
+                    <p>
+                        Ao utilizar nossa plataforma, você concorda em assumir determinadas responsabilidades e obrigações que garantem o uso adequado e ético dos recursos disponibilizados.
+                    </p>
+                    
+                    <h3>3.1 Uso Apropriado</h3>
+                    
+                    <ol>
+                        <li><strong>Finalidade Profissional:</strong> Utilizar as ferramentas exclusivamente para fins educacionais e de apoio profissional</li>
+                        <li><strong>Julgamento Clínico:</strong> Manter sempre o julgamento clínico independente e não basear decisões exclusivamente nos resultados das ferramentas</li>
+                        <li><strong>Verificação de Dados:</strong> Conferir todos os dados inseridos e resultados obtidos antes de aplicá-los na prática</li>
+                        <li><strong>Atualização Profissional:</strong> Manter-se atualizado sobre as melhores práticas e protocolos da área</li>
+                    </ol>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <div>
+                            <strong>Responsabilidade Profissional:</strong> O usuário é o único responsável pelas decisões clínicas tomadas com base nas informações e ferramentas disponibilizadas nesta plataforma.
+                        </div>
+                    </div>
+                    
+                    <h3>3.2 Proibições</h3>
+                    
+                    <p>É expressamente proibido:</p>
+                    
+                    <ul>
+                        <li>Utilizar a plataforma para fins ilegais ou não autorizados</li>
+                        <li>Tentar obter acesso não autorizado a sistemas ou dados</li>
+                        <li>Interferir no funcionamento da plataforma ou sobrecarregar a infraestrutura</li>
+                        <li>Reproduzir, duplicar, copiar ou revender qualquer parte da plataforma sem autorização</li>
+                        <li>Utilizar técnicas de scraping, crawling ou extração automatizada de dados</li>
+                        <li>Transmitir vírus, malware ou qualquer código malicioso</li>
+                    </ul>
+                    
+                    <!-- Seção 4 -->
+                    <h2 id="propriedade-intelectual">4. Propriedade Intelectual</h2>
+                    
+                    <p>
+                        Todo o conteúdo disponibilizado na plataforma Calculadoras de Enfermagem, incluindo mas não se limitando a textos, gráficos, logotipos, ícones, imagens, áudios, vídeos, ferramentas, códigos e software, é de propriedade exclusiva ou licenciado para uso da plataforma.
+                    </p>
+                    
+                    <h3>4.1 Direitos Autorais</h3>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-copyright"></i> Proteção Legal</h4>
+                        <p>
+                            Todo o conteúdo está protegido pelas leis de direitos autorais brasileiras e internacionais. A reprodução, distribuição, modificação ou uso comercial não autorizado de qualquer material da plataforma é estritamente proibido.
+                        </p>
+                    </div>
+                    
+                    <h3>4.2 Uso Permitido</h3>
+                    
+                    <p>
+                        Você pode:
+                    </p>
+                    
+                    <ul>
+                        <li>Acessar e visualizar o conteúdo para uso pessoal e não comercial</li>
+                        <li>Imprimir páginas individuais para referência profissional</li>
+                        <li>Compartilhar links para o conteúdo através das ferramentas de compartilhamento disponibilizadas</li>
+                        <li>Citar o conteúdo em trabalhos acadêmicos com a devida atribuição</li>
+                    </ul>
+                    
+                    <!-- Citação em Bloco -->
+                    <blockquote>
+                        "A propriedade intelectual é fundamental para proteger a inovação e garantir a qualidade do conteúdo educacional disponibilizado para profissionais de saúde."
+                        <br><br>
+                        <strong>— Lei de Direitos Autorais (Lei 9.610/98)</strong>
+                    </blockquote>
+                    
+                    <!-- Seção 5 -->
+                    <h2 id="limitacoes-responsabilidade">5. Limitações de Responsabilidade</h2>
+                    
+                    <p>
+                        A plataforma Calculadoras de Enfermagem é disponibilizada "como está" e "conforme disponível", sem garantias de qualquer tipo, expressas ou implícitas.
+                    </p>
+                    
+                    <h3>5.1 Isenção de Garantias</h3>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Aviso Importante:</strong> Não garantimos que a plataforma atenderá suas necessidades específicas, que será ininterrupta, oportuna, segura ou livre de erros. Os resultados obtidos com o uso das ferramentas podem variar.
+                        </div>
+                    </div>
+                    
+                    <h3>5.2 Limitação de Danos</h3>
+                    
+                    <p>
+                        Em nenhuma circunstância seremos responsáveis por:
+                    </p>
+                    
+                    <ul>
+                        <li>Danos diretos, indiretos, incidentais, especiais ou consequenciais</li>
+                        <li>Perda de lucros, dados ou oportunidades de negócios</li>
+                        <li>Decisões clínicas tomadas com base nas informações da plataforma</li>
+                        <li>Erros ou omissões no conteúdo disponibilizado</li>
+                        <li>Interrupções ou falhas no serviço</li>
+                        <li>Ações de terceiros ou links externos</li>
+                    </ul>
+                    
+                    <!-- CTA Inline -->
+                    <div class="inline-cta">
+                        <h3>Dúvidas sobre Privacidade?</h3>
+                        <p>Consulte nossa Política de Privacidade para entender como tratamos seus dados</p>
+                        <a href="#" class="cta-button" onclick="event.preventDefault(); ModalInstitucional.open('politica-de-privacidade');">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Ver Política de Privacidade
+                        </a>
+                    </div>
+                    
+                    <!-- Seção 6 -->
+                    <h2 id="links-terceiros">6. Links para Sites de Terceiros</h2>
+                    
+                    <p>
+                        Nossa plataforma pode conter links para sites de terceiros que não são operados ou controlados por nós. Esses links são fornecidos apenas para sua conveniência e não implicam endosso do conteúdo desses sites.
+                    </p>
+                    
+                    <h3>6.1 Responsabilidade por Conteúdo Externo</h3>
+                    
+                    <ul>
+                        <li>Não temos controle sobre o conteúdo, políticas ou práticas de sites de terceiros</li>
+                        <li>Não nos responsabilizamos por danos ou prejuízos relacionados ao uso de sites externos</li>
+                        <li>Recomendamos a leitura dos termos de uso e políticas de privacidade de todos os sites visitados</li>
+                        <li>A inclusão de links não representa aprovação ou associação com os sites vinculados</li>
+                    </ul>
+                    
+                    <!-- Seção 7 -->
+                    <h2 id="legislacao-aplicavel">7. Legislação Aplicável e Foro</h2>
+                    
+                    <p>
+                        Estes Termos de Uso são regidos e interpretados de acordo com as leis da República Federativa do Brasil, sem considerar conflitos de disposições legais.
+                    </p>
+                    
+                    <h3>7.1 Resolução de Disputas</h3>
+                    
+                    <p>
+                        Qualquer disputa, controvérsia ou reclamação decorrente ou relacionada a estes termos será resolvida exclusivamente pelos tribunais brasileiros, com eleição do foro da comarca de São Paulo, Estado de São Paulo, com renúncia expressa a qualquer outro, por mais privilegiado que seja.
+                    </p>
+                    
+                    <div class="alert alert-success">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <div>
+                            <strong>Conformidade Legal:</strong> Nossa plataforma está em conformidade com a legislação brasileira, incluindo o Código de Defesa do Consumidor, Marco Civil da Internet e Lei Geral de Proteção de Dados (LGPD).
+                        </div>
+                    </div>
+                    
+                    <!-- Seção 8 -->
+                    <h2 id="disposicoes-gerais">8. Disposições Gerais</h2>
+                    
+                    <p>
+                        Estas disposições gerais complementam os termos específicos estabelecidos nas seções anteriores e visam garantir a clareza e a aplicabilidade integral deste documento.
+                    </p>
+                    
+                    <h3>8.1 Integralidade do Acordo</h3>
+                    
+                    <ol>
+                        <li>Estes Termos de Uso constituem o acordo integral entre você e a Calculadoras de Enfermagem</li>
+                        <li>Substituem todos os acordos anteriores, orais ou escritos, relacionados ao mesmo objeto</li>
+                        <li>Devem ser lidos em conjunto com a Política de Privacidade</li>
+                        <li>Qualquer disposição considerada inválida não afetará a validade das demais</li>
+                    </ol>
+                    
+                    <h3>8.2 Independência das Cláusulas</h3>
+                    
+                    <p>
+                        Se qualquer disposição destes termos for considerada inválida, ilegal ou inexequível, as demais disposições permanecerão em pleno vigor e efeito. A disposição inválida será substituída por uma disposição válida que mais se aproxime da intenção original.
+                    </p>
+                    
+                    <h3>8.3 Renúncia</h3>
+                    
+                    <p>
+                        A falha em exercer ou fazer cumprir qualquer direito ou disposição destes termos não constitui renúncia a tal direito ou disposição. Qualquer renúncia deve ser feita por escrito e assinada pela parte renunciante.
+                    </p>
+                    
+                    <!-- Seção 9 -->
+                    <h2 id="contato">9. Informações de Contato</h2>
+                    
+                    <p>
+                        Para dúvidas, sugestões ou questões relacionadas a estes Termos de Uso, entre em contato conosco através dos seguintes canais:
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-envelope"></i> Canais de Contato</h4>
+                        <ul>
+                            <li><strong>E-mail:</strong> contato@calculadorasdeenfermagem.com.br</li>
+                            <li><strong>E-mail Legal:</strong> legal@calculadorasdeenfermagem.com.br</li>
+                            <li><strong>Website:</strong> https://www.calculadorasdeenfermagem.com.br</li>
+                            <li><strong>Horário de Atendimento:</strong> Segunda a Sexta, 9h às 18h (horário de Brasília)</li>
+                        </ul>
+                    </div>
+                    
+                    <p>
+                        Comprometemo-nos a responder todas as solicitações em até 72 horas úteis.
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <div>
+                            <strong>Última Atualização:</strong> Estes Termos de Uso foram atualizados em 23 de novembro de 2025. Recomendamos que você revise esta página periodicamente para estar ciente de quaisquer alterações.
+                        </div>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="content-sidebar">
+                    
+                    <!-- Índice -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-list" aria-hidden="true"></i> Índice</h3>
+                        <ul class="toc-list" style="color: rgba(255,255,255,0.95);">
+                            <li><a href="#aceitacao-termos" style="color: rgba(255,255,255,0.95);">1. Aceitação dos Termos</a></li>
+                            <li><a href="#descricao-servicos" style="color: rgba(255,255,255,0.95);">2. Descrição dos Serviços</a></li>
+                            <li><a href="#responsabilidades-usuario" style="color: rgba(255,255,255,0.95);">3. Responsabilidades do Usuário</a></li>
+                            <li><a href="#propriedade-intelectual" style="color: rgba(255,255,255,0.95);">4. Propriedade Intelectual</a></li>
+                            <li><a href="#limitacoes-responsabilidade" style="color: rgba(255,255,255,0.95);">5. Limitações de Responsabilidade</a></li>
+                            <li><a href="#links-terceiros" style="color: rgba(255,255,255,0.95);">6. Links para Sites de Terceiros</a></li>
+                            <li><a href="#legislacao-aplicavel" style="color: rgba(255,255,255,0.95);">7. Legislação Aplicável e Foro</a></li>
+                            <li><a href="#disposicoes-gerais" style="color: rgba(255,255,255,0.95);">8. Disposições Gerais</a></li>
+                            <li><a href="#contato" style="color: rgba(255,255,255,0.95);">9. Informações de Contato</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Compartilhar -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-share-nodes" aria-hidden="true"></i> Compartilhar</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" title="Facebook" aria-label="Compartilhar no Facebook">
+                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn twitter" title="Twitter" aria-label="Compartilhar no Twitter">
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn linkedin" title="LinkedIn" aria-label="Compartilhar no LinkedIn">
+                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn whatsapp" title="WhatsApp" aria-label="Compartilhar no WhatsApp">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Download PDF -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-file-pdf" aria-hidden="true"></i> Baixar PDF</h3>
+                        <p style="font-size: 0.95rem; opacity: 0.95; margin-bottom: 1rem;">
+                            Salve este conteúdo para consulta offline
+                        </p>
+                        <button style="width: 100%; padding: 0.875rem; background: white; color: var(--color-primary); border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" aria-label="Baixar conteúdo em PDF">
+                            <i class="fa-solid fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                    
+                </aside>
+                
+            </div>
+            
+            <!-- Author Box -->
+            <div class="author-box">
+                <img src="https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp" 
+                     alt="Calculadoras de Enfermagem" 
+                     class="author-avatar"
+                     onerror="if(typeof CONFIG !== 'undefined') this.src = CONFIG.site.logo.url">
+                <div class="author-info">
+                    <h3>Calculadoras de Enfermagem</h3>
+                    <p>
+                        Ferramentas essenciais para profissionais e estudantes de enfermagem, oferecendo calculadoras de escalas clínicas e de dosagem de medicamentos para otimizar a prática diária e a segurança do paciente. São mais de 50 escalas clínicas disponíveis.
+                    </p>
+                    <blockquote style="margin-top: 1rem; font-style: italic; color: var(--color-grey-medium); border-left: 3px solid var(--color-primary); padding-left: 1rem;">
+                        "O conhecimento dos termos de uso é essencial para uma utilização consciente e responsável das ferramentas digitais em saúde!"
+                    </blockquote>
+                </div>
+            </div>
+            
+            <!-- Referências Bibliográficas -->
+            <section class="references-section">
+                <h2><i class="fa-solid fa-book"></i> Referências Legais</h2>
+                
+                <div class="reference-item">
+                    1. Brasil. (1990). <em>Lei nº 8.078, de 11 de setembro de 1990 - Código de Defesa do Consumidor</em>. Disponível em: http://www.planalto.gov.br/ccivil_03/leis/l8078.htm
+                </div>
+                
+                <div class="reference-item">
+                    2. Brasil. (2014). <em>Lei nº 12.965, de 23 de abril de 2014 - Marco Civil da Internet</em>. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm
+                </div>
+                
+                <div class="reference-item">
+                    3. Brasil. (2018). <em>Lei nº 13.709, de 14 de agosto de 2018 - Lei Geral de Proteção de Dados (LGPD)</em>. Disponível em: http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+                </div>
+                
+                <div class="reference-item">
+                    4. Brasil. (1998). <em>Lei nº 9.610, de 19 de fevereiro de 1998 - Lei de Direitos Autorais</em>. Disponível em: http://www.planalto.gov.br/ccivil_03/leis/l9610.htm
+                </div>
+            </section>
+            
+            <!-- Tags -->
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--color-grey-medium); font-size: 0.875rem; margin-bottom: 1rem;">TAGS</h4>
+                <div class="tags-list">
+                    <a href="#" class="tag">Termos de Uso</a>
+                    <a href="#" class="tag">Condições de Uso</a>
+                    <a href="#" class="tag">Direitos Autorais</a>
+                    <a href="#" class="tag">Responsabilidades</a>
+                    <a href="#" class="tag">Legal</a>
+                    <a href="#" class="tag">Propriedade Intelectual</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Curva Decorativa Superior -->
+        <svg class="bg-wave-top" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,60 C320,100 420,100 740,60 C1060,20 1200,40 1440,60 L1440,0 L0,0 Z"></path>
+        </svg>
+        
+        <!-- Seção de Conteúdo Relacionado -->
+        <section class="related-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in" style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                    Conteúdos Relacionados
+                </h2>
+            </div>
+            
+            <div class="related-grid">
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-1" onclick="event.preventDefault(); ModalInstitucional.open('politica-de-privacidade');">
+                    <img src="../00.Template/assets/images/privacidade_dados_9.jpg" 
+                         alt="Política de Privacidade" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Legal</span>
+                        <h3>Política de Privacidade</h3>
+                        <p>Entenda como coletamos, usamos e protegemos seus dados pessoais.</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-2" onclick="event.preventDefault(); ModalInstitucional.open('acessibilidade');">
+                    <img src="../00.Template/assets/images/acessibilidade_enfermagem_4.jpg" 
+                         alt="Política de Acessibilidade" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Acessibilidade</span>
+                        <h3>Política de Acessibilidade</h3>
+                        <p>Nosso compromisso com a inclusão digital e acessibilidade web.</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-3" onclick="event.preventDefault(); ModalInstitucional.open('missao');">
+                    <img src="../00.Template/assets/images/sobre-nos-equipe_9.jpg" 
+                         alt="Missão, Visão e Valores" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Institucional</span>
+                        <h3>Missão, Visão e Valores</h3>
+                        <p>Conheça os princípios que norteiam nossa plataforma.</p>
+                    </div>
+                </a>
+                
+            </div>
+        </section>
+        
+        <!-- Curva Decorativa Inferior -->
+        <svg class="bg-wave-bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" style="position: absolute; bottom: 0; left: 0;">
+            <path d="M0,60 C320,20 620,40 960,60 C1280,80 1360,80 1440,60 L1440,120 L0,120 Z"></path>
+        </svg>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- Container para Modais Institucionais -->
+    <div id="modals-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="../00.Template/assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+
+</body>
+</html>

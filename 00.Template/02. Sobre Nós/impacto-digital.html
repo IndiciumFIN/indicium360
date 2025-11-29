@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impacto Digital - Calculadoras de Enfermagem</title>
+    <meta name="description" content="O impacto digital das ferramentas de enfermagem na educação e prática clínica. Transformação digital na saúde.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/02. Sobre Nós/impacto-digital.html" />
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/02. Sobre Nós/impacto-digital.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/02. Sobre Nós/impacto-digital.html" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Impacto Digital - Transformação na Saúde",
+            "description": "O impacto digital das ferramentas de enfermagem na educação e prática clínica. Transformação digital na saúde.",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-01-15",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/02. Sobre Nós/impacto-digital.html"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="../00.Template/assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="../01. Página Principal/home.html">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="#">Sobre Nós</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>Impacto Digital</span>
+            </nav>
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <!-- Article Header -->
+                    <header class="article-header">
+                        <span class="article-category" style="color: white;">INSTITUCIONAL</span>
+                        <h1>Impacto Digital</h1>
+                        <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                        <p class="article-subtitle">
+                            A transformação digital na enfermagem: como as ferramentas tecnológicas estão revolucionando a educação e a prática clínica, promovendo maior segurança, precisão e raciocínio crítico.
+                        </p>
+                        <div class="article-meta">
+                            <div class="article-meta-item">
+                                <i class="fa-solid fa-calendar"></i>
+                                <span>Publicado em 01/01/2025</span>
+                            </div>
+                            <div class="article-meta-item">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>Leitura: 6 min</span>
+                            </div>
+                            <div class="article-meta-item">
+                                <i class="fa-solid fa-user"></i>
+                                <span>Por Calculadoras de Enfermagem</span>
+                            </div>
+                            <div class="article-meta-item">
+                                <i class="fa-solid fa-sync"></i>
+                                <span>Atualizado em 15/01/2025</span>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <!-- Featured Image -->
+                    <img src="../00.Template/assets/images/tecnologia-verde_1.jpg" 
+                         alt="Impacto Digital - Transformação na Enfermagem" 
+                         class="featured-image" loading="lazy">
+                    
+                    <!-- Main Content -->
+                    <p>
+                        A transformação digital na saúde tem revolucionado a forma como profissionais de enfermagem aprendem, trabalham e tomam decisões clínicas. As ferramentas digitais não apenas facilitam processos, mas também promovem maior segurança do paciente e fortalecem o raciocínio clínico.
+                    </p>
+                    
+                    <p>
+                        A Calculadoras de Enfermagem faz parte dessa revolução, oferecendo recursos tecnológicos que apoiam tanto a formação acadêmica quanto a prática assistencial, democratizando o acesso ao conhecimento técnico-científico.
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Transformação Baseada em Evidências:</strong> Todas as ferramentas são desenvolvidas com base em protocolos científicos atualizados e validados pela comunidade de enfermagem.
+                        </div>
+                    </div>
+                    
+                    <h2 id="educacao"><i class="fa-solid fa-graduation-cap"></i> Impacto na Educação</h2>
+                    
+                    <p>
+                        A educação em enfermagem tem sido profundamente impactada pelas tecnologias digitais. Estudantes agora têm acesso a ferramentas que simulam situações reais de prática clínica, permitindo o aprendizado em ambiente seguro antes do contato direto com pacientes.
+                    </p>
+                    
+                    <h3>Benefícios para Estudantes</h3>
+                    
+                    <ul>
+                        <li><strong>Acesso 24/7:</strong> Ferramentas disponíveis a qualquer momento para estudo e revisão</li>
+                        <li><strong>Aprendizado Prático:</strong> Simulação de cálculos e escalas clínicas reais</li>
+                        <li><strong>Feedback Imediato:</strong> Verificação instantânea de cálculos e procedimentos</li>
+                        <li><strong>Fortalecimento do Raciocínio Clínico:</strong> Compreensão dos fundamentos por trás de cada cálculo</li>
+                        <li><strong>Preparação para Estágios:</strong> Segurança aumentada antes da prática supervisionada</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-lightbulb"></i> Aprendizado Ativo</h4>
+                        <p>
+                            As ferramentas digitais promovem aprendizado ativo, onde o estudante não apenas memoriza fórmulas, mas compreende a lógica clínica por trás de cada procedimento, desenvolvendo competências essenciais para a tomada de decisão.
+                        </p>
+                    </div>
+                    
+                    <h2 id="pratica-clinica"><i class="fa-solid fa-hospital"></i> Impacto na Prática Clínica</h2>
+                    
+                    <p>
+                        Na prática profissional, as ferramentas digitais têm se mostrado aliadas fundamentais na redução de erros, otimização do tempo e melhoria da qualidade assistencial.
+                    </p>
+                    
+                    <h3>Benefícios para Profissionais</h3>
+                    
+                    <ul>
+                        <li><strong>Redução de Erros de Cálculo:</strong> Minimização de erros relacionados a doses e diluições</li>
+                        <li><strong>Agilidade no Atendimento:</strong> Economia de tempo em cálculos complexos</li>
+                        <li><strong>Dupla Checagem:</strong> Ferramenta de conferência para validação de cálculos manuais</li>
+                        <li><strong>Aplicação de Escalas Padronizadas:</strong> Uso correto de instrumentos assistenciais validados</li>
+                        <li><strong>Documentação Fundamentada:</strong> Registro baseado em evidências científicas</li>
+                    </ul>
+                    
+                    <h2 id="seguranca"><i class="fa-solid fa-shield-halved"></i> Segurança do Paciente</h2>
+                    
+                    <p>
+                        O uso de ferramentas digitais tem impacto direto na segurança do paciente, um dos pilares fundamentais da assistência de enfermagem de qualidade.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-check-circle"></i> Evidências de Impacto</h4>
+                        <p>
+                            Estudos demonstram que o uso de calculadoras clínicas digitais reduz significativamente os erros de medicação, especialmente em cálculos pediátricos e doses de alto risco, contribuindo para melhores desfechos clínicos.
+                        </p>
+                    </div>
+                    
+                    <h3>Áreas de Maior Impacto</h3>
+                    
+                    <ol>
+                        <li><strong>Pediatria:</strong> Cálculos precisos baseados em peso, superfície corporal e idade</li>
+                        <li><strong>Terapia Intensiva:</strong> Drogas vasoativas e sedativos com margem de segurança estreita</li>
+                        <li><strong>Oncologia:</strong> Quimioterápicos com cálculos complexos e alta toxicidade</li>
+                        <li><strong>Geriatria:</strong> Ajustes de dose para função renal e hepática</li>
+                        <li><strong>Emergência:</strong> Decisões rápidas com segurança em situações críticas</li>
+                    </ol>
+                    
+                    <h2 id="acessibilidade"><i class="fa-solid fa-universal-access"></i> Democratização do Conhecimento</h2>
+                    
+                    <p>
+                        As ferramentas digitais rompem barreiras geográficas e socioeconômicas, permitindo que profissionais e estudantes de todas as regiões do país tenham acesso ao mesmo nível de conhecimento técnico.
+                    </p>
+                    
+                    <p>
+                        A Calculadoras de Enfermagem é gratuita e acessível, refletindo o compromisso com a democratização do conhecimento e com a melhoria da qualidade da assistência de enfermagem em todo o Brasil.
+                    </p>
+                    
+                    <h2 id="futuro"><i class="fa-solid fa-rocket"></i> O Futuro Digital da Enfermagem</h2>
+                    
+                    <p>
+                        A integração de tecnologias digitais na enfermagem é uma tendência irreversível. Inteligência artificial, machine learning e big data prometem revolucionar ainda mais a prática, permitindo:
+                    </p>
+                    
+                    <ul>
+                        <li>Previsão de riscos clínicos com maior precisão</li>
+                        <li>Personalização de protocolos assistenciais</li>
+                        <li>Integração com prontuários eletrônicos</li>
+                        <li>Alertas inteligentes e suporte à decisão em tempo real</li>
+                        <li>Educação continuada adaptativa e personalizada</li>
+                    </ul>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Importante:</strong> As ferramentas digitais são aliadas do profissional, mas nunca substituem o julgamento clínico, a avaliação individualizada do paciente e a responsabilidade técnica e ética do enfermeiro.
+                        </div>
+                    </div>
+                    
+                    <h2 id="compromisso-tecnologico"><i class="fa-solid fa-handshake"></i> Nosso Compromisso Tecnológico</h2>
+                    
+                    <p>
+                        A Calculadoras de Enfermagem se compromete a:
+                    </p>
+                    
+                    <ul>
+                        <li>Manter as ferramentas sempre atualizadas com as melhores evidências científicas</li>
+                        <li>Garantir acessibilidade digital para todos os usuários</li>
+                        <li>Oferecer interface intuitiva e recursos educativos</li>
+                        <li>Proteger a privacidade e segurança dos dados dos usuários</li>
+                        <li>Evoluir continuamente com base no feedback da comunidade de enfermagem</li>
+                    </ul>
+                    
+                    <div class="inline-cta">
+                        <h3>Faça Parte da Transformação Digital</h3>
+                        <p>Explore nossas ferramentas e contribua para uma enfermagem mais segura e baseada em evidências</p>
+                        <a href="../01. Página Principal/home.html" class="cta-button">
+                            <i class="fa-solid fa-calculator"></i> Explorar Ferramentas
+                        </a>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-list"></i> Nesta Página</h3>
+                        <nav class="sidebar-nav">
+                            <a href="#educacao">Impacto na Educação</a>
+                            <a href="#pratica-clinica">Impacto na Prática Clínica</a>
+                            <a href="#seguranca">Segurança do Paciente</a>
+                            <a href="#acessibilidade">Democratização do Conhecimento</a>
+                            <a href="#futuro">O Futuro Digital</a>
+                            <a href="#compromisso-tecnologico">Compromisso Tecnológico</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-link"></i> Links Relacionados</h3>
+                        <ul class="sidebar-links">
+                            <li><a href="missao.html"><i class="fa-solid fa-bullseye"></i> Missão, Visão e Valores</a></li>
+                            <li><a href="compromisso.html"><i class="fa-solid fa-leaf"></i> Compromisso com a Sustentabilidade</a></li>
+                            <li><a href="objetivos.html"><i class="fa-solid fa-flag"></i> Objetivos da Plataforma</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-star"></i> Destaque</h3>
+                        <div class="sidebar-highlight">
+                            <p><strong>Mais de 50 ferramentas</strong> disponíveis para apoiar sua prática clínica e formação acadêmica.</p>
+                            <a href="../01. Página Principal/home.html" class="sidebar-cta">Ver Todas</a>
+                        </div>
+                    </div>
+                </aside>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- VLibras Widget Container -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    
+    <!-- ============================================================ -->
+    <!-- INJEÇÃO DE COMPONENTES MODULARES -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Flag para evitar injeção duplicada
+            let componentsInjected = false;
+            
+            /**
+             * Injeta todos os componentes modulares (Header, Footer, etc.)
+             * Executa apenas UMA vez
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados. Pulando...');
+                    return;
+                }
+                
+                // Verificar se CONFIG está disponível
+                if (typeof CONFIG === 'undefined') {
+                    console.error('❌ CONFIG não encontrado! Componentes não podem ser injetados.');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="../00.Template/assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+
+</body>
+</html>
