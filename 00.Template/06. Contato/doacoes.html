@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doações - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Ajude a manter o projeto gratuito e acessível para todos os profissionais de saúde. Saiba como contribuir com a Calculadoras de Enfermagem.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/doacoes.html" />
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/doacoes.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/doacoes.html" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Doações - Apoie o Projeto",
+            "description": "Ajude a manter o projeto gratuito e acessível para todos os profissionais de saúde. Saiba como contribuir com a Calculadoras de Enfermagem.",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-01-15",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/06. Contato/doacoes.html"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="../00.Template/assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="../01. Página Principal/home.html">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="#">Contato</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>Doações</span>
+            </nav>
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <!-- Article Header -->
+                    <header class="article-header">
+                        <span class="article-category" style="color: white;">APOIE O PROJETO</span>
+                        <h1>Doações</h1>
+                        <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                        <p class="article-subtitle">
+                            Ajude a manter a Calculadoras de Enfermagem gratuita, acessível e em constante evolução. Sua contribuição faz a diferença para milhares de profissionais e estudantes de enfermagem.
+                        </p>
+                    </header>
+                    
+                    <!-- Featured Image -->
+                    <img src="../00.Template/assets/images/sobre-nos-equipe_9.jpg" 
+                         alt="Apoie o Projeto - Doações" 
+                         class="featured-image" loading="lazy">
+                    
+                    <!-- Main Content -->
+                    <p>
+                        A Calculadoras de Enfermagem é um projeto <strong>100% gratuito</strong> e sem fins lucrativos, criado para apoiar profissionais e estudantes de enfermagem em sua jornada de formação e prática clínica.
+                    </p>
+                    
+                    <p>
+                        Manter uma plataforma como esta exige investimento contínuo em hospedagem, desenvolvimento, atualização de conteúdo e manutenção técnica. Sua doação, por menor que seja, nos ajuda a continuar oferecendo ferramentas de qualidade para toda a comunidade de enfermagem.
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                        <div>
+                            <strong>Compromisso de Transparência:</strong> 100% das doações são destinadas exclusivamente à manutenção e evolução da plataforma. Não há custos administrativos ou distribuição de lucros.
+                        </div>
+                    </div>
+                    
+                    <h2 id="por-que-doar"><i class="fa-solid fa-question-circle"></i> Por Que Doar?</h2>
+                    
+                    <p>
+                        Ao contribuir com a Calculadoras de Enfermagem, você está:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>Garantindo Acesso Gratuito:</strong> Mantendo todas as ferramentas acessíveis sem custo para estudantes e profissionais</li>
+                        <li><strong>Apoiando a Educação:</strong> Contribuindo para a formação de profissionais mais seguros e capacitados</li>
+                        <li><strong>Promovendo Segurança do Paciente:</strong> Ferramentas confiáveis que reduzem erros e melhoram a assistência</li>
+                        <li><strong>Incentivando Inovação:</strong> Possibilitando o desenvolvimento de novas calculadoras e funcionalidades</li>
+                        <li><strong>Fortalecendo a Comunidade:</strong> Apoiando um espaço de conhecimento compartilhado</li>
+                    </ul>
+                    
+                    <h2 id="como-doar"><i class="fa-solid fa-hand-holding-heart"></i> Como Doar</h2>
+                    
+                    <p>
+                        Você pode contribuir de diversas formas:
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-credit-card"></i> 1. Doação Via Pix</h3>
+                    
+                    <div class="highlight-box">
+                        <p style="font-size: 1.1rem; line-height: 1.8;">
+                            <strong>Chave PIX:</strong> calculadorasdeenfermagem@exemplo.com.br<br>
+                            <strong>Favorecido:</strong> Calculadoras de Enfermagem<br>
+                            <strong>Tipo:</strong> Pessoa Jurídica
+                        </p>
+                        <p style="margin-top: 1rem; font-size: 0.95rem; color: #666;">
+                            <i class="fa-solid fa-qrcode"></i> Você também pode escanear o QR Code abaixo para doar rapidamente.
+                        </p>
+                    </div>
+                    
+                    <h3><i class="fa-solid fa-donate"></i> 2. Doação Recorrente</h3>
+                    
+                    <p>
+                        Considere fazer uma doação mensal para nos ajudar a planejar melhor os investimentos na plataforma:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>R$ 10/mês:</strong> Ajuda com os custos de hospedagem</li>
+                        <li><strong>R$ 25/mês:</strong> Contribui com manutenção e atualizações</li>
+                        <li><strong>R$ 50/mês:</strong> Possibilita desenvolvimento de novas ferramentas</li>
+                        <li><strong>Valor personalizado:</strong> Qualquer valor faz diferença!</li>
+                    </ul>
+                    
+                    <h3><i class="fa-solid fa-laptop-code"></i> 3. Contribuição Não-Financeira</h3>
+                    
+                    <p>
+                        Se você não pode doar financeiramente, pode contribuir de outras formas:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>Compartilhe o Projeto:</strong> Divulgue entre colegas, nas redes sociais e grupos de enfermagem</li>
+                        <li><strong>Reporte Bugs:</strong> Ajude-nos a identificar e corrigir problemas</li>
+                        <li><strong>Sugira Melhorias:</strong> Suas ideias são valiosas para evoluirmos</li>
+                        <li><strong>Valide Conteúdo:</strong> Se você é especialista, pode revisar cálculos e protocolos</li>
+                        <li><strong>Traduza Conteúdo:</strong> Ajude a tornar a plataforma multilíngue</li>
+                    </ul>
+                    
+                    <h2 id="transparencia"><i class="fa-solid fa-chart-line"></i> Transparência no Uso dos Recursos</h2>
+                    
+                    <p>
+                        Acreditamos na total transparência sobre o uso das doações recebidas:
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-money-bill-wave"></i> Destinação dos Recursos</h4>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>60%</strong> - Hospedagem, domínio e infraestrutura</li>
+                            <li><strong>25%</strong> - Desenvolvimento de novas ferramentas</li>
+                            <li><strong>10%</strong> - Manutenção e atualizações</li>
+                            <li><strong>5%</strong> - Custos operacionais (SSL, backups, segurança)</li>
+                        </ul>
+                    </div>
+                    
+                    <h2 id="agradecimentos"><i class="fa-solid fa-users"></i> Agradecimentos aos Apoiadores</h2>
+                    
+                    <p>
+                        Agradecemos imensamente a todos que já contribuíram e continuam contribuindo para manter este projeto vivo e acessível. Sua generosidade permite que milhares de profissionais e estudantes tenham acesso gratuito a ferramentas essenciais para a prática da enfermagem.
+                    </p>
+                    
+                    <div class="alert alert-success" style="background: #d4edda; border-color: #c3e6cb;">
+                        <i class="fa-solid fa-heart" style="color: #155724;" aria-hidden="true"></i>
+                        <div style="color: #155724;">
+                            <strong>Muito Obrigado!</strong> Cada doação, por menor que seja, representa um voto de confiança no nosso trabalho e um investimento na qualidade da assistência de enfermagem no Brasil.
+                        </div>
+                    </div>
+                    
+                    <h2 id="contato-doacoes"><i class="fa-solid fa-envelope"></i> Dúvidas sobre Doações</h2>
+                    
+                    <p>
+                        Se você tem alguma dúvida sobre como doar ou deseja fazer uma contribuição especial (patrocínio corporativo, doação de recursos técnicos, etc.), entre em contato conosco:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>E-mail:</strong> doacoes@calculadorasdeenfermagem.com.br</li>
+                        <li><strong>Formulário de Contato:</strong> <a href="fale-conosco.html">Clique aqui</a></li>
+                    </ul>
+                    
+                    <div class="inline-cta">
+                        <h3>Faça Parte desta Comunidade</h3>
+                        <p>Explore todas as ferramentas disponíveis gratuitamente</p>
+                        <a href="../01. Página Principal/home.html" class="cta-button">
+                            <i class="fa-solid fa-calculator"></i> Explorar Ferramentas
+                        </a>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-list"></i> Nesta Página</h3>
+                        <nav class="sidebar-nav">
+                            <a href="#por-que-doar">Por Que Doar?</a>
+                            <a href="#como-doar">Como Doar</a>
+                            <a href="#transparencia">Transparência</a>
+                            <a href="#agradecimentos">Agradecimentos</a>
+                            <a href="#contato-doacoes">Contato</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-heart"></i> Formas de Apoiar</h3>
+                        <ul class="sidebar-links">
+                            <li><i class="fa-solid fa-mobile-alt"></i> PIX</li>
+                            <li><i class="fa-solid fa-calendar-alt"></i> Doação Recorrente</li>
+                            <li><i class="fa-solid fa-share-alt"></i> Compartilhar</li>
+                            <li><i class="fa-solid fa-code"></i> Contribuir com Código</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-link"></i> Links Úteis</h3>
+                        <ul class="sidebar-links">
+                            <li><a href="../02. Sobre Nós/missao.html"><i class="fa-solid fa-bullseye"></i> Missão e Valores</a></li>
+                            <li><a href="fale-conosco.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a></li>
+                            <li><a href="forum.html"><i class="fa-solid fa-comments"></i> Fórum</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- VLibras Widget Container -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    
+    <!-- ============================================================ -->
+    <!-- INJEÇÃO DE COMPONENTES MODULARES -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Flag para evitar injeção duplicada
+            let componentsInjected = false;
+            
+            /**
+             * Injeta todos os componentes modulares (Header, Footer, etc.)
+             * Executa apenas UMA vez
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados. Pulando...');
+                    return;
+                }
+                
+                // Verificar se CONFIG está disponível
+                if (typeof CONFIG === 'undefined') {
+                    console.error('❌ CONFIG não encontrado! Componentes não podem ser injetados.');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="../00.Template/assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+
+</body>
+</html>
