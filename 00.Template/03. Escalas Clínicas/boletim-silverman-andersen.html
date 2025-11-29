@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim de Silverman-Andersen - Desconforto Respiratório Neonatal | Calculadoras de Enfermagem</title>
+    <meta name="description" content="Boletim de Silverman-Andersen para avaliação do grau de desconforto respiratório em recém-nascidos.">
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/escalas-clinicas/boletim-silverman-andersen.html">
+    <link rel="stylesheet" href="../../00.Template/assets/css/styles.css">
+</head>
+<body>
+    <div id="skip-links"></div>
+    <div id="header"></div>
+
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+        <div class="container">
+            <ol>
+                <li><a href="../../01. Página Principal/home.html">Início</a></li>
+                <li><a href="../escalas-clinicas.html">Escalas Clínicas</a></li>
+                <li aria-current="page">Boletim de Silverman-Andersen</li>
+            </ol>
+        </div>
+    </nav>
+
+    <main class="container">
+        <article class="tool-container">
+            <header class="tool-header">
+                <h1>Boletim de Silverman-Andersen (BSA)</h1>
+                <p class="tool-subtitle">Avaliação de Desconforto Respiratório Neonatal</p>
+            </header>
+
+            <section class="tool-info">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Ano de Criação</h3>
+                        <p><strong>1956</strong></p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Autores</h3>
+                        <p><strong>William A. Silverman e Dorothy N. Anderson</strong></p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Área de Aplicação</h3>
+                        <p>Unidades de Terapia Intensiva Neonatal (UTIN)</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Profissionais</h3>
+                        <p>Médicos neonatologistas e enfermeiros neonatologistas</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tool-description">
+                <h2>Descrição</h2>
+                <p>O <strong>Boletim de Silverman-Andersen</strong> é uma ferramenta clínica fundamental para avaliar o grau de desconforto respiratório em recém-nascidos. Desenvolvido em 1956, o BSA atribui pontuações a diferentes sinais clínicos para determinar objetivamente a gravidade da condição respiratória.</p>
+                <p>A escala avalia <strong>5 parâmetros clínicos</strong>, cada um pontuado de 0 a 2, totalizando uma pontuação máxima de 10 pontos. Quanto maior a pontuação, maior o grau de desconforto respiratório.</p>
+            </section>
+
+            <div class="calculator-form">
+                <h2>Critérios de Avaliação</h2>
+                
+                <div class="form-group">
+                    <label for="movimento-toracoabdominal">1. Movimento Toracoabdominal</label>
+                    <select id="movimento-toracoabdominal" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <option value="0">0 - Sincronizado (tórax e abdômen movem-se juntos)</option>
+                        <option value="1">1 - Tórax imóvel, abdômen se move</option>
+                        <option value="2">2 - Balancim (movimentos opostos - "gangorra")</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tiragem-intercostal">2. Tiragem Intercostal</label>
+                    <select id="tiragem-intercostal" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <option value="0">0 - Ausente</option>
+                        <option value="1">1 - Leve (retração discreta)</option>
+                        <option value="2">2 - Acentuada (retração profunda)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="retracao-xifoide">3. Retração Xifóide</label>
+                    <select id="retracao-xifoide" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <option value="0">0 - Ausente</option>
+                        <option value="1">1 - Leve</option>
+                        <option value="2">2 - Acentuada</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="batimento-nasal">4. Batimento de Asa de Nariz</label>
+                    <select id="batimento-nasal" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <option value="0">0 - Ausente</option>
+                        <option value="1">1 - Leve</option>
+                        <option value="2">2 - Acentuado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gemido-expiratorio">5. Gemido Expiratório</label>
+                    <select id="gemido-expiratorio" class="form-control" required>
+                        <option value="">Selecione...</option>
+                        <option value="0">0 - Ausente</option>
+                        <option value="1">1 - Audível com estetoscópio</option>
+                        <option value="2">2 - Audível sem estetoscópio</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary" onclick="calcularSilverman()">Calcular Escore</button>
+                    <button type="button" class="btn btn-secondary" onclick="limparSilverman()">Limpar</button>
+                </div>
+
+                <div id="resultado-silverman" class="result-box" style="display: none;">
+                    <h3>Resultado</h3>
+                    <div class="result-content">
+                        <p class="result-value"><strong>Escore BSA: <span id="escore-total">0</span>/10</strong></p>
+                        <p class="result-interpretation" id="interpretacao"></p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="tool-interpretation">
+                <h2>Interpretação dos Resultados</h2>
+                <div class="interpretation-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pontuação</th>
+                                <th>Classificação</th>
+                                <th>Condição Clínica</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="score-excellent">
+                                <td><strong>0</strong></td>
+                                <td><strong>Sem desconforto</strong></td>
+                                <td>Respiração normal, sem sinais de esforço</td>
+                            </tr>
+                            <tr class="score-good">
+                                <td><strong>1 a 3</strong></td>
+                                <td><strong>Desconforto Leve</strong></td>
+                                <td>Sinais leves de esforço respiratório. Monitoramento necessário</td>
+                            </tr>
+                            <tr class="score-moderate">
+                                <td><strong>4 a 6</strong></td>
+                                <td><strong>Desconforto Moderado</strong></td>
+                                <td>Esforço respiratório significativo. Requer intervenção</td>
+                            </tr>
+                            <tr class="score-severe">
+                                <td><strong>7 a 10</strong></td>
+                                <td><strong>Desconforto Grave</strong></td>
+                                <td>Insuficiência respiratória iminente. Intervenção urgente necessária</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="tool-clinical-application">
+                <h2>Aplicação Clínica</h2>
+                <ul>
+                    <li><strong>Avaliação inicial:</strong> Deve ser realizada imediatamente após o nascimento e a cada 2-4 horas em RNs com desconforto</li>
+                    <li><strong>Indicações de intervenção:</strong> Escore ≥ 4 geralmente indica necessidade de suporte ventilatório</li>
+                    <li><strong>Monitoramento:</strong> Reavaliação frequente permite acompanhar a evolução e resposta ao tratamento</li>
+                    <li><strong>Causas comuns:</strong> Síndrome do desconforto respiratório (SDR), taquipneia transitória, pneumonia, aspiração meconial</li>
+                    <li><strong>Complementaridade:</strong> Deve ser usado em conjunto com gasometria arterial e radiografia de tórax</li>
+                </ul>
+            </section>
+
+            <section class="tool-references">
+                <h2>Referências Bibliográficas</h2>
+                <ol>
+                    <li>Brasil. Ministério da Saúde. (2011). <em>Atenção à saúde do recém-nascido: guia para os profissionais de saúde (Vol. 3).</em> Brasília: Ministério da Saúde. Disponível em: <a href="https://bvsms.saude.gov.br/bvs/publicacoes/atencao_saude_recem_nascido_profissionais_v3.pdf" target="_blank">https://bvsms.saude.gov.br</a></li>
+                    <li>Silverman, W. A., & Andersen, D. H. (1956). <em>A controlled clinical trial of effects of water mist on obstructive respiratory signs, death rate and necropsy findings among premature infants.</em> Pediatrics, 17(1), 1-10.</li>
+                </ol>
+            </section>
+        </article>
+    </main>
+
+    <div id="footer"></div>
+    <div id="vlibras-widget"></div>
+    <script src="../../00.Template/assets/js/components.js"></script>
+    <script src="../../00.Template/assets/js/scripts.js"></script>
+    <script>
+        function calcularSilverman() {
+            const mov = parseInt(document.getElementById('movimento-toracoabdominal').value);
+            const tir = parseInt(document.getElementById('tiragem-intercostal').value);
+            const ret = parseInt(document.getElementById('retracao-xifoide').value);
+            const bat = parseInt(document.getElementById('batimento-nasal').value);
+            const gem = parseInt(document.getElementById('gemido-expiratorio').value);
+
+            if (isNaN(mov) || isNaN(tir) || isNaN(ret) || isNaN(bat) || isNaN(gem)) {
+                alert('Por favor, preencha todos os parâmetros.');
+                return;
+            }
+
+            const total = mov + tir + ret + bat + gem;
+            document.getElementById('escore-total').textContent = total;
+
+            let interpretacao = '';
+            let className = '';
+
+            if (total === 0) {
+                interpretacao = '<strong>Sem desconforto respiratório:</strong> RN apresenta padrão respiratório normal. Manter observação de rotina.';
+                className = 'score-excellent';
+            } else if (total <= 3) {
+                interpretacao = '<strong>Desconforto Leve:</strong> RN apresenta sinais leves de esforço respiratório. Recomenda-se monitoramento contínuo e reavaliação em 2-4 horas.';
+                className = 'score-good';
+            } else if (total <= 6) {
+                interpretacao = '<strong>Desconforto Moderado:</strong> RN apresenta esforço respiratório significativo. Requer intervenção: avaliar necessidade de O₂ suplementar, CPAP ou ventilação não-invasiva.';
+                className = 'score-moderate';
+            } else {
+                interpretacao = '<strong>Desconforto Grave:</strong> RN em insuficiência respiratória. <strong>INTERVENÇÃO URGENTE:</strong> Acionar equipe neonatal, preparar para intubação se necessário. Realizar gasometria arterial imediatamente.';
+                className = 'score-severe';
+            }
+
+            const resultBox = document.getElementById('resultado-silverman');
+            resultBox.className = 'result-box ' + className;
+            document.getElementById('interpretacao').innerHTML = interpretacao;
+            resultBox.style.display = 'block';
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function limparSilverman() {
+            document.getElementById('movimento-toracoabdominal').value = '';
+            document.getElementById('tiragem-intercostal').value = '';
+            document.getElementById('retracao-xifoide').value = '';
+            document.getElementById('batimento-nasal').value = '';
+            document.getElementById('gemido-expiratorio').value = '';
+            document.getElementById('resultado-silverman').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
