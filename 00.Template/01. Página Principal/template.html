@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadoras de Enfermagem - Ferramentas e Recursos para Profissionais</title>
+    <meta name="description" content="Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/" />
+    
+    <!-- Hreflang (19 idiomas) -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/" />
+    <link rel="alternate" hreflang="en" href="https://www.calculadorasdeenfermagem.com.br/en/" />
+    <link rel="alternate" hreflang="es" href="https://www.calculadorasdeenfermagem.com.br/es/" />
+    <link rel="alternate" hreflang="fr" href="https://www.calculadorasdeenfermagem.com.br/fr/" />
+    <link rel="alternate" hreflang="de" href="https://www.calculadorasdeenfermagem.com.br/de/" />
+    <link rel="alternate" hreflang="it" href="https://www.calculadorasdeenfermagem.com.br/it/" />
+    <link rel="alternate" hreflang="ja" href="https://www.calculadorasdeenfermagem.com.br/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://www.calculadorasdeenfermagem.com.br/ko/" />
+    <link rel="alternate" hreflang="zh" href="https://www.calculadorasdeenfermagem.com.br/zh/" />
+    <link rel="alternate" hreflang="hi" href="https://www.calculadorasdeenfermagem.com.br/hi/" />
+    <link rel="alternate" hreflang="ar" href="https://www.calculadorasdeenfermagem.com.br/ar/" />
+    <link rel="alternate" hreflang="ru" href="https://www.calculadorasdeenfermagem.com.br/ru/" />
+    <link rel="alternate" hreflang="tr" href="https://www.calculadorasdeenfermagem.com.br/tr/" />
+    <link rel="alternate" hreflang="nl" href="https://www.calculadorasdeenfermagem.com.br/nl/" />
+    <link rel="alternate" hreflang="pl" href="https://www.calculadorasdeenfermagem.com.br/pl/" />
+    <link rel="alternate" hreflang="sv" href="https://www.calculadorasdeenfermagem.com.br/sv/" />
+    <link rel="alternate" hreflang="id" href="https://www.calculadorasdeenfermagem.com.br/id/" />
+    <link rel="alternate" hreflang="vi" href="https://www.calculadorasdeenfermagem.com.br/vi/" />
+    <link rel="alternate" hreflang="uk" href="https://www.calculadorasdeenfermagem.com.br/uk/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/" />
+
+    <!-- Schema.org - Organization (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const orgSchema = {
+            "@context": "https://schema.org",
+            "@type": CONFIG.site.organization.type,
+            "name": CONFIG.site.organization.name,
+            "url": CONFIG.site.domain,
+            "logo": CONFIG.site.logo.url,
+            "description": "Ferramentas clínicas para profissionais de enfermagem",
+            "sameAs": [
+                "https://www.linkedin.com/company/calculadoras-de-enfermagem",
+                "https://www.instagram.com/calculadorasdeenfermagem/",
+                "https://www.youtube.com/channel/UC_6runTDHz8u5S1Yab842pg"
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "contato@calculadorasdeenfermagem.com.br",
+                "contactType": "customer support",
+                "availableLanguage": ["Portuguese", "English", "Spanish"]
+            }
+        };
+        
+        const schemaScript1 = document.createElement('script');
+        schemaScript1.type = 'application/ld+json';
+        schemaScript1.textContent = JSON.stringify(orgSchema, null, 4);
+        document.head.appendChild(schemaScript1);
+    }
+    </script>
+
+    <!-- Schema.org - WebSite (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const siteSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": CONFIG.site.name,
+            "url": CONFIG.site.domain,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": CONFIG.site.domain + "/busca?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        };
+        
+        const schemaScript2 = document.createElement('script');
+        schemaScript2.type = 'application/ld+json';
+        schemaScript2.textContent = JSON.stringify(siteSchema, null, 4);
+        document.head.appendChild(schemaScript2);
+    }
+    </script>
+
+    <!-- Schema.org - WebPage (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const pageSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": CONFIG.site.name + " - Página Inicial",
+            "description": "Ferramentas clínicas e recursos para profissionais de enfermagem",
+            "url": CONFIG.site.domain + "/",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": CONFIG.site.name,
+                "url": CONFIG.site.domain
+            }
+        };
+        
+        const schemaScript3 = document.createElement('script');
+        schemaScript3.type = 'application/ld+json';
+        schemaScript3.textContent = JSON.stringify(pageSchema, null, 4);
+        document.head.appendChild(schemaScript3);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Modais Institucionais -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <!-- Estilos do Sistema de Expansão -->
+    <style>
+        /* Sistema de Expansão de Cards */
+        .expandable-section {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .expandable-section:hover {
+            transform: translateY(-2px);
+        }
+        
+        .expandable-section::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 0.875rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .expandable-section.expanded::after {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+        
+        /* Container de Expansão - Animação de cima para baixo */
+        .expansion-container {
+            position: relative;
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+        }
+        
+        .expansion-container.active {
+            max-height: 2500px;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 1rem;
+        }
+        
+        /* Wrapper com Container 1300px - Full Width como Mega Menu */
+        .expansion-wrapper {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background: white;
+            overflow: hidden;
+        }
+        
+        .expansion-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* Controles de Visualização - Layout Reorganizado */
+        .view-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+        }
+        
+        /* Linha do Título */
+        .view-controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        /* Título Principal Esquerdo */
+        .expansion-title-main {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .expansion-overline {
+            font-family: var(--font-title);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgb(40, 160, 240);
+        }
+        
+        .expansion-main-title {
+            font-family: var(--font-title);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: rgb(40, 60, 120);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .expansion-main-title i {
+            font-size: 1.5rem;
+            color: rgb(40, 160, 240);
+        }
+        
+        /* Linha dos Controles - Direita com Background Gradient */
+        .view-controls-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, rgb(40, 60, 120) 0%, rgb(40, 160, 240) 100%);
+            border-radius: 0.75rem;
+        }
+        
+        .control-group {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        
+        .control-label {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .control-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .control-btn.active {
+            background: white;
+            color: rgb(40, 60, 120);
+            border-color: white;
+        }
+        
+        .control-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Visualização Grid */
+        .tools-grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem;
+            background: white;
+        }
+        
+        /* Visualização Lista */
+        .tools-list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+        }
+        
+        /* Card de Ferramenta */
+        .tool-card-item {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .tool-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(40, 60, 120, 0.2);
+            border-color: rgb(40, 160, 240);
+        }
+        
+        .tool-card-content {
+            padding: 1.5rem;
+        }
+        
+        .tool-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .tool-badge.calculator {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .tool-badge.scale {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .tool-badge.vaccine {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            color: rgb(40, 160, 240);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-icon.hidden {
+            display: none;
+        }
+        
+        .tool-card-item:hover .tool-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .tool-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: rgb(40, 60, 120);
+            margin-bottom: 0.5rem;
+            min-height: 50px;
+        }
+        
+        .tool-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .tool-action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgb(40, 60, 120);
+            color: white;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-action-btn:hover {
+            background: rgb(40, 160, 240);
+            transform: translateX(5px);
+        }
+        
+        .tool-action-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Lista View Específico */
+        .tools-list-view .tool-card-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .tools-list-view .tool-card-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .tools-list-view .tool-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        
+        .tools-list-view .tool-info {
+            flex: 1;
+        }
+        
+        .tools-list-view .tool-title {
+            margin-bottom: 0.25rem;
+            min-height: auto;
+        }
+        
+        .tools-list-view .tool-description {
+            margin-bottom: 0;
+        }
+        
+        /* Select Personalizado */
+        .custom-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            outline: none;
+        }
+        
+        .custom-select:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        .custom-select option {
+            color: rgb(40, 60, 120);
+            background: white;
+        }
+        
+        /* Contador de Ferramentas */
+        .tools-counter {
+            font-family: var(--font-title);
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: rgb(40, 60, 120);
+            padding: 0.5rem 1.25rem;
+            background: linear-gradient(135deg, rgba(40, 160, 240, 0.1) 0%, rgba(40, 60, 120, 0.1) 100%);
+            border: 2px solid rgb(40, 160, 240);
+            border-radius: 2rem;
+            white-space: nowrap;
+        }
+        
+        .tools-counter span {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: rgb(40, 160, 240);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1340px) {
+            .expansion-inner {
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .view-controls-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .view-controls-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid-view {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .tools-list-view {
+                padding: 1rem;
+            }
+            
+            .view-controls {
+                padding: 1rem;
+            }
+            
+            .view-controls-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            
+            .control-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .control-group .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .tools-counter {
+                text-align: center;
+            }
+            
+            .expansion-main-title {
+                font-size: 1.5rem;
+            }
+            
+            .tools-list-view .tool-card-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT - Conteúdo específico da Home -->
+    <main id="main-content">
+        
+        <!-- HERO SECTION COM SIDEBAR -->
+        <div class="hero-wrapper">
+            <div class="container">
+                <div class="hero-grid">
+                    <aside class="hero-sidebar">
+                        <div class="brand-logo">
+                            <img src="https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp" alt="Enfermagem Logo" class="no-click">
+                        </div>
+
+                        <nav class="vertical-nav">
+                            <a href="#" class="v-nav-link active">Início</a>
+                            <a href="#" class="v-nav-link" data-modal="missao">Sobre Nós</a>
+                            <a href="#" class="v-nav-link" data-modal="objetivos">Objetivos</a>
+                            <a href="#" class="v-nav-link">Ferramentas</a>
+                            <a href="#" class="v-nav-link" data-modal="compromisso">Sustentabilidade</a>
+                        </nav>
+
+                        <div class="sidebar-footer">
+                            <a href="https://www.calculadorasdeenfermagem.com.br/fale.html" class="util-row">
+                                <i class="fa-regular fa-comment-dots"></i>
+                                <span>Fale Conosco</span>
+                            </a>
+                        </div>
+                    </aside>
+
+                    <section class="hero-content-area">
+                        <h1 class="hero-headline">Ferramentas essenciais para profissionais de enfermagem</h1>
+                        <p class="hero-sub">
+                            Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.
+                        </p>
+                    </section>
+                </div>
+            </div>
+            <svg class="bottom-curve" viewBox="0 0 1440 100" preserveAspectRatio="none">
+                <path d="M0,30 C200,80 400,90 720,50 C1040,10 1240,20 1440,60 L1440,100 L0,100 Z"></path>
+            </svg>
+        </div>
+
+        <!-- MOSAICO DE ACESSO RÁPIDO -->
+        <section class="quick-access-section">
+            <div class="container">
+                <div class="mosaic-grid">
+                    <div class="organic-card shape-1 mosaic-item-1 expandable-section" data-expand="calculator">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Calculadoras">
+                        <div class="card-overlay"><div class="card-title">Calculadoras<br>Clínicas</div></div>
+                    </div>
+                    <div class="organic-card shape-5 mosaic-item-2 expandable-section" data-expand="scale">
+                        <img src="https://images.unsplash.com/photo-1584515933487-9bdb2f9883f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Escalas">
+                        <div class="card-overlay"><div class="card-title">Escalas de<br>Avaliação</div></div>
+                    </div>
+                    <div class="organic-card shape-2 mosaic-item-3 expandable-section" data-expand="all">
+                        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Biblioteca">
+                        <div class="card-overlay"><div class="card-title">Biblioteca de<br>Enfermagem</div></div>
+                    </div>
+                    <div class="organic-card shape-3 mosaic-item-4 expandable-section" data-expand="all">
+                        <img src="https://images.unsplash.com/photo-1516574187841-69301976e499?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Educação">
+                        <div class="card-overlay"><div class="card-title">Educação<br>Continuada</div></div>
+                    </div>
+                    <div class="organic-card shape-4 mosaic-item-5 expandable-section" data-expand="all">
+                        <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Protocolos">
+                        <div class="card-overlay"><div class="card-title">Protocolos<br>Clínicos</div></div>
+                    </div>
+                </div>
+                
+                <!-- Container de Expansão para Mosaico -->
+                <div id="mosaic-expansion" class="expansion-container">
+                    <div class="expansion-wrapper">
+                        <div class="expansion-inner">
+                            <!-- Controles de Visualização -->
+                            <div class="view-controls">
+                                <div class="view-controls-header">
+                                    <div class="expansion-title-main">
+                                        <div class="expansion-overline">Todas as Categorias</div>
+                                        <h3 class="expansion-main-title">
+                                            <i class="fas fa-tools"></i>
+                                            <span>Ferramentas</span>
+                                        </h3>
+                                    </div>
+                                    <div class="tools-counter">
+                                        <span id="mosaic-tools-count">0</span> ferramentas
+                                    </div>
+                                </div>
+                                <div class="view-controls-actions">
+                                    <div class="control-group">
+                                        <span class="control-label">Visualização:</span>
+                                        <button class="control-btn view-btn active" data-view="grid">
+                                            <i class="fas fa-th"></i>Grade
+                                        </button>
+                                        <button class="control-btn view-btn" data-view="list">
+                                            <i class="fas fa-list"></i>Lista
+                                        </button>
+                                    </div>
+                                    <div class="control-group">
+                                        <span class="control-label">Ordenar:</span>
+                                        <select class="custom-select sort-select">
+                                            <option value="name">Nome (A-Z)</option>
+                                            <option value="name-desc">Nome (Z-A)</option>
+                                            <option value="type">Por Tipo</option>
+                                            <option value="category">Por Categoria</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <button class="control-btn icon-toggle-btn active" data-toggle="icons">
+                                            <i class="fas fa-eye"></i>Mostrar Ícones
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Container de Ferramentas -->
+                            <div id="mosaic-tools-container" class="tools-grid-view">
+                                <!-- Cards serão inseridos via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <svg class="bottom-wave-left" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                <path d="M0,200 L0,50 C300,150 600,200 1000,200 Z"></path>
+            </svg>
+        </section>
+
+        <!-- SEÇÃO CALCULADORAS CLÍNICAS -->
+        <section class="main-features" style="padding: 4rem 0;">
+            <svg class="bg-lines" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+                <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1" opacity="0.3" />
+                <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1" opacity="0.3" />
+            </svg>
+            
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-text-col">
+                        <div class="feature-overline">Ferramentas Essenciais</div>
+                        <h2 class="feature-title"><span>Calculadoras</span> Clínicas</h2>
+                        <p class="feature-desc">
+                            Acesso rápido e gratuito a calculadoras de gotejamento, medicamentos, balanço hídrico, IMC e muito mais. Ferramentas validadas e constantemente atualizadas para apoiar sua prática profissional.
+                        </p>
+                        <button class="cta-pill blue expandable-section" data-expand="calculator" data-target="feature1-expansion">
+                            Acessar calculadoras
+                        </button>
+                    </div>
+                    <div class="feature-img-col">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="feature-img shape-leaf-1" alt="Calculadoras">
+                    </div>
+                </div>
+                
+                <!-- Container de Expansão Calculadoras -->
+                <div id="feature1-expansion" class="expansion-container" style="margin-top: 1rem;">
+                    <div class="expansion-wrapper">
+                        <div class="expansion-inner">
+                            <div class="view-controls">
+                                <div class="view-controls-header">
+                                    <div class="expansion-title-main">
+                                        <div class="expansion-overline">Ferramentas Essenciais</div>
+                                        <h3 class="expansion-main-title">
+                                            <i class="fas fa-calculator"></i>
+                                            <span>Calculadoras Clínicas</span>
+                                        </h3>
+                                    </div>
+                                    <div class="tools-counter">
+                                        <span class="feature1-tools-count">0</span> calculadoras
+                                    </div>
+                                </div>
+                                <div class="view-controls-actions">
+                                    <div class="control-group">
+                                        <span class="control-label">Visualização:</span>
+                                        <button class="control-btn view-btn active" data-view="grid">
+                                            <i class="fas fa-th"></i>Grade
+                                        </button>
+                                        <button class="control-btn view-btn" data-view="list">
+                                            <i class="fas fa-list"></i>Lista
+                                        </button>
+                                    </div>
+                                    <div class="control-group">
+                                        <span class="control-label">Ordenar:</span>
+                                        <select class="custom-select sort-select">
+                                            <option value="name">Nome (A-Z)</option>
+                                            <option value="name-desc">Nome (Z-A)</option>
+                                            <option value="category">Por Categoria</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <button class="control-btn icon-toggle-btn active" data-toggle="icons">
+                                            <i class="fas fa-eye"></i>Mostrar Ícones
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature1-tools-container tools-grid-view"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SEÇÃO ESCALAS CLÍNICAS -->
+        <section class="main-features" style="padding: 4rem 0; background: #f9fafb; position: relative;">
+            <svg class="bg-lines" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+                <path d="M-100,300 C500,250 900,450 1600,350" fill="none" stroke="var(--color-navy)" stroke-width="1" opacity="0.15" />
+                <path d="M-100,700 C600,650 1000,800 1700,600" fill="none" stroke="var(--color-navy)" stroke-width="1" opacity="0.15" />
+            </svg>
+            <div class="container">
+                <div class="feature-row">
+                    <div class="feature-text-col">
+                        <div class="feature-overline">Avaliação de Pacientes</div>
+                        <h2 class="feature-title"><span>Escalas</span> Clínicas</h2>
+                        <p class="feature-desc">
+                            Acesse mais de 50 escalas clínicas validadas para avaliação padronizada de pacientes. Ferramentas essenciais para tomada de decisão baseada em evidências no cuidado de enfermagem.
+                        </p>
+                        <button class="cta-pill blue expandable-section" data-expand="scale" data-target="scales-expansion">
+                            Acessar Escalas Clínicas
+                        </button>
+                    </div>
+                    <div class="feature-img-col">
+                        <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="feature-img shape-leaf-2" alt="Escalas Clínicas">
+                    </div>
+                </div>
+                
+                <!-- Container de Expansão Escalas -->
+                <div id="scales-expansion" class="expansion-container" style="margin-top: 1rem;">
+                    <div class="expansion-wrapper">
+                        <div class="expansion-inner">
+                            <div class="view-controls">
+                                <div class="view-controls-header">
+                                    <div class="expansion-title-main">
+                                        <div class="expansion-overline">Avaliação de Pacientes</div>
+                                        <h3 class="expansion-main-title">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span>Escalas Clínicas</span>
+                                        </h3>
+                                    </div>
+                                    <div class="tools-counter">
+                                        <span class="scales-tools-count">0</span> escalas
+                                    </div>
+                                </div>
+                                <div class="view-controls-actions">
+                                    <div class="control-group">
+                                        <span class="control-label">Visualização:</span>
+                                        <button class="control-btn view-btn active" data-view="grid">
+                                            <i class="fas fa-th"></i>Grade
+                                        </button>
+                                        <button class="control-btn view-btn" data-view="list">
+                                            <i class="fas fa-list"></i>Lista
+                                        </button>
+                                    </div>
+                                    <div class="control-group">
+                                        <span class="control-label">Ordenar:</span>
+                                        <select class="custom-select sort-select">
+                                            <option value="name">Nome (A-Z)</option>
+                                            <option value="name-desc">Nome (Z-A)</option>
+                                            <option value="category">Por Categoria</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <button class="control-btn icon-toggle-btn active" data-toggle="icons">
+                                            <i class="fas fa-eye"></i>Mostrar Ícones
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scales-tools-container tools-grid-view"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SEÇÃO CALENDÁRIO VACINAL -->
+        <section class="main-features" style="padding: 4rem 0; position: relative;">
+            <svg class="bg-lines" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+                <path d="M-100,250 C400,200 700,400 1600,300" fill="none" stroke="var(--color-cyan)" stroke-width="1" opacity="0.3" />
+                <path d="M-100,650 C500,600 900,750 1700,550" fill="none" stroke="var(--color-cyan)" stroke-width="1" opacity="0.3" />
+            </svg>
+            <div class="container">
+                <div class="feature-row reverse">
+                    <div class="feature-text-col">
+                        <div class="feature-overline">Imunização</div>
+                        <h2 class="feature-title"><span>Calendário</span> Vacinal</h2>
+                        <p class="feature-desc">
+                            Consulte os calendários vacinais completos para todas as faixas etárias e populações especiais. Informações atualizadas segundo as diretrizes do Ministério da Saúde e sociedades científicas.
+                        </p>
+                        <button class="cta-pill blue expandable-section" data-expand="vaccine" data-target="vaccines-expansion">
+                            Consultar Calendários
+                        </button>
+                    </div>
+                    <div class="feature-img-col">
+                        <img src="https://images.unsplash.com/photo-1632053002928-b7bbb7fd9568?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="feature-img shape-leaf-1" alt="Calendário Vacinal">
+                    </div>
+                </div>
+                
+                <!-- Container de Expansão Vacinas -->
+                <div id="vaccines-expansion" class="expansion-container" style="margin-top: 1rem;">
+                    <div class="expansion-wrapper">
+                        <div class="expansion-inner">
+                            <div class="view-controls">
+                                <div class="view-controls-header">
+                                    <div class="expansion-title-main">
+                                        <div class="expansion-overline">Imunização</div>
+                                        <h3 class="expansion-main-title">
+                                            <i class="fas fa-syringe"></i>
+                                            <span>Calendário Vacinal</span>
+                                        </h3>
+                                    </div>
+                                    <div class="tools-counter">
+                                        <span class="vaccines-tools-count">0</span> calendários
+                                    </div>
+                                </div>
+                                <div class="view-controls-actions">
+                                    <div class="control-group">
+                                        <span class="control-label">Visualização:</span>
+                                        <button class="control-btn view-btn active" data-view="grid">
+                                            <i class="fas fa-th"></i>Grade
+                                        </button>
+                                        <button class="control-btn view-btn" data-view="list">
+                                            <i class="fas fa-list"></i>Lista
+                                        </button>
+                                    </div>
+                                    <div class="control-group">
+                                        <span class="control-label">Ordenar:</span>
+                                        <select class="custom-select sort-select">
+                                            <option value="name">Por Faixa Etária</option>
+                                            <option value="name-desc">Ordem Inversa</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <button class="control-btn icon-toggle-btn active" data-toggle="icons">
+                                            <i class="fas fa-eye"></i>Mostrar Ícones
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vaccines-tools-container tools-grid-view"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- INFO GRID - Acesso Rápido -->
+        <section class="main-features" style="padding: 4rem 0; background: #f9fafb; position: relative;">
+            <svg class="bg-lines" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+                <path d="M-100,350 C450,300 850,500 1650,400" fill="none" stroke="var(--color-navy)" stroke-width="1" opacity="0.15" />
+                <path d="M-100,750 C550,700 950,850 1750,650" fill="none" stroke="var(--color-navy)" stroke-width="1" opacity="0.15" />
+            </svg>
+            <div class="container">
+                <div class="info-grid-wrapper">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-header">
+                                <div class="info-icon-circle"><i class="fa-solid fa-calculator"></i></div>
+                                <div class="info-title">Calculadoras<br><b>Clínicas</b></div>
+                            </div>
+                            <p class="info-text">Ferramentas validadas para cálculos essenciais no cuidado ao paciente.</p>
+                            <button class="btn-small-pill expandable-section" data-expand="calculator" data-target="infogrid-expansion">Acessar</button>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-header">
+                                <div class="info-icon-circle"><i class="fa-solid fa-chart-line"></i></div>
+                                <div class="info-title">Escalas de<br><b>Avaliação</b></div>
+                            </div>
+                            <p class="info-text">Mais de 50 escalas clínicas para avaliação de pacientes.</p>
+                            <button class="btn-small-pill expandable-section" data-expand="scale" data-target="infogrid-expansion">Acessar</button>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-header">
+                                <div class="info-icon-circle"><i class="fa-solid fa-book-medical"></i></div>
+                                <div class="info-title">Biblioteca<br><b>Digital</b></div>
+                            </div>
+                            <p class="info-text">Acervo com protocolos, guias e materiais educativos.</p>
+                            <button class="btn-small-pill expandable-section" data-expand="all" data-target="infogrid-expansion">Visitar</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Container de Expansão Info Grid -->
+                    <div id="infogrid-expansion" class="expansion-container" style="margin-top: 1rem;">
+                        <div class="expansion-wrapper">
+                            <div class="expansion-inner">
+                                <div class="view-controls">
+                                    <div class="view-controls-header">
+                                        <div class="expansion-title-main">
+                                            <div class="expansion-overline">Recursos Completos</div>
+                                            <h3 class="expansion-main-title">
+                                                <i class="fas fa-heartbeat"></i>
+                                                <span>Ferramentas de Enfermagem</span>
+                                            </h3>
+                                        </div>
+                                        <div class="tools-counter">
+                                            <span class="infogrid-tools-count">0</span> ferramentas
+                                        </div>
+                                    </div>
+                                    <div class="view-controls-actions">
+                                        <div class="control-group">
+                                            <span class="control-label">Visualização:</span>
+                                            <button class="control-btn view-btn active" data-view="grid">
+                                                <i class="fas fa-th"></i>Grade
+                                            </button>
+                                            <button class="control-btn view-btn" data-view="list">
+                                                <i class="fas fa-list"></i>Lista
+                                            </button>
+                                        </div>
+                                        <div class="control-group">
+                                            <span class="control-label">Ordenar:</span>
+                                            <select class="custom-select sort-select">
+                                                <option value="name">Nome (A-Z)</option>
+                                                <option value="name-desc">Nome (Z-A)</option>
+                                                <option value="type">Por Tipo</option>
+                                                <option value="category">Por Categoria</option>
+                                            </select>
+                                        </div>
+                                        <div class="control-group">
+                                            <button class="control-btn icon-toggle-btn active" data-toggle="icons">
+                                                <i class="fas fa-eye"></i>Mostrar Ícones
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="infogrid-tools-container tools-grid-view"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- MODAIS CONTAINER -->
+    <div id="modals-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades JS -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- Sistema de Modais Institucionais -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    
+    <!-- Sistema de Consentimento de Cookies -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    
+    <!-- Sistema de Expansão de Cards -->
+    <script>
+        (function() {
+            'use strict';
+            
+            const BASE_URL = 'https://www.calculadorasdeenfermagem.com.br/';
+            
+            // Dados das Ferramentas
+            const TOOLS_DATA = [
+                // Calculadoras
+                { id: 'aspiracao-heparina', name: 'Aspiração de Heparina', category: 'Medicamentos', type: 'calculator', description: 'Calcule o volume ideal para aspiração segura de heparina.', filename: BASE_URL + 'heparina.html', iconClass: 'fas fa-syringe' },
+                { id: 'aspiracao-insulina', name: 'Aspiração de Insulina', category: 'Medicamentos', type: 'calculator', description: 'Determine o volume correto de insulina a ser aspirado.', filename: BASE_URL + 'insulina.html', iconClass: 'fas fa-syringe' },
+                { id: 'balanco-hidrico', name: 'Balanço Hídrico', category: 'Controle Hídrico', type: 'calculator', description: 'Controle preciso das entradas e saídas de líquidos.', filename: BASE_URL + 'balancohidrico.html', iconClass: 'fas fa-tint' },
+                { id: 'gasometria', name: 'Cálculo de Gasometria', category: 'Exames', type: 'calculator', description: 'Interprete resultados de gasometria arterial com precisão.', filename: BASE_URL + 'gasometria.html', iconClass: 'fas fa-vial' },
+                { id: 'gotejamento', name: 'Cálculo de Gotejamento', category: 'Medicamentos', type: 'calculator', description: 'Defina a velocidade ideal de infusão de soluções.', filename: BASE_URL + 'gotejamento.html', iconClass: 'fas fa-hand-holding-water' },
+                { id: 'medicamentos', name: 'Cálculo de Medicamentos', category: 'Medicamentos', type: 'calculator', description: 'Calcule doses, diluições e volumes com segurança.', filename: BASE_URL + 'medicamentos.html', iconClass: 'fas fa-pills' },
+                { id: 'dimensionamento', name: 'Dimensionamento da Equipe', category: 'Gestão', type: 'calculator', description: 'Planeje o número adequado de profissionais por setor.', filename: BASE_URL + 'dimensionamento.html', iconClass: 'fas fa-users-cog' },
+                { id: 'idade-gestacional', name: 'Idade Gestacional e DPP', category: 'Obstetrícia', type: 'calculator', description: 'Descubra a idade gestacional e a data provável do parto.', filename: BASE_URL + 'gestacional.html', iconClass: 'fas fa-baby' },
+                { id: 'imc', name: 'Índice de Massa Corporal (IMC)', category: 'Nutrição', type: 'calculator', description: 'Avalie rapidamente o índice de massa corporal do paciente.', filename: BASE_URL + 'imc.html', iconClass: 'fas fa-weight' },
+                
+                // Escalas Clínicas (52 escalas)
+                { id: 'aldrete', name: 'Escala de Aldrete e Kroulik', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a recuperação pós-anestésica de forma padronizada.', filename: BASE_URL + 'aldrete.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'apache-ii', name: 'Escala de APACHE II', category: 'Escalas Clínicas', type: 'scale', description: 'Estime a gravidade de pacientes em terapia intensiva.', filename: BASE_URL + 'apache.html', iconClass: 'fa-solid fa-receipt' },
+                { id: 'apgar', name: 'Escala de Apgar', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a vitalidade do recém-nascido nos primeiros minutos.', filename: BASE_URL + 'apgar.html', iconClass: 'fas fa-baby-carriage' },
+                { id: 'asa', name: 'Classificação ASA', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique o estado físico pré-operatório do paciente.', filename: BASE_URL + 'asa.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'ballard', name: 'Escala de Ballard', category: 'Escalas Clínicas', type: 'scale', description: 'Estime a idade gestacional por critérios físicos.', filename: BASE_URL + 'ballard.html', iconClass: 'fas fa-baby-carriage' },
+                { id: 'barthel', name: 'Escala de Barthel', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a independência nas atividades da vida diária.', filename: BASE_URL + 'barthel.html', iconClass: 'fas fa-walking' },
+                { id: 'berg', name: 'Escala de Berg', category: 'Escalas Clínicas', type: 'scale', description: 'Meça o equilíbrio e risco de queda em idosos.', filename: BASE_URL + 'berg.html', iconClass: 'fa-solid fa-person' },
+                { id: 'bishop', name: 'Escala de Bishop', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a maturidade cervical no trabalho de parto.', filename: BASE_URL + 'bishop.html', iconClass: 'fa-solid fa-user-doctor' },
+                { id: 'braden', name: 'Escala de Braden', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o risco de úlcera por pressão.', filename: BASE_URL + 'braden.html', iconClass: 'fas fa-bed' },
+                { id: 'bps', name: 'Escala de BPS', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a dor em pacientes sedados.', filename: BASE_URL + 'bps.html', iconClass: 'fa-solid fa-mask-face' },
+                { id: 'cam-icu', name: 'Escala CAM-UTI', category: 'Escalas Clínicas', type: 'scale', description: 'Detecte delirium em pacientes internados em UTI.', filename: BASE_URL + 'cam.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'capurro', name: 'Escala de Capurro', category: 'Escalas Clínicas', type: 'scale', description: 'Calcule a idade gestacional do recém-nascido.', filename: BASE_URL + 'capurro.html', iconClass: 'fas fa-baby-carriage' },
+                { id: 'cincinnati', name: 'Escala de Cincinnati', category: 'Escalas Clínicas', type: 'scale', description: 'Identifique sinais clínicos de AVC rapidamente.', filename: BASE_URL + 'cincinnati.html', iconClass: 'fas fa-hospital-user' },
+                { id: 'cornell', name: 'Escala de Cornell', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie sintomas de depressão em pacientes com demência.', filename: BASE_URL + 'cornell.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'cries', name: 'Escala de CRIES', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a dor neonatal de forma objetiva.', filename: BASE_URL + 'cries.html', iconClass: 'fa-solid fa-child' },
+                { id: 'curb-65', name: 'Escala de CURB-65', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique a gravidade de pneumonia comunitária.', filename: BASE_URL + 'curb-65.html', iconClass: 'fa-solid fa-lungs-virus' },
+                { id: 'gds', name: 'Escala de Depressão Geriátrica (GDS)', category: 'Escalas Clínicas', type: 'scale', description: 'Identifique sintomas depressivos em idosos.', filename: BASE_URL + 'gds.html', iconClass: 'fas fa-child' },
+                { id: 'downton', name: 'Escala de Downton', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o risco de quedas em idosos hospitalizados.', filename: BASE_URL + 'downton.html', iconClass: 'fa-solid fa-shower' },
+                { id: 'numerica-dor', name: 'Escala de Dor (Numérica)', category: 'Escalas Clínicas', type: 'scale', description: 'Mensure a intensidade da dor autorreferida.', filename: BASE_URL + 'escalanumerica.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'elpo', name: 'Escala de ELPO', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o risco de lesões perioperatórias.', filename: BASE_URL + 'elpo.html', iconClass: 'fas fa-child' },
+                { id: 'fast', name: 'Escala de FAST (AVC)', category: 'Escalas Clínicas', type: 'scale', description: 'Reconheça rapidamente sinais de AVC.', filename: BASE_URL + 'fast.html', iconClass: 'fa-solid fa-person-walking-with-cane' },
+                { id: 'flacc', name: 'Escala de FLACC', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a dor em crianças de forma comportamental.', filename: BASE_URL + 'flacc.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'four', name: 'Escala de FOUR', category: 'Escalas Clínicas', type: 'scale', description: 'Meça o nível de consciência em substituição à Glasgow.', filename: BASE_URL + 'four.html', iconClass: 'fa-solid fa-user-nurse' },
+                { id: 'fugulin', name: 'Escala de Fugulin (SCP)', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique pacientes segundo o grau de dependência.', filename: BASE_URL + 'fugulin.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'glasgow', name: 'Escala de Coma de Glasgow', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o nível de consciência em adultos e crianças.', filename: BASE_URL + 'glasgow.html', iconClass: 'fa-solid fa-eye' },
+                { id: 'gosnell', name: 'Escala de Gosnell', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o risco de úlcera de pressão em pacientes.', filename: BASE_URL + 'gosnell.html', iconClass: 'fa-solid fa-weight-scale' },
+                { id: 'hamilton', name: 'Escala de Hamilton', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a gravidade da ansiedade em pacientes.', filename: BASE_URL + 'hamilton.html', iconClass: 'fas fa-file-medical-alt' },
+                { id: 'humpty', name: 'Escala de Humpty Dumpty', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie risco de quedas em pacientes pediátricos.', filename: BASE_URL + 'humpty.html', iconClass: 'fas fa-file-medical-alt' },
+                { id: 'johns', name: 'Escala Johns Hopkins', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie risco de quedas e mobilidade hospitalar.', filename: BASE_URL + 'johns.html', iconClass: 'fa-solid fa-person-walking-with-cane' },
+                { id: 'jouvet', name: 'Escala de Jouvet', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique o nível de coma segundo reflexos.', filename: BASE_URL + 'jouvet.html', iconClass: 'fas fa-bed' },
+                { id: 'katz', name: 'Escala Katz', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie independência funcional em idosos.', filename: BASE_URL + 'katz.html', iconClass: 'fa-solid fa-bath' },
+                { id: 'lachs', name: 'Escala de Lachs', category: 'Escalas Clínicas', type: 'scale', description: 'Identifique maus-tratos em pacientes idosos.', filename: BASE_URL + 'lachs.html', iconClass: 'fa-solid fa-person-walking-with-cane' },
+                { id: 'lanss', name: 'Escala LANSS', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie dor neuropática de forma padronizada.', filename: BASE_URL + 'lanss.html', iconClass: 'fas fa-user-nurse' },
+                { id: 'lawton', name: 'Escala de Lawton', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie atividades instrumentais da vida diária.', filename: BASE_URL + 'lawton.html', iconClass: 'fa-solid fa-mug-saucer' },
+                { id: 'manchester', name: 'Protocolo de Manchester', category: 'Escalas Clínicas', type: 'scale', description: 'Priorize atendimentos segundo gravidade clínica.', filename: BASE_URL + 'manchester.html', iconClass: 'fas fa-clinic-medical' },
+                { id: 'meem', name: 'Escala de MEEM', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie cognição global e rastreie demência.', filename: BASE_URL + 'meem.html', iconClass: 'fas fa-wheelchair' },
+                { id: 'meows', name: 'Escala de MEOWS', category: 'Escalas Clínicas', type: 'scale', description: 'Detecte precocemente deterioração materna.', filename: BASE_URL + 'meows.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'morse', name: 'Escala de Morse', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie risco de quedas hospitalares.', filename: BASE_URL + 'morse.html', iconClass: 'fas fa-walking' },
+                { id: 'news', name: 'Escala de NEWS', category: 'Escalas Clínicas', type: 'scale', description: 'Monitore parâmetros fisiológicos críticos.', filename: BASE_URL + 'news.html', iconClass: 'fas fa-chart-line' },
+                { id: 'nihss', name: 'Escala de NIHSS', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie déficits neurológicos em AVC.', filename: BASE_URL + 'nihss.html', iconClass: 'fas fa-brain' },
+                { id: 'nips', name: 'Escala de NIPS', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a dor no recém-nascido.', filename: BASE_URL + 'nips.html', iconClass: 'fa-solid fa-eye-dropper' },
+                { id: 'norton', name: 'Escala de Norton', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique o risco de lesão por pressão.', filename: BASE_URL + 'norton.html', iconClass: 'fas fa-file-medical-alt' },
+                { id: 'ofras', name: 'Escala de OFRAS', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie risco de aspiração orofaríngea.', filename: BASE_URL + 'ofras.html', iconClass: 'fa-solid fa-square-plus' },
+                { id: 'painad', name: 'Escala de Painad', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie dor em pacientes com demência avançada.', filename: BASE_URL + 'painad.html', iconClass: 'fa-solid fa-hand-holding-medical' },
+                { id: 'pelod', name: 'Escala de PELOD', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie falência orgânica em pacientes pediátricos.', filename: BASE_URL + 'pelod.html', iconClass: 'fa-solid fa-comment-medical' },
+                { id: 'perroca', name: 'Escala de Perroca (SCP)', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique pacientes segundo complexidade assistencial.', filename: BASE_URL + 'perroca.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'pews', name: 'Escala de PEWS', category: 'Escalas Clínicas', type: 'scale', description: 'Monitore precocemente instabilidade pediátrica.', filename: BASE_URL + 'pews.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'prism', name: 'Escala de PRISM', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie gravidade de pacientes pediátricos críticos.', filename: BASE_URL + 'prism.html', iconClass: 'fas fa-lungs' },
+                { id: 'qsofa', name: 'Escala de qSOFA', category: 'Escalas Clínicas', type: 'scale', description: 'Identifique sepse de forma rápida e prática.', filename: BASE_URL + 'qsofa.html', iconClass: 'fas fa-lungs' },
+                { id: 'rancho', name: 'Escala Rancho Los Amigos', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a recuperação neurológica pós-trauma.', filename: BASE_URL + 'rancholosamigos.html', iconClass: 'fas fa-user-md' },
+                { id: 'ramsay', name: 'Escala de Ramsay (Sedação)', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie o nível de sedação em pacientes críticos.', filename: BASE_URL + 'ramsay.html', iconClass: 'fa-solid fa-bed-pulse' },
+                { id: 'richmond', name: 'Escala de Richmond (RASS)', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie agitação e sedação em terapia intensiva.', filename: BASE_URL + 'richmond.html', iconClass: 'fas fa-user-md' },
+                { id: 'saps', name: 'Escala de SAPS III', category: 'Escalas Clínicas', type: 'scale', description: 'Classifique a gravidade de pacientes críticos.', filename: BASE_URL + 'saps.html', iconClass: 'fas fa-hospital-alt' },
+                { id: 'silverman', name: 'Escala de Silverman-Anderson', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie a dificuldade respiratória neonatal.', filename: BASE_URL + 'silverman.html', iconClass: 'fas fa-notes-medical' },
+                { id: 'sofa', name: 'Escala de SOFA', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie disfunção orgânica em pacientes graves.', filename: BASE_URL + 'sofa.html', iconClass: 'fas fa-heartbeat' },
+                { id: 'tinetti', name: 'Escala de Tinetti', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie equilíbrio e marcha em idosos.', filename: BASE_URL + 'tinetti.html', iconClass: 'fa-solid fa-person-walking-with-cane' },
+                { id: 'waterlow', name: 'Escala de Waterlow', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie risco de úlcera por pressão.', filename: BASE_URL + 'waterlow.html', iconClass: 'fa-solid fa-weight-scale' },
+                { id: 'wood', name: 'Escala de Wood e Downes', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie insuficiência respiratória em lactentes.', filename: BASE_URL + 'downes.html', iconClass: 'fa-solid fa-stethoscope' },
+                { id: 'zarit', name: 'Escala de Zarit', category: 'Escalas Clínicas', type: 'scale', description: 'Avalie sobrecarga do cuidador principal.', filename: BASE_URL + 'zarit.html', iconClass: 'fa-solid fa-hospital-user' },
+                
+                // Calendário Vacinal
+                { id: 'vacina-prematuro', name: 'Prematuro', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para bebês prematuros.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-criancas', name: 'Crianças (0 a <10 anos)', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal infantil completo.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-adolescentes', name: 'Adolescentes (10 a 19 anos)', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para adolescentes.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-adultos', name: 'Adultos (20 a 59 anos)', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para adultos.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-idosos', name: 'Idosos (mais de 60 anos)', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para idosos.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-gestantes', name: 'Gestantes', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para gestantes.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-especiais', name: 'Pacientes Especiais', category: 'Vacinas', type: 'vaccine', description: 'Calendário para pacientes com condições especiais.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-ocupacional', name: 'Ocupacional', category: 'Vacinas', type: 'vaccine', description: 'Calendário vacinal para profissionais de saúde.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+                { id: 'vacina-pneumococicas', name: 'Vacinas Pneumocócicas', category: 'Vacinas', type: 'vaccine', description: 'Guia completo de vacinas pneumocócicas.', filename: BASE_URL + 'tabelas-vacinas-crianca.html', iconClass: 'fas fa-syringe' },
+            ];
+            
+            // Estado Global
+            let globalState = {
+                activeExpansion: null,
+                showIcons: true,
+                viewMode: 'grid',
+                sortOrder: 'name'
+            };
+            
+            // Criar Card de Ferramenta
+            function createToolCard(tool, viewMode, showIcons) {
+                const badgeClasses = {
+                    calculator: 'calculator',
+                    scale: 'scale',
+                    vaccine: 'vaccine'
+                };
+                
+                const buttonTexts = {
+                    calculator: 'Calcular',
+                    scale: 'Classificar',
+                    vaccine: 'Consultar'
+                };
+                
+                const badgeLabels = {
+                    calculator: 'Calculadora',
+                    scale: 'Escala',
+                    vaccine: 'Vacina'
+                };
+                
+                const badgeClass = badgeClasses[tool.type] || 'scale';
+                const buttonText = buttonTexts[tool.type] || 'Acessar';
+                const badgeLabel = badgeLabels[tool.type] || 'Ferramenta';
+                const iconHiddenClass = !showIcons ? ' hidden' : '';
+                
+                return `
+                    <a href="${tool.filename}" class="tool-card-item">
+                        <div class="tool-card-content">
+                            <div class="tool-card-header">
+                                <span class="tool-badge ${badgeClass}">${badgeLabel}</span>
+                                <i class="${tool.iconClass} tool-icon${iconHiddenClass}"></i>
+                            </div>
+                            <div class="tool-info">
+                                <h3 class="tool-title">${tool.name}</h3>
+                                <p class="tool-description">${tool.description}</p>
+                                <div class="tool-action-btn">
+                                    <i class="fas fa-arrow-right"></i>${buttonText}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }
+            
+            // Filtrar e Ordenar Ferramentas
+            function filterAndSortTools(filterType, sortOrder) {
+                let filtered = TOOLS_DATA;
+                
+                // Filtrar por tipo
+                if (filterType !== 'all') {
+                    filtered = filtered.filter(tool => tool.type === filterType);
+                }
+                
+                // Ordenar
+                filtered = [...filtered].sort((a, b) => {
+                    switch(sortOrder) {
+                        case 'name':
+                            return a.name.localeCompare(b.name);
+                        case 'name-desc':
+                            return b.name.localeCompare(a.name);
+                        case 'type':
+                            return a.type.localeCompare(b.type) || a.name.localeCompare(b.name);
+                        case 'category':
+                            return a.category.localeCompare(b.category) || a.name.localeCompare(b.name);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                return filtered;
+            }
+            
+            // Renderizar Ferramentas em Container
+            function renderTools(container, tools, viewMode, showIcons) {
+                if (!container) return;
+                
+                // Atualizar classe do container
+                container.className = viewMode === 'grid' ? 'tools-grid-view' : 'tools-list-view';
+                
+                // Renderizar cards
+                container.innerHTML = tools.map(tool => 
+                    createToolCard(tool, viewMode, showIcons)
+                ).join('');
+            }
+            
+            // Atualizar Contador
+            function updateCounter(counterElement, count) {
+                if (counterElement) {
+                    counterElement.textContent = count;
+                }
+            }
+            
+            // Sistema de Expansão
+            function initExpansionSystem() {
+                // Selecionar todos os elementos expansíveis
+                const expandableSections = document.querySelectorAll('.expandable-section');
+                
+                expandableSections.forEach(section => {
+                    section.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const expandType = this.dataset.expand;
+                        const targetId = this.dataset.target || 'mosaic-expansion';
+                        const expansionContainer = document.getElementById(targetId);
+                        
+                        if (!expansionContainer) return;
+                        
+                        // Se clicar na mesma seção, colapsar
+                        if (this.classList.contains('expanded')) {
+                            this.classList.remove('expanded');
+                            expansionContainer.classList.remove('active');
+                            globalState.activeExpansion = null;
+                            return;
+                        }
+                        
+                        // Remover expanded de todos os elementos
+                        document.querySelectorAll('.expandable-section.expanded').forEach(el => {
+                            el.classList.remove('expanded');
+                        });
+                        
+                        // Fechar todas as expansões
+                        document.querySelectorAll('.expansion-container.active').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        
+                        // Adicionar classe expanded
+                        this.classList.add('expanded');
+                        
+                        // Expandir
+                        expansionContainer.classList.add('active');
+                        globalState.activeExpansion = targetId;
+                        
+                        // Renderizar ferramentas filtradas
+                        const tools = filterAndSortTools(expandType, globalState.sortOrder);
+                        
+                        // Mapear containers dinamicamente
+                        const containerMap = {
+                            'mosaic-expansion': {
+                                container: document.getElementById('mosaic-tools-container'),
+                                counter: document.getElementById('mosaic-tools-count')
+                            },
+                            'feature1-expansion': {
+                                container: document.querySelector('.feature1-tools-container'),
+                                counter: document.querySelector('.feature1-tools-count')
+                            },
+                            'infogrid-expansion': {
+                                container: document.querySelector('.infogrid-tools-container'),
+                                counter: document.querySelector('.infogrid-tools-count')
+                            },
+                            'scales-expansion': {
+                                container: document.querySelector('.scales-tools-container'),
+                                counter: document.querySelector('.scales-tools-count')
+                            },
+                            'vaccines-expansion': {
+                                container: document.querySelector('.vaccines-tools-container'),
+                                counter: document.querySelector('.vaccines-tools-count')
+                            }
+                        };
+                        
+                        const targetElements = containerMap[targetId];
+                        if (targetElements && targetElements.container) {
+                            renderTools(targetElements.container, tools, globalState.viewMode, globalState.showIcons);
+                            updateCounter(targetElements.counter, tools.length);
+                        }
+                        
+                        // Scroll suave para a expansão
+                        setTimeout(() => {
+                            expansionContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 400);
+                    });
+                });
+            }
+            
+            // Controles de Visualização
+            function initViewControls() {
+                // Função auxiliar para obter container ativo
+                function getActiveContainer() {
+                    const containerMap = {
+                        'mosaic-expansion': document.getElementById('mosaic-tools-container'),
+                        'feature1-expansion': document.querySelector('.feature1-tools-container'),
+                        'infogrid-expansion': document.querySelector('.infogrid-tools-container'),
+                        'scales-expansion': document.querySelector('.scales-tools-container'),
+                        'vaccines-expansion': document.querySelector('.vaccines-tools-container')
+                    };
+                    return containerMap[globalState.activeExpansion];
+                }
+                
+                // Botões de visualização (Grid/Lista)
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        
+                        const viewMode = this.dataset.view;
+                        globalState.viewMode = viewMode;
+                        
+                        // Atualizar estado ativo dos botões no mesmo container
+                        const parentControls = this.closest('.view-controls');
+                        parentControls.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Re-renderizar ferramentas com novo modo de visualização
+                        if (globalState.activeExpansion) {
+                            const expandBtn = document.querySelector(`[data-target="${globalState.activeExpansion}"].expanded`);
+                            if (expandBtn) {
+                                const expandType = expandBtn.dataset.expand;
+                                const tools = filterAndSortTools(expandType, globalState.sortOrder);
+                                const toolsContainer = getActiveContainer();
+                                
+                                if (toolsContainer) {
+                                    renderTools(toolsContainer, tools, viewMode, globalState.showIcons);
+                                }
+                            }
+                        }
+                    });
+                });
+                
+                // Ordenação
+                document.querySelectorAll('.sort-select').forEach(select => {
+                    select.addEventListener('change', function(e) {
+                        e.stopPropagation();
+                        
+                        globalState.sortOrder = this.value;
+                        
+                        // Re-renderizar ferramentas com nova ordenação
+                        if (globalState.activeExpansion) {
+                            const expandBtn = document.querySelector(`[data-target="${globalState.activeExpansion}"].expanded`);
+                            
+                            if (expandBtn) {
+                                const expandType = expandBtn.dataset.expand;
+                                const tools = filterAndSortTools(expandType, this.value);
+                                const toolsContainer = getActiveContainer();
+                                
+                                // Obter contador específico
+                                const counterMap = {
+                                    'mosaic-expansion': document.getElementById('mosaic-tools-count'),
+                                    'feature1-expansion': document.querySelector('.feature1-tools-count'),
+                                    'infogrid-expansion': document.querySelector('.infogrid-tools-count'),
+                                    'scales-expansion': document.querySelector('.scales-tools-count'),
+                                    'vaccines-expansion': document.querySelector('.vaccines-tools-count')
+                                };
+                                const counterElement = counterMap[globalState.activeExpansion];
+                                
+                                if (toolsContainer) {
+                                    renderTools(toolsContainer, tools, globalState.viewMode, globalState.showIcons);
+                                    updateCounter(counterElement, tools.length);
+                                }
+                            }
+                        }
+                    });
+                });
+                
+                // Mostrar/Ocultar Ícones
+                document.querySelectorAll('.icon-toggle-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        
+                        globalState.showIcons = !globalState.showIcons;
+                        
+                        // Atualizar texto e estado do botão
+                        const icon = this.querySelector('i');
+                        const text = this.childNodes[this.childNodes.length - 1];
+                        
+                        if (globalState.showIcons) {
+                            this.classList.add('active');
+                            icon.className = 'fas fa-eye';
+                            text.textContent = 'Mostrar Ícones';
+                        } else {
+                            this.classList.remove('active');
+                            icon.className = 'fas fa-eye-slash';
+                            text.textContent = 'Ocultar Ícones';
+                        }
+                        
+                        // Re-renderizar ferramentas
+                        if (globalState.activeExpansion) {
+                            const expandBtn = document.querySelector(`[data-target="${globalState.activeExpansion}"].expanded`);
+                            
+                            if (expandBtn) {
+                                const expandType = expandBtn.dataset.expand;
+                                const tools = filterAndSortTools(expandType, globalState.sortOrder);
+                                const toolsContainer = getActiveContainer();
+                                
+                                if (toolsContainer) {
+                                    renderTools(toolsContainer, tools, globalState.viewMode, globalState.showIcons);
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // Inicialização
+            function init() {
+                initExpansionSystem();
+                initViewControls();
+                console.log('✓ Sistema de expansão de cards inicializado');
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+
+</body>
+</html>
