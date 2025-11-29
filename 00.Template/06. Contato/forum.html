@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórum de Discussão - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Participe do fórum da comunidade de enfermagem. Discuta casos clínicos, tire dúvidas e compartilhe experiências com outros profissionais.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/forum.html" />
+    
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/forum.html" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/06. Contato/forum.html" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "DiscussionForumPosting",
+            "headline": "Fórum de Discussão - Comunidade de Enfermagem",
+            "description": "Participe do fórum da comunidade de enfermagem. Discuta casos clínicos, tire dúvidas e compartilhe experiências com outros profissionais.",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-01-15",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/06. Contato/forum.html"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="../00.Template/assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="../01. Página Principal/home.html">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="#">Contato</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>Fórum de Discussão</span>
+            </nav>
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <!-- Article Header -->
+                    <header class="article-header">
+                        <span class="article-category" style="color: white;">COMUNIDADE</span>
+                        <h1>Fórum de Discussão</h1>
+                        <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                        <p class="article-subtitle">
+                            Um espaço colaborativo para profissionais e estudantes de enfermagem discutirem casos clínicos, tirarem dúvidas e compartilharem conhecimento baseado em evidências.
+                        </p>
+                    </header>
+                    
+                    <!-- Featured Image -->
+                    <img src="../00.Template/assets/images/sobre-nos-equipe_9.jpg" 
+                         alt="Fórum de Discussão - Comunidade de Enfermagem" 
+                         class="featured-image" loading="lazy">
+                    
+                    <!-- Main Content -->
+                    <p>
+                        O Fórum de Discussão da Calculadoras de Enfermagem é um espaço colaborativo onde profissionais e estudantes podem interagir, compartilhar experiências e construir conhecimento coletivo sobre a prática da enfermagem.
+                    </p>
+                    
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+                        <div>
+                            <strong>Em Desenvolvimento:</strong> O fórum está sendo construído e será lançado em breve! Cadastre-se para receber notificações sobre o lançamento e seja um dos primeiros membros da comunidade.
+                        </div>
+                    </div>
+                    
+                    <h2 id="sobre-forum"><i class="fa-solid fa-comments"></i> Sobre o Fórum</h2>
+                    
+                    <p>
+                        Nossa plataforma de discussão será um ambiente seguro, moderado e focado em:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>Discussão de Casos Clínicos:</strong> Compartilhe experiências e aprenda com situações reais (respeitando sigilo e ética)</li>
+                        <li><strong>Dúvidas Técnicas:</strong> Tire dúvidas sobre cálculos, doses, diluições e protocolos</li>
+                        <li><strong>Evidências Científicas:</strong> Discuta artigos, pesquisas e atualizações da área</li>
+                        <li><strong>Experiências Profissionais:</strong> Compartilhe desafios, soluções e boas práticas</li>
+                        <li><strong>Suporte entre Pares:</strong> Apoio mútuo entre profissionais e estudantes</li>
+                    </ul>
+                    
+                    <h2 id="categorias"><i class="fa-solid fa-layer-group"></i> Categorias do Fórum</h2>
+                    
+                    <p>
+                        O fórum será organizado em categorias temáticas para facilitar a navegação e busca:
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-calculator"></i> Calculadoras e Doses</h3>
+                    <p>
+                        Discussões sobre cálculos de medicamentos, diluições, gotejamento e conversões de unidades.
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-chart-line"></i> Escalas Clínicas</h3>
+                    <p>
+                        Dúvidas e casos sobre aplicação de escalas assistenciais (Braden, Glasgow, Aldrete, etc.).
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-user-nurse"></i> Casos Clínicos</h3>
+                    <p>
+                        Compartilhamento de experiências práticas (respeitando sigilo do paciente e ética profissional).
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-book-medical"></i> Evidências e Pesquisa</h3>
+                    <p>
+                        Discussão de artigos científicos, diretrizes e atualizações baseadas em evidências.
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-graduation-cap"></i> Formação e Ensino</h3>
+                    <p>
+                        Dúvidas de estudantes, dicas de estudo e discussões sobre educação em enfermagem.
+                    </p>
+                    
+                    <h3><i class="fa-solid fa-stethoscope"></i> Especialidades</h3>
+                    <p>
+                        Subcategorias por área: UTI, Pediatria, Emergência, Oncologia, Obstetrícia, etc.
+                    </p>
+                    
+                    <h2 id="regras"><i class="fa-solid fa-gavel"></i> Regras e Código de Conduta</h2>
+                    
+                    <p>
+                        Para manter um ambiente colaborativo, respeitoso e ético, o fórum terá regras claras:
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-shield-alt"></i> Princípios Fundamentais</h4>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Respeito Profissional:</strong> Tratamento cordial e respeitoso entre todos os membros</li>
+                            <li><strong>Sigilo do Paciente:</strong> NUNCA divulgar informações que possam identificar pacientes</li>
+                            <li><strong>Evidências Científicas:</strong> Basear discussões em fontes confiáveis e atualizadas</li>
+                            <li><strong>Ética Profissional:</strong> Seguir o Código de Ética de Enfermagem</li>
+                            <li><strong>Responsabilidade:</strong> O fórum é educativo, não substitui consulta profissional</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Comportamentos Proibidos</h3>
+                    
+                    <ul>
+                        <li>Violação de sigilo do paciente</li>
+                        <li>Linguagem ofensiva, discriminatória ou desrespeitosa</li>
+                        <li>Spam, publicidade não autorizada ou conteúdo comercial</li>
+                        <li>Disseminação de informações não comprovadas ou perigosas</li>
+                        <li>Assédio, intimidação ou comportamento antiético</li>
+                        <li>Plágio ou violação de direitos autorais</li>
+                    </ul>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Moderação:</strong> O fórum será moderado por profissionais de enfermagem. Violações às regras podem resultar em advertência, suspensão ou banimento.
+                        </div>
+                    </div>
+                    
+                    <h2 id="recursos"><i class="fa-solid fa-tools"></i> Recursos Planejados</h2>
+                    
+                    <p>
+                        O fórum contará com diversos recursos para facilitar a interação e organização:
+                    </p>
+                    
+                    <ul>
+                        <li><strong>Sistema de Busca Avançada:</strong> Encontre discussões por palavras-chave, categoria e tags</li>
+                        <li><strong>Notificações:</strong> Receba alertas de respostas aos seus tópicos</li>
+                        <li><strong>Perfil de Usuário:</strong> Mostre sua especialidade e contribuições</li>
+                        <li><strong>Sistema de Reputação:</strong> Membros ativos e colaborativos ganham badges</li>
+                        <li><strong>Marcação de Melhores Respostas:</strong> Destaque soluções validadas</li>
+                        <li><strong>Modo Anônimo:</strong> Opção para discussões sensíveis (com moderação)</li>
+                        <li><strong>Anexos e Imagens:</strong> Compartilhe prints e materiais (respeitando direitos autorais)</li>
+                    </ul>
+                    
+                    <h2 id="moderacao"><i class="fa-solid fa-user-shield"></i> Equipe de Moderação</h2>
+                    
+                    <p>
+                        O fórum será moderado por uma equipe de enfermeiros qualificados que garantirão:
+                    </p>
+                    
+                    <ul>
+                        <li>Cumprimento das regras e código de conduta</li>
+                        <li>Validação de informações técnicas quando necessário</li>
+                        <li>Mediação de conflitos e discussões acaloradas</li>
+                        <li>Resposta a dúvidas frequentes e orientações</li>
+                        <li>Manutenção de um ambiente colaborativo e respeitoso</li>
+                    </ul>
+                    
+                    <h2 id="cadastro"><i class="fa-solid fa-user-plus"></i> Como Participar</h2>
+                    
+                    <p>
+                        Quando o fórum for lançado, você poderá:
+                    </p>
+                    
+                    <ol>
+                        <li><strong>Criar uma Conta:</strong> Cadastro gratuito com e-mail e senha</li>
+                        <li><strong>Completar seu Perfil:</strong> Informe sua área de atuação e especialidade (opcional)</li>
+                        <li><strong>Ler as Regras:</strong> Familiarize-se com o código de conduta</li>
+                        <li><strong>Explorar Categorias:</strong> Navegue pelos tópicos existentes</li>
+                        <li><strong>Criar Tópicos:</strong> Inicie discussões respeitando as diretrizes</li>
+                        <li><strong>Interagir:</strong> Comente, responda e colabore com a comunidade</li>
+                    </ol>
+                    
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-bell"></i> Receba Notificações do Lançamento</h4>
+                        <p style="margin-top: 1rem;">
+                            Cadastre seu e-mail para ser notificado quando o fórum for lançado e receber acesso antecipado:
+                        </p>
+                        <p style="margin-top: 1rem;">
+                            <strong>E-mail:</strong> <a href="mailto:forum@calculadorasdeenfermagem.com.br">forum@calculadorasdeenfermagem.com.br</a><br>
+                            <em>Assunto: "Quero participar do fórum"</em>
+                        </p>
+                    </div>
+                    
+                    <h2 id="seguranca"><i class="fa-solid fa-lock"></i> Privacidade e Segurança</h2>
+                    
+                    <p>
+                        Levamos a sério a privacidade dos membros do fórum:
+                    </p>
+                    
+                    <ul>
+                        <li>Seus dados pessoais são protegidos conforme LGPD</li>
+                        <li>Você pode usar nickname ao invés de nome real</li>
+                        <li>Opção de modo anônimo para discussões sensíveis</li>
+                        <li>Seus e-mails e informações não serão compartilhados</li>
+                        <li>Moderação ativa contra spam e comportamento malicioso</li>
+                    </ul>
+                    
+                    <h2 id="faq-forum"><i class="fa-solid fa-circle-question"></i> Perguntas Frequentes</h2>
+                    
+                    <h3>O fórum é gratuito?</h3>
+                    <p>
+                        Sim! O fórum será 100% gratuito para todos os profissionais e estudantes de enfermagem.
+                    </p>
+                    
+                    <h3>Preciso ser profissional de enfermagem para participar?</h3>
+                    <p>
+                        O fórum é voltado para enfermeiros, técnicos de enfermagem e estudantes da área. Profissionais de outras áreas da saúde são bem-vindos em categorias gerais.
+                    </p>
+                    
+                    <h3>Posso fazer perguntas sobre diagnósticos?</h3>
+                    <p>
+                        O fórum é educativo e não substitui consulta profissional. Discussões acadêmicas e profissionais são permitidas, mas não oferecemos diagnóstico ou orientação individual.
+                    </p>
+                    
+                    <h3>Como reporto conteúdo inadequado?</h3>
+                    <p>
+                        Haverá botão de "Reportar" em cada postagem. A equipe de moderação avaliará rapidamente.
+                    </p>
+                    
+                    <div class="inline-cta">
+                        <h3>Enquanto Isso, Explore Nossa Plataforma</h3>
+                        <p>Descubra todas as calculadoras e ferramentas disponíveis</p>
+                        <a href="../01. Página Principal/home.html" class="cta-button">
+                            <i class="fa-solid fa-calculator"></i> Explorar Ferramentas
+                        </a>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="article-sidebar">
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-list"></i> Nesta Página</h3>
+                        <nav class="sidebar-nav">
+                            <a href="#sobre-forum">Sobre o Fórum</a>
+                            <a href="#categorias">Categorias</a>
+                            <a href="#regras">Regras</a>
+                            <a href="#recursos">Recursos</a>
+                            <a href="#cadastro">Como Participar</a>
+                            <a href="#faq-forum">Perguntas Frequentes</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-rocket"></i> Status</h3>
+                        <div class="sidebar-highlight">
+                            <p><strong>Em Desenvolvimento</strong></p>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                O fórum será lançado em breve. Cadastre-se para receber notificações!
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3><i class="fa-solid fa-link"></i> Links Úteis</h3>
+                        <ul class="sidebar-links">
+                            <li><a href="fale-conosco.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a></li>
+                            <li><a href="doacoes.html"><i class="fa-solid fa-heart"></i> Apoie o Projeto</a></li>
+                            <li><a href="../02. Sobre Nós/missao.html"><i class="fa-solid fa-bullseye"></i> Nossa Missão</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- VLibras Widget Container -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    
+    <!-- ============================================================ -->
+    <!-- INJEÇÃO DE COMPONENTES MODULARES -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            
+            // Flag para evitar injeção duplicada
+            let componentsInjected = false;
+            
+            /**
+             * Injeta todos os componentes modulares (Header, Footer, etc.)
+             * Executa apenas UMA vez
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados. Pulando...');
+                    return;
+                }
+                
+                // Verificar se CONFIG está disponível
+                if (typeof CONFIG === 'undefined') {
+                    console.error('❌ CONFIG não encontrado! Componentes não podem ser injetados.');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="../00.Template/assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+
+</body>
+</html>
