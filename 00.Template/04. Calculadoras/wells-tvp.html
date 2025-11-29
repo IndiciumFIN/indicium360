@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escore de Wells para TVP (Trombose Venosa Profunda) - Enfermagem Prática</title>
+    <meta name="description" content="Calculadora do Escore de Wells para avaliação de probabilidade de Trombose Venosa Profunda (TVP). Estratifique o risco e determine a necessidade de investigação complementar com ultrassom doppler.">
+    <meta name="keywords" content="Wells TVP, trombose venosa profunda, TVP, escore wells, D-dímero, doppler venoso, ultrassom vascular, diagnóstico TVP">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- jsPDF para geração de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- VLibras -->    <!-- Google Analytics com Consent Mode V2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+        
+        gtag('js', new Date());
+        gtag('config', 'G-8FLJ59XXDK');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FLJ59XXDK"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6472730056006847" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header será injetado aqui -->
+    <div id="header-placeholder"></div>
+
+    <!-- Modal de Feedback -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4 transform transition-all">
+            <div id="modalContent" class="text-center"></div>
+            <button onclick="fecharModal()" class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Título e Descrição -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4" style="color: #1A3E74;">
+                    Escore de Wells para TVP (Trombose Venosa Profunda)
+                </h1>
+                <p class="text-gray-700 leading-relaxed">
+                    O <strong>Escore de Wells para TVP</strong> é uma ferramenta validada para estimar a probabilidade 
+                    clínica de <strong>Trombose Venosa Profunda</strong> em membros inferiores. Auxilia na decisão sobre 
+                    investigação complementar (D-dímero, ultrassom doppler venoso), permitindo estratificação de risco e 
+                    abordagem diagnóstica racional, evitando exames desnecessários.
+                </p>
+            </div>
+
+            <!-- Grid Principal: 2 colunas + sidebar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Coluna 1: Critérios de Wells -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📋 Critérios de Wells para TVP
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="cancerAtivo" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Câncer ativo</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Tratamento atual ou últimos 6 meses)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="paralisia" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Paralisia, paresia ou imobilização MMII</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Recente de membros inferiores)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="acamado" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Acamado > 3 dias ou cirurgia < 12 semanas</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Com anestesia geral ou regional)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="empastamento" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Empastamento ao longo de veias profundas</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Dor à palpação no trajeto venoso)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="edemaToda" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Edema de toda a perna</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Não apenas localizado)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="diferenca" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Panturrilha > 3cm que lado não afetado</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Medida 10cm abaixo tuberosidade tibial)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="cacifo" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Edema com cacifo (pitting edema)</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Maior na perna sintomática)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="veiasColaterais" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Veias superficiais colaterais</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Não varicosas)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="tvpPrevia" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>TVP prévia documentada</strong> <span class="text-blue-600 font-semibold">(+1)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="diagnosticoAlternativo" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="-2">
+                                <span class="text-sm">
+                                    <strong>Diagnóstico alternativo igualmente provável</strong> <span class="text-red-600 font-semibold">(-2)</span><br>
+                                    <span class="text-xs text-gray-600">(Ex: celulite, linfedema, rotura muscular)</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        onclick="calcularWellsTVP()" 
+                        class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 shadow-md"
+                    >
+                        Calcular Escore de Wells
+                    </button>
+                    
+                    <button 
+                        onclick="limparFormulario()" 
+                        class="w-full mt-3 bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300"
+                    >
+                        Limpar
+                    </button>
+                </div>
+
+                <!-- Coluna 2: Resultados -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📊 Resultado
+                    </h2>
+                    
+                    <div id="resultado" class="text-center py-8 text-gray-400">
+                        Marque os critérios presentes para calcular o escore de Wells
+                    </div>
+                    
+                    <div id="probabilidade" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Probabilidade Clínica de TVP</h3>
+                        <div id="probabilidadeConteudo" class="text-sm text-gray-700"></div>
+                    </div>
+                    
+                    <div id="conduta" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Conduta Diagnóstica</h3>
+                        <div id="condutaConteudo" class="text-sm text-gray-700 space-y-2"></div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div id="botoesAcao" class="hidden flex gap-3 mt-6">
+                        <button onclick="copiarResultado()" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📋</span>
+                            <span>Copiar Resultados</span>
+                        </button>
+                        <button onclick="exportarPDF()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📄</span>
+                            <span>Exportar PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Informações Adicionais -->
+                <div class="space-y-6">
+                    <!-- Interpretação -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            📊 Interpretação do Escore
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 bg-green-100 rounded border-l-4 border-green-500">
+                                <p class="font-semibold text-green-800">≤ 0 pontos: BAIXA probabilidade</p>
+                                <p class="text-green-700">TVP improvável (~5%)</p>
+                            </div>
+                            <div class="p-2 bg-yellow-100 rounded border-l-4 border-yellow-500">
+                                <p class="font-semibold text-yellow-800">1-2 pontos: MODERADA probabilidade</p>
+                                <p class="text-yellow-700">TVP possível (~17%)</p>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded border-l-4 border-red-500">
+                                <p class="font-semibold text-red-800">≥ 3 pontos: ALTA probabilidade</p>
+                                <p class="text-red-700">TVP provável (~53%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sinais e Sintomas -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            🩺 Manifestações Clínicas da TVP
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Edema unilateral</strong> (assimétrico)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Dor em panturrilha</strong> (empastamento)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Sinal de Homans</strong> (dor dorsiflexão)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Calor local</strong> e rubor</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Veias superficiais</strong> dilatadas</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Cianose</strong> (TVP extensa)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Flegmasia cerúlea dolens</strong> (grave)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Fatores de Risco -->
+                    <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            ⚠️ Fatores de Risco para TVP
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-1">
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Cirurgia ortopédica (alto risco)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Imobilização prolongada</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Câncer ativo (estados pró-trombóticos)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Gestação e puerpério</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Uso de anticoncepcionais orais</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Trombofilias hereditárias</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Obesidade (IMC > 30)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>TVP prévia</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Científicas -->
+            <div class="mt-6 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                    📚 Fundamentação Científica e Conduta
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Algoritmo Diagnóstico</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• <strong>Baixa probabilidade (≤0):</strong></li>
+                            <li>&nbsp;&nbsp;- D-dímero</li>
+                            <li>&nbsp;&nbsp;- Se negativo: TVP excluída</li>
+                            <li>&nbsp;&nbsp;- Se positivo: Doppler venoso</li>
+                            <li>• <strong>Moderada probabilidade (1-2):</strong></li>
+                            <li>&nbsp;&nbsp;- D-dímero</li>
+                            <li>&nbsp;&nbsp;- Se negativo: TVP improvável</li>
+                            <li>&nbsp;&nbsp;- Se positivo: Doppler venoso</li>
+                            <li>• <strong>Alta probabilidade (≥3):</strong></li>
+                            <li>&nbsp;&nbsp;- Doppler venoso direto</li>
+                            <li>&nbsp;&nbsp;- Anticoagulação empírica se demora</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Tratamento da TVP</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• <strong>Anticoagulação imediata</strong> se confirmada</li>
+                            <li>• <strong>Heparina de baixo peso molecular:</strong></li>
+                            <li>&nbsp;&nbsp;- Enoxaparina 1mg/kg SC 12/12h</li>
+                            <li>• <strong>Anticoagulantes orais diretos (DOACs):</strong></li>
+                            <li>&nbsp;&nbsp;- Rivaroxabana 15mg 12/12h (21 dias)</li>
+                            <li>&nbsp;&nbsp;- Apixabana 10mg 12/12h (7 dias)</li>
+                            <li>• <strong>Varfarina:</strong> INR alvo 2-3</li>
+                            <li>• Duração mínima: 3 meses</li>
+                            <li>• TVP proximal: considerar 6-12 meses</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Cuidados de Enfermagem</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Elevar membro afetado (30-45°)</li>
+                            <li>• Repouso relativo inicial (24-48h)</li>
+                            <li>• Meia elástica de compressão (após fase aguda)</li>
+                            <li>• Deambulação precoce (quando liberado)</li>
+                            <li>• Observar sinais de TEP (dispneia súbita)</li>
+                            <li>• Monitorar sangramentos (anticoagulação)</li>
+                            <li>• Educar sobre sinais de alerta</li>
+                            <li>• Orientar sobre anticoagulação prolongada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer será injetado aqui -->
+    <div id="footer-placeholder"></div>
+
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>    <!-- Scripts -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    <script>
+        // Inicializa Google Analytics
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        }
+    </script>
+    <script>
+        // Variáveis globais para armazenar resultados
+        let ultimoPontos = 0;
+        let ultimaClassificacao = '';
+        let ultimaPrevalencia = '';
+
+        // Injetar Header e Footer
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof injectHeader === 'function') injectHeader();
+            if (typeof injectFooter === 'function') injectFooter();
+        });
+
+        // Função para calcular escore de Wells para TVP
+        function calcularWellsTVP() {
+            let pontos = 0;
+            
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    pontos += parseFloat(checkbox.dataset.pontos);
+                }
+            });
+            
+            exibirResultado(pontos);
+        }
+        
+        function exibirResultado(pontos) {
+            const resultadoDiv = document.getElementById('resultado');
+            const probabilidadeDiv = document.getElementById('probabilidade');
+            const condutaDiv = document.getElementById('conduta');
+            const probabilidadeConteudo = document.getElementById('probabilidadeConteudo');
+            const condutaConteudo = document.getElementById('condutaConteudo');
+            const botoesAcao = document.getElementById('botoesAcao');
+            
+            // Classificar probabilidade
+            let classificacao = '';
+            let descricao = '';
+            let prevalencia = '';
+            let cor = '';
+            
+            if (pontos <= 0) {
+                classificacao = 'BAIXA PROBABILIDADE';
+                descricao = 'TVP improvável';
+                prevalencia = '~5%';
+                cor = '#10B981'; // Verde
+            } else if (pontos <= 2) {
+                classificacao = 'PROBABILIDADE MODERADA';
+                descricao = 'TVP possível';
+                prevalencia = '~17%';
+                cor = '#EAB308'; // Amarelo
+            } else {
+                classificacao = 'ALTA PROBABILIDADE';
+                descricao = 'TVP provável';
+                prevalencia = '~53%';
+                cor = '#EF4444'; // Vermelho
+            }
+
+            // Armazenar valores globais
+            ultimoPontos = pontos;
+            ultimaClassificacao = classificacao;
+            ultimaPrevalencia = prevalencia;
+            
+            // Resultado principal
+            resultadoDiv.innerHTML = `
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-6">
+                    <p class="text-sm text-gray-600 mb-2">Escore de Wells para TVP</p>
+                    <p class="text-5xl font-bold mb-2" style="color: #1A3E74;">
+                        ${pontos} <span class="text-xl">pontos</span>
+                    </p>
+                    <div class="mt-4 p-4 rounded-lg" style="background-color: ${cor}20; border: 2px solid ${cor};">
+                        <p class="text-lg font-bold" style="color: ${cor};">
+                            ${classificacao}
+                        </p>
+                        <p class="text-sm mt-1" style="color: ${cor};">
+                            ${descricao} (Prevalência: ${prevalencia})
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Probabilidade detalhada
+            probabilidadeConteudo.innerHTML = `
+                <div class="p-4 rounded-lg" style="background-color: ${cor}15; border-left: 4px solid ${cor};">
+                    <p class="font-semibold text-gray-800 mb-2">Risco de TVP:</p>
+                    <div class="space-y-1 text-xs">
+                        <p><strong>Prevalência estimada:</strong> ${prevalencia}</p>
+                        <p><strong>Probabilidade pré-teste:</strong> ${pontos <= 0 ? 'Baixa' : pontos <= 2 ? 'Moderada' : 'Alta'}</p>
+                        <p><strong>Necessidade de investigação:</strong> ${pontos <= 2 ? 'D-dímero' : 'Doppler direto'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Conduta baseada na probabilidade
+            let condutaHTML = '';
+            
+            if (pontos <= 0) {
+                condutaHTML = `
+                    <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800">✓ Baixa Probabilidade - Solicitar D-dímero</p>
+                        <ul class="text-green-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>1ª etapa: Solicitar D-dímero</strong></li>
+                            <li>• Se D-dímero <strong>NEGATIVO</strong> (< 500 ng/mL):</li>
+                            <li>&nbsp;&nbsp;→ <strong>TVP EXCLUÍDA</strong> com segurança</li>
+                            <li>&nbsp;&nbsp;→ Não necessita investigação adicional</li>
+                            <li>&nbsp;&nbsp;→ Buscar diagnósticos alternativos (celulite, linfedema)</li>
+                            <li>• Se D-dímero <strong>POSITIVO</strong> (≥ 500 ng/mL):</li>
+                            <li>&nbsp;&nbsp;→ Solicitar <strong>Doppler venoso de MMII</strong></li>
+                            <li>&nbsp;&nbsp;→ Considerar anticoagulação empírica se clínica sugestiva</li>
+                            <li>• Orientações gerais:</li>
+                            <li>&nbsp;&nbsp;- Elevar membro afetado</li>
+                            <li>&nbsp;&nbsp;- Evitar massagens na panturrilha (risco embolização)</li>
+                            <li>&nbsp;&nbsp;- Observar sinais de TEP (dispneia, dor torácica)</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (pontos <= 2) {
+                condutaHTML = `
+                    <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                        <p class="font-semibold text-yellow-800">⚠️ Probabilidade Moderada - Investigar</p>
+                        <ul class="text-yellow-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>1ª etapa: Solicitar D-dímero</strong></li>
+                            <li>• Se D-dímero <strong>NEGATIVO</strong>:</li>
+                            <li>&nbsp;&nbsp;→ TVP improvável (mas não totalmente excluída)</li>
+                            <li>&nbsp;&nbsp;→ Observação clínica rigorosa</li>
+                            <li>&nbsp;&nbsp;→ Reavaliar em 3-7 dias se sintomas persistirem</li>
+                            <li>• Se D-dímero <strong>POSITIVO</strong>:</li>
+                            <li>&nbsp;&nbsp;→ <strong>Doppler venoso OBRIGATÓRIO</strong></li>
+                            <li>&nbsp;&nbsp;→ Se Doppler negativo mas clínica persistente:</li>
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;- Repetir Doppler em 5-7 dias</li>
+                            <li>&nbsp;&nbsp;→ Se Doppler positivo: Iniciar anticoagulação</li>
+                            <li>• <strong>Considerar anticoagulação empírica se:</strong></li>
+                            <li>&nbsp;&nbsp;- Demora para Doppler > 24h</li>
+                            <li>&nbsp;&nbsp;- Sintomas progressivos</li>
+                            <li>&nbsp;&nbsp;- Alto risco de TEP (TVP proximal)</li>
+                            <li>• Medidas gerais:</li>
+                            <li>&nbsp;&nbsp;- Elevar membro 30-45°</li>
+                            <li>&nbsp;&nbsp;- Repouso relativo inicial</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                condutaHTML = `
+                    <div class="p-3 bg-red-50 border-l-4 border-red-700 rounded">
+                        <p class="font-semibold text-red-900">🚨 Alta Probabilidade - URGÊNCIA</p>
+                        <ul class="text-red-800 text-xs mt-2 space-y-1">
+                            <li>• <strong>SOLICITAR DOPPLER VENOSO URGENTE</strong></li>
+                            <li>• <strong>NÃO aguardar D-dímero</strong> (baixo valor preditivo negativo)</li>
+                            <li>• <strong>INICIAR ANTICOAGULAÇÃO EMPÍRICA</strong> se:</li>
+                            <li>&nbsp;&nbsp;- Demora para Doppler > 4-6 horas</li>
+                            <li>&nbsp;&nbsp;- Sintomas graves ou progressivos</li>
+                            <li>&nbsp;&nbsp;- Alto risco de complicações</li>
+                            <li>• <strong>Anticoagulação inicial (escolher uma):</strong></li>
+                            <li>&nbsp;&nbsp;- <strong>Enoxaparina:</strong> 1mg/kg SC 12/12h</li>
+                            <li>&nbsp;&nbsp;- <strong>Rivaroxabana:</strong> 15mg VO 12/12h</li>
+                            <li>&nbsp;&nbsp;- <strong>Apixabana:</strong> 10mg VO 12/12h</li>
+                            <li>• <strong>Se Doppler POSITIVO:</strong></li>
+                            <li>&nbsp;&nbsp;→ Manter anticoagulação (mínimo 3 meses)</li>
+                            <li>&nbsp;&nbsp;→ TVP proximal: prolongar para 6-12 meses</li>
+                            <li>&nbsp;&nbsp;→ Investigar trombofilia se indicado</li>
+                            <li>• <strong>Se TVP iliofemoral extensa:</strong></li>
+                            <li>&nbsp;&nbsp;→ Considerar trombólise (alteplase)</li>
+                            <li>&nbsp;&nbsp;→ Transferir para centro vascular</li>
+                            <li>• <strong>Medidas imediatas:</strong></li>
+                            <li>&nbsp;&nbsp;- Elevar membro 30-45° acima do coração</li>
+                            <li>&nbsp;&nbsp;- Repouso no leito 24-48h</li>
+                            <li>&nbsp;&nbsp;- NÃO massagear ou manipular panturrilha</li>
+                            <li>&nbsp;&nbsp;- Observar sinais de TEP</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Adicionar orientações gerais
+            condutaHTML += `
+                <div class="p-3 bg-blue-50 border-l-4 border-blue-500 rounded mt-2">
+                    <p class="font-semibold text-blue-800">📊 Exames Complementares</p>
+                    <ul class="text-blue-700 text-xs mt-1 space-y-1">
+                        <li>• <strong>D-dímero:</strong> VPN 95% se < 500 ng/mL (baixa probabilidade)</li>
+                        <li>• <strong>Doppler venoso MMII:</strong> Padrão-ouro (sensibilidade 95%)</li>
+                        <li>• <strong>Flebografia:</strong> Raramente necessária (exame invasivo)</li>
+                        <li>• <strong>Dímero-D ajustado à idade:</strong> (Idade × 10) ng/mL se > 50 anos</li>
+                        <li>• <strong>Investigar fator de risco:</strong> Pesquisa de neoplasia oculta</li>
+                    </ul>
+                </div>
+            `;
+            
+            // Adicionar complicações
+            condutaHTML += `
+                <div class="p-3 bg-red-50 border-l-4 border-red-500 rounded mt-2">
+                    <p class="font-semibold text-red-800">🚨 Complicações da TVP</p>
+                    <ul class="text-red-700 text-xs mt-1 space-y-1">
+                        <li>• <strong>Tromboembolismo pulmonar (TEP):</strong> 50% dos casos</li>
+                        <li>• <strong>Síndrome pós-trombótica:</strong> 20-50% em 2 anos</li>
+                        <li>• <strong>Flegmasia cerúlea dolens:</strong> Emergência vascular</li>
+                        <li>• <strong>Gangrena venosa:</strong> Risco de amputação</li>
+                        <li>• <strong>Recorrência:</strong> 30% em 10 anos</li>
+                    </ul>
+                </div>
+            `;
+            
+            condutaConteudo.innerHTML = condutaHTML;
+            probabilidadeDiv.classList.remove('hidden');
+            condutaDiv.classList.remove('hidden');
+            botoesAcao.classList.remove('hidden');
+        }
+        
+        function limparFormulario() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            
+            document.getElementById('resultado').innerHTML = '<div class="text-center py-8 text-gray-400">Marque os critérios presentes para calcular o escore de Wells</div>';
+            document.getElementById('probabilidade').classList.add('hidden');
+            document.getElementById('conduta').classList.add('hidden');
+            document.getElementById('botoesAcao').classList.add('hidden');
+        }
+
+        // Função para copiar resultado
+        function copiarResultado() {
+            const criteriosMarcados = [];
+            if (document.getElementById('cancerAtivo').checked) criteriosMarcados.push('Cancer ativo (+1)');
+            if (document.getElementById('paralisia').checked) criteriosMarcados.push('Paralisia, paresia ou imobilizacao MMII (+1)');
+            if (document.getElementById('acamado').checked) criteriosMarcados.push('Acamado > 3 dias ou cirurgia < 12 semanas (+1)');
+            if (document.getElementById('empastamento').checked) criteriosMarcados.push('Empastamento ao longo de veias profundas (+1)');
+            if (document.getElementById('edemaToda').checked) criteriosMarcados.push('Edema de toda a perna (+1)');
+            if (document.getElementById('diferenca').checked) criteriosMarcados.push('Panturrilha > 3cm que lado nao afetado (+1)');
+            if (document.getElementById('cacifo').checked) criteriosMarcados.push('Edema com cacifo (+1)');
+            if (document.getElementById('veiasColaterais').checked) criteriosMarcados.push('Veias superficiais colaterais (+1)');
+            if (document.getElementById('tvpPrevia').checked) criteriosMarcados.push('TVP previa documentada (+1)');
+            if (document.getElementById('diagnosticoAlternativo').checked) criteriosMarcados.push('Diagnostico alternativo igualmente provavel (-2)');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            const texto = `ESCORE DE WELLS PARA TVP
+========================================
+
+Data/Hora: ${dataHora}
+
+CRITERIOS PRESENTES:
+${criteriosMarcados.map(c => '• ' + c).join('\n')}
+
+RESULTADO:
+Escore de Wells: ${ultimoPontos} pontos
+Classificacao: ${ultimaClassificacao}
+Prevalencia: ${ultimaPrevalencia}
+
+CONDUTA DIAGNOSTICA:
+${ultimoPontos <= 0 ? 'Baixa Probabilidade - Solicitar D-dimero' : 
+  ultimoPontos <= 2 ? 'Probabilidade Moderada - Solicitar D-dimero' : 
+  'Alta Probabilidade - Doppler venoso direto'}
+
+========================================
+Gerado por: Enfermagem Pratica
+Site: enfermagempratica.com.br`;
+
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarModal('✅ Resultados copiados com sucesso!', 'success');
+            }).catch(err => {
+                mostrarModal('❌ Erro ao copiar resultados. Tente novamente.', 'error');
+            });
+        }
+
+        // Função para exportar PDF
+        function exportarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const criteriosMarcados = [];
+            if (document.getElementById('cancerAtivo').checked) criteriosMarcados.push('Cancer ativo (+1)');
+            if (document.getElementById('paralisia').checked) criteriosMarcados.push('Paralisia, paresia ou imobilizacao MMII (+1)');
+            if (document.getElementById('acamado').checked) criteriosMarcados.push('Acamado > 3 dias ou cirurgia < 12 semanas (+1)');
+            if (document.getElementById('empastamento').checked) criteriosMarcados.push('Empastamento ao longo de veias profundas (+1)');
+            if (document.getElementById('edemaToda').checked) criteriosMarcados.push('Edema de toda a perna (+1)');
+            if (document.getElementById('diferenca').checked) criteriosMarcados.push('Panturrilha > 3cm que lado nao afetado (+1)');
+            if (document.getElementById('cacifo').checked) criteriosMarcados.push('Edema com cacifo (+1)');
+            if (document.getElementById('veiasColaterais').checked) criteriosMarcados.push('Veias superficiais colaterais (+1)');
+            if (document.getElementById('tvpPrevia').checked) criteriosMarcados.push('TVP previa documentada (+1)');
+            if (document.getElementById('diagnosticoAlternativo').checked) criteriosMarcados.push('Diagnostico alternativo igualmente provavel (-2)');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            // Cabeçalho
+            doc.setFillColor(26, 62, 116);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('ESCORE DE WELLS PARA TVP', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('(Trombose Venosa Profunda)', 105, 23, { align: 'center' });
+            doc.text('Enfermagem Pratica', 105, 32, { align: 'center' });
+            
+            // Data
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(9);
+            doc.text(`Data/Hora: ${dataHora}`, 14, 50);
+            
+            // Critérios presentes
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CRITERIOS PRESENTES:', 14, 62);
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            let yPos = 70;
+            criteriosMarcados.forEach(criterio => {
+                doc.text(`• ${criterio}`, 20, yPos);
+                yPos += 6;
+            });
+            
+            // Resultado
+            yPos += 8;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('RESULTADO:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(`Escore de Wells: ${ultimoPontos} pontos`, 20, yPos);
+            
+            yPos += 8;
+            const cor = ultimoPontos <= 0 ? [16, 185, 129] : ultimoPontos <= 2 ? [234, 179, 8] : [239, 68, 68];
+            doc.setTextColor(cor[0], cor[1], cor[2]);
+            doc.text(`Classificacao: ${ultimaClassificacao}`, 20, yPos);
+            
+            yPos += 6;
+            doc.setFontSize(10);
+            doc.text(`Prevalencia de TVP: ${ultimaPrevalencia}`, 20, yPos);
+            
+            // Conduta diagnóstica
+            yPos += 12;
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CONDUTA DIAGNOSTICA:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            if (ultimoPontos <= 0) {
+                doc.text('Baixa Probabilidade:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Solicitar D-dimero',
+                    'Se D-dimero < 500 ng/mL: TVP excluida',
+                    'Se D-dimero >= 500 ng/mL: Doppler venoso',
+                    'Elevar membro afetado',
+                    'Observar sinais de TEP'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else if (ultimoPontos <= 2) {
+                doc.text('Probabilidade Moderada:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Solicitar D-dimero',
+                    'Se D-dimero positivo: Doppler venoso',
+                    'Observacao clinica rigorosa',
+                    'Elevar membro 30-45 graus',
+                    'Repouso relativo inicial'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else {
+                doc.setFont(undefined, 'bold');
+                doc.text('Alta Probabilidade - URGENCIA:', 20, yPos);
+                doc.setFont(undefined, 'normal');
+                yPos += 6;
+                const condutas = [
+                    'DOPPLER VENOSO URGENTE',
+                    'NAO aguardar D-dimero',
+                    'Anticoagulacao empirica se demora',
+                    'Enoxaparina 1mg/kg SC 12/12h',
+                    'Elevar membro, NAO massagear panturrilha'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            }
+            
+            // Rodapé
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Gerado por: Enfermagem Pratica - enfermagempratica.com.br', 105, 285, { align: 'center' });
+            doc.text('Este documento e apenas informativo e nao substitui avaliacao medica.', 105, 290, { align: 'center' });
+            
+            // Salvar PDF
+            doc.save(`wells-tvp-${Date.now()}.pdf`);
+            mostrarModal('✅ PDF gerado com sucesso!', 'success');
+        }
+
+        // Função para mostrar modal
+        function mostrarModal(mensagem, tipo) {
+            const modal = document.getElementById('feedbackModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const icone = tipo === 'success' ? '✅' : '❌';
+            const cor = tipo === 'success' ? 'text-green-600' : 'text-red-600';
+            
+            modalContent.innerHTML = `
+                <div class="${cor} text-4xl mb-3">${icone}</div>
+                <p class="text-gray-800 font-medium">${mensagem}</p>
+            `;
+            
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('feedbackModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

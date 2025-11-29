@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dose Pediátrica - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Calcule doses de medicamentos pediátricos por peso (mg/kg) de forma segura">
+    <script src="../00.Template/assets/js/config.js"></script>
+    <script>
+        if (typeof CONFIG !== 'undefined') CONFIG.initGoogleAnalytics();
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon'; favicon.href = CONFIG.site.favicon.url; favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/04. Calculadoras/dose-pediatrica.html" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        #calculator-main-content { margin-top: 0; min-height: 100vh; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="skip-links-container"></div>
+    <div id="topbar-container"></div>
+    <div id="header-container"></div>
+    
+    <main id="calculator-main-content">
+        <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+            <div class="mb-8">
+                <button id="btn-voltar" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 bg-[#1A3E74] hover:bg-[#2a5a9e] px-4 py-2 text-sm mb-4 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar
+                </button>
+                <div class="bg-[#1A3E74] text-white p-6 rounded-xl shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold">Cálculo de Dose Pediátrica</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <form id="calc-form" class="space-y-6">
+                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-200">
+                            <h3 class="font-semibold text-gray-800 mb-3">Dados do Paciente</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Nome do Paciente</label>
+                                    <input id="patient_name" type="text" placeholder="Nome completo" class="mt-1 block w-full border rounded-md p-2 text-sm" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Data de Nascimento <span class="text-red-500">*</span></label>
+                                    <input id="patient_birthdate" type="date" required class="mt-1 block w-full border rounded-md p-2 text-sm" style="border: 1px solid #ccc;">
+                                    <p id="patient-age-display" class="text-xs text-gray-600 mt-1 font-bold"></p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Peso (kg) <span class="text-red-500">*</span></label>
+                                    <input id="peso" type="number" min="0.5" max="150" step="0.1" required placeholder="Ex: 15" class="mt-1 block w-full border rounded-md p-2 text-sm text-right" style="border: 1px solid #ccc;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-300">
+                            <h3 class="font-semibold text-gray-800 mb-4">Prescrição do Medicamento</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="col-span-2">
+                                    <label class="block text-sm font-medium text-gray-700">Nome do Medicamento <span class="text-red-500">*</span></label>
+                                    <input id="medicamento" type="text" required placeholder="Ex: Dipirona" class="mt-1 block w-full border rounded-md p-2 text-sm" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Dose Prescrita (mg/kg) <span class="text-red-500">*</span></label>
+                                    <input id="dose-prescrita" type="number" min="0.001" step="0.001" required placeholder="Ex: 10" class="mt-1 block w-full border rounded-md p-2 text-sm text-right" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Frequência (vezes/dia)</label>
+                                    <input id="frequencia" type="number" min="1" max="24" step="1" placeholder="Ex: 4" class="mt-1 block w-full border rounded-md p-2 text-sm text-right" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Concentração Disponível (mg/ml) <span class="text-red-500">*</span></label>
+                                    <input id="concentracao" type="number" min="0.1" step="0.1" required placeholder="Ex: 50" class="mt-1 block w-full border rounded-md p-2 text-sm text-right" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Dose Máxima (mg) - Opcional</label>
+                                    <input id="dose-maxima" type="number" min="1" step="1" placeholder="Ex: 500" class="mt-1 block w-full border rounded-md p-2 text-sm text-right" style="border: 1px solid #ccc;">
+                                    <p class="text-xs text-gray-500">Limite de segurança por dose</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 flex-col sm:flex-row">
+                            <button type="submit" class="flex items-center justify-center rounded-lg font-semibold transition-colors flex-1 py-4 text-lg shadow-lg bg-[#1A3E74] text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 mr-2"><rect x="4" y="2" width="16" height="20" rx="2"></rect></svg>
+                                Calcular Dose
+                            </button>
+                            <button type="reset" class="flex items-center justify-center rounded-lg font-semibold transition-colors flex-1 py-4 text-lg bg-gray-100 text-gray-700" style="border: 1px solid #ccc;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 mr-2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path></svg>
+                                Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="error-message" class="hidden p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+                    
+                    <div id="results-section" class="hidden space-y-6">
+                        <div class="bg-white rounded-lg shadow-md border overflow-hidden">
+                            <h3 class="bg-[#1A3E74] text-white p-4 font-bold text-xl">Resultado do Cálculo</h3>
+                            <div class="p-6 bg-green-50">
+                                <div class="p-4 bg-white rounded-lg border border-green-300 text-center mb-4">
+                                    <p class="text-sm text-gray-600 mb-1">Dose a Administrar</p>
+                                    <p id="result-dose-mg" class="text-3xl font-extrabold text-[#1A3E74]"></p>
+                                    <p id="result-volume-ml" class="text-xl font-bold text-gray-800 mt-2"></p>
+                                </div>
+                                <div id="dose-diaria-container" class="hidden p-4 bg-blue-50 rounded-lg border border-blue-300 mb-4">
+                                    <p class="text-sm text-gray-600">Dose Total Diária</p>
+                                    <p id="result-dose-diaria" class="text-lg font-bold text-gray-800"></p>
+                                </div>
+                                <div id="alerta-dose-maxima" class="hidden p-4 bg-red-100 border border-red-400 rounded-md mb-4">
+                                    <p class="text-sm font-bold text-red-700">⚠️ ALERTA: Dose calculada excede o limite máximo de segurança!</p>
+                                    <p id="texto-alerta-dose" class="text-xs text-red-600 mt-1"></p>
+                                </div>
+                                <p class="text-xs font-bold text-yellow-700 bg-yellow-100 border p-3 rounded-md">Meta 3: Dupla checagem obrigatória em doses pediátricas. Confira sempre com outro profissional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl border shadow-sm">
+                        <h3 class="font-bold text-lg text-[#1A3E74] mb-3">Segurança Pediátrica</h3>
+                        <p class="text-sm text-gray-700 mb-3">O cálculo de doses em pediatria requer atenção redobrada. Sempre utilize mg/kg e verifique doses máximas.</p>
+                        <p class="text-xs font-bold mb-2">Regras de Ouro:</p>
+                        <ul class="list-disc list-inside text-xs text-gray-700 space-y-1">
+                            <li>Dupla checagem obrigatória</li>
+                            <li>Verificar peso atualizado</li>
+                            <li>Respeitar doses máximas</li>
+                            <li>Usar dispositivos calibrados</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border">
+                        <h3 class="font-bold text-lg text-gray-800 mb-3">Informações</h3>
+                        <p class="text-sm text-gray-600">Versão: <strong>2.0.0</strong></p>
+                        <p class="text-sm text-gray-600">Categoria: <span>Pediatria/Farmacologia</span></p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+    <div id="vlibras-container"></div>
+    <div id="cookie-banner-container"></div>
+
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('skip-links-container') && typeof renderSkipLinks === 'function') 
+                document.getElementById('skip-links-container').innerHTML = renderSkipLinks();
+            if (document.getElementById('topbar-container') && typeof renderTopBar === 'function') 
+                document.getElementById('topbar-container').innerHTML = renderTopBar();
+            if (document.getElementById('header-container') && typeof renderHeader === 'function') 
+                document.getElementById('header-container').innerHTML = renderHeader();
+            if (document.getElementById('footer-container') && typeof renderFooter === 'function') 
+                document.getElementById('footer-container').innerHTML = renderFooter();
+            if (document.getElementById('vlibras-container') && typeof renderVLibras === 'function') 
+                document.getElementById('vlibras-container').innerHTML = renderVLibras();
+            if (document.getElementById('cookie-banner-container') && typeof renderCookieBanner === 'function') 
+                document.getElementById('cookie-banner-container').innerHTML = renderCookieBanner();
+            
+            document.getElementById('btn-voltar').addEventListener('click', () => {
+                if (document.referrer && document.referrer.includes(window.location.host)) window.history.back();
+                else window.location.href = 'https://www.calculadorasdeenfermagem.com.br/';
+            });
+        });
+    </script>
+    
+    <script>
+        const form = document.getElementById('calc-form');
+        const patientBirthdateInput = document.getElementById('patient_birthdate');
+        const patientAgeDisplay = document.getElementById('patient-age-display');
+        const errorMessage = document.getElementById('error-message');
+        const resultsSection = document.getElementById('results-section');
+
+        function calculateAge(birthDateString) {
+            if (!birthDateString) return 'Não Informado';
+            const birthDate = new Date(birthDateString);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) age--;
+            if (age < 0) return 'Data Inválida';
+            if (age === 0) {
+                let months = today.getMonth() - birthDate.getMonth();
+                if (today.getDate() < birthDate.getDate()) months--;
+                if (months < 0) months += 12;
+                if (months === 0) {
+                    const days = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+                    return `${days} ${days === 1 ? 'dia' : 'dias'}`;
+                }
+                return `${months} ${months === 1 ? 'mês' : 'meses'}`;
+            }
+            return `${age} ${age === 1 ? 'ano' : 'anos'}`;
+        }
+
+        patientBirthdateInput.addEventListener('input', function() {
+            const age = calculateAge(this.value);
+            patientAgeDisplay.textContent = age !== 'Data Inválida' ? `Idade: ${age}` : '';
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const peso = parseFloat(document.getElementById('peso').value);
+            const dosePrescrita = parseFloat(document.getElementById('dose-prescrita').value);
+            const frequencia = parseInt(document.getElementById('frequencia').value) || 1;
+            const concentracao = parseFloat(document.getElementById('concentracao').value);
+            const doseMaxima = parseFloat(document.getElementById('dose-maxima').value) || null;
+
+            if (!patientBirthdateInput.value || !peso || !dosePrescrita || !concentracao) {
+                errorMessage.textContent = "Preencha todos os campos obrigatórios.";
+                errorMessage.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                return;
+            }
+
+            // Cálculo
+            const doseMg = dosePrescrita * peso;
+            const volumeMl = doseMg / concentracao;
+            const doseDiaria = doseMg * frequencia;
+
+            // Verifica dose máxima
+            let alertaDose = false;
+            if (doseMaxima && doseMg > doseMaxima) {
+                alertaDose = true;
+                document.getElementById('alerta-dose-maxima').classList.remove('hidden');
+                document.getElementById('texto-alerta-dose').textContent = `Dose calculada: ${doseMg.toFixed(2)} mg | Dose máxima: ${doseMaxima} mg`;
+            } else {
+                document.getElementById('alerta-dose-maxima').classList.add('hidden');
+            }
+
+            // Atualiza UI
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            
+            document.getElementById('result-dose-mg').textContent = `${doseMg.toFixed(2)} mg`;
+            document.getElementById('result-volume-ml').textContent = `${volumeMl.toFixed(2)} ml por dose`;
+            
+            if (frequencia > 1) {
+                document.getElementById('dose-diaria-container').classList.remove('hidden');
+                document.getElementById('result-dose-diaria').textContent = `${doseDiaria.toFixed(2)} mg/dia (${frequencia}x/dia)`;
+            } else {
+                document.getElementById('dose-diaria-container').classList.add('hidden');
+            }
+        });
+
+        form.addEventListener('reset', function() {
+            patientAgeDisplay.textContent = '';
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

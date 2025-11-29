@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimensionamento de Enfermagem - Calculadora COFEN | Calculadoras de Enfermagem</title>
+    <meta name="description" content="Calcule o dimensionamento de profissionais de enfermagem conforme Resolução COFEN nº 543/2017. Ferramenta essencial para gestão de equipes de enfermagem.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/calculadoras/dimensionamento" />
+    
+    <!-- Schema.org - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Dimensionamento de Enfermagem",
+        "description": "Ferramenta para cálculo de dimensionamento de pessoal de enfermagem conforme Resolução COFEN nº 543/2017",
+        "url": "https://www.calculadorasdeenfermagem.com.br/calculadoras/dimensionamento",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Calculadoras de Enfermagem",
+            "url": "https://www.calculadorasdeenfermagem.com.br"
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF para exportação de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <!-- CSS Modal de Feedback -->
+    <link rel="stylesheet" href="../00.Template/assets/css/modal-feedback.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        #calculator-main-content {
+            margin-top: 0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="calculator-main-content">
+        <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+            
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <button id="btn-voltar" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 bg-[#1A3E74] hover:bg-[#2a5a9e] px-4 py-2 text-sm mb-4 rounded-lg text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar
+                </button>
+                <div class="bg-[#1A3E74] text-white p-6 rounded-xl flex items-center justify-between shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold">Dimensionamento de Enfermagem</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Coluna Principal -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Card do Formulário -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <form id="dimensionamento-form" class="space-y-6">
+                            
+                            <!-- Características da Unidade -->
+                            <div>
+                                <h2 class="text-xl font-bold text-[#1A3E74] mb-4 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                    Características da Unidade
+                                </h2>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="tipo-unidade" class="block text-sm font-semibold text-gray-700 mb-1">
+                                            Tipo de Unidade Assistencial <span class="text-red-500">*</span>
+                                        </label>
+                                        <select id="tipo-unidade" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" required>
+                                            <option value="">Selecione o tipo de unidade</option>
+                                            <option value="uti-adulto">UTI Adulto</option>
+                                            <option value="uti-pediatrica">UTI Pediátrica</option>
+                                            <option value="uti-neonatal">UTI Neonatal</option>
+                                            <option value="semi-intensivo">Unidade Semi-Intensiva</option>
+                                            <option value="clinica-cirurgica">Clínica Médica/Cirúrgica</option>
+                                            <option value="pediatria">Pediatria</option>
+                                            <option value="psiquiatria">Psiquiatria</option>
+                                            <option value="emergencia">Emergência</option>
+                                            <option value="ambulatorio">Ambulatório</option>
+                                        </select>
+                                        <p class="text-xs text-gray-500 mt-1">Selecione conforme perfil da unidade</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="num-leitos" class="block text-sm font-semibold text-gray-700 mb-1">
+                                            Número de Leitos/Pacientes <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="number" id="num-leitos" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 30" required min="1" max="500">
+                                        <p class="text-xs text-gray-500 mt-1">Total de leitos ou atendimentos/dia</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="taxa-ocupacao" class="block text-sm font-semibold text-gray-700 mb-1">
+                                            Taxa de Ocupação (%) <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="number" id="taxa-ocupacao" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 85" required min="1" max="100" value="85">
+                                        <p class="text-xs text-gray-500 mt-1">Percentual médio de ocupação</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-gray-200">
+                            
+                            <!-- Classificação de Pacientes -->
+                            <div>
+                                <h2 class="text-xl font-bold text-amber-600 mb-4 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                    Classificação de Pacientes (SCP)
+                                </h2>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="cuidados-minimos" class="block text-sm font-semibold text-gray-700 mb-1">Cuidados Mínimos (%)</label>
+                                        <input type="number" id="cuidados-minimos" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Ex: 40" min="0" max="100" value="0">
+                                        <p class="text-xs text-gray-500 mt-1">Pacientes autossuficientes (3,8h/paciente/dia)</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="cuidados-intermediarios" class="block text-sm font-semibold text-gray-700 mb-1">Cuidados Intermediários (%)</label>
+                                        <input type="number" id="cuidados-intermediarios" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Ex: 40" min="0" max="100" value="0">
+                                        <p class="text-xs text-gray-500 mt-1">Pacientes parcialmente dependentes (5,6h/paciente/dia)</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="cuidados-alta-dependencia" class="block text-sm font-semibold text-gray-700 mb-1">Alta Dependência (%)</label>
+                                        <input type="number" id="cuidados-alta-dependencia" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Ex: 15" min="0" max="100" value="0">
+                                        <p class="text-xs text-gray-500 mt-1">Pacientes dependentes (9,4h/paciente/dia)</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="cuidados-intensivos" class="block text-sm font-semibold text-gray-700 mb-1">Cuidados Intensivos (%)</label>
+                                        <input type="number" id="cuidados-intensivos" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Ex: 5" min="0" max="100" value="0">
+                                        <p class="text-xs text-gray-500 mt-1">Pacientes críticos (17,9h/paciente/dia)</p>
+                                    </div>
+                                    
+                                    <div id="total-percentage" class="p-4 rounded-lg text-center transition-colors duration-200">
+                                        <strong>Total: <span id="percentage-sum">0</span>%</strong>
+                                        <span class="block text-xs mt-1 text-gray-600">(Deve somar 100%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-gray-200">
+                            
+                            <!-- Parâmetros Adicionais -->
+                            <div>
+                                <h2 class="text-xl font-bold text-[#1A3E74] mb-4 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg>
+                                    Parâmetros Adicionais
+                                </h2>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="ist" class="block text-sm font-semibold text-gray-700 mb-1">Índice de Segurança Técnica - IST (%)</label>
+                                        <input type="number" id="ist" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 15" min="0" max="50" value="15">
+                                        <p class="text-xs text-gray-500 mt-1">Considerar férias, licenças, absenteísmo (recomendado: 15-20%)</p>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="proporcao-enfermeiro" class="block text-sm font-semibold text-gray-700 mb-1">
+                                            Proporção Enfermeiro/Técnico (%) <span class="text-red-500">*</span>
+                                        </label>
+                                        <select id="proporcao-enfermeiro" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" required>
+                                            <option value="">Selecione a proporção</option>
+                                            <option value="33">33% Enfermeiros / 67% Téc./Aux.</option>
+                                            <option value="42">42% Enfermeiros / 58% Téc./Aux.</option>
+                                            <option value="52" selected>52% Enfermeiros / 48% Téc./Aux. (UTI)</option>
+                                        </select>
+                                        <p class="text-xs text-gray-500 mt-1">Conforme complexidade da unidade</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Botões de Ação -->
+                            <div class="flex gap-4 pt-4">
+                                <button type="submit" class="flex-1 bg-[#1A3E74] hover:bg-[#2a5a9e] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 11h6M12 8v6"/></svg>
+                                    Calcular Dimensionamento
+                                </button>
+                                <button type="reset" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+                                    Limpar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Card de Resultado -->
+                    <div id="result-area" class="bg-white rounded-xl shadow-md p-6 hidden">
+                        <h2 class="text-xl font-bold text-[#1A3E74] mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            Resultado do Dimensionamento
+                        </h2>
+                        <div id="result-content"></div>
+                        
+                        <!-- Botões de Ação -->
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="copiarResultado()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                Copiar Resultado
+                            </button>
+                            <button onclick="exportarPDF()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                Exportar PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Coluna Lateral -->
+                <aside class="space-y-6">
+                    
+                    <!-- Sobre a Ferramenta -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            Sobre a Ferramenta
+                        </h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            A <strong>Resolução COFEN nº 543/2017</strong> estabelece parâmetros para dimensionamento do quadro de profissionais de enfermagem, considerando o Sistema de Classificação de Pacientes (SCP) e características da unidade assistencial.
+                        </p>
+                    </div>
+                    
+                    <!-- Como Usar -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                            Como Usar
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Selecione o tipo de unidade assistencial</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Informe o número de leitos/pacientes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Classifique pacientes por grau de dependência</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Obtenha quantitativo de enfermeiros e técnicos</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Atenção -->
+                    <div class="bg-amber-50 rounded-xl shadow-md p-6 border border-amber-200">
+                        <h3 class="text-lg font-bold text-amber-700 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                            Atenção
+                        </h3>
+                        <p class="text-sm text-amber-800 leading-relaxed">
+                            O dimensionamento deve considerar também: absenteísmo, férias, licenças, treinamentos e turnover. Acrescente índice de segurança técnica (IST) conforme realidade institucional.
+                        </p>
+                    </div>
+                    
+                    <!-- Tabela de Horas -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3">Horas por Categoria</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-green-50 p-2 rounded border border-green-200">
+                                <strong>Cuidados Mínimos:</strong> 3,8h
+                            </div>
+                            <div class="bg-yellow-50 p-2 rounded border border-yellow-200">
+                                <strong>Intermediários:</strong> 5,6h
+                            </div>
+                            <div class="bg-orange-50 p-2 rounded border border-orange-200">
+                                <strong>Alta Dependência:</strong> 9,4h
+                            </div>
+                            <div class="bg-red-50 p-2 rounded border border-red-200">
+                                <strong>Cuidados Intensivos:</strong> 17,9h
+                            </div>
+                        </div>
+                    </div>
+                    
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- VLibras Widget - Injetado via JS -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner - Injetado via JS -->
+    <div id="cookie-banner-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES -->
+    <!-- ============================================================ -->
+    
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    
+    <!-- Modal de Feedback -->
+    <script src="../00.Template/assets/js/modal-feedback.js"></script>
+    
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO DE COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const skipLinksContainer = document.getElementById('skip-links-container');
+            if (skipLinksContainer && typeof renderSkipLinks === 'function') {
+                skipLinksContainer.innerHTML = renderSkipLinks();
+            }
+            
+            const topbarContainer = document.getElementById('topbar-container');
+            if (topbarContainer && typeof renderTopBar === 'function') {
+                topbarContainer.innerHTML = renderTopBar();
+            }
+            
+            const headerContainer = document.getElementById('header-container');
+            if (headerContainer && typeof renderHeader === 'function') {
+                headerContainer.innerHTML = renderHeader();
+            }
+            
+            const footerContainer = document.getElementById('footer-container');
+            if (footerContainer && typeof renderFooter === 'function') {
+                footerContainer.innerHTML = renderFooter();
+            }
+            
+            const vlibrasContainer = document.getElementById('vlibras-container');
+            if (vlibrasContainer && typeof renderVLibras === 'function') {
+                vlibrasContainer.innerHTML = renderVLibras();
+            }
+            
+            const cookieBannerContainer = document.getElementById('cookie-banner-container');
+            if (cookieBannerContainer && typeof renderCookieBanner === 'function') {
+                cookieBannerContainer.innerHTML = renderCookieBanner();
+            }
+            
+            const btnVoltar = document.getElementById('btn-voltar');
+            if (btnVoltar) {
+                btnVoltar.addEventListener('click', () => {
+                    if (document.referrer && document.referrer.includes(window.location.host)) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'https://www.calculadorasdeenfermagem.com.br/';
+                    }
+                });
+            }
+            
+            console.log('✓ Template de Calculadora inicializado com sucesso');
+        });
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- ATUALIZAÇÃO DO TOTAL DE PERCENTUAIS -->
+    <!-- ============================================================ -->
+    <script>
+        const inputs = [
+            document.getElementById('cuidados-minimos'),
+            document.getElementById('cuidados-intermediarios'),
+            document.getElementById('cuidados-alta-dependencia'),
+            document.getElementById('cuidados-intensivos')
+        ];
+        
+        function updatePercentageSum() {
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            
+            const sumElement = document.getElementById('percentage-sum');
+            sumElement.textContent = total.toFixed(0);
+            
+            const totalDiv = document.getElementById('total-percentage');
+            if (total === 100) {
+                totalDiv.className = 'bg-green-100 border-2 border-green-500 p-4 rounded-lg text-center transition-colors duration-200';
+            } else if (total > 100) {
+                totalDiv.className = 'bg-red-100 border-2 border-red-500 p-4 rounded-lg text-center transition-colors duration-200';
+            } else {
+                totalDiv.className = 'bg-yellow-100 border-2 border-yellow-500 p-4 rounded-lg text-center transition-colors duration-200';
+            }
+        }
+        
+        inputs.forEach(input => {
+            input.addEventListener('input', updatePercentageSum);
+        });
+        
+        updatePercentageSum();
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ESPECÍFICO - DIMENSIONAMENTO DE ENFERMAGEM -->
+    <!-- ============================================================ -->
+    <script>
+        document.getElementById('dimensionamento-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação do total de percentuais
+            const percMinimos = parseFloat(document.getElementById('cuidados-minimos').value) || 0;
+            const percIntermediarios = parseFloat(document.getElementById('cuidados-intermediarios').value) || 0;
+            const percAltaDep = parseFloat(document.getElementById('cuidados-alta-dependencia').value) || 0;
+            const percIntensivos = parseFloat(document.getElementById('cuidados-intensivos').value) || 0;
+            const totalPerc = percMinimos + percIntermediarios + percAltaDep + percIntensivos;
+            
+            if (Math.abs(totalPerc - 100) > 0.1) {
+                alert('A soma das categorias de cuidados deve ser igual a 100%.\nTotal atual: ' + totalPerc.toFixed(1) + '%');
+                return;
+            }
+            
+            // Captura de valores
+            const numLeitos = parseInt(document.getElementById('num-leitos').value);
+            const taxaOcupacao = parseFloat(document.getElementById('taxa-ocupacao').value) / 100;
+            const ist = parseFloat(document.getElementById('ist').value) / 100;
+            const propEnfermeiro = parseFloat(document.getElementById('proporcao-enfermeiro').value) / 100;
+            
+            // Cálculo do número médio de pacientes
+            const numPacientes = numLeitos * taxaOcupacao;
+            
+            // Cálculo de horas de assistência por categoria (COFEN 543/2017)
+            const horasMinimos = 3.8;
+            const horasIntermediarios = 5.6;
+            const horasAltaDep = 9.4;
+            const horasIntensivos = 17.9;
+            
+            // Distribuição de pacientes por categoria
+            const pacMinimos = numPacientes * (percMinimos / 100);
+            const pacIntermediarios = numPacientes * (percIntermediarios / 100);
+            const pacAltaDep = numPacientes * (percAltaDep / 100);
+            const pacIntensivos = numPacientes * (percIntensivos / 100);
+            
+            // Cálculo total de horas necessárias por dia
+            const horasTotaisDia = (
+                (pacMinimos * horasMinimos) +
+                (pacIntermediarios * horasIntermediarios) +
+                (pacAltaDep * horasAltaDep) +
+                (pacIntensivos * horasIntensivos)
+            );
+            
+            // Cálculo de profissionais necessários (turnos de 6h)
+            // Fórmula: (Horas totais / 6h) * (1 + IST)
+            const profissionaisTotais = (horasTotaisDia / 6) * (1 + ist);
+            
+            // Distribuição entre enfermeiros e técnicos
+            const numEnfermeiros = Math.ceil(profissionaisTotais * propEnfermeiro);
+            const numTecnicos = Math.ceil(profissionaisTotais * (1 - propEnfermeiro));
+            const totalFinal = numEnfermeiros + numTecnicos;
+            
+            // Distribuição por turno (aproximada)
+            const profsPorTurno = Math.ceil(totalFinal / 4);
+            const enfsPorTurno = Math.ceil(numEnfermeiros / 4);
+            const tecsPorTurno = Math.ceil(numTecnicos / 4);
+            
+            // Mostrar resultado
+            const resultArea = document.getElementById('result-area');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 rounded-lg text-center">
+                        <div class="text-sm opacity-90 mb-1">Total de Profissionais</div>
+                        <div class="text-4xl font-bold">${totalFinal}</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-lg text-center">
+                        <div class="text-sm opacity-90 mb-1">Enfermeiros</div>
+                        <div class="text-4xl font-bold">${numEnfermeiros}</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-amber-500 to-amber-600 text-white p-4 rounded-lg text-center">
+                        <div class="text-sm opacity-90 mb-1">Técnicos/Auxiliares</div>
+                        <div class="text-4xl font-bold">${numTecnicos}</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        Detalhamento do Cálculo
+                    </h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Número de leitos:</span>
+                            <strong>${numLeitos}</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Taxa de ocupação:</span>
+                            <strong>${(taxaOcupacao * 100).toFixed(0)}%</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Pacientes médios:</span>
+                            <strong>${numPacientes.toFixed(1)}</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Horas de assistência/dia:</span>
+                            <strong>${horasTotaisDia.toFixed(1)}h</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>IST aplicado:</span>
+                            <strong>${(ist * 100).toFixed(0)}%</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-bold text-blue-900 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Distribuição por Turno (Estimativa)
+                    </h4>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="text-center p-3 bg-white rounded border border-blue-200">
+                            <div class="text-xs text-gray-600 mb-1">Total/Turno</div>
+                            <div class="text-2xl font-bold text-blue-900">${profsPorTurno}</div>
+                        </div>
+                        <div class="text-center p-3 bg-white rounded border border-green-200">
+                            <div class="text-xs text-gray-600 mb-1">Enfermeiros</div>
+                            <div class="text-2xl font-bold text-green-700">${enfsPorTurno}</div>
+                        </div>
+                        <div class="text-center p-3 bg-white rounded border border-amber-200">
+                            <div class="text-xs text-gray-600 mb-1">Técnicos</div>
+                            <div class="text-2xl font-bold text-amber-700">${tecsPorTurno}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                    <p class="text-sm text-yellow-800">
+                        <strong>Importante:</strong> Este cálculo é uma estimativa baseada na Resolução COFEN nº 543/2017. Considere também turnover, necessidades específicas da instituição e características da população atendida.
+                    </p>
+                </div>
+            `;
+            
+            resultArea.classList.remove('hidden');
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        document.getElementById('dimensionamento-form').addEventListener('reset', function() {
+            setTimeout(() => {
+                document.getElementById('result-area').classList.add('hidden');
+                updatePercentageSum();
+            }, 100);
+        });
+        
+        // ============================================================
+        // FUNÇÕES DE EXPORTAÇÃO E CÓPIA
+        // ============================================================
+        
+        /**
+         * Copia o resultado do dimensionamento para a área de transferência
+         */
+        function copiarResultado() {
+            const resultContent = document.getElementById('result-content');
+            if (!resultContent || resultContent.innerHTML === '') {
+                mostrarModalFeedback('❌ Nenhum resultado disponível para copiar', 'error');
+                return;
+            }
+            
+            // Extrai dados do resultado
+            const totalEnfermeiros = resultContent.querySelector('.from-blue-500')?.textContent.match(/\d+/)?.[0] || '0';
+            const totalTecnicos = resultContent.querySelector('.from-green-500')?.textContent.match(/\d+/)?.[0] || '0';
+            const totalAuxiliares = resultContent.querySelector('.from-purple-500')?.textContent.match(/\d+/)?.[0] || '0';
+            const totalGeral = resultContent.querySelector('.from-indigo-600')?.textContent.match(/\d+/)?.[0] || '0';
+            
+            const texto = `
+═══════════════════════════════════════════
+    DIMENSIONAMENTO DE ENFERMAGEM
+    (Resolução COFEN nº 543/2017)
+═══════════════════════════════════════════
+
+📊 RESULTADO:
+   • Enfermeiros: ${totalEnfermeiros} profissionais
+   • Técnicos de Enfermagem: ${totalTecnicos} profissionais
+   • Auxiliares de Enfermagem: ${totalAuxiliares} profissionais
+   
+   TOTAL GERAL: ${totalGeral} profissionais
+
+═══════════════════════════════════════════
+Calculado em: ${new Date().toLocaleString('pt-BR')}
+Fonte: Calculadoras de Enfermagem
+www.calculadorasdeenfermagem.com.br
+═══════════════════════════════════════════
+
+⚠️ IMPORTANTE: Este cálculo é uma estimativa baseada
+na Resolução COFEN nº 543/2017. Considere também
+turnover, necessidades específicas da instituição e
+características da população atendida.
+            `.trim();
+            
+            navigator.clipboard.writeText(texto)
+                .then(() => {
+                    mostrarModalFeedback('✅ Resultado copiado com sucesso!', 'success');
+                })
+                .catch(() => {
+                    mostrarModalFeedback('❌ Erro ao copiar resultado', 'error');
+                });
+        }
+        
+        /**
+         * Exporta o resultado do dimensionamento para PDF
+         */
+        function exportarPDF() {
+            const resultContent = document.getElementById('result-content');
+            if (!resultContent || resultContent.innerHTML === '') {
+                mostrarModalFeedback('❌ Nenhum resultado disponível para exportar', 'error');
+                return;
+            }
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Extrai dados
+                const totalEnfermeiros = resultContent.querySelector('.from-blue-500')?.textContent.match(/\d+/)?.[0] || '0';
+                const totalTecnicos = resultContent.querySelector('.from-green-500')?.textContent.match(/\d+/)?.[0] || '0';
+                const totalAuxiliares = resultContent.querySelector('.from-purple-500')?.textContent.match(/\d+/)?.[0] || '0';
+                const totalGeral = resultContent.querySelector('.from-indigo-600')?.textContent.match(/\d+/)?.[0] || '0';
+                
+                // Cabeçalho
+                doc.setFillColor(26, 62, 116);
+                doc.rect(0, 0, 210, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(20);
+                doc.text('Dimensionamento de Enfermagem', 105, 20, { align: 'center' });
+                doc.setFontSize(11);
+                doc.text('Resolução COFEN nº 543/2017', 105, 30, { align: 'center' });
+                
+                // Conteúdo
+                doc.setTextColor(0, 0, 0);
+                let yPos = 55;
+                
+                // Resultado
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Resultado do Dimensionamento', 20, yPos);
+                yPos += 15;
+                
+                // Enfermeiros
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(59, 130, 246);
+                doc.text('Enfermeiros', 20, yPos);
+                doc.setFontSize(24);
+                doc.text(`${totalEnfermeiros}`, 160, yPos);
+                doc.setFontSize(10);
+                doc.text('profissionais', 180, yPos);
+                yPos += 15;
+                
+                // Técnicos
+                doc.setFontSize(12);
+                doc.setTextColor(34, 197, 94);
+                doc.text('Técnicos de Enfermagem', 20, yPos);
+                doc.setFontSize(24);
+                doc.text(`${totalTecnicos}`, 160, yPos);
+                doc.setFontSize(10);
+                doc.text('profissionais', 180, yPos);
+                yPos += 15;
+                
+                // Auxiliares
+                doc.setFontSize(12);
+                doc.setTextColor(168, 85, 247);
+                doc.text('Auxiliares de Enfermagem', 20, yPos);
+                doc.setFontSize(24);
+                doc.text(`${totalAuxiliares}`, 160, yPos);
+                doc.setFontSize(10);
+                doc.text('profissionais', 180, yPos);
+                yPos += 20;
+                
+                // Linha separadora
+                doc.setDrawColor(200, 200, 200);
+                doc.line(20, yPos, 190, yPos);
+                yPos += 10;
+                
+                // Total Geral
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(79, 70, 229);
+                doc.text('TOTAL GERAL', 20, yPos);
+                doc.setFontSize(28);
+                doc.text(`${totalGeral}`, 160, yPos);
+                doc.setFontSize(10);
+                doc.text('profissionais', 180, yPos);
+                yPos += 20;
+                
+                // Base Legal
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(0, 0, 0);
+                doc.text('Base Legal', 20, yPos);
+                yPos += 10;
+                
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                doc.text('Resolução COFEN nº 543/2017', 20, yPos);
+                yPos += 7;
+                doc.setFontSize(10);
+                doc.text('Atualiza e estabelece parâmetros para o Dimensionamento de', 20, yPos);
+                yPos += 5;
+                doc.text('Pessoal de Enfermagem nos serviços de saúde.', 20, yPos);
+                yPos += 15;
+                
+                // Aviso
+                doc.setFillColor(254, 243, 199);
+                doc.rect(15, yPos, 180, 35, 'F');
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.text('⚠️ IMPORTANTE', 20, yPos + 8);
+                doc.setFont(undefined, 'normal');
+                const avisoTexto = 'Este cálculo é uma estimativa baseada na Resolução COFEN nº 543/2017. Considere também turnover, necessidades específicas da instituição e características da população atendida. O dimensionamento deve ser revisado periodicamente.';
+                const linhasAviso = doc.splitTextToSize(avisoTexto, 170);
+                doc.text(linhasAviso, 20, yPos + 15);
+                
+                // Rodapé
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 280);
+                doc.text('Calculadoras de Enfermagem - www.calculadorasdeenfermagem.com.br', 20, 285);
+                
+                // Salvar PDF
+                doc.save('dimensionamento-enfermagem.pdf');
+                mostrarModalFeedback('✅ PDF gerado com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                mostrarModalFeedback('❌ Erro ao gerar PDF', 'error');
+            }
+        }
+    </script>
+
+</body>
+</html>

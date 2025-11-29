@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Taxa de Filtração Glomerular (TFG) - Enfermagem Prática</title>
+    <meta name="description" content="Calcule a Taxa de Filtração Glomerular (TFG) usando as equações CKD-EPI e MDRD. Avalie a função renal e estadie a Doença Renal Crônica (DRC).">
+    <meta name="keywords" content="TFG, taxa de filtração glomerular, CKD-EPI, MDRD, doença renal crônica, DRC, função renal, creatinina, nefrologia">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF para geração de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- VLibras -->    <!-- Google Analytics com Consent Mode V2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+        
+        gtag('js', new Date');
+        gtag('config', 'G-8FLJ59XXDK');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FLJ59XXDK"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6472730056006847" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header será injetado aqui -->
+    <div id="header-placeholder"></div>
+
+    <!-- Modal de Feedback -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl p-6 max-w-sm mx-4 transform transition-all">
+            <div id="feedbackContent" class="text-center">
+                <div id="feedbackIcon" class="mx-auto mb-4"></div>
+                <p id="feedbackMessage" class="text-gray-700 font-medium"></p>
+            </div>
+            <button onclick="fecharModal()" class="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Título e Descrição -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4" style="color: #1A3E74;">
+                    Calculadora de Taxa de Filtração Glomerular (TFG)
+                </h1>
+                <p class="text-gray-700 leading-relaxed">
+                    A <strong>Taxa de Filtração Glomerular (TFG)</strong> é o melhor indicador da função renal global. 
+                    Esta calculadora utiliza as equações <strong>CKD-EPI</strong> (recomendada pela maioria das diretrizes) 
+                    e <strong>MDRD</strong> para estimar a TFG baseada em creatinina sérica, idade, sexo e raça, permitindo 
+                    o estadiamento da Doença Renal Crônica (DRC) conforme classificação KDIGO.
+                </p>
+            </div>
+
+            <!-- Grid Principal: 2 colunas + sidebar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Coluna 1: Dados do Paciente -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📋 Dados do Paciente
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Creatinina Sérica (mg/dL)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="creatinina" 
+                                min="0" 
+                                step="0.01"
+                                placeholder="Ex: 1.2"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Idade (anos)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="idade" 
+                                min="18" 
+                                max="120"
+                                placeholder="Ex: 55"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Sexo
+                            </label>
+                            <select 
+                                id="sexo" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="">Selecione...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Raça
+                            </label>
+                            <select 
+                                id="raca" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="nao-negra">Não negra</option>
+                                <option value="negra">Negra</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Fórmula
+                            </label>
+                            <select 
+                                id="formula" 
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            >
+                                <option value="ckd-epi">CKD-EPI (Recomendada)</option>
+                                <option value="mdrd">MDRD</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        onclick="calcularTFG()" 
+                        class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 shadow-md"
+                    >
+                        Calcular TFG
+                    </button>
+                    
+                    <button 
+                        onclick="limparFormulario()" 
+                        class="w-full mt-3 bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300"
+                    >
+                        Limpar
+                    </button>
+                </div>
+
+                <!-- Coluna 2: Resultados -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📊 Resultado
+                    </h2>
+                    
+                    <div id="resultado" class="text-center py-8 text-gray-400">
+                        Preencha os dados para calcular a TFG
+                    </div>
+                    
+                    <!-- Botões de Ação -->
+                    <div id="botoesAcao" class="hidden mt-4 flex gap-3">
+                        <button 
+                            onclick="copiarResultados()" 
+                            class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 flex items-center justify-center gap-2 text-sm font-medium"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Copiar
+                        </button>
+                        <button 
+                            onclick="exportarPDF()" 
+                            class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition duration-300 flex items-center justify-center gap-2 text-sm font-medium"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            PDF
+                        </button>
+                    </div>
+                    
+                    <div id="classificacao" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Estadiamento DRC (KDIGO)</h3>
+                        <div id="classificacaoConteudo" class="text-sm text-gray-700"></div>
+                    </div>
+                    
+                    <div id="recomendacoes" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Recomendações Clínicas</h3>
+                        <div id="recomendacoesConteudo" class="text-sm text-gray-700 space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Informações Adicionais -->
+                <div class="space-y-6">
+                    <!-- Estadiamento DRC -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            📋 Estágios da DRC (KDIGO)
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 bg-green-100 rounded border-l-4 border-green-500">
+                                <p class="font-semibold text-green-800">G1: ≥ 90 mL/min/1,73m²</p>
+                                <p class="text-green-700">Função renal normal ou aumentada</p>
+                            </div>
+                            <div class="p-2 bg-lime-100 rounded border-l-4 border-lime-500">
+                                <p class="font-semibold text-lime-800">G2: 60-89 mL/min/1,73m²</p>
+                                <p class="text-lime-700">Leve redução da função renal</p>
+                            </div>
+                            <div class="p-2 bg-yellow-100 rounded border-l-4 border-yellow-500">
+                                <p class="font-semibold text-yellow-800">G3a: 45-59 mL/min/1,73m²</p>
+                                <p class="text-yellow-700">Redução leve a moderada</p>
+                            </div>
+                            <div class="p-2 bg-orange-100 rounded border-l-4 border-orange-500">
+                                <p class="font-semibold text-orange-800">G3b: 30-44 mL/min/1,73m²</p>
+                                <p class="text-orange-700">Redução moderada a grave</p>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded border-l-4 border-red-500">
+                                <p class="font-semibold text-red-800">G4: 15-29 mL/min/1,73m²</p>
+                                <p class="text-red-700">Redução grave da função renal</p>
+                            </div>
+                            <div class="p-2 bg-red-200 rounded border-l-4 border-red-700">
+                                <p class="font-semibold text-red-900">G5: < 15 mL/min/1,73m²</p>
+                                <p class="text-red-800">Falência renal</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comparação de Fórmulas -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            🔬 Comparação de Fórmulas
+                        </h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-white rounded-lg p-3">
+                                <p class="font-semibold text-purple-800 mb-1">CKD-EPI (2009)</p>
+                                <ul class="text-gray-700 space-y-1">
+                                    <li>• Mais precisa em TFG > 60</li>
+                                    <li>• Recomendada por diretrizes</li>
+                                    <li>• Menos viés em raça/sexo</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white rounded-lg p-3">
+                                <p class="font-semibold text-pink-800 mb-1">MDRD (1999)</p>
+                                <ul class="text-gray-700 space-y-1">
+                                    <li>• Primeira fórmula amplamente usada</li>
+                                    <li>• Subestima TFG > 60</li>
+                                    <li>• Útil em DRC avançada</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Orientações -->
+                    <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            ⚠️ Considerações Importantes
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Fórmulas validadas para adultos (≥18 anos)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Em crianças, usar fórmula de Schwartz</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Colher creatinina em jejum ideal de 8h</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Evitar exercícios intensos 24h antes</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Dieta hiperproteica pode elevar creatinina</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Científicas -->
+            <div class="mt-6 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                    📚 Fundamentação Científica
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Quando Solicitar TFG</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Diabetes mellitus (rastreamento anual)</li>
+                            <li>• Hipertensão arterial sistêmica</li>
+                            <li>• História familiar de DRC</li>
+                            <li>• Idade > 60 anos</li>
+                            <li>• Obesidade (IMC > 30)</li>
+                            <li>• Uso crônico de anti-inflamatórios</li>
+                            <li>• Doenças autoimunes</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Limitações das Fórmulas</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Imprecisas em extremos de idade/peso</li>
+                            <li>• Massa muscular atípica (amputados)</li>
+                            <li>• Desnutrição grave</li>
+                            <li>• Cirrose hepática</li>
+                            <li>• Gravidez</li>
+                            <li>• Uso de creatina suplementar</li>
+                            <li>• Insuficiência renal aguda</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Monitorização da DRC</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• G1-G2: TFG anual se fatores de risco</li>
+                            <li>• G3a: TFG a cada 6-12 meses</li>
+                            <li>• G3b: TFG a cada 3-6 meses</li>
+                            <li>• G4-G5: TFG a cada 1-3 meses</li>
+                            <li>• Sempre associar com albuminúria</li>
+                            <li>• Encaminhar G4-G5 ao nefrologista</li>
+                            <li>• Preparar acesso vascular em G5</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer será injetado aqui -->
+    <div id="footer-placeholder"></div>
+
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>    <!-- Scripts -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    <script>
+        // Inicializa Google Analytics
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        }
+    </script>
+    <script>
+        // Variáveis globais para armazenar os resultados
+        let resultadosCalculados = null;
+
+        // Injetar Header e Footer
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof injectHeader === 'function') injectHeader();
+            if (typeof injectFooter === 'function') injectFooter();
+        });
+
+        // Função para formatar data
+        function formatarData() {
+            const data = new Date();
+            const dia = String(data.getDate()).padStart(2, '0');
+            const mes = String(data.getMonth() + 1).padStart(2, '0');
+            const ano = data.getFullYear();
+            const horas = String(data.getHours()).padStart(2, '0');
+            const minutos = String(data.getMinutes()).padStart(2, '0');
+            return `${dia}/${mes}/${ano} às ${horas}:${minutos}`;
+        }
+
+        // Função para calcular TFG
+        function calcularTFG() {
+            const creatinina = parseFloat(document.getElementById('creatinina').value);
+            const idade = parseInt(document.getElementById('idade').value);
+            const sexo = document.getElementById('sexo').value;
+            const raca = document.getElementById('raca').value;
+            const formula = document.getElementById('formula').value;
+            
+            // Validações
+            if (!creatinina || creatinina <= 0) {
+                alert('Por favor, insira um valor válido de creatinina.');
+                return;
+            }
+            
+            if (!idade || idade < 18) {
+                alert('Esta calculadora é válida para adultos (≥18 anos). Para crianças, utilize a fórmula de Schwartz.');
+                return;
+            }
+            
+            if (!sexo) {
+                alert('Por favor, selecione o sexo do paciente.');
+                return;
+            }
+            
+            let tfg = 0;
+            
+            if (formula === 'ckd-epi') {
+                tfg = calcularCKDEPI(creatinina, idade, sexo, raca);
+            } else if (formula === 'mdrd') {
+                tfg = calcularMDRD(creatinina, idade, sexo, raca);
+            }
+            
+            // Armazenar resultados
+            resultadosCalculados = {
+                tfg: tfg,
+                formula: formula,
+                creatinina: creatinina,
+                idade: idade,
+                sexo: sexo,
+                raca: raca,
+                data: formatarData()
+            };
+            
+            // Exibir resultado
+            exibirResultado(tfg, formula, creatinina, idade, sexo, raca);
+        }
+        
+        // Fórmula CKD-EPI
+        function calcularCKDEPI(creatinina, idade, sexo, raca) {
+            let k, alpha, tfg;
+            
+            if (sexo === 'feminino') {
+                k = 0.7;
+                alpha = -0.329;
+            } else {
+                k = 0.9;
+                alpha = -0.411;
+            }
+            
+            const minRatio = Math.min(creatinina / k, 1);
+            const maxRatio = Math.max(creatinina / k, 1);
+            
+            tfg = 141 * Math.pow(minRatio, alpha) * Math.pow(maxRatio, -1.209) * Math.pow(0.993, idade);
+            
+            if (sexo === 'feminino') {
+                tfg *= 1.018;
+            }
+            
+            if (raca === 'negra') {
+                tfg *= 1.159;
+            }
+            
+            return tfg;
+        }
+        
+        // Fórmula MDRD
+        function calcularMDRD(creatinina, idade, sexo, raca) {
+            let tfg = 186 * Math.pow(creatinina, -1.154) * Math.pow(idade, -0.203);
+            
+            if (sexo === 'feminino') {
+                tfg *= 0.742;
+            }
+            
+            if (raca === 'negra') {
+                tfg *= 1.212;
+            }
+            
+            return tfg;
+        }
+        
+        function exibirResultado(tfg, formula, creatinina, idade, sexo, raca) {
+            const resultadoDiv = document.getElementById('resultado');
+            const botoesAcaoDiv = document.getElementById('botoesAcao');
+            const classificacaoDiv = document.getElementById('classificacao');
+            const recomendacoesDiv = document.getElementById('recomendacoes');
+            const classificacaoConteudo = document.getElementById('classificacaoConteudo');
+            const recomendacoesConteudo = document.getElementById('recomendacoesConteudo');
+            
+            // Classificar estágio DRC
+            let estagio = '';
+            let descricao = '';
+            let cor = '';
+            
+            if (tfg >= 90) {
+                estagio = 'G1';
+                descricao = 'Função renal normal ou aumentada';
+                cor = '#10B981';
+            } else if (tfg >= 60) {
+                estagio = 'G2';
+                descricao = 'Leve redução da função renal';
+                cor = '#84CC16';
+            } else if (tfg >= 45) {
+                estagio = 'G3a';
+                descricao = 'Redução leve a moderada da função renal';
+                cor = '#EAB308';
+            } else if (tfg >= 30) {
+                estagio = 'G3b';
+                descricao = 'Redução moderada a grave da função renal';
+                cor = '#F97316';
+            } else if (tfg >= 15) {
+                estagio = 'G4';
+                descricao = 'Redução grave da função renal';
+                cor = '#EF4444';
+            } else {
+                estagio = 'G5';
+                descricao = 'Falência renal';
+                cor = '#DC2626';
+            }
+            
+            // Resultado principal
+            const formulaNome = formula === 'ckd-epi' ? 'CKD-EPI' : 'MDRD';
+            
+            resultadoDiv.innerHTML = `
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6">
+                    <p class="text-sm text-gray-600 mb-2">Taxa de Filtração Glomerular (${formulaNome})</p>
+                    <p class="text-4xl font-bold mb-2" style="color: #1A3E74;">
+                        ${tfg.toFixed(1)} <span class="text-xl">mL/min/1,73m²</span>
+                    </p>
+                    <div class="mt-4 p-3 rounded-lg" style="background-color: ${cor}20; border-left: 4px solid ${cor};">
+                        <p class="text-sm font-semibold" style="color: ${cor};">
+                            Estágio ${estagio}: ${descricao}
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs text-gray-600">
+                        <p><strong>Creatinina:</strong> ${creatinina} mg/dL</p>
+                        <p><strong>Idade:</strong> ${idade} anos</p>
+                        <p><strong>Sexo:</strong> ${sexo === 'masculino' ? 'Masculino' : 'Feminino'}</p>
+                        <p><strong>Raça:</strong> ${raca === 'negra' ? 'Negra' : 'Não negra'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Classificação detalhada
+            classificacaoConteudo.innerHTML = `
+                <div class="p-4 rounded-lg" style="background-color: ${cor}20; border: 2px solid ${cor};">
+                    <p class="font-bold text-lg" style="color: ${cor};">Estágio ${estagio}</p>
+                    <p class="text-sm mt-1">${descricao}</p>
+                    <p class="text-xs mt-2 text-gray-600">
+                        TFG: ${tfg.toFixed(1)} mL/min/1,73m²
+                    </p>
+                </div>
+            `;
+            
+            // Recomendações clínicas
+            let recomendacoesHTML = '';
+            
+            if (estagio === 'G1' || estagio === 'G2') {
+                recomendacoesHTML = `
+                    <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800">✓ Função Renal Preservada</p>
+                        <ul class="text-green-700 text-xs mt-2 space-y-1">
+                            <li>• Controlar fatores de risco (HAS, DM)</li>
+                            <li>• Manter hidratação adequada</li>
+                            <li>• Evitar nefrotóxicos (AINEs)</li>
+                            <li>• Reavaliar TFG anualmente</li>
+                            <li>• Investigar proteinúria se presente</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (estagio === 'G3a' || estagio === 'G3b') {
+                recomendacoesHTML = `
+                    <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                        <p class="font-semibold text-yellow-800">⚠️ DRC Moderada - Atenção</p>
+                        <ul class="text-yellow-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>Ajustar doses de medicamentos</strong></li>
+                            <li>• Controle rigoroso de PA e glicemia</li>
+                            <li>• Restringir proteínas (0,8g/kg/dia)</li>
+                            <li>• Monitorar eletrólitos (K+, Ca++, P)</li>
+                            <li>• Reavaliar TFG a cada 3-6 meses</li>
+                            <li>• Considerar encaminhamento ao nefrologista</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (estagio === 'G4') {
+                recomendacoesHTML = `
+                    <div class="p-3 bg-orange-50 border-l-4 border-orange-500 rounded">
+                        <p class="font-semibold text-orange-800">🚨 DRC Avançada - URGENTE</p>
+                        <ul class="text-orange-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>Encaminhar ao nefrologista IMEDIATAMENTE</strong></li>
+                            <li>• Preparar para terapia renal substitutiva</li>
+                            <li>• Criar fístula arteriovenosa</li>
+                            <li>• Restringir K+ e P (risco arritmias)</li>
+                            <li>• Corrigir acidose metabólica</li>
+                            <li>• Tratar anemia (EPO)</li>
+                            <li>• Reavaliar TFG mensalmente</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                recomendacoesHTML = `
+                    <div class="p-3 bg-red-50 border-l-4 border-red-700 rounded">
+                        <p class="font-semibold text-red-900">🆘 FALÊNCIA RENAL - CRÍTICO</p>
+                        <ul class="text-red-800 text-xs mt-2 space-y-1">
+                            <li>• <strong>INICIAR DIÁLISE IMEDIATAMENTE</strong></li>
+                            <li>• Hemodiálise 3x/semana ou diálise peritoneal</li>
+                            <li>• Avaliar transplante renal</li>
+                            <li>• Dieta restrita (K+, P, líquidos)</li>
+                            <li>• Monitorar uremia, hipercalemia</li>
+                            <li>• Risco iminente de complicações graves</li>
+                            <li>• Suporte multidisciplinar intensivo</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            recomendacoesConteudo.innerHTML = recomendacoesHTML;
+            classificacaoDiv.classList.remove('hidden');
+            recomendacoesDiv.classList.remove('hidden');
+            botoesAcaoDiv.classList.remove('hidden');
+        }
+        
+        // Função para copiar resultados
+        function copiarResultados() {
+            if (!resultadosCalculados) {
+                mostrarModal('erro', 'Nenhum resultado para copiar');
+                return;
+            }
+            
+            const formulaNome = resultadosCalculados.formula === 'ckd-epi' ? 'CKD-EPI' : 'MDRD';
+            let estagio = '';
+            const tfg = resultadosCalculados.tfg;
+            
+            if (tfg >= 90) estagio = 'G1 - Função renal normal ou aumentada';
+            else if (tfg >= 60) estagio = 'G2 - Leve redução da função renal';
+            else if (tfg >= 45) estagio = 'G3a - Redução leve a moderada';
+            else if (tfg >= 30) estagio = 'G3b - Redução moderada a grave';
+            else if (tfg >= 15) estagio = 'G4 - Redução grave da função renal';
+            else estagio = 'G5 - Falência renal';
+            
+            const texto = `
+TAXA DE FILTRAÇÃO GLOMERULAR (TFG)
+═══════════════════════════════════════════
+
+DADOS DO PACIENTE:
+• Creatinina sérica: ${resultadosCalculados.creatinina} mg/dL
+• Idade: ${resultadosCalculados.idade} anos
+• Sexo: ${resultadosCalculados.sexo === 'masculino' ? 'Masculino' : 'Feminino'}
+• Raça: ${resultadosCalculados.raca === 'negra' ? 'Negra' : 'Não negra'}
+• Fórmula utilizada: ${formulaNome}
+
+RESULTADO:
+• TFG: ${tfg.toFixed(1)} mL/min/1,73m²
+• Estadiamento DRC: ${estagio}
+
+Data do cálculo: ${resultadosCalculados.data}
+Fonte: Enfermagem Prática - enfermagempratica.com.br
+            `.trim();
+            
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarModal('sucesso', 'Resultados copiados com sucesso!');
+            }).catch(() => {
+                mostrarModal('erro', 'Erro ao copiar resultados');
+            });
+        }
+        
+        // Função para exportar PDF
+        function exportarPDF() {
+            if (!resultadosCalculados) {
+                mostrarModal('erro', 'Nenhum resultado para exportar');
+                return;
+            }
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const margemEsq = 20;
+            let y = 20;
+            
+            const formulaNome = resultadosCalculados.formula === 'ckd-epi' ? 'CKD-EPI' : 'MDRD';
+            const tfg = resultadosCalculados.tfg;
+            
+            let estagio = '';
+            let descricao = '';
+            if (tfg >= 90) { estagio = 'G1'; descricao = 'Função renal normal ou aumentada'; }
+            else if (tfg >= 60) { estagio = 'G2'; descricao = 'Leve redução da função renal'; }
+            else if (tfg >= 45) { estagio = 'G3a'; descricao = 'Redução leve a moderada'; }
+            else if (tfg >= 30) { estagio = 'G3b'; descricao = 'Redução moderada a grave'; }
+            else if (tfg >= 15) { estagio = 'G4'; descricao = 'Redução grave da função renal'; }
+            else { estagio = 'G5'; descricao = 'Falência renal'; }
+            
+            // Título
+            doc.setFontSize(18);
+            doc.setTextColor(26, 62, 116);
+            doc.text('TAXA DE FILTRAÇÃO GLOMERULAR', margemEsq, y);
+            y += 8;
+            
+            doc.setFontSize(12);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Fórmula ${formulaNome}`, margemEsq, y);
+            y += 15;
+            
+            // Linha separadora
+            doc.setDrawColor(26, 62, 116);
+            doc.setLineWidth(0.5);
+            doc.line(margemEsq, y, 190, y);
+            y += 10;
+            
+            // Dados do paciente
+            doc.setFontSize(14);
+            doc.setTextColor(26, 62, 116);
+            doc.text('Dados do Paciente', margemEsq, y);
+            y += 8;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Creatinina sérica: ${resultadosCalculados.creatinina} mg/dL`, margemEsq, y);
+            y += 6;
+            doc.text(`Idade: ${resultadosCalculados.idade} anos`, margemEsq, y);
+            y += 6;
+            doc.text(`Sexo: ${resultadosCalculados.sexo === 'masculino' ? 'Masculino' : 'Feminino'}`, margemEsq, y);
+            y += 6;
+            doc.text(`Raça: ${resultadosCalculados.raca === 'negra' ? 'Negra' : 'Não negra'}`, margemEsq, y);
+            y += 12;
+            
+            // Resultado
+            doc.setFontSize(14);
+            doc.setTextColor(26, 62, 116);
+            doc.text('Resultado', margemEsq, y);
+            y += 8;
+            
+            doc.setFontSize(16);
+            doc.setTextColor(26, 62, 116);
+            doc.text(`TFG: ${tfg.toFixed(1)} mL/min/1,73m²`, margemEsq, y);
+            y += 10;
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Estadiamento DRC: ${estagio}`, margemEsq, y);
+            y += 6;
+            doc.text(`${descricao}`, margemEsq, y);
+            y += 15;
+            
+            // Recomendações resumidas
+            doc.setFontSize(14);
+            doc.setTextColor(26, 62, 116);
+            doc.text('Recomendações', margemEsq, y);
+            y += 8;
+            
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            
+            if (estagio === 'G1' || estagio === 'G2') {
+                doc.text('• Controlar fatores de risco (HAS, DM)', margemEsq, y); y += 5;
+                doc.text('• Reavaliar TFG anualmente', margemEsq, y); y += 5;
+            } else if (estagio === 'G3a' || estagio === 'G3b') {
+                doc.text('• Ajustar doses de medicamentos', margemEsq, y); y += 5;
+                doc.text('• Encaminhar ao nefrologista', margemEsq, y); y += 5;
+            } else if (estagio === 'G4') {
+                doc.text('• ENCAMINHAR AO NEFROLOGISTA URGENTE', margemEsq, y); y += 5;
+                doc.text('• Preparar para terapia renal substitutiva', margemEsq, y); y += 5;
+            } else {
+                doc.text('• INICIAR DIÁLISE IMEDIATAMENTE', margemEsq, y); y += 5;
+                doc.text('• Avaliar transplante renal', margemEsq, y); y += 5;
+            }
+            
+            // Rodapé
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.3);
+            doc.line(margemEsq, 270, 190, 270);
+            
+            doc.setFontSize(9);
+            doc.setTextColor(100, 100, 100);
+            doc.text(`Data: ${resultadosCalculados.data}`, margemEsq, 278);
+            doc.text('Enfermagem Prática - enfermagempratica.com.br', margemEsq, 285);
+            
+            doc.save('tfg-resultado.pdf');
+            mostrarModal('sucesso', 'PDF gerado com sucesso!');
+        }
+        
+        // Função para mostrar modal
+        function mostrarModal(tipo, mensagem) {
+            const modal = document.getElementById('feedbackModal');
+            const icone = document.getElementById('feedbackIcon');
+            const mensagemEl = document.getElementById('feedbackMessage');
+            
+            if (tipo === 'sucesso') {
+                icone.innerHTML = `
+                    <svg class="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
+            } else {
+                icone.innerHTML = `
+                    <svg class="w-16 h-16 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                `;
+            }
+            
+            mensagemEl.textContent = mensagem;
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                fecharModal();
+            }, 3000);
+        }
+        
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('feedbackModal').classList.add('hidden');
+        }
+        
+        function limparFormulario() {
+            document.getElementById('creatinina').value = '';
+            document.getElementById('idade').value = '';
+            document.getElementById('sexo').value = '';
+            document.getElementById('raca').value = 'nao-negra';
+            document.getElementById('formula').value = 'ckd-epi';
+            document.getElementById('resultado').innerHTML = '<div class="text-center py-8 text-gray-400">Preencha os dados para calcular a TFG</div>';
+            document.getElementById('classificacao').classList.add('hidden');
+            document.getElementById('recomendacoes').classList.add('hidden');
+            document.getElementById('botoesAcao').classList.add('hidden');
+            resultadosCalculados = null;
+        }
+        
+        // Permitir cálculo ao pressionar Enter
+        ['creatinina', 'idade'].forEach(id => {
+            document.getElementById(id).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') calcularTFG();
+            });
+        });
+    </script>
+</body>
+</html>

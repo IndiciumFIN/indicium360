@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escore de Risco TIMI - Síndrome Coronariana Aguda - Enfermagem Prática</title>
+    <meta name="description" content="Calculadora do Escore TIMI para estratificação de risco em pacientes com Síndrome Coronariana Aguda sem supra de ST (NSTEMI/Angina Instável). Avalie risco de morte e eventos isquêmicos.">
+    <meta name="keywords" content="TIMI, escore TIMI, síndrome coronariana aguda, SCA, NSTEMI, angina instável, infarto, cardiologia, estratificação de risco">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- jsPDF para geração de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- VLibras -->    <!-- Google Analytics com Consent Mode V2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+        
+        gtag('js', new Date());
+        gtag('config', 'G-8FLJ59XXDK');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FLJ59XXDK"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6472730056006847" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header será injetado aqui -->
+    <div id="header-placeholder"></div>
+
+    <!-- Modal de Feedback -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4 transform transition-all">
+            <div id="modalContent" class="text-center"></div>
+            <button onclick="fecharModal()" class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Título e Descrição -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4" style="color: #1A3E74;">
+                    Escore de Risco TIMI (UA/NSTEMI)
+                </h1>
+                <p class="text-gray-700 leading-relaxed">
+                    O <strong>Escore TIMI</strong> (<em>Thrombolysis In Myocardial Infarction</em>) é uma ferramenta validada 
+                    para estratificação de risco em pacientes com <strong>Síndrome Coronariana Aguda sem supra de ST</strong> 
+                    (Angina Instável ou NSTEMI). Auxilia na tomada de decisão sobre terapia invasiva precoce, permitindo identificar 
+                    pacientes de alto risco que se beneficiam de cateterismo cardíaco urgente.
+                </p>
+            </div>
+
+            <!-- Grid Principal: 2 colunas + sidebar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Coluna 1: Critérios TIMI -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📋 Critérios TIMI (1 ponto cada)
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="idade" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>Idade ≥ 65 anos</strong>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="fatoresRisco" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>≥ 3 fatores de risco para DAC</strong><br>
+                                    <span class="text-xs text-gray-600">(HAS, DM, tabagismo, dislipidemia, história familiar)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="dacConhecida" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>DAC conhecida (estenose ≥ 50%)</strong><br>
+                                    <span class="text-xs text-gray-600">(Cateterismo prévio documentando obstrução)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="usoAas" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>Uso de AAS nos últimos 7 dias</strong><br>
+                                    <span class="text-xs text-gray-600">(Indica doença coronariana prévia)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="anginaGrave" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>Angina grave nas últimas 24h</strong><br>
+                                    <span class="text-xs text-gray-600">(≥ 2 episódios de dor em repouso)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="desvioSt" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>Desvio ST ≥ 0,5mm no ECG</strong><br>
+                                    <span class="text-xs text-gray-600">(Elevação ou depressão do segmento ST)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="marcadoresElevados" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500">
+                                <span class="text-sm">
+                                    <strong>Marcadores cardíacos elevados</strong><br>
+                                    <span class="text-xs text-gray-600">(Troponina ou CK-MB acima do limite superior)</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        onclick="calcularTIMI()" 
+                        class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 shadow-md"
+                    >
+                        Calcular Escore TIMI
+                    </button>
+                    
+                    <button 
+                        onclick="limparFormulario()" 
+                        class="w-full mt-3 bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300"
+                    >
+                        Limpar
+                    </button>
+                </div>
+
+                <!-- Coluna 2: Resultados -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📊 Resultado
+                    </h2>
+                    
+                    <div id="resultado" class="text-center py-8 text-gray-400">
+                        Marque os critérios presentes para calcular o escore TIMI
+                    </div>
+                    
+                    <div id="risco" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Estratificação de Risco</h3>
+                        <div id="riscoConteudo" class="text-sm text-gray-700"></div>
+                    </div>
+                    
+                    <div id="conduta" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Conduta Recomendada</h3>
+                        <div id="condutaConteudo" class="text-sm text-gray-700 space-y-2"></div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div id="botoesAcao" class="hidden flex gap-3 mt-6">
+                        <button onclick="copiarResultado()" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📋</span>
+                            <span>Copiar Resultados</span>
+                        </button>
+                        <button onclick="exportarPDF()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📄</span>
+                            <span>Exportar PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Informações Adicionais -->
+                <div class="space-y-6">
+                    <!-- Interpretação -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            📊 Interpretação do Escore
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 bg-green-100 rounded border-l-4 border-green-500">
+                                <p class="font-semibold text-green-800">0-2 pontos: Risco BAIXO</p>
+                                <p class="text-green-700">Mortalidade 14 dias: 4,7%</p>
+                            </div>
+                            <div class="p-2 bg-yellow-100 rounded border-l-4 border-yellow-500">
+                                <p class="font-semibold text-yellow-800">3-4 pontos: Risco INTERMEDIÁRIO</p>
+                                <p class="text-yellow-700">Mortalidade 14 dias: 13%</p>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded border-l-4 border-red-500">
+                                <p class="font-semibold text-red-800">5-7 pontos: Risco ALTO</p>
+                                <p class="text-red-700">Mortalidade 14 dias: 26%</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tratamento -->
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            💊 Tratamento Inicial SCA
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>AAS:</strong> 200-300mg (mastigar)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Clopidogrel:</strong> 300-600mg ataque</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Anticoagulação:</strong> Heparina ou Fondaparinux</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Betabloqueador:</strong> Se sem contraindicação</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Estatina:</strong> Alta potência (atorvastatina 80mg)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-purple-600 mr-2">•</span>
+                                <span><strong>Nitrato:</strong> Se dor torácica persistente</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Orientações -->
+                    <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            ⚠️ Sinais de Alerta
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Dor torácica refratária</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Instabilidade hemodinâmica</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Arritmias ventriculares graves</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Insuficiência cardíaca aguda</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Elevação progressiva de troponina</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Científicas -->
+            <div class="mt-6 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                    📚 Fundamentação Científica
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Validação do Escore TIMI</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Derivado do estudo TIMI 11B (1998)</li>
+                            <li>• Validado em > 10.000 pacientes</li>
+                            <li>• Prediz morte, IAM, revascularização urgente</li>
+                            <li>• Amplamente utilizado mundialmente</li>
+                            <li>• Recomendado por diretrizes internacionais</li>
+                            <li>• Simples, rápido e à beira do leito</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Cateterismo Precoce vs Conservador</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• <strong>Alto risco (TIMI 5-7):</strong> Cateterismo < 24h</li>
+                            <li>• <strong>Risco intermediário (3-4):</strong> < 72h</li>
+                            <li>• <strong>Baixo risco (0-2):</strong> Estratégia conservadora</li>
+                            <li>• Estratégia invasiva reduz mortalidade em alto risco</li>
+                            <li>• Teste ergométrico se estável e baixo risco</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Cuidados de Enfermagem em SCA</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Monitorização cardíaca contínua</li>
+                            <li>• Controlar PA, FC, saturação O₂</li>
+                            <li>• Acesso venoso calibroso</li>
+                            <li>• ECG seriados (a cada 6-8h)</li>
+                            <li>• Repouso no leito inicialmente</li>
+                            <li>• Observar sinais de complicações</li>
+                            <li>• Garantir ambiente tranquilo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer será injetado aqui -->
+    <div id="footer-placeholder"></div>
+
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>    <!-- Scripts -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    <script>
+        // Inicializa Google Analytics
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        }
+    </script>
+    <script>
+        // Variáveis globais para armazenar resultados
+        let ultimoPontos = 0;
+        let ultimaClassificacao = '';
+        let ultimaMortalidade = '';
+
+        // Injetar Header e Footer
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof injectHeader === 'function') injectHeader();
+            if (typeof injectFooter === 'function') injectFooter();
+        });
+
+        // Função para calcular escore TIMI
+        function calcularTIMI() {
+            let pontos = 0;
+            
+            if (document.getElementById('idade').checked) pontos++;
+            if (document.getElementById('fatoresRisco').checked) pontos++;
+            if (document.getElementById('dacConhecida').checked) pontos++;
+            if (document.getElementById('usoAas').checked) pontos++;
+            if (document.getElementById('anginaGrave').checked) pontos++;
+            if (document.getElementById('desvioSt').checked) pontos++;
+            if (document.getElementById('marcadoresElevados').checked) pontos++;
+            
+            exibirResultado(pontos);
+        }
+        
+        function exibirResultado(pontos) {
+            const resultadoDiv = document.getElementById('resultado');
+            const riscoDiv = document.getElementById('risco');
+            const condutaDiv = document.getElementById('conduta');
+            const riscoConteudo = document.getElementById('riscoConteudo');
+            const condutaConteudo = document.getElementById('condutaConteudo');
+            const botoesAcao = document.getElementById('botoesAcao');
+            
+            // Classificar risco
+            let classificacao = '';
+            let descricao = '';
+            let mortalidade = '';
+            let cor = '';
+            
+            if (pontos <= 2) {
+                classificacao = 'BAIXO RISCO';
+                descricao = 'Paciente de baixo risco cardiovascular';
+                mortalidade = '4,7%';
+                cor = '#10B981'; // Verde
+            } else if (pontos <= 4) {
+                classificacao = 'RISCO INTERMEDIÁRIO';
+                descricao = 'Paciente de risco cardiovascular intermediário';
+                mortalidade = '13%';
+                cor = '#EAB308'; // Amarelo
+            } else {
+                classificacao = 'ALTO RISCO';
+                descricao = 'Paciente de alto risco cardiovascular';
+                mortalidade = '26%';
+                cor = '#EF4444'; // Vermelho
+            }
+
+            // Armazenar valores globais
+            ultimoPontos = pontos;
+            ultimaClassificacao = classificacao;
+            ultimaMortalidade = mortalidade;
+            
+            // Resultado principal
+            resultadoDiv.innerHTML = `
+                <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-6">
+                    <p class="text-sm text-gray-600 mb-2">Escore TIMI</p>
+                    <p class="text-5xl font-bold mb-2" style="color: #1A3E74;">
+                        ${pontos} <span class="text-xl">pontos</span>
+                    </p>
+                    <div class="mt-4 p-4 rounded-lg" style="background-color: ${cor}20; border: 2px solid ${cor};">
+                        <p class="text-lg font-bold" style="color: ${cor};">
+                            ${classificacao}
+                        </p>
+                        <p class="text-sm mt-1" style="color: ${cor};">
+                            ${descricao}
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Risco detalhado
+            riscoConteudo.innerHTML = `
+                <div class="p-4 rounded-lg" style="background-color: ${cor}15; border-left: 4px solid ${cor};">
+                    <p class="font-semibold text-gray-800 mb-2">Risco de Desfechos em 14 dias:</p>
+                    <div class="space-y-1 text-xs">
+                        <p><strong>Mortalidade ou IAM recorrente:</strong> ${mortalidade}</p>
+                        <p><strong>Necessidade de revascularização urgente:</strong> ${pontos <= 2 ? 'Baixa' : pontos <= 4 ? 'Moderada' : 'Alta'}</p>
+                        <p><strong>Eventos cardiovasculares maiores (MACE):</strong> ${pontos <= 2 ? '8,3%' : pontos <= 4 ? '19,9%' : '41,0%'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Conduta baseada no risco
+            let condutaHTML = '';
+            
+            if (pontos <= 2) {
+                condutaHTML = `
+                    <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800">✓ Estratégia Conservadora</p>
+                        <ul class="text-green-700 text-xs mt-2 space-y-1">
+                            <li>• Tratamento clínico otimizado</li>
+                            <li>• Dupla antiagregação (AAS + Clopidogrel)</li>
+                            <li>• Anticoagulação plena (Heparina/Fondaparinux)</li>
+                            <li>• Betabloqueador + Estatina de alta potência</li>
+                            <li>• Internação em unidade coronariana (UCO)</li>
+                            <li>• Observação por 24-48h</li>
+                            <li>• Teste ergométrico ou cintilografia se estável</li>
+                            <li>• Cateterismo apenas se isquemia ao teste</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (pontos <= 4) {
+                condutaHTML = `
+                    <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                        <p class="font-semibold text-yellow-800">⚠️ Estratégia Invasiva Precoce</p>
+                        <ul class="text-yellow-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>Cateterismo em até 72 horas</strong></li>
+                            <li>• Tratamento clínico agressivo</li>
+                            <li>• Dupla antiagregação + Anticoagulação</li>
+                            <li>• Considerar inibidor GP IIb/IIIa (tirofiban)</li>
+                            <li>• Betabloqueador (se não contraindicado)</li>
+                            <li>• Estatina alta potência (Atorvastatina 80mg)</li>
+                            <li>• Monitorização contínua na UCO</li>
+                            <li>• Angioplastia ou cirurgia conforme anatomia</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                condutaHTML = `
+                    <div class="p-3 bg-red-50 border-l-4 border-red-700 rounded">
+                        <p class="font-semibold text-red-900">🚨 Estratégia Invasiva URGENTE</p>
+                        <ul class="text-red-800 text-xs mt-2 space-y-1">
+                            <li>• <strong>CATETERISMO URGENTE EM ATÉ 24 HORAS</strong></li>
+                            <li>• Transferência imediata para hemodinâmica</li>
+                            <li>• Terapia antitrombótica agressiva:</li>
+                            <li>&nbsp;&nbsp;- AAS 200-300mg (mastigar)</li>
+                            <li>&nbsp;&nbsp;- Clopidogrel 600mg ou Ticagrelor 180mg</li>
+                            <li>&nbsp;&nbsp;- Heparina ou Fondaparinux</li>
+                            <li>&nbsp;&nbsp;- Inibidor GP IIb/IIIa (Tirofiban/Eptifibatide)</li>
+                            <li>• Betabloqueador EV se PA adequada</li>
+                            <li>• Estatina alta dose</li>
+                            <li>• Considerar balão intra-aórtico se instável</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Adicionar orientações de monitorização
+            condutaHTML += `
+                <div class="p-3 bg-blue-50 border-l-4 border-blue-500 rounded mt-2">
+                    <p class="font-semibold text-blue-800">📊 Monitorização Obrigatória</p>
+                    <ul class="text-blue-700 text-xs mt-1 space-y-1">
+                        <li>• ECG à admissão e a cada 6-8h (ou se dor recorrente)</li>
+                        <li>• Troponina seriada: admissão, 3-6h e 12-24h</li>
+                        <li>• Monitores cardíaco contínuo (detectar arritmias)</li>
+                        <li>• Controle rigoroso de PA, FC, saturação O₂</li>
+                        <li>• Observar sinais de IC (B3, estertores, dispneia)</li>
+                        <li>• Atentar para sangramentos (dupla antiagregação)</li>
+                    </ul>
+                </div>
+            `;
+            
+            condutaConteudo.innerHTML = condutaHTML;
+            riscoDiv.classList.remove('hidden');
+            condutaDiv.classList.remove('hidden');
+            botoesAcao.classList.remove('hidden');
+        }
+        
+        function limparFormulario() {
+            document.getElementById('idade').checked = false;
+            document.getElementById('fatoresRisco').checked = false;
+            document.getElementById('dacConhecida').checked = false;
+            document.getElementById('usoAas').checked = false;
+            document.getElementById('anginaGrave').checked = false;
+            document.getElementById('desvioSt').checked = false;
+            document.getElementById('marcadoresElevados').checked = false;
+            
+            document.getElementById('resultado').innerHTML = '<div class="text-center py-8 text-gray-400">Marque os critérios presentes para calcular o escore TIMI</div>';
+            document.getElementById('risco').classList.add('hidden');
+            document.getElementById('conduta').classList.add('hidden');
+            document.getElementById('botoesAcao').classList.add('hidden');
+        }
+
+        // Função para copiar resultado
+        function copiarResultado() {
+            const criteriosMarcados = [];
+            if (document.getElementById('idade').checked) criteriosMarcados.push('Idade ≥ 65 anos');
+            if (document.getElementById('fatoresRisco').checked) criteriosMarcados.push('≥ 3 fatores de risco para DAC');
+            if (document.getElementById('dacConhecida').checked) criteriosMarcados.push('DAC conhecida (estenose ≥ 50%)');
+            if (document.getElementById('usoAas').checked) criteriosMarcados.push('Uso de AAS nos últimos 7 dias');
+            if (document.getElementById('anginaGrave').checked) criteriosMarcados.push('Angina grave nas últimas 24h');
+            if (document.getElementById('desvioSt').checked) criteriosMarcados.push('Desvio ST ≥ 0,5mm no ECG');
+            if (document.getElementById('marcadoresElevados').checked) criteriosMarcados.push('Marcadores cardíacos elevados');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            const texto = `ESCORE DE RISCO TIMI (UA/NSTEMI)
+========================================
+
+Data/Hora: ${dataHora}
+
+CRITÉRIOS PRESENTES:
+${criteriosMarcados.map(c => '• ' + c).join('\n')}
+
+RESULTADO:
+Escore TIMI: ${ultimoPontos} pontos
+Classificação: ${ultimaClassificacao}
+Mortalidade em 14 dias: ${ultimaMortalidade}
+
+CONDUTA RECOMENDADA:
+${ultimoPontos <= 2 ? 'Estratégia Conservadora - Tratamento clínico otimizado' : 
+  ultimoPontos <= 4 ? 'Estratégia Invasiva Precoce - Cateterismo em até 72h' : 
+  'Estratégia Invasiva URGENTE - Cateterismo em até 24h'}
+
+========================================
+Gerado por: Enfermagem Prática
+Site: enfermagempratica.com.br`;
+
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarModal('✅ Resultados copiados com sucesso!', 'success');
+            }).catch(err => {
+                mostrarModal('❌ Erro ao copiar resultados. Tente novamente.', 'error');
+            });
+        }
+
+        // Função para exportar PDF
+        function exportarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const criteriosMarcados = [];
+            if (document.getElementById('idade').checked) criteriosMarcados.push('Idade >= 65 anos');
+            if (document.getElementById('fatoresRisco').checked) criteriosMarcados.push('>= 3 fatores de risco para DAC');
+            if (document.getElementById('dacConhecida').checked) criteriosMarcados.push('DAC conhecida (estenose >= 50%)');
+            if (document.getElementById('usoAas').checked) criteriosMarcados.push('Uso de AAS nos ultimos 7 dias');
+            if (document.getElementById('anginaGrave').checked) criteriosMarcados.push('Angina grave nas ultimas 24h');
+            if (document.getElementById('desvioSt').checked) criteriosMarcados.push('Desvio ST >= 0,5mm no ECG');
+            if (document.getElementById('marcadoresElevados').checked) criteriosMarcados.push('Marcadores cardiacos elevados');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            // Cabeçalho
+            doc.setFillColor(26, 62, 116);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('ESCORE DE RISCO TIMI', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('(UA/NSTEMI)', 105, 23, { align: 'center' });
+            doc.text('Enfermagem Pratica', 105, 32, { align: 'center' });
+            
+            // Data
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(9);
+            doc.text(`Data/Hora: ${dataHora}`, 14, 50);
+            
+            // Critérios presentes
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CRITERIOS PRESENTES:', 14, 62);
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            let yPos = 70;
+            criteriosMarcados.forEach(criterio => {
+                doc.text(`• ${criterio}`, 20, yPos);
+                yPos += 6;
+            });
+            
+            // Resultado
+            yPos += 8;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('RESULTADO:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(`Escore TIMI: ${ultimoPontos} pontos`, 20, yPos);
+            
+            yPos += 8;
+            const cor = ultimoPontos <= 2 ? [16, 185, 129] : ultimoPontos <= 4 ? [234, 179, 8] : [239, 68, 68];
+            doc.setTextColor(cor[0], cor[1], cor[2]);
+            doc.text(`Classificacao: ${ultimaClassificacao}`, 20, yPos);
+            
+            yPos += 6;
+            doc.setFontSize(10);
+            doc.text(`Mortalidade em 14 dias: ${ultimaMortalidade}`, 20, yPos);
+            
+            // Conduta recomendada
+            yPos += 12;
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CONDUTA RECOMENDADA:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            if (ultimoPontos <= 2) {
+                doc.text('Estrategia Conservadora:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Tratamento clinico otimizado',
+                    'Dupla antiagregacao (AAS + Clopidogrel)',
+                    'Anticoagulacao plena (Heparina/Fondaparinux)',
+                    'Betabloqueador + Estatina de alta potencia',
+                    'Internacao em unidade coronariana (UCO)',
+                    'Observacao por 24-48h',
+                    'Teste ergometrico se estavel'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else if (ultimoPontos <= 4) {
+                doc.text('Estrategia Invasiva Precoce:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Cateterismo em ate 72 horas',
+                    'Tratamento clinico agressivo',
+                    'Dupla antiagregacao + Anticoagulacao',
+                    'Considerar inibidor GP IIb/IIIa',
+                    'Monitorizacao continua na UCO'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else {
+                doc.setFont(undefined, 'bold');
+                doc.text('Estrategia Invasiva URGENTE:', 20, yPos);
+                doc.setFont(undefined, 'normal');
+                yPos += 6;
+                const condutas = [
+                    'CATETERISMO URGENTE EM ATE 24 HORAS',
+                    'Transferencia imediata para hemodinamica',
+                    'Terapia antitrombica agressiva',
+                    'AAS 200-300mg + Clopidogrel 600mg',
+                    'Heparina ou Fondaparinux',
+                    'Inibidor GP IIb/IIIa (Tirofiban/Eptifibatide)'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            }
+            
+            // Rodapé
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Gerado por: Enfermagem Pratica - enfermagempratica.com.br', 105, 285, { align: 'center' });
+            doc.text('Este documento e apenas informativo e nao substitui avaliacao medica.', 105, 290, { align: 'center' });
+            
+            // Salvar PDF
+            doc.save(`escore-timi-${Date.now()}.pdf`);
+            mostrarModal('✅ PDF gerado com sucesso!', 'success');
+        }
+
+        // Função para mostrar modal
+        function mostrarModal(mensagem, tipo) {
+            const modal = document.getElementById('feedbackModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const icone = tipo === 'success' ? '✅' : '❌';
+            const cor = tipo === 'success' ? 'text-green-600' : 'text-red-600';
+            
+            modalContent.innerHTML = `
+                <div class="${cor} text-4xl mb-3">${icone}</div>
+                <p class="text-gray-800 font-medium">${mensagem}</p>
+            `;
+            
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('feedbackModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

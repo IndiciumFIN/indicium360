@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Superfície Corporal (Mosteller) - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Calcule a superfície corporal (SC) usando a fórmula de Mosteller. Ferramenta essencial para ajuste de doses de medicamentos quimioterápicos e cálculo de índices hemodinâmicos.">
+    <meta name="keywords" content="superfície corporal, SC, fórmula de Mosteller, quimioterapia, dosagem medicamentosa, BSA, body surface area, enfermagem oncológica">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- Google Analytics & Consent Mode V2 -->
+    <script>
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        }
+    </script>
+    
+    <!-- Favicon -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/calculadoras/superficie-corporal" />
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Superfície Corporal (Mosteller)",
+        "description": "Calcule a superfície corporal usando a fórmula de Mosteller para ajuste de doses de quimioterápicos",
+        "url": "https://www.calculadorasdeenfermagem.com.br/calculadoras/superficie-corporal",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Calculadoras de Enfermagem",
+            "url": "https://www.calculadorasdeenfermagem.com.br"
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/modal-feedback.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/calculator-sections.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/calculator-tabs.css">
+    
+    <!-- CSS Padronização (Standardization) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/standardization.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT - Injetado via Calculator Main -->
+    <main id="calculator-main-content">
+        <!-- Estrutura será injetada -->
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-container"></div>
+    
+    <!-- VLibras -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner -->
+    <div id="cookie-banner-container"></div>
+    
+    <!-- Botão Flutuante de Acesso Rápido -->
+    <div id="floating-quick-access-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES - COMPONENTES TEMPLATE -->
+    <!-- ============================================================ -->
+    
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    <script src="../00.Template/assets/js/modal-feedback.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES - CALCULADORAS -->
+    <!-- ============================================================ -->
+    
+    <script src="../00.Template/assets/js/calculator-tabs.js"></script>
+    <script src="../00.Template/assets/js/calculator-actions.js"></script>
+    <script src="../00.Template/assets/js/nanda-nic-noc-search.js"></script>
+    <script src="../00.Template/assets/js/metas-seguranca.js"></script>
+    <script src="../00.Template/assets/js/9-acertos-medicamentos.js"></script>
+    <script src="../00.Template/assets/js/auditoria-calculo.js"></script>
+    <script src="../00.Template/assets/js/related-tools.js"></script>
+    <script src="../00.Template/assets/js/floating-quick-access.js"></script>
+    <script src="../00.Template/assets/js/calculator-main.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- MÓDULO ESPECÍFICO DA CALCULADORA -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/calculators/superficie-corporal.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO GLOBAL - CARREGAR POR ÚLTIMO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/init-all.js"></script>
+
+    <!-- VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO DOS COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Injeta componentes base
+            if (typeof renderSkipLinks === 'function') {
+                document.getElementById('skip-links-container').innerHTML = renderSkipLinks();
+            }
+            if (typeof renderTopBar === 'function') {
+                document.getElementById('topbar-container').innerHTML = renderTopBar();
+            }
+            if (typeof renderHeader === 'function') {
+                document.getElementById('header-container').innerHTML = renderHeader();
+            }
+            if (typeof renderFooter === 'function') {
+                document.getElementById('footer-container').innerHTML = renderFooter();
+            }
+            if (typeof renderVLibras === 'function') {
+                document.getElementById('vlibras-container').innerHTML = renderVLibras();
+            }
+            if (typeof renderCookieBanner === 'function') {
+                document.getElementById('cookie-banner-container').innerHTML = renderCookieBanner();
+            }
+            
+            // Injeta Botão Flutuante de Acesso Rápido
+            if (typeof FloatingQuickAccess !== 'undefined' && FloatingQuickAccess.inject) {
+                FloatingQuickAccess.inject();
+            }
+            
+            // A calculadora se auto-inicializa via superficie-corporal.js
+        });
+    </script>
+
+</body>
+</html>

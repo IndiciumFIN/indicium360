@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clearance de Creatinina (Cockcroft-Gault) - Calculadora de Enfermagem</title>
+    <meta name="description" content="Calcule o clearance de creatinina pela fórmula de Cockcroft-Gault para avaliação da função renal. Ferramenta essencial para ajuste de dose de medicamentos.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/calculadoras/clearance-creatinina" />
+    
+    <!-- Schema.org - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Clearance de Creatinina",
+        "description": "Ferramenta para cálculo de clearance de creatinina pela fórmula de Cockcroft-Gault, essencial para avaliação da função renal",
+        "url": "https://www.calculadorasdeenfermagem.com.br/calculadoras/clearance-creatinina",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Calculadoras de Enfermagem",
+            "url": "https://www.calculadorasdeenfermagem.com.br"
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF para exportação de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado (Header/Footer) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Modais Institucionais -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <!-- CSS Modal de Feedback -->
+    <link rel="stylesheet" href="../00.Template/assets/css/modal-feedback.css">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Esconde as setas de inputs do tipo número */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        #calculator-main-content {
+            margin-top: 0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="calculator-main-content">
+        <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+            
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <button id="btn-voltar" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 bg-[#1A3E74] hover:bg-[#2a5a9e] px-4 py-2 text-sm mb-4 rounded-lg text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar
+                </button>
+                <div class="bg-[#1A3E74] text-white p-6 rounded-xl flex items-center justify-between shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold">Clearance de Creatinina</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Coluna Principal -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Card do Formulário -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <form id="clearance-form" class="space-y-6">
+                            
+                            <h2 class="text-xl font-bold text-[#1A3E74] mb-4 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                Dados do Paciente
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="idade" class="block text-sm font-semibold text-gray-700 mb-1">
+                                        Idade <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="idade" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 65" required min="18" max="120">
+                                    <p class="text-xs text-gray-500 mt-1">Idade em anos completos</p>
+                                </div>
+                                
+                                <div>
+                                    <label for="peso" class="block text-sm font-semibold text-gray-700 mb-1">
+                                        Peso <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="peso" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 70" required step="0.1" min="20" max="300">
+                                        <span class="absolute right-3 top-3 text-gray-500 text-sm">kg</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Peso corporal atual</p>
+                                </div>
+                                
+                                <div>
+                                    <label for="sexo" class="block text-sm font-semibold text-gray-700 mb-1">
+                                        Sexo Biológico <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="sexo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                    </select>
+                                    <p class="text-xs text-gray-500 mt-1">Necessário para o fator de correção</p>
+                                </div>
+                                
+                                <div>
+                                    <label for="creatinina" class="block text-sm font-semibold text-gray-700 mb-1">
+                                        Creatinina Sérica <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <input type="number" id="creatinina" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A3E74]" placeholder="Ex: 1.2" required step="0.01" min="0.1" max="20">
+                                        <span class="absolute right-3 top-3 text-gray-500 text-sm">mg/dL</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">Valor de creatinina sérica do exame laboratorial</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Botões de Ação -->
+                            <div class="flex gap-4 pt-4">
+                                <button type="submit" class="flex-1 bg-[#1A3E74] hover:bg-[#2a5a9e] text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 11h6M12 8v6"/></svg>
+                                    Calcular Clearance
+                                </button>
+                                <button type="reset" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+                                    Limpar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Card de Resultado -->
+                    <div id="result-area" class="bg-white rounded-xl shadow-md p-6 hidden">
+                        <h2 class="text-xl font-bold text-[#1A3E74] mb-4 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            Resultado do Clearance de Creatinina
+                        </h2>
+                        <div id="result-content"></div>
+                        
+                        <!-- Botões de Ação -->
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="copiarResultado()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                Copiar Resultado
+                            </button>
+                            <button onclick="exportarPDF()" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                Exportar PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Fórmula -->
+                    <div class="bg-blue-50 rounded-xl shadow-md p-6 border border-blue-200">
+                        <h3 class="text-lg font-bold text-blue-900 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                            Fórmula de Cockcroft-Gault
+                        </h3>
+                        <div class="bg-white p-4 rounded-lg font-mono text-sm mb-3">
+                            <strong>ClCr (mL/min) = [(140 - Idade) × Peso × K] / Creatinina sérica</strong>
+                        </div>
+                        <p class="text-sm text-blue-800">
+                            Onde: <strong>K = 1,23</strong> (homens) ou <strong>K = 1,04</strong> (mulheres)
+                        </p>
+                    </div>
+                    
+                </div>
+
+                <!-- Coluna Lateral -->
+                <aside class="space-y-6">
+                    
+                    <!-- Sobre a Ferramenta -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                            Sobre a Ferramenta
+                        </h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                            A <strong>fórmula de Cockcroft-Gault</strong> (1976) estima o clearance de creatinina e é amplamente utilizada para avaliar a função renal e ajustar doses de medicamentos nefrotóxicos ou de excreção renal.
+                        </p>
+                    </div>
+                    
+                    <!-- Como Usar -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                            Como Usar
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Preencha idade, peso, sexo e creatinina sérica</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Clique em "Calcular Clearance"</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Interprete o resultado (normal: 90-120 mL/min)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#1A3E74] mr-2">•</span>
+                                <span>Use para ajuste de dose de medicamentos</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Atenção -->
+                    <div class="bg-amber-50 rounded-xl shadow-md p-6 border border-amber-200">
+                        <h3 class="text-lg font-bold text-amber-700 mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                            Atenção
+                        </h3>
+                        <p class="text-sm text-amber-800 leading-relaxed">
+                            Esta fórmula não é adequada para pacientes em extremos de peso, com massa muscular muito aumentada ou diminuída, ou em crianças. Para crianças, utilizar fórmula de Schwartz.
+                        </p>
+                    </div>
+                    
+                    <!-- Ferramentas Relacionadas -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 11h6M12 8v6"/></svg>
+                            Ferramentas Relacionadas
+                        </h3>
+                        <div class="space-y-2">
+                            <a href="tfg.html" class="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold text-gray-700">TFG (MDRD/CKD-EPI)</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                                </div>
+                            </a>
+                            <a href="balanco-hidrico.html" class="block p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-semibold text-gray-700">Balanço Hídrico</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabela de Classificação -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold text-[#1A3E74] mb-3">Classificação DRC</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-green-100 p-2 rounded">
+                                <strong>≥ 90 mL/min:</strong> Normal
+                            </div>
+                            <div class="bg-yellow-100 p-2 rounded">
+                                <strong>60-89:</strong> Estágio 1
+                            </div>
+                            <div class="bg-orange-100 p-2 rounded">
+                                <strong>45-59:</strong> Estágio 2
+                            </div>
+                            <div class="bg-orange-200 p-2 rounded">
+                                <strong>30-44:</strong> Estágio 3
+                            </div>
+                            <div class="bg-red-100 p-2 rounded">
+                                <strong>15-29:</strong> Estágio 4
+                            </div>
+                            <div class="bg-red-200 p-2 rounded">
+                                <strong>&lt; 15:</strong> Estágio 5 (Falência)
+                            </div>
+                        </div>
+                    </div>
+                    
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- VLibras Widget - Injetado via JS -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner - Injetado via JS -->
+    <div id="cookie-banner-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES -->
+    <!-- ============================================================ -->
+    
+    <script src="../00.Template/assets/js/components.js"></script>
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    
+    <!-- Modal de Feedback -->
+    <script src="../00.Template/assets/js/modal-feedback.js"></script>
+    
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO DE COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const skipLinksContainer = document.getElementById('skip-links-container');
+            if (skipLinksContainer && typeof renderSkipLinks === 'function') {
+                skipLinksContainer.innerHTML = renderSkipLinks();
+            }
+            
+            const topbarContainer = document.getElementById('topbar-container');
+            if (topbarContainer && typeof renderTopBar === 'function') {
+                topbarContainer.innerHTML = renderTopBar();
+            }
+            
+            const headerContainer = document.getElementById('header-container');
+            if (headerContainer && typeof renderHeader === 'function') {
+                headerContainer.innerHTML = renderHeader();
+            }
+            
+            const footerContainer = document.getElementById('footer-container');
+            if (footerContainer && typeof renderFooter === 'function') {
+                footerContainer.innerHTML = renderFooter();
+            }
+            
+            const vlibrasContainer = document.getElementById('vlibras-container');
+            if (vlibrasContainer && typeof renderVLibras === 'function') {
+                vlibrasContainer.innerHTML = renderVLibras();
+            }
+            
+            const cookieBannerContainer = document.getElementById('cookie-banner-container');
+            if (cookieBannerContainer && typeof renderCookieBanner === 'function') {
+                cookieBannerContainer.innerHTML = renderCookieBanner();
+            }
+            
+            const btnVoltar = document.getElementById('btn-voltar');
+            if (btnVoltar) {
+                btnVoltar.addEventListener('click', () => {
+                    if (document.referrer && document.referrer.includes(window.location.host)) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'https://www.calculadorasdeenfermagem.com.br/';
+                    }
+                });
+            }
+            
+            console.log('✓ Template de Calculadora inicializado com sucesso');
+        });
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ESPECÍFICO - CLEARANCE DE CREATININA -->
+    <!-- ============================================================ -->
+    <script>
+        document.getElementById('clearance-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const idade = parseInt(document.getElementById('idade').value);
+            const peso = parseFloat(document.getElementById('peso').value);
+            const sexo = document.getElementById('sexo').value;
+            const creatinina = parseFloat(document.getElementById('creatinina').value);
+            
+            if (!sexo) {
+                alert('Por favor, selecione o sexo biológico do paciente.');
+                return;
+            }
+            
+            // Fórmula de Cockcroft-Gault
+            // ClCr = [(140 - idade) × peso × K] / creatinina sérica
+            // K = 1.23 (homens) ou 1.04 (mulheres)
+            
+            const K = sexo === 'masculino' ? 1.23 : 1.04;
+            const clearance = ((140 - idade) * peso * K) / creatinina;
+            
+            // Classificação da função renal
+            let classificacao = '';
+            let estagio = '';
+            let corClass = '';
+            let recomendacao = '';
+            
+            if (clearance >= 90) {
+                classificacao = 'Função Renal Normal ou Aumentada';
+                estagio = 'Normal/Aumentado';
+                corClass = 'from-green-500 to-green-600';
+                recomendacao = 'Função renal preservada. Manter doses habituais de medicamentos e monitorização de rotina.';
+            } else if (clearance >= 60) {
+                classificacao = 'DRC Estágio 1 - Dano Renal com TFG Levemente Diminuída';
+                estagio = 'Estágio 1';
+                corClass = 'from-yellow-500 to-yellow-600';
+                recomendacao = 'Monitorar função renal periodicamente. Evitar nefrotóxicos quando possível.';
+            } else if (clearance >= 45) {
+                classificacao = 'DRC Estágio 2 - TFG Levemente a Moderadamente Diminuída';
+                estagio = 'Estágio 2';
+                corClass = 'from-orange-400 to-orange-500';
+                recomendacao = 'Ajustar doses de medicamentos eliminados por via renal. Evitar uso prolongado de AINEs e outros nefrotóxicos.';
+            } else if (clearance >= 30) {
+                classificacao = 'DRC Estágio 3 - TFG Moderadamente a Gravemente Diminuída';
+                estagio = 'Estágio 3';
+                corClass = 'from-orange-500 to-orange-600';
+                recomendacao = 'Necessário acompanhamento nefrológico. Ajustar doses de medicamentos. Monitorar eletrólitos e anemia.';
+            } else if (clearance >= 15) {
+                classificacao = 'DRC Estágio 4 - TFG Gravemente Diminuída';
+                estagio = 'Estágio 4';
+                corClass = 'from-red-500 to-red-600';
+                recomendacao = 'Acompanhamento nefrológico obrigatório. Preparar para terapia renal substitutiva. Controle rigoroso de medicamentos e dieta.';
+            } else {
+                classificacao = 'DRC Estágio 5 - Falência Renal';
+                estagio = 'Estágio 5 (Falência)';
+                corClass = 'from-red-600 to-red-700';
+                recomendacao = 'CRÍTICO: Necessária terapia renal substitutiva (hemodiálise, diálise peritoneal) ou transplante renal. Controle rigoroso de líquidos e eletrólitos.';
+            }
+            
+            const resultArea = document.getElementById('result-area');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.innerHTML = `
+                <div class="bg-gradient-to-br ${corClass} text-white p-6 rounded-lg text-center mb-6">
+                    <div class="text-sm opacity-90 mb-2 uppercase tracking-wide">Clearance de Creatinina</div>
+                    <div class="text-5xl font-bold mb-2">${clearance.toFixed(1)} <span class="text-2xl">mL/min</span></div>
+                    <div class="text-lg opacity-95">${estagio}</div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-bold text-gray-700 mb-3 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        Dados Utilizados
+                    </h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Idade:</span>
+                            <strong>${idade} anos</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Peso:</span>
+                            <strong>${peso.toFixed(1)} kg</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Sexo:</span>
+                            <strong>${sexo === 'masculino' ? 'Masculino (K=1.23)' : 'Feminino (K=1.04)'}</strong>
+                        </div>
+                        <div class="flex justify-between pb-2 border-b border-gray-200">
+                            <span>Creatinina Sérica:</span>
+                            <strong>${creatinina.toFixed(2)} mg/dL</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mb-4">
+                    <h4 class="font-bold text-blue-900 mb-2">Classificação</h4>
+                    <p class="text-sm text-blue-800 font-semibold">${classificacao}</p>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded">
+                    <h4 class="font-bold text-gray-700 mb-2">Recomendações</h4>
+                    <p class="text-sm text-gray-700">${recomendacao}</p>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mt-4">
+                    <p class="text-xs text-blue-800">
+                        <strong>Importante:</strong> A fórmula de Cockcroft-Gault é uma estimativa. Para avaliação precisa, considere dosagem de clearance em urina de 24h ou outras fórmulas (MDRD, CKD-EPI). Sempre correlacione com quadro clínico completo.
+                    </p>
+                </div>
+            `;
+            
+            resultArea.classList.remove('hidden');
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        document.getElementById('clearance-form').addEventListener('reset', function() {
+            setTimeout(() => {
+                document.getElementById('result-area').classList.add('hidden');
+            }, 100);
+        });
+        
+        // ============================================================
+        // FUNÇÕES DE EXPORTAÇÃO E CÓPIA
+        // ============================================================
+        
+        /**
+         * Copia o resultado do clearance de creatinina para a área de transferência
+         */
+        function copiarResultado() {
+            const resultContent = document.getElementById('result-content');
+            if (!resultContent || resultContent.innerHTML === '') {
+                mostrarModalFeedback('❌ Nenhum resultado disponível para copiar', 'error');
+                return;
+            }
+            
+            // Extrai dados do resultado
+            const clearanceEl = resultContent.querySelector('.text-5xl');
+            const estagioEl = resultContent.querySelector('.text-lg');
+            const clearance = clearanceEl?.textContent.match(/[\d.]+/)?.[0] || '0';
+            const estagio = estagioEl?.textContent.trim() || 'N/A';
+            
+            // Extrai dados utilizados
+            const dadosUtilizados = Array.from(resultContent.querySelectorAll('.flex.justify-between strong'))
+                .map(el => el.textContent.trim());
+            
+            const texto = `
+═══════════════════════════════════════════
+    CLEARANCE DE CREATININA
+    (Fórmula de Cockcroft-Gault)
+═══════════════════════════════════════════
+
+📊 RESULTADO:
+   Clearance de Creatinina: ${clearance} mL/min
+   Classificação: ${estagio}
+
+📋 DADOS UTILIZADOS:
+   • Idade: ${dadosUtilizados[0] || 'N/A'}
+   • Peso: ${dadosUtilizados[1] || 'N/A'}
+   • Sexo: ${dadosUtilizados[2] || 'N/A'}
+   • Creatinina Sérica: ${dadosUtilizados[3] || 'N/A'}
+
+═══════════════════════════════════════════
+Calculado em: ${new Date().toLocaleString('pt-BR')}
+Fonte: Calculadoras de Enfermagem
+www.calculadorasdeenfermagem.com.br
+═══════════════════════════════════════════
+
+⚠️ IMPORTANTE: A fórmula de Cockcroft-Gault é uma
+estimativa. Para avaliação precisa, considere outras
+fórmulas (MDRD, CKD-EPI) ou clearance em urina de 24h.
+            `.trim();
+            
+            navigator.clipboard.writeText(texto)
+                .then(() => {
+                    mostrarModalFeedback('✅ Resultado copiado com sucesso!', 'success');
+                })
+                .catch(() => {
+                    mostrarModalFeedback('❌ Erro ao copiar resultado', 'error');
+                });
+        }
+        
+        /**
+         * Exporta o resultado do clearance de creatinina para PDF
+         */
+        function exportarPDF() {
+            const resultContent = document.getElementById('result-content');
+            if (!resultContent || resultContent.innerHTML === '') {
+                mostrarModalFeedback('❌ Nenhum resultado disponível para exportar', 'error');
+                return;
+            }
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Extrai dados
+                const clearanceEl = resultContent.querySelector('.text-5xl');
+                const estagioEl = resultContent.querySelector('.text-lg');
+                const classificacaoEl = resultContent.querySelector('.bg-blue-50 p');
+                const recomendacaoEl = resultContent.querySelector('.bg-gray-50 p');
+                
+                const clearance = clearanceEl?.textContent.match(/[\d.]+/)?.[0] || '0';
+                const estagio = estagioEl?.textContent.trim() || 'N/A';
+                const classificacao = classificacaoEl?.textContent.trim() || '';
+                const recomendacao = recomendacaoEl?.textContent.trim() || '';
+                
+                // Extrai dados utilizados
+                const dadosTextos = Array.from(resultContent.querySelectorAll('.flex.justify-between'))
+                    .map(el => ({
+                        label: el.querySelector('span')?.textContent.replace(':', '').trim() || '',
+                        value: el.querySelector('strong')?.textContent.trim() || ''
+                    }));
+                
+                // Cabeçalho
+                doc.setFillColor(26, 62, 116);
+                doc.rect(0, 0, 210, 40, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(22);
+                doc.text('Clearance de Creatinina', 105, 20, { align: 'center' });
+                doc.setFontSize(12);
+                doc.text('Fórmula de Cockcroft-Gault', 105, 30, { align: 'center' });
+                
+                // Conteúdo
+                doc.setTextColor(0, 0, 0);
+                let yPos = 55;
+                
+                // Resultado
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Resultado', 20, yPos);
+                yPos += 10;
+                
+                doc.setFontSize(20);
+                doc.setTextColor(26, 62, 116);
+                doc.text(`${clearance} mL/min`, 20, yPos);
+                yPos += 8;
+                
+                doc.setFontSize(12);
+                doc.setTextColor(0, 0, 0);
+                doc.setFont(undefined, 'normal');
+                doc.text(estagio, 20, yPos);
+                yPos += 15;
+                
+                // Dados Utilizados
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Dados Utilizados', 20, yPos);
+                yPos += 10;
+                
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                dadosTextos.forEach(dado => {
+                    doc.text(`${dado.label}: ${dado.value}`, 20, yPos);
+                    yPos += 7;
+                });
+                yPos += 8;
+                
+                // Classificação
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Classificação', 20, yPos);
+                yPos += 10;
+                
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                const linhasClass = doc.splitTextToSize(classificacao, 170);
+                doc.text(linhasClass, 20, yPos);
+                yPos += (linhasClass.length * 7) + 10;
+                
+                // Recomendações
+                doc.setFontSize(16);
+                doc.setFont(undefined, 'bold');
+                doc.text('Recomendações', 20, yPos);
+                yPos += 10;
+                
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                const linhasRec = doc.splitTextToSize(recomendacao, 170);
+                doc.text(linhasRec, 20, yPos);
+                yPos += (linhasRec.length * 7) + 15;
+                
+                // Aviso
+                doc.setFillColor(219, 234, 254);
+                doc.rect(15, yPos, 180, 30, 'F');
+                doc.setFontSize(10);
+                doc.setFont(undefined, 'bold');
+                doc.text('⚠️ IMPORTANTE', 20, yPos + 8);
+                doc.setFont(undefined, 'normal');
+                const avisoTexto = 'A fórmula de Cockcroft-Gault é uma estimativa. Para avaliação precisa, considere dosagem de clearance em urina de 24h ou outras fórmulas (MDRD, CKD-EPI). Sempre correlacione com quadro clínico completo.';
+                const linhasAviso = doc.splitTextToSize(avisoTexto, 170);
+                doc.text(linhasAviso, 20, yPos + 15);
+                
+                // Rodapé
+                doc.setFontSize(9);
+                doc.setTextColor(100, 100, 100);
+                doc.text(`Gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 280);
+                doc.text('Calculadoras de Enfermagem - www.calculadorasdeenfermagem.com.br', 20, 285);
+                
+                // Salvar PDF
+                doc.save('clearance-creatinina.pdf');
+                mostrarModalFeedback('✅ PDF gerado com sucesso!', 'success');
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                mostrarModalFeedback('❌ Erro ao gerar PDF', 'error');
+            }
+        }
+    </script>
+
+</body>
+</html>

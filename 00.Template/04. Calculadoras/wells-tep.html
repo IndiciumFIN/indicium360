@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escore de Wells para TEP (Tromboembolismo Pulmonar) - Enfermagem Prática</title>
+    <meta name="description" content="Calculadora do Escore de Wells para avaliação de probabilidade de Tromboembolismo Pulmonar (TEP). Estratifique o risco e determine a necessidade de investigação complementar.">
+    <meta name="keywords" content="Wells TEP, tromboembolismo pulmonar, embolia pulmonar, escore wells, TEP, D-dímero, diagnóstico TEP, probabilidade clínica">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- jsPDF para geração de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- VLibras -->    <!-- Google Analytics com Consent Mode V2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'functionality_storage': 'denied',
+            'personalization_storage': 'denied',
+            'security_storage': 'granted',
+            'wait_for_update': 500
+        });
+        
+        gtag('js', new Date());
+        gtag('config', 'G-8FLJ59XXDK');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FLJ59XXDK"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6472730056006847" crossorigin="anonymous"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header será injetado aqui -->
+    <div id="header-placeholder"></div>
+
+    <!-- Modal de Feedback -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-sm mx-4 transform transition-all">
+            <div id="modalContent" class="text-center"></div>
+            <button onclick="fecharModal()" class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 py-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Título e Descrição -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold mb-4" style="color: #1A3E74;">
+                    Escore de Wells para TEP (Tromboembolismo Pulmonar)
+                </h1>
+                <p class="text-gray-700 leading-relaxed">
+                    O <strong>Escore de Wells para TEP</strong> é uma ferramenta validada para estimar a probabilidade 
+                    clínica de <strong>Tromboembolismo Pulmonar</strong> em pacientes com suspeita diagnóstica. Auxilia na 
+                    tomada de decisão sobre investigação complementar (D-dímero, angiotomografia de tórax), permitindo 
+                    estratificação de risco e abordagem diagnóstica racional.
+                </p>
+            </div>
+
+            <!-- Grid Principal: 2 colunas + sidebar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Coluna 1: Critérios de Wells -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📋 Critérios de Wells para TEP
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="sinaisTvp" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="3">
+                                <span class="text-sm">
+                                    <strong>Sinais clínicos de TVP</strong> <span class="text-blue-600 font-semibold">(+3)</span><br>
+                                    <span class="text-xs text-gray-600">(Edema, dor, empastamento em panturrilha)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="tepMaisProvavel" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="3">
+                                <span class="text-sm">
+                                    <strong>TEP é o diagnóstico mais provável</strong> <span class="text-blue-600 font-semibold">(+3)</span><br>
+                                    <span class="text-xs text-gray-600">(Não há outra explicação alternativa)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="taquicardia" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1.5">
+                                <span class="text-sm">
+                                    <strong>FC > 100 bpm</strong> <span class="text-blue-600 font-semibold">(+1,5)</span><br>
+                                    <span class="text-xs text-gray-600">(Taquicardia)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="imobilizacao" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1.5">
+                                <span class="text-sm">
+                                    <strong>Imobilização ≥ 3 dias ou cirurgia recente</strong> <span class="text-blue-600 font-semibold">(+1,5)</span><br>
+                                    <span class="text-xs text-gray-600">(Últimas 4 semanas)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="historiaPrevia" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1.5">
+                                <span class="text-sm">
+                                    <strong>História prévia de TVP ou TEP</strong> <span class="text-blue-600 font-semibold">(+1,5)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="hemoptise" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Hemoptise</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Sangue no escarro)</span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-start cursor-pointer">
+                                <input type="checkbox" id="cancer" class="mt-1 mr-3 w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500" data-pontos="1">
+                                <span class="text-sm">
+                                    <strong>Câncer ativo</strong> <span class="text-blue-600 font-semibold">(+1)</span><br>
+                                    <span class="text-xs text-gray-600">(Tratamento atual ou últimos 6 meses)</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button 
+                        onclick="calcularWellsTEP()" 
+                        class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-700 hover:to-blue-800 transition duration-300 shadow-md"
+                    >
+                        Calcular Escore de Wells
+                    </button>
+                    
+                    <button 
+                        onclick="limparFormulario()" 
+                        class="w-full mt-3 bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300"
+                    >
+                        Limpar
+                    </button>
+                </div>
+
+                <!-- Coluna 2: Resultados -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                        📊 Resultado
+                    </h2>
+                    
+                    <div id="resultado" class="text-center py-8 text-gray-400">
+                        Marque os critérios presentes para calcular o escore de Wells
+                    </div>
+                    
+                    <div id="probabilidade" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Probabilidade Clínica de TEP</h3>
+                        <div id="probabilidadeConteudo" class="text-sm text-gray-700"></div>
+                    </div>
+                    
+                    <div id="conduta" class="mt-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">Conduta Diagnóstica</h3>
+                        <div id="condutaConteudo" class="text-sm text-gray-700 space-y-2"></div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div id="botoesAcao" class="hidden flex gap-3 mt-6">
+                        <button onclick="copiarResultado()" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📋</span>
+                            <span>Copiar Resultados</span>
+                        </button>
+                        <button onclick="exportarPDF()" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300 text-sm font-medium flex items-center justify-center gap-2">
+                            <span>📄</span>
+                            <span>Exportar PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Informações Adicionais -->
+                <div class="space-y-6">
+                    <!-- Interpretação -->
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            📊 Interpretação do Escore
+                        </h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2 bg-green-100 rounded border-l-4 border-green-500">
+                                <p class="font-semibold text-green-800">< 2 pontos: BAIXA probabilidade</p>
+                                <p class="text-green-700">TEP improvável (~10%)</p>
+                            </div>
+                            <div class="p-2 bg-yellow-100 rounded border-l-4 border-yellow-500">
+                                <p class="font-semibold text-yellow-800">2-6 pontos: MODERADA probabilidade</p>
+                                <p class="text-yellow-700">TEP possível (~30%)</p>
+                            </div>
+                            <div class="p-2 bg-red-100 rounded border-l-4 border-red-500">
+                                <p class="font-semibold text-red-800">> 6 pontos: ALTA probabilidade</p>
+                                <p class="text-red-700">TEP provável (~65%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sinais e Sintomas -->
+                    <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            🩺 Manifestações Clínicas do TEP
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Dispneia súbita</strong> (mais comum)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Dor torácica pleurítica</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Taquicardia</strong> (FC > 100bpm)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Hemoptise</strong> (raro, mas específico)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Síncope</strong> (TEP maciço)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Taquipneia</strong> (FR > 20irpm)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-600 mr-2">•</span>
+                                <span><strong>Hipoxemia</strong> (SatO₂ < 90%)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Fatores de Risco -->
+                    <div class="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-semibold mb-3" style="color: #1A3E74;">
+                            ⚠️ Fatores de Risco para TEP
+                        </h3>
+                        <ul class="text-xs text-gray-700 space-y-1">
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Cirurgia ortopédica (prótese quadril/joelho)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Imobilização prolongada</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Câncer ativo</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>TVP prévia ou TEP prévio</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Trombofilias hereditárias</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Anticoncepcionais orais</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Gestação e puerpério</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-amber-600 mr-2">•</span>
+                                <span>Insuficiência cardíaca</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações Científicas -->
+            <div class="mt-6 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4" style="color: #1A3E74;">
+                    📚 Fundamentação Científica e Conduta
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Algoritmo Diagnóstico</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• <strong>Baixa probabilidade:</strong> D-dímero</li>
+                            <li>&nbsp;&nbsp;- Se negativo: TEP excluído</li>
+                            <li>&nbsp;&nbsp;- Se positivo: AngioTC tórax</li>
+                            <li>• <strong>Moderada probabilidade:</strong> D-dímero</li>
+                            <li>&nbsp;&nbsp;- Se negativo: TEP improvável</li>
+                            <li>&nbsp;&nbsp;- Se positivo: AngioTC tórax</li>
+                            <li>• <strong>Alta probabilidade:</strong> AngioTC direto</li>
+                            <li>&nbsp;&nbsp;- Não aguardar D-dímero</li>
+                            <li>&nbsp;&nbsp;- Considerar anticoagulação empírica</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Tratamento do TEP</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• <strong>Anticoagulação imediata</strong> se alta probabilidade</li>
+                            <li>• Heparina não fracionada (TEP maciço)</li>
+                            <li>• HBPM (enoxaparina 1mg/kg 12/12h)</li>
+                            <li>• Rivaroxabana 15mg 12/12h (15 dias)</li>
+                            <li>• Apixabana 10mg 12/12h (7 dias)</li>
+                            <li>• Trombólise se instabilidade hemodinâmica</li>
+                            <li>• Embolectomia se contraindicação trombolítico</li>
+                            <li>• Anticoagulação por 3-6 meses (mínimo)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Cuidados de Enfermagem</h3>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Oxigenoterapia (manter SatO₂ > 92%)</li>
+                            <li>• Monitorizar sinais vitais (PA, FC, FR, SatO₂)</li>
+                            <li>• Repouso no leito inicialmente</li>
+                            <li>• Observar sinais de instabilidade hemodinâmica</li>
+                            <li>• Atentar para sangramentos (anticoagulação)</li>
+                            <li>• Controle rigoroso de TTPa ou anti-Xa</li>
+                            <li>• Educação sobre sinais de alerta</li>
+                            <li>• Suporte emocional (diagnóstico grave)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer será injetado aqui -->
+    <div id="footer-placeholder"></div>
+
+    <!-- VLibras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>    <!-- Scripts -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    <script>
+        // Inicializa Google Analytics
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        }
+    </script>
+    <script>
+        // Variáveis globais para armazenar resultados
+        let ultimoPontos = 0;
+        let ultimaClassificacao = '';
+        let ultimaPrevalencia = '';
+
+        // Injetar Header e Footer
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof injectHeader === 'function') injectHeader();
+            if (typeof injectFooter === 'function') injectFooter();
+        });
+
+        // Função para calcular escore de Wells para TEP
+        function calcularWellsTEP() {
+            let pontos = 0;
+            
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    pontos += parseFloat(checkbox.dataset.pontos);
+                }
+            });
+            
+            exibirResultado(pontos);
+        }
+        
+        function exibirResultado(pontos) {
+            const resultadoDiv = document.getElementById('resultado');
+            const probabilidadeDiv = document.getElementById('probabilidade');
+            const condutaDiv = document.getElementById('conduta');
+            const probabilidadeConteudo = document.getElementById('probabilidadeConteudo');
+            const condutaConteudo = document.getElementById('condutaConteudo');
+            const botoesAcao = document.getElementById('botoesAcao');
+            
+            // Classificar probabilidade
+            let classificacao = '';
+            let descricao = '';
+            let prevalencia = '';
+            let cor = '';
+            
+            if (pontos < 2) {
+                classificacao = 'BAIXA PROBABILIDADE';
+                descricao = 'TEP improvável';
+                prevalencia = '~10%';
+                cor = '#10B981'; // Verde
+            } else if (pontos <= 6) {
+                classificacao = 'PROBABILIDADE MODERADA';
+                descricao = 'TEP possível';
+                prevalencia = '~30%';
+                cor = '#EAB308'; // Amarelo
+            } else {
+                classificacao = 'ALTA PROBABILIDADE';
+                descricao = 'TEP provável';
+                prevalencia = '~65%';
+                cor = '#EF4444'; // Vermelho
+            }
+
+            // Armazenar valores globais
+            ultimoPontos = pontos;
+            ultimaClassificacao = classificacao;
+            ultimaPrevalencia = prevalencia;
+            
+            // Resultado principal
+            resultadoDiv.innerHTML = `
+                <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg p-6">
+                    <p class="text-sm text-gray-600 mb-2">Escore de Wells para TEP</p>
+                    <p class="text-5xl font-bold mb-2" style="color: #1A3E74;">
+                        ${pontos.toFixed(1)} <span class="text-xl">pontos</span>
+                    </p>
+                    <div class="mt-4 p-4 rounded-lg" style="background-color: ${cor}20; border: 2px solid ${cor};">
+                        <p class="text-lg font-bold" style="color: ${cor};">
+                            ${classificacao}
+                        </p>
+                        <p class="text-sm mt-1" style="color: ${cor};">
+                            ${descricao} (Prevalência: ${prevalencia})
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            // Probabilidade detalhada
+            probabilidadeConteudo.innerHTML = `
+                <div class="p-4 rounded-lg" style="background-color: ${cor}15; border-left: 4px solid ${cor};">
+                    <p class="font-semibold text-gray-800 mb-2">Risco de TEP:</p>
+                    <div class="space-y-1 text-xs">
+                        <p><strong>Prevalência estimada:</strong> ${prevalencia}</p>
+                        <p><strong>Probabilidade pré-teste:</strong> ${pontos < 2 ? 'Baixa' : pontos <= 6 ? 'Moderada' : 'Alta'}</p>
+                        <p><strong>Necessidade de investigação:</strong> ${pontos < 2 ? 'D-dímero' : pontos <= 6 ? 'D-dímero' : 'AngioTC direta'}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Conduta baseada na probabilidade
+            let condutaHTML = '';
+            
+            if (pontos < 2) {
+                condutaHTML = `
+                    <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800">✓ Baixa Probabilidade - Solicitar D-dímero</p>
+                        <ul class="text-green-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>1ª etapa: Solicitar D-dímero</strong></li>
+                            <li>• Se D-dímero <strong>NEGATIVO</strong> (< 500 ng/mL):</li>
+                            <li>&nbsp;&nbsp;→ <strong>TEP EXCLUÍDO</strong> com segurança</li>
+                            <li>&nbsp;&nbsp;→ Não necessita investigação adicional</li>
+                            <li>&nbsp;&nbsp;→ Buscar diagnósticos alternativos</li>
+                            <li>• Se D-dímero <strong>POSITIVO</strong> (≥ 500 ng/mL):</li>
+                            <li>&nbsp;&nbsp;→ Solicitar <strong>AngioTC de tórax</strong></li>
+                            <li>&nbsp;&nbsp;→ Considerar anticoagulação empírica se instável</li>
+                            <li>• Manter oxigenoterapia (SatO₂ > 92%)</li>
+                            <li>• Reavaliação clínica contínua</li>
+                        </ul>
+                    </div>
+                `;
+            } else if (pontos <= 6) {
+                condutaHTML = `
+                    <div class="p-3 bg-yellow-50 border-l-4 border-yellow-500 rounded">
+                        <p class="font-semibold text-yellow-800">⚠️ Probabilidade Moderada - Investigar</p>
+                        <ul class="text-yellow-700 text-xs mt-2 space-y-1">
+                            <li>• <strong>1ª etapa: Solicitar D-dímero</strong></li>
+                            <li>• Se D-dímero <strong>NEGATIVO</strong>:</li>
+                            <li>&nbsp;&nbsp;→ TEP improvável (mas não totalmente excluído)</li>
+                            <li>&nbsp;&nbsp;→ Observação clínica e reavaliação</li>
+                            <li>• Se D-dímero <strong>POSITIVO</strong>:</li>
+                            <li>&nbsp;&nbsp;→ <strong>AngioTC de tórax OBRIGATÓRIA</strong></li>
+                            <li>&nbsp;&nbsp;→ Considerar anticoagulação empírica se:</li>
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;- Instabilidade hemodinâmica</li>
+                            <li>&nbsp;&nbsp;&nbsp;&nbsp;- Demora para AngioTC > 4h</li>
+                            <li>• <strong>Anticoagulação empírica:</strong></li>
+                            <li>&nbsp;&nbsp;- Enoxaparina 1mg/kg SC 12/12h, OU</li>
+                            <li>&nbsp;&nbsp;- Rivaroxabana 15mg VO 12/12h</li>
+                            <li>• Oxigenoterapia + monitorização contínua</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                condutaHTML = `
+                    <div class="p-3 bg-red-50 border-l-4 border-red-700 rounded">
+                        <p class="font-semibold text-red-900">🚨 Alta Probabilidade - URGÊNCIA</p>
+                        <ul class="text-red-800 text-xs mt-2 space-y-1">
+                            <li>• <strong>NÃO AGUARDAR D-dímero</strong></li>
+                            <li>• <strong>INICIAR ANTICOAGULAÇÃO IMEDIATAMENTE</strong></li>
+                            <li>• <strong>Solicitar AngioTC de tórax URGENTE</strong></li>
+                            <li>• <strong>Anticoagulação inicial (escolher uma):</strong></li>
+                            <li>&nbsp;&nbsp;- Heparina NF 80 UI/kg bolus + 18 UI/kg/h (se instável)</li>
+                            <li>&nbsp;&nbsp;- Enoxaparina 1mg/kg SC 12/12h (se estável)</li>
+                            <li>&nbsp;&nbsp;- Rivaroxabana 15mg VO 12/12h</li>
+                            <li>• <strong>Se instabilidade hemodinâmica (TEP maciço):</strong></li>
+                            <li>&nbsp;&nbsp;→ Considerar <strong>TROMBÓLISE</strong> (Alteplase 100mg EV 2h)</li>
+                            <li>&nbsp;&nbsp;→ Transferir para UTI</li>
+                            <li>&nbsp;&nbsp;→ Suporte inotrópico se necessário</li>
+                            <li>• Oxigenoterapia (manter SatO₂ > 92%)</li>
+                            <li>• Monitorização hemodinâmica rigorosa</li>
+                            <li>• ECG (afastar sobrecarga VD: S1Q3T3)</li>
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            // Adicionar orientações gerais
+            condutaHTML += `
+                <div class="p-3 bg-blue-50 border-l-4 border-blue-500 rounded mt-2">
+                    <p class="font-semibold text-blue-800">📊 Exames Complementares</p>
+                    <ul class="text-blue-700 text-xs mt-1 space-y-1">
+                        <li>• <strong>D-dímero:</strong> VPN 95% se < 500 ng/mL (baixa probabilidade)</li>
+                        <li>• <strong>AngioTC tórax:</strong> Padrão-ouro (sensibilidade 90-95%)</li>
+                        <li>• <strong>ECG:</strong> S1Q3T3 (sobrecarga VD), taquicardia sinusal</li>
+                        <li>• <strong>Gasometria:</strong> Hipoxemia, alcalose respiratória</li>
+                        <li>• <strong>Troponina/BNP:</strong> Elevados em disfunção VD</li>
+                        <li>• <strong>Ecocardiograma:</strong> Avaliar função VD (TEP maciço)</li>
+                    </ul>
+                </div>
+            `;
+            
+            condutaConteudo.innerHTML = condutaHTML;
+            probabilidadeDiv.classList.remove('hidden');
+            condutaDiv.classList.remove('hidden');
+            botoesAcao.classList.remove('hidden');
+        }
+        
+        function limparFormulario() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            
+            document.getElementById('resultado').innerHTML = '<div class="text-center py-8 text-gray-400">Marque os critérios presentes para calcular o escore de Wells</div>';
+            document.getElementById('probabilidade').classList.add('hidden');
+            document.getElementById('conduta').classList.add('hidden');
+            document.getElementById('botoesAcao').classList.add('hidden');
+        }
+
+        // Função para copiar resultado
+        function copiarResultado() {
+            const criteriosMarcados = [];
+            if (document.getElementById('sinaisTvp').checked) criteriosMarcados.push('Sinais clinicos de TVP (+3)');
+            if (document.getElementById('tepMaisProvavel').checked) criteriosMarcados.push('TEP e o diagnostico mais provavel (+3)');
+            if (document.getElementById('taquicardia').checked) criteriosMarcados.push('FC > 100 bpm (+1,5)');
+            if (document.getElementById('imobilizacao').checked) criteriosMarcados.push('Imobilizacao >= 3 dias ou cirurgia recente (+1,5)');
+            if (document.getElementById('historiaPrevia').checked) criteriosMarcados.push('Historia previa de TVP ou TEP (+1,5)');
+            if (document.getElementById('hemoptise').checked) criteriosMarcados.push('Hemoptise (+1)');
+            if (document.getElementById('cancer').checked) criteriosMarcados.push('Cancer ativo (+1)');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            const texto = `ESCORE DE WELLS PARA TEP
+========================================
+
+Data/Hora: ${dataHora}
+
+CRITERIOS PRESENTES:
+${criteriosMarcados.map(c => '• ' + c).join('\n')}
+
+RESULTADO:
+Escore de Wells: ${ultimoPontos.toFixed(1)} pontos
+Classificacao: ${ultimaClassificacao}
+Prevalencia: ${ultimaPrevalencia}
+
+CONDUTA DIAGNOSTICA:
+${ultimoPontos < 2 ? 'Baixa Probabilidade - Solicitar D-dimero' : 
+  ultimoPontos <= 6 ? 'Probabilidade Moderada - Solicitar D-dimero' : 
+  'Alta Probabilidade - AngioTC direta + Anticoagulacao'}
+
+========================================
+Gerado por: Enfermagem Pratica
+Site: enfermagempratica.com.br`;
+
+            navigator.clipboard.writeText(texto).then(() => {
+                mostrarModal('✅ Resultados copiados com sucesso!', 'success');
+            }).catch(err => {
+                mostrarModal('❌ Erro ao copiar resultados. Tente novamente.', 'error');
+            });
+        }
+
+        // Função para exportar PDF
+        function exportarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const criteriosMarcados = [];
+            if (document.getElementById('sinaisTvp').checked) criteriosMarcados.push('Sinais clinicos de TVP (+3)');
+            if (document.getElementById('tepMaisProvavel').checked) criteriosMarcados.push('TEP e o diagnostico mais provavel (+3)');
+            if (document.getElementById('taquicardia').checked) criteriosMarcados.push('FC > 100 bpm (+1,5)');
+            if (document.getElementById('imobilizacao').checked) criteriosMarcados.push('Imobilizacao >= 3 dias ou cirurgia recente (+1,5)');
+            if (document.getElementById('historiaPrevia').checked) criteriosMarcados.push('Historia previa de TVP ou TEP (+1,5)');
+            if (document.getElementById('hemoptise').checked) criteriosMarcados.push('Hemoptise (+1)');
+            if (document.getElementById('cancer').checked) criteriosMarcados.push('Cancer ativo (+1)');
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            
+            // Cabeçalho
+            doc.setFillColor(26, 62, 116);
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont(undefined, 'bold');
+            doc.text('ESCORE DE WELLS PARA TEP', 105, 15, { align: 'center' });
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            doc.text('(Tromboembolismo Pulmonar)', 105, 23, { align: 'center' });
+            doc.text('Enfermagem Pratica', 105, 32, { align: 'center' });
+            
+            // Data
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(9);
+            doc.text(`Data/Hora: ${dataHora}`, 14, 50);
+            
+            // Critérios presentes
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CRITERIOS PRESENTES:', 14, 62);
+            
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            let yPos = 70;
+            criteriosMarcados.forEach(criterio => {
+                doc.text(`• ${criterio}`, 20, yPos);
+                yPos += 6;
+            });
+            
+            // Resultado
+            yPos += 8;
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('RESULTADO:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(`Escore de Wells: ${ultimoPontos.toFixed(1)} pontos`, 20, yPos);
+            
+            yPos += 8;
+            const cor = ultimoPontos < 2 ? [16, 185, 129] : ultimoPontos <= 6 ? [234, 179, 8] : [239, 68, 68];
+            doc.setTextColor(cor[0], cor[1], cor[2]);
+            doc.text(`Classificacao: ${ultimaClassificacao}`, 20, yPos);
+            
+            yPos += 6;
+            doc.setFontSize(10);
+            doc.text(`Prevalencia de TEP: ${ultimaPrevalencia}`, 20, yPos);
+            
+            // Conduta diagnóstica
+            yPos += 12;
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'bold');
+            doc.text('CONDUTA DIAGNOSTICA:', 14, yPos);
+            
+            yPos += 8;
+            doc.setFontSize(10);
+            doc.setFont(undefined, 'normal');
+            
+            if (ultimoPontos < 2) {
+                doc.text('Baixa Probabilidade:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Solicitar D-dimero',
+                    'Se D-dimero < 500 ng/mL: TEP excluido',
+                    'Se D-dimero >= 500 ng/mL: AngioTC torax',
+                    'Oxigenoterapia se necessario',
+                    'Reavaliacao clinica continua'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else if (ultimoPontos <= 6) {
+                doc.text('Probabilidade Moderada:', 20, yPos);
+                yPos += 6;
+                const condutas = [
+                    'Solicitar D-dimero',
+                    'Se D-dimero positivo: AngioTC torax',
+                    'Considerar anticoagulacao empirica se instavel',
+                    'Enoxaparina 1mg/kg SC 12/12h',
+                    'Monitorizacao continua'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            } else {
+                doc.setFont(undefined, 'bold');
+                doc.text('Alta Probabilidade - URGENCIA:', 20, yPos);
+                doc.setFont(undefined, 'normal');
+                yPos += 6;
+                const condutas = [
+                    'NAO AGUARDAR D-dimero',
+                    'INICIAR ANTICOAGULACAO IMEDIATAMENTE',
+                    'AngioTC de torax URGENTE',
+                    'Heparina ou Enoxaparina',
+                    'Se instavel: considerar TROMBÓLISE'
+                ];
+                condutas.forEach(item => {
+                    doc.text(`• ${item}`, 25, yPos);
+                    yPos += 5;
+                });
+            }
+            
+            // Rodapé
+            doc.setFontSize(8);
+            doc.setTextColor(128, 128, 128);
+            doc.text('Gerado por: Enfermagem Pratica - enfermagempratica.com.br', 105, 285, { align: 'center' });
+            doc.text('Este documento e apenas informativo e nao substitui avaliacao medica.', 105, 290, { align: 'center' });
+            
+            // Salvar PDF
+            doc.save(`wells-tep-${Date.now()}.pdf`);
+            mostrarModal('✅ PDF gerado com sucesso!', 'success');
+        }
+
+        // Função para mostrar modal
+        function mostrarModal(mensagem, tipo) {
+            const modal = document.getElementById('feedbackModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const icone = tipo === 'success' ? '✅' : '❌';
+            const cor = tipo === 'success' ? 'text-green-600' : 'text-red-600';
+            
+            modalContent.innerHTML = `
+                <div class="${cor} text-4xl mb-3">${icone}</div>
+                <p class="text-gray-800 font-medium">${mensagem}</p>
+            `;
+            
+            modal.classList.remove('hidden');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Função para fechar modal
+        function fecharModal() {
+            document.getElementById('feedbackModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

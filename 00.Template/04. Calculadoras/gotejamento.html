@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Gotejamento de Soro - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Calcule o gotejamento de soro em gotas por minuto (gpm) ou microgotas conforme volume e tempo prescritos">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/04. Calculadoras/gotejamento.html" />
+    
+    <!-- Schema.org - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Gotejamento de Soro",
+        "description": "Calcule o gotejamento de soro em gotas por minuto (gpm) ou microgotas",
+        "url": "https://www.calculadorasdeenfermagem.com.br/04. Calculadoras/gotejamento.html",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Calculadoras de Enfermagem",
+            "url": "https://www.calculadorasdeenfermagem.com.br"
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado (Header/Footer) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Modais Institucionais -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Esconde as setas de inputs do tipo número */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        /* Garante que o main não seja sobreposto pelo header */
+        #calculator-main-content {
+            margin-top: 0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT - Área da Calculadora -->
+    <main id="calculator-main-content">
+        <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+            
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <button id="btn-voltar" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 bg-[#1A3E74] hover:bg-[#2a5a9e] px-4 py-2 text-sm mb-4 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar
+                </button>
+                <div class="bg-[#1A3E74] text-white p-6 rounded-xl flex items-center justify-between shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold">Calculadora de Gotejamento</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Coluna Principal (Formulário e Resultados) -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Formulário -->
+                    <form id="calc-form" class="space-y-6">
+                        
+                        <!-- Dados do Paciente -->
+                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-200 shadow-inner">
+                            <h3 class="font-semibold text-gray-800 mb-3">Dados do Paciente</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="patient_name" class="block text-sm font-medium text-gray-700">Nome do Paciente</label>
+                                    <input id="patient_name" type="text" placeholder="Nome completo" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                </div>
+                                <div>
+                                    <label for="patient_birthdate" class="block text-sm font-medium text-gray-700">
+                                        Data de Nascimento
+                                        <span class="text-red-500 ml-1">*</span>
+                                    </label>
+                                    <input id="patient_birthdate" type="date" required class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                    <p class="text-red-600 text-xs mt-1">* Campo obrigatório</p>
+                                    <p id="patient-age-display" class="text-xs text-gray-600 mt-1 font-bold"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Parâmetros do Gotejamento -->
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-300">
+                            <h3 class="font-semibold text-gray-800 mb-4">Parâmetros do Gotejamento</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="volume" class="block text-sm font-medium text-gray-700">
+                                            Volume Prescrito (ml)
+                                            <span class="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <input id="volume" type="number" min="1" step="1" required placeholder="Ex: 500" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74] text-right" style="border: 1px solid #ccc;">
+                                    </div>
+                                    <div>
+                                        <label for="tempo" class="block text-sm font-medium text-gray-700">
+                                            Tempo Prescrito (horas)
+                                            <span class="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <input id="tempo" type="number" min="0.1" step="0.1" required placeholder="Ex: 8" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74] text-right" style="border: 1px solid #ccc;">
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label for="tipo-equipo" class="block text-sm font-medium text-gray-700">
+                                            Tipo de Equipo
+                                            <span class="text-red-500 ml-1">*</span>
+                                        </label>
+                                        <select id="tipo-equipo" required class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                            <option value="">Selecione...</option>
+                                            <option value="macrogotas">Macrogotas (20 gotas/ml)</option>
+                                            <option value="microgotas">Microgotas (60 microgotas/ml)</option>
+                                        </select>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-md border border-blue-200">
+                                        <p class="text-xs text-gray-700">
+                                            <strong>Macrogotas:</strong> Equipo padrão (20 gotas = 1 ml)<br>
+                                            <strong>Microgotas:</strong> Equipo pediátrico/precisão (60 microgotas = 1 ml)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="flex gap-4 pt-4 flex-col sm:flex-row">
+                            <button type="submit" id="btn-calculate" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 flex-1 py-4 text-lg shadow-lg hover:shadow-xl bg-[#1A3E74] text-white disabled:opacity-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="18" x2="12" y2="18"></line></svg>
+                                Calcular
+                            </button>
+                            <button type="reset" id="btn-reset" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 flex-1 py-4 text-lg shadow-sm hover:shadow-md bg-gray-100 text-gray-700" style="border: 1px solid #ccc;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2 text-[#1A3E74]"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>
+                                Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Mensagem de Erro -->
+                    <div id="error-message" class="hidden p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+                    
+                    <!-- Seção de Resultados -->
+                    <div id="results-section" class="hidden space-y-6">
+                        
+                        <!-- Card de Resultado -->
+                        <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <h3 class="bg-[#1A3E74] text-white p-4 font-bold text-xl">Resultado do Cálculo</h3>
+                            <div class="p-6 bg-green-50">
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-white rounded-lg border border-green-300 text-center">
+                                        <p class="text-sm text-gray-600 mb-1">Velocidade de Infusão</p>
+                                        <p id="result-gotejamento" class="text-4xl font-extrabold text-[#1A3E74]">0</p>
+                                        <p id="result-unidade" class="text-lg font-semibold text-gray-700 mt-1">gotas/min</p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="bg-white p-3 rounded-lg border">
+                                            <span class="text-xs text-gray-600">Volume Total:</span>
+                                            <p id="result-volume" class="text-lg font-bold text-gray-800">0 ml</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg border">
+                                            <span class="text-xs text-gray-600">Tempo Total:</span>
+                                            <p id="result-tempo" class="text-lg font-bold text-gray-800">0 h</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs font-bold text-red-700 mt-4 bg-red-100 border border-red-300 p-3 rounded-md">⚠️ Confira sempre a prescrição médica e monitore o paciente regularmente.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card de Auditoria -->
+                        <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <h3 class="bg-[#1A3E74] text-white p-4 font-bold text-xl">Auditoria do Cálculo</h3>
+                            <div class="p-6 text-sm text-gray-600 space-y-4">
+                                <div class="pb-4 border-b border-gray-200">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Dados do Paciente:</h4>
+                                    <ul class="list-disc list-inside ml-2 space-y-1">
+                                        <li id="audit-nome">Nome: Não Informado</li>
+                                        <li id="audit-nascimento">Nascimento: Não Informado</li>
+                                        <li id="audit-idade">Idade: Não Informado</li>
+                                    </ul>
+                                </div>
+                                <div class="pb-4 border-b border-gray-200">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Parâmetros:</h4>
+                                    <ul class="list-disc list-inside ml-2 space-y-1">
+                                        <li id="audit-volume">Volume: 0 ml</li>
+                                        <li id="audit-tempo">Tempo: 0 horas</li>
+                                        <li id="audit-equipo">Tipo de Equipo: Não Informado</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Fórmula:</h4>
+                                    <p id="audit-formula" class="text-xs text-gray-500 bg-gray-50 p-2 rounded font-mono">Aguardando cálculo...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Lateral (Informações e Ações) -->
+                <aside class="space-y-6">
+                    
+                    <!-- Card de Explicação -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm">
+                        <h3 class="font-bold text-lg text-[#1A3E74] mb-3">Como Funciona</h3>
+                        <p class="text-sm text-gray-700 mb-3">O gotejamento é calculado considerando o volume prescrito, tempo de infusão e tipo de equipo utilizado.</p>
+                        <p class="text-xs text-gray-800 font-bold mb-2">Tipos de Equipo:</p>
+                        <ul class="list-disc list-inside ml-2 text-xs text-gray-700 space-y-1">
+                            <li><strong>Macrogotas:</strong> 20 gotas = 1 ml (equipo padrão)</li>
+                            <li><strong>Microgotas:</strong> 60 microgotas = 1 ml (pediátrico)</li>
+                        </ul>
+                        <p class="text-xs font-bold text-blue-700 mt-4 bg-blue-100 border border-blue-300 p-3 rounded-md">Meta 3: Melhorar a segurança na administração de medicamentos - Cálculos corretos previnem erros de infusão.</p>
+                    </div>
+
+                    <!-- Card de Informações -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-300">
+                        <h3 class="font-bold text-lg text-gray-800 mb-3">Informações Técnicas</h3>
+                        <p class="text-sm text-gray-600">Versão: <strong>2.0.0</strong></p>
+                        <p class="text-sm text-gray-600">Categoria: <span>Administração de Medicamentos</span></p>
+                        <div class="text-sm text-gray-600 mt-2">
+                            <span class="font-medium">Fonte: </span><strong class="break-words">Prática Clínica/COFEN</strong>
+                            <p class="mt-1 break-words">Cálculo baseado em fórmulas padronizadas de administração de soluções parenterais.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- VLibras Widget - Injetado via JS -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner - Injetado via JS -->
+    <div id="cookie-banner-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES -->
+    <!-- ============================================================ -->
+    
+    <!-- Componentes Reutilizáveis -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Conversão de Unidades -->
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    
+    <!-- Scripts Gerais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- Template Conteúdo Ferramentas -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    
+    <!-- Cookie Consent -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO DE COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Injeta Skip Links
+            const skipLinksContainer = document.getElementById('skip-links-container');
+            if (skipLinksContainer && typeof renderSkipLinks === 'function') {
+                skipLinksContainer.innerHTML = renderSkipLinks();
+            }
+            
+            // Injeta Top Bar
+            const topbarContainer = document.getElementById('topbar-container');
+            if (topbarContainer && typeof renderTopBar === 'function') {
+                topbarContainer.innerHTML = renderTopBar();
+            }
+            
+            // Injeta Header
+            const headerContainer = document.getElementById('header-container');
+            if (headerContainer && typeof renderHeader === 'function') {
+                headerContainer.innerHTML = renderHeader();
+            }
+            
+            // Injeta Footer
+            const footerContainer = document.getElementById('footer-container');
+            if (footerContainer && typeof renderFooter === 'function') {
+                footerContainer.innerHTML = renderFooter();
+            }
+            
+            // Injeta VLibras
+            const vlibrasContainer = document.getElementById('vlibras-container');
+            if (vlibrasContainer && typeof renderVLibras === 'function') {
+                vlibrasContainer.innerHTML = renderVLibras();
+            }
+            
+            // Injeta Cookie Banner
+            const cookieBannerContainer = document.getElementById('cookie-banner-container');
+            if (cookieBannerContainer && typeof renderCookieBanner === 'function') {
+                cookieBannerContainer.innerHTML = renderCookieBanner();
+            }
+            
+            // Botão Voltar
+            const btnVoltar = document.getElementById('btn-voltar');
+            if (btnVoltar) {
+                btnVoltar.addEventListener('click', () => {
+                    if (document.referrer && document.referrer.includes(window.location.host)) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'https://www.calculadorasdeenfermagem.com.br/';
+                    }
+                });
+            }
+            
+            console.log('✓ Template de Calculadora inicializado');
+        });
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ESPECÍFICO DA CALCULADORA DE GOTEJAMENTO -->
+    <!-- ============================================================ -->
+    <script>
+        // Estado da aplicação
+        const state = {
+            pacienteInfo: { nome: '', dataNascimento: '' },
+            volume: 0,
+            tempo: 0,
+            tipoEquipo: '',
+            resultado: null
+        };
+
+        // Elementos DOM
+        const form = document.getElementById('calc-form');
+        const patientNameInput = document.getElementById('patient_name');
+        const patientBirthdateInput = document.getElementById('patient_birthdate');
+        const patientAgeDisplay = document.getElementById('patient-age-display');
+        const volumeInput = document.getElementById('volume');
+        const tempoInput = document.getElementById('tempo');
+        const tipoEquipoSelect = document.getElementById('tipo-equipo');
+        const btnCalculate = document.getElementById('btn-calculate');
+        const btnReset = document.getElementById('btn-reset');
+        const errorMessage = document.getElementById('error-message');
+        const resultsSection = document.getElementById('results-section');
+
+        // Função auxiliar: Calcular idade
+        function calculateAge(birthDateString) {
+            if (!birthDateString) return 'Não Informado';
+            const birthDate = new Date(birthDateString);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 0) return 'Data Inválida';
+            if (age === 0) {
+                let months = today.getMonth() - birthDate.getMonth();
+                if (today.getDate() < birthDate.getDate()) months--;
+                if (months < 0) months += 12;
+                return `${months} ${months === 1 ? 'mês' : 'meses'}`;
+            }
+            return `${age} ${age === 1 ? 'ano' : 'anos'}`;
+        }
+
+        // Função auxiliar: Formatar data
+        function formatDate(dateString) {
+            if (!dateString) return 'Não Informado';
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        // Atualiza display de idade
+        function updatePatientAgeDisplay() {
+            state.pacienteInfo.dataNascimento = patientBirthdateInput.value;
+            const age = calculateAge(state.pacienteInfo.dataNascimento);
+            patientAgeDisplay.textContent = age !== 'Data Inválida' ? `Idade Calculada: ${age}` : '';
+            btnCalculate.disabled = !state.pacienteInfo.dataNascimento;
+        }
+
+        // Evento: Calcular
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validação
+            if (!state.pacienteInfo.dataNascimento) {
+                errorMessage.textContent = "A Data de Nascimento é obrigatória.";
+                errorMessage.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                return;
+            }
+
+            state.volume = parseFloat(volumeInput.value) || 0;
+            state.tempo = parseFloat(tempoInput.value) || 0;
+            state.tipoEquipo = tipoEquipoSelect.value;
+
+            if (!state.volume || !state.tempo || !state.tipoEquipo) {
+                errorMessage.textContent = "Preencha todos os campos obrigatórios.";
+                errorMessage.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                return;
+            }
+
+            // Cálculo
+            const fatorEquipo = state.tipoEquipo === 'macrogotas' ? 20 : 60;
+            const gotejamento = (state.volume * fatorEquipo) / (state.tempo * 60);
+            const gotejamentoArredondado = Math.round(gotejamento);
+
+            state.resultado = {
+                gotejamento: gotejamentoArredondado,
+                unidade: state.tipoEquipo === 'macrogotas' ? 'gotas/min' : 'microgotas/min',
+                volume: state.volume,
+                tempo: state.tempo,
+                tipoEquipo: state.tipoEquipo === 'macrogotas' ? 'Macrogotas (20 gts/ml)' : 'Microgotas (60 mcgts/ml)',
+                formula: `Gotejamento = (${state.volume} ml × ${fatorEquipo}) / (${state.tempo} h × 60 min) = ${gotejamentoArredondado} ${state.tipoEquipo === 'macrogotas' ? 'gotas/min' : 'microgotas/min'}`
+            };
+
+            // Atualiza UI
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            
+            document.getElementById('result-gotejamento').textContent = state.resultado.gotejamento;
+            document.getElementById('result-unidade').textContent = state.resultado.unidade;
+            document.getElementById('result-volume').textContent = `${state.resultado.volume} ml`;
+            document.getElementById('result-tempo').textContent = `${state.resultado.tempo} h`;
+            
+            // Auditoria
+            document.getElementById('audit-nome').textContent = `Nome: ${state.pacienteInfo.nome || 'Não Informado'}`;
+            document.getElementById('audit-nascimento').textContent = `Nascimento: ${formatDate(state.pacienteInfo.dataNascimento)}`;
+            document.getElementById('audit-idade').textContent = `Idade: ${calculateAge(state.pacienteInfo.dataNascimento)}`;
+            document.getElementById('audit-volume').textContent = `Volume: ${state.resultado.volume} ml`;
+            document.getElementById('audit-tempo').textContent = `Tempo: ${state.resultado.tempo} horas`;
+            document.getElementById('audit-equipo').textContent = `Tipo de Equipo: ${state.resultado.tipoEquipo}`;
+            document.getElementById('audit-formula').textContent = state.resultado.formula;
+        });
+
+        // Evento: Reset
+        form.addEventListener('reset', function() {
+            state.pacienteInfo = { nome: '', dataNascimento: '' };
+            state.resultado = null;
+            patientAgeDisplay.textContent = '';
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+            btnCalculate.disabled = true;
+        });
+
+        // Listeners de input
+        patientNameInput.addEventListener('input', (e) => state.pacienteInfo.nome = e.target.value);
+        patientBirthdateInput.addEventListener('input', updatePatientAgeDisplay);
+
+        // Inicialização
+        updatePatientAgeDisplay();
+    </script>
+
+</body>
+</html>

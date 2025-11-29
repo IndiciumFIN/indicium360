@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Idade Gestacional - Calculadoras de Enfermagem</title>
+    <meta name="description" content="Calcule a idade gestacional em semanas e dias a partir da data da última menstruação (DUM) ou data provável do parto (DPP)">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/04. Calculadoras/idade-gestacional.html" />
+    
+    <!-- Schema.org - WebApplication -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Calculadora de Idade Gestacional",
+        "description": "Calcule a idade gestacional em semanas e dias a partir da DUM ou DPP",
+        "url": "https://www.calculadorasdeenfermagem.com.br/04. Calculadoras/idade-gestacional.html",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "BRL"
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Calculadoras de Enfermagem",
+            "url": "https://www.calculadorasdeenfermagem.com.br"
+        }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Font "Inter" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado (Header/Footer) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Modais Institucionais -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Esconde as setas de inputs do tipo número */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        /* Garante que o main não seja sobreposto pelo header */
+        #calculator-main-content {
+            margin-top: 0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT - Área da Calculadora -->
+    <main id="calculator-main-content">
+        <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+            
+            <!-- Cabeçalho -->
+            <div class="mb-8">
+                <button id="btn-voltar" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 bg-[#1A3E74] hover:bg-[#2a5a9e] px-4 py-2 text-sm mb-4 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    Voltar
+                </button>
+                <div class="bg-[#1A3E74] text-white p-6 rounded-xl flex items-center justify-between shadow-lg">
+                    <h1 class="text-2xl md:text-3xl font-bold">Calculadora de Idade Gestacional</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Coluna Principal (Formulário e Resultados) -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Formulário -->
+                    <form id="calc-form" class="space-y-6">
+                        
+                        <!-- Seletor de Método de Cálculo -->
+                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-200 shadow-inner">
+                            <h3 class="font-semibold text-gray-800 mb-3">Método de Cálculo</h3>
+                            <div class="space-y-3">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="metodo" value="dum" checked class="w-4 h-4 text-[#1A3E74] focus:ring-[#1A3E74]">
+                                    <span class="ml-2 text-sm font-medium text-gray-700">A partir da Data da Última Menstruação (DUM)</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="radio" name="metodo" value="dpp" class="w-4 h-4 text-[#1A3E74] focus:ring-[#1A3E74]">
+                                    <span class="ml-2 text-sm font-medium text-gray-700">A partir da Data Provável do Parto (DPP)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Dados para Cálculo -->
+                        <div class="p-4 bg-gray-50 rounded-xl border border-gray-300">
+                            <h3 class="font-semibold text-gray-800 mb-4">Dados para Cálculo</h3>
+                            
+                            <!-- Campo DUM -->
+                            <div id="campo-dum" class="space-y-4">
+                                <div>
+                                    <label for="data_dum" class="block text-sm font-medium text-gray-700">
+                                        Data da Última Menstruação (DUM)
+                                        <span class="text-red-500 ml-1">*</span>
+                                    </label>
+                                    <input id="data_dum" type="date" required class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                    <p class="text-xs text-gray-600 mt-1">Primeiro dia da última menstruação</p>
+                                </div>
+                                <div>
+                                    <label for="data_calculo_dum" class="block text-sm font-medium text-gray-700">
+                                        Data de Referência para Cálculo
+                                    </label>
+                                    <input id="data_calculo_dum" type="date" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                    <p class="text-xs text-gray-600 mt-1">Deixe em branco para usar a data atual</p>
+                                </div>
+                            </div>
+
+                            <!-- Campo DPP (oculto inicialmente) -->
+                            <div id="campo-dpp" class="space-y-4 hidden">
+                                <div>
+                                    <label for="data_dpp" class="block text-sm font-medium text-gray-700">
+                                        Data Provável do Parto (DPP)
+                                        <span class="text-red-500 ml-1">*</span>
+                                    </label>
+                                    <input id="data_dpp" type="date" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                    <p class="text-xs text-gray-600 mt-1">Data prevista para o nascimento</p>
+                                </div>
+                                <div>
+                                    <label for="data_calculo_dpp" class="block text-sm font-medium text-gray-700">
+                                        Data de Referência para Cálculo
+                                    </label>
+                                    <input id="data_calculo_dpp" type="date" class="mt-1 block w-full border-gray-300 rounded-md p-2 text-sm focus:border-[#1A3E74] focus:ring-[#1A3E74]" style="border: 1px solid #ccc;">
+                                    <p class="text-xs text-gray-600 mt-1">Deixe em branco para usar a data atual</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="flex gap-4 pt-4 flex-col sm:flex-row">
+                            <button type="submit" id="btn-calculate" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 flex-1 py-4 text-lg shadow-lg hover:shadow-xl bg-[#1A3E74] text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line><line x1="8" y1="14" x2="12" y2="14"></line><line x1="16" y1="14" x2="16" y2="18"></line><line x1="8" y1="18" x2="12" y2="18"></line></svg>
+                                Calcular
+                            </button>
+                            <button type="reset" id="btn-reset" class="flex items-center justify-center rounded-lg font-semibold transition-colors duration-200 flex-1 py-4 text-lg shadow-sm hover:shadow-md bg-gray-100 text-gray-700" style="border: 1px solid #ccc;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2 text-[#1A3E74]"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>
+                                Limpar
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Mensagem de Erro -->
+                    <div id="error-message" class="hidden p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+                    
+                    <!-- Seção de Resultados -->
+                    <div id="results-section" class="hidden space-y-6">
+                        
+                        <!-- Card de Resultado Principal -->
+                        <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <h3 class="bg-[#1A3E74] text-white p-4 font-bold text-xl">Resultado do Cálculo</h3>
+                            <div class="p-6 bg-green-50">
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-white rounded-lg border border-green-300 text-center">
+                                        <p class="text-sm text-gray-600 mb-1">Idade Gestacional</p>
+                                        <p id="result-semanas" class="text-4xl font-extrabold text-[#1A3E74]">0</p>
+                                        <p class="text-lg font-semibold text-gray-700 mt-1">semanas e <span id="result-dias" class="text-[#1A3E74]">0</span> dias</p>
+                                        <p id="result-trimestre" class="text-sm font-semibold text-gray-600 mt-2 bg-blue-100 px-3 py-1 rounded-full inline-block"></p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div class="bg-white p-3 rounded-lg border">
+                                            <span class="text-xs text-gray-600">DUM:</span>
+                                            <p id="result-dum" class="text-sm font-bold text-gray-800">--/--/----</p>
+                                        </div>
+                                        <div class="bg-white p-3 rounded-lg border">
+                                            <span class="text-xs text-gray-600">DPP Calculada:</span>
+                                            <p id="result-dpp" class="text-sm font-bold text-gray-800">--/--/----</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs font-bold text-blue-700 mt-4 bg-blue-100 border border-blue-300 p-3 rounded-md">ℹ️ A idade gestacional é fundamental para o acompanhamento pré-natal e identificação de riscos.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card de Auditoria -->
+                        <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                            <h3 class="bg-[#1A3E74] text-white p-4 font-bold text-xl">Auditoria do Cálculo</h3>
+                            <div class="p-6 text-sm text-gray-600 space-y-4">
+                                <div class="pb-4 border-b border-gray-200">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Método Utilizado:</h4>
+                                    <p id="audit-metodo" class="ml-2">-</p>
+                                </div>
+                                <div class="pb-4 border-b border-gray-200">
+                                    <h4 class="font-semibold text-gray-800 mb-2">Dados Informados:</h4>
+                                    <ul class="list-disc list-inside ml-2 space-y-1">
+                                        <li id="audit-data-base">Data Base: --/--/----</li>
+                                        <li id="audit-data-calculo">Data de Referência: --/--/----</li>
+                                        <li id="audit-dias-decorridos">Dias Decorridos: 0 dias</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Fórmula:</h4>
+                                    <p id="audit-formula" class="text-xs text-gray-500 bg-gray-50 p-2 rounded font-mono">Aguardando cálculo...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Lateral (Informações e Ações) -->
+                <aside class="space-y-6">
+                    
+                    <!-- Card de Explicação -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm">
+                        <h3 class="font-bold text-lg text-[#1A3E74] mb-3">Como Funciona</h3>
+                        <p class="text-sm text-gray-700 mb-3">A idade gestacional pode ser calculada de duas formas:</p>
+                        <ul class="list-disc list-inside ml-2 text-xs text-gray-700 space-y-1 mb-3">
+                            <li><strong>DUM:</strong> Contagem a partir do primeiro dia da última menstruação</li>
+                            <li><strong>DPP:</strong> Estimativa retroativa a partir da data provável do parto (40 semanas)</li>
+                        </ul>
+                        <p class="text-xs text-gray-600 bg-gray-50 p-2 rounded">Gestação normal: 37 a 42 semanas (termo)</p>
+                    </div>
+
+                    <!-- Card de Classificação -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-300 shadow-sm">
+                        <h3 class="font-bold text-lg text-gray-800 mb-3">Classificação Gestacional</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between p-2 bg-red-50 rounded border-l-4 border-red-500">
+                                <span class="font-semibold">Pré-termo</span>
+                                <span class="text-gray-600">&lt; 37 semanas</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-green-50 rounded border-l-4 border-green-500">
+                                <span class="font-semibold">Termo</span>
+                                <span class="text-gray-600">37 - 42 semanas</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-orange-50 rounded border-l-4 border-orange-500">
+                                <span class="font-semibold">Pós-termo</span>
+                                <span class="text-gray-600">&gt; 42 semanas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card de Informações Técnicas -->
+                    <div class="bg-white p-6 rounded-xl border border-gray-300">
+                        <h3 class="font-bold text-lg text-gray-800 mb-3">Informações Técnicas</h3>
+                        <p class="text-sm text-gray-600">Versão: <strong>1.0.0</strong></p>
+                        <p class="text-sm text-gray-600">Categoria: <span>Saúde Materna</span></p>
+                        <div class="text-sm text-gray-600 mt-2">
+                            <span class="font-medium">Método: </span><strong class="break-words">Regra de Naegele</strong>
+                            <p class="mt-1 break-words text-xs">DPP = DUM + 7 dias - 3 meses + 1 ano</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- VLibras Widget - Injetado via JS -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner - Injetado via JS -->
+    <div id="cookie-banner-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES -->
+    <!-- ============================================================ -->
+    
+    <!-- Componentes Reutilizáveis -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Conversão de Unidades -->
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    
+    <!-- Scripts Gerais -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- Template Conteúdo Ferramentas -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    
+    <!-- Cookie Consent -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>    <!-- ============================================================ -->
+    <!-- INICIALIZAÇÃO DE COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Injeta Skip Links
+            const skipLinksContainer = document.getElementById('skip-links-container');
+            if (skipLinksContainer && typeof renderSkipLinks === 'function') {
+                skipLinksContainer.innerHTML = renderSkipLinks();
+            }
+            
+            // Injeta Top Bar
+            const topbarContainer = document.getElementById('topbar-container');
+            if (topbarContainer && typeof renderTopBar === 'function') {
+                topbarContainer.innerHTML = renderTopBar();
+            }
+            
+            // Injeta Header
+            const headerContainer = document.getElementById('header-container');
+            if (headerContainer && typeof renderHeader === 'function') {
+                headerContainer.innerHTML = renderHeader();
+            }
+            
+            // Injeta Footer
+            const footerContainer = document.getElementById('footer-container');
+            if (footerContainer && typeof renderFooter === 'function') {
+                footerContainer.innerHTML = renderFooter();
+            }
+            
+            // Injeta VLibras
+            const vlibrasContainer = document.getElementById('vlibras-container');
+            if (vlibrasContainer && typeof renderVLibras === 'function') {
+                vlibrasContainer.innerHTML = renderVLibras();
+            }
+            
+            // Injeta Cookie Banner
+            const cookieBannerContainer = document.getElementById('cookie-banner-container');
+            if (cookieBannerContainer && typeof renderCookieBanner === 'function') {
+                cookieBannerContainer.innerHTML = renderCookieBanner();
+            }
+            
+            // Botão Voltar
+            const btnVoltar = document.getElementById('btn-voltar');
+            if (btnVoltar) {
+                btnVoltar.addEventListener('click', () => {
+                    if (document.referrer && document.referrer.includes(window.location.host)) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'https://www.calculadorasdeenfermagem.com.br/';
+                    }
+                });
+            }
+            
+            console.log('✓ Template de Calculadora inicializado');
+        });
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ESPECÍFICO DA CALCULADORA DE IDADE GESTACIONAL -->
+    <!-- ============================================================ -->
+    <script>
+        // Estado da aplicação
+        const state = {
+            metodo: 'dum',
+            resultado: null
+        };
+
+        // Elementos DOM
+        const form = document.getElementById('calc-form');
+        const radioMetodo = document.querySelectorAll('input[name="metodo"]');
+        const campoDUM = document.getElementById('campo-dum');
+        const campoDPP = document.getElementById('campo-dpp');
+        const dataDUMInput = document.getElementById('data_dum');
+        const dataCalculoDUMInput = document.getElementById('data_calculo_dum');
+        const dataDPPInput = document.getElementById('data_dpp');
+        const dataCalculoDPPInput = document.getElementById('data_calculo_dpp');
+        const errorMessage = document.getElementById('error-message');
+        const resultsSection = document.getElementById('results-section');
+
+        // Função: Formatar data para exibição
+        function formatDate(dateString) {
+            if (!dateString) return '--/--/----';
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        // Função: Calcular diferença em dias
+        function diffDays(date1, date2) {
+            const ONE_DAY = 1000 * 60 * 60 * 24;
+            const diffTime = date2 - date1;
+            return Math.floor(diffTime / ONE_DAY);
+        }
+
+        // Função: Adicionar dias a uma data
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        // Função: Calcular DPP a partir da DUM (Regra de Naegele)
+        function calcularDPP(dum) {
+            const dumDate = new Date(dum);
+            // DPP = DUM + 280 dias (40 semanas)
+            return addDays(dumDate, 280);
+        }
+
+        // Função: Calcular DUM a partir da DPP
+        function calcularDUM(dpp) {
+            const dppDate = new Date(dpp);
+            // DUM = DPP - 280 dias
+            return addDays(dppDate, -280);
+        }
+
+        // Função: Classificar trimestre
+        function classificarTrimestre(semanas) {
+            if (semanas < 13) return '1º Trimestre';
+            if (semanas < 27) return '2º Trimestre';
+            return '3º Trimestre';
+        }
+
+        // Função: Classificar idade gestacional
+        function classificarIG(semanas) {
+            if (semanas < 37) return 'Pré-termo';
+            if (semanas <= 42) return 'Termo';
+            return 'Pós-termo';
+        }
+
+        // Alternar método de cálculo
+        radioMetodo.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                state.metodo = e.target.value;
+                if (state.metodo === 'dum') {
+                    campoDUM.classList.remove('hidden');
+                    campoDPP.classList.add('hidden');
+                    dataDUMInput.required = true;
+                    dataDPPInput.required = false;
+                } else {
+                    campoDUM.classList.add('hidden');
+                    campoDPP.classList.remove('hidden');
+                    dataDUMInput.required = false;
+                    dataDPPInput.required = true;
+                }
+            });
+        });
+
+        // Definir data de referência como hoje por padrão
+        const hoje = new Date().toISOString().split('T')[0];
+        dataCalculoDUMInput.value = hoje;
+        dataCalculoDPPInput.value = hoje;
+
+        // Evento: Calcular
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let dum, dpp, dataReferencia;
+
+            // Validação e cálculo baseado no método
+            if (state.metodo === 'dum') {
+                if (!dataDUMInput.value) {
+                    errorMessage.textContent = "Informe a Data da Última Menstruação (DUM).";
+                    errorMessage.classList.remove('hidden');
+                    resultsSection.classList.add('hidden');
+                    return;
+                }
+                dum = new Date(dataDUMInput.value + 'T00:00:00');
+                dataReferencia = dataCalculoDUMInput.value ? 
+                    new Date(dataCalculoDUMInput.value + 'T00:00:00') : 
+                    new Date();
+                dpp = calcularDPP(dum);
+            } else {
+                if (!dataDPPInput.value) {
+                    errorMessage.textContent = "Informe a Data Provável do Parto (DPP).";
+                    errorMessage.classList.remove('hidden');
+                    resultsSection.classList.add('hidden');
+                    return;
+                }
+                dpp = new Date(dataDPPInput.value + 'T00:00:00');
+                dataReferencia = dataCalculoDPPInput.value ? 
+                    new Date(dataCalculoDPPInput.value + 'T00:00:00') : 
+                    new Date();
+                dum = calcularDUM(dpp);
+            }
+
+            // Calcular dias desde a DUM
+            const diasDesdeUltimaMenstr = diffDays(dum, dataReferencia);
+            
+            if (diasDesdeUltimaMenstr < 0) {
+                errorMessage.textContent = "A data de referência não pode ser anterior à DUM.";
+                errorMessage.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+                return;
+            }
+
+            // Calcular semanas e dias
+            const semanas = Math.floor(diasDesdeUltimaMenstr / 7);
+            const dias = diasDesdeUltimaMenstr % 7;
+
+            state.resultado = {
+                semanas,
+                dias,
+                trimestre: classificarTrimestre(semanas),
+                classificacao: classificarIG(semanas),
+                dum: dum.toISOString().split('T')[0],
+                dpp: dpp.toISOString().split('T')[0],
+                dataReferencia: dataReferencia.toISOString().split('T')[0],
+                diasDecorridos: diasDesdeUltimaMenstr,
+                metodo: state.metodo === 'dum' ? 'Data da Última Menstruação (DUM)' : 'Data Provável do Parto (DPP)'
+            };
+
+            // Atualiza UI
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            
+            document.getElementById('result-semanas').textContent = state.resultado.semanas;
+            document.getElementById('result-dias').textContent = state.resultado.dias;
+            document.getElementById('result-trimestre').textContent = `${state.resultado.trimestre} - ${state.resultado.classificacao}`;
+            document.getElementById('result-dum').textContent = formatDate(state.resultado.dum);
+            document.getElementById('result-dpp').textContent = formatDate(state.resultado.dpp);
+            
+            // Auditoria
+            document.getElementById('audit-metodo').textContent = state.resultado.metodo;
+            document.getElementById('audit-data-base').textContent = `Data Base: ${formatDate(state.resultado.dum)}`;
+            document.getElementById('audit-data-calculo').textContent = `Data de Referência: ${formatDate(state.resultado.dataReferencia)}`;
+            document.getElementById('audit-dias-decorridos').textContent = `Dias Decorridos: ${state.resultado.diasDecorridos} dias`;
+            document.getElementById('audit-formula').textContent = 
+                `IG = ${state.resultado.diasDecorridos} dias ÷ 7 = ${state.resultado.semanas} semanas e ${state.resultado.dias} dias | DPP = DUM + 280 dias`;
+        });
+
+        // Evento: Reset
+        form.addEventListener('reset', function() {
+            state.resultado = null;
+            errorMessage.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+            dataCalculoDUMInput.value = hoje;
+            dataCalculoDPPInput.value = hoje;
+        });
+    </script>
+
+</body>
+</html>
