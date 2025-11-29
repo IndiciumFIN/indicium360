@@ -1,0 +1,720 @@
+/**
+ * HEADER ICONS - MOBILE FIXES
+ * ===========================
+ * Correções para visualização mobile do sistema de ícones
+ */
+
+/* ===================================
+   MOBILE: HEADER FIXES - SEGUNDA FAIXA REORGANIZADA
+   =================================== */
+
+/* Garantir que ícones apareçam no mobile */
+@media (max-width: 768px) {
+    /* REORGANIZAR ORDEM: Logo | Menu | Idioma | Busca */
+    .main-header .container {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 12px 15px;
+    }
+    
+    /* LOGOTIPO - ESQUERDA */
+    .header-logo {
+        order: 1;
+        flex-shrink: 0;
+    }
+    
+    .header-logo img {
+        height: 36px;
+        width: auto;
+    }
+    
+    /* HEADER-RIGHT - DIREITA COM ORDEM ESPECÍFICA */
+    .header-right {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+    
+    /* MENU HAMBÚRGUER - PRIMEIRO NO HEADER-RIGHT */
+    .mobile-menu-toggle {
+        order: 1;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        background: rgba(40, 60, 120, 0.1) !important;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10001;
+        position: relative;
+        flex-shrink: 0;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: rgba(40, 60, 120, 0.15) !important;
+    }
+    
+    .mobile-menu-toggle i {
+        color: var(--color-navy) !important;
+        font-size: 1.2rem;
+        display: block;
+    }
+    
+    /* SELETOR DE IDIOMAS - SEGUNDO NO HEADER-RIGHT */
+    .lang-selector {
+        order: 2;
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        flex-shrink: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .lang-selector .lang-trigger {
+        width: 42px;
+        height: 42px;
+        background: rgba(40, 60, 120, 0.1) !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .lang-selector .lang-trigger:hover {
+        background: rgba(40, 60, 120, 0.15) !important;
+    }
+    
+    .lang-selector .lang-trigger i,
+    .lang-selector .lang-trigger::before {
+        color: var(--color-navy) !important;
+        font-size: 1.2rem;
+    }
+    
+    /* BUSCA - TERCEIRO NO HEADER-RIGHT */
+    .search-wrap {
+        order: 3;
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        flex-shrink: 0;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .search-wrap .search-btn {
+        width: 42px;
+        height: 42px;
+        background: rgba(40, 160, 240, 0.1) !important;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+    }
+    
+    .search-wrap .search-btn:hover {
+        background: rgba(40, 160, 240, 0.15) !important;
+    }
+    
+    .search-wrap .search-btn i {
+        color: var(--color-cyan) !important;
+        font-size: 1.2rem;
+    }
+    
+    /* BUSCA EXPANDIDA - EXPANDE PARA ESQUERDA E COLAPSA OUTROS ELEMENTOS */
+    .search-wrap.expanded {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(100% - 30px);
+        max-width: 400px;
+        background: white;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+    }
+    
+    .search-wrap.expanded .search-input {
+        width: 100%;
+        opacity: 1;
+        padding: 12px 110px 12px 20px;
+        border: 2px solid var(--color-cyan);
+        border-radius: 25px;
+        font-size: 0.95rem;
+        color: var(--color-text-primary);
+        background: white;
+        pointer-events: all;
+    }
+    
+    .search-wrap.expanded .search-input::placeholder {
+        color: var(--color-grey-medium);
+    }
+    
+    .search-wrap.expanded .search-btn {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(135deg, var(--color-primary), var(--color-cyan)) !important;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .search-wrap.expanded .search-btn i {
+        color: white !important;
+    }
+    
+    .search-wrap.expanded .search-close {
+        display: flex;
+        position: absolute;
+        right: 48px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+    
+    .search-wrap.expanded .search-close i {
+        color: var(--color-grey-medium);
+        font-size: 1.2rem;
+    }
+    
+    /* COLAPSAR OUTROS ELEMENTOS QUANDO BUSCA EXPANDIDA */
+    body.search-active .header-logo {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+    }
+    
+    body.search-active .lang-selector {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+    }
+    
+    body.search-active .mobile-menu-toggle {
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+    }
+}
+
+/* ===================================
+   MOBILE MENU HAMBURGUER - CORRIGIDO
+   =================================== */
+
+@media (max-width: 900px) {
+    /* Garantir que o botão hambúrguer seja sempre visível e clicável */
+    .mobile-menu-toggle {
+        position: relative;
+        z-index: 10002 !important; /* ACIMA DO OVERLAY */
+        display: flex !important;
+        background: rgba(40, 60, 120, 0.1) !important;
+        width: 42px;
+        height: 42px;
+    }
+    
+    .mobile-menu-toggle:hover {
+        background: rgba(40, 60, 120, 0.15) !important;
+    }
+    
+    .mobile-menu-toggle i {
+        color: var(--color-navy) !important;
+        font-size: 1.2rem;
+    }
+    
+    /* Header deve ter espaço para todos os elementos */
+    .main-header {
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .main-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 12px 15px;
+    }
+    
+    /* Logo */
+    .header-logo {
+        order: 1;
+        flex-shrink: 0;
+    }
+    
+    /* Header right group - ORDEM: Menu | Idioma | Busca */
+    .header-right {
+        order: 2;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+    
+    /* Menu hambúrguer - PRIMEIRO */
+    .mobile-menu-toggle {
+        order: 1 !important;
+    }
+    
+    /* Seletor de idiomas - SEGUNDO */
+    .lang-selector {
+        order: 2 !important;
+    }
+    
+    /* Busca - TERCEIRO */
+    .search-wrap {
+        order: 3 !important;
+    }
+}
+
+/* ===================================
+   HIDE FLOATING BUTTONS WHEN MENU OPEN
+   =================================== */
+
+/* Ocultar botões flutuantes quando menu mobile está aberto */
+body.mobile-menu-open .cookie-fab,
+body.mobile-menu-open #backToTopBtn,
+body.mobile-menu-open #cookie-fab-floating {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Reaparecer quando menu fecha */
+body:not(.mobile-menu-open) .cookie-fab,
+body:not(.mobile-menu-open) #backToTopBtn,
+body:not(.mobile-menu-open) #cookie-fab-floating {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.3s ease;
+}
+
+/* ===================================
+   RESPONSIVE CONTAINER ADJUSTMENTS - AJUSTE DE TAMANHOS
+   =================================== */
+
+@media (max-width: 480px) {
+    /* Ajustes para telas muito pequenas */
+    .main-header .container {
+        padding: 10px 12px;
+        gap: 6px;
+    }
+    
+    /* Logo menor em telas pequenas */
+    .header-logo img {
+        height: 30px;
+        width: auto;
+    }
+    
+    /* Reduzir tamanho dos ícones em telas pequenas */
+    .lang-selector .lang-trigger,
+    .search-wrap .search-btn,
+    .mobile-menu-toggle {
+        width: 38px !important;
+        height: 38px !important;
+    }
+    
+    /* Ajustar tamanho dos ícones internos */
+    .lang-selector .lang-trigger i,
+    .lang-selector .lang-trigger::before {
+        font-size: 1.1rem !important;
+    }
+    
+    .search-wrap .search-btn i {
+        font-size: 1.1rem !important;
+    }
+    
+    .mobile-menu-toggle i {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Garantir cores visíveis em telas pequenas */
+    .lang-selector .lang-trigger {
+        background: rgba(40, 60, 120, 0.12) !important;
+    }
+    
+    .lang-selector .lang-trigger i,
+    .lang-selector .lang-trigger::before {
+        color: var(--color-navy) !important;
+    }
+    
+    .search-wrap .search-btn {
+        background: rgba(40, 160, 240, 0.12) !important;
+    }
+    
+    .search-wrap .search-btn i {
+        color: var(--color-cyan) !important;
+    }
+    
+    .mobile-menu-toggle {
+        background: rgba(40, 60, 120, 0.12) !important;
+    }
+    
+    .mobile-menu-toggle i {
+        color: var(--color-navy) !important;
+    }
+    
+    /* Busca expandida em telas pequenas */
+    .search-wrap.expanded {
+        width: calc(100% - 24px);
+        right: 0;
+    }
+    
+    .search-wrap.expanded .search-input {
+        padding: 10px 100px 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===================================
+   AJUSTES PARA PRIMEIRA FAIXA (TOP BAR) MOBILE
+   =================================== */
+
+@media (max-width: 768px) {
+    /* Ajustar altura e espaçamento da top bar */
+    .top-bar {
+        padding: 8px 0;
+        min-height: 38px;
+    }
+    
+    .top-bar .container {
+        padding: 0 15px;
+    }
+    
+    .util-actions {
+        gap: 8px;
+    }
+    
+    /* Reduzir tamanho dos botões da primeira faixa */
+    .font-controls .font-btn,
+    .theme-switcher .theme-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+    
+    /* Ajustar link "Área Restrita" */
+    .util-actions a {
+        font-size: 0.85rem !important;
+        gap: 4px !important;
+    }
+    
+    .util-actions a i {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Top bar ainda mais compacta em telas pequenas */
+    .top-bar {
+        padding: 6px 0;
+        min-height: 34px;
+    }
+    
+    .top-bar .container {
+        padding: 0 12px;
+    }
+    
+    .util-actions {
+        gap: 6px;
+    }
+    
+    .font-controls .font-btn,
+    .theme-switcher .theme-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+    }
+    
+    .util-actions a {
+        font-size: 0.8rem !important;
+        gap: 3px !important;
+    }
+    
+    .util-actions a i {
+        font-size: 0.85rem;
+    }
+}
+
+/* ===================================
+   MOBILE MENU EXPANDED STATE
+   =================================== */
+
+/* Desktop: ocultar botão hambúrguer */
+@media (min-width: 901px) {
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* Nav Menu Mobile - OTIMIZADO */
+@media (max-width: 900px) {
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 85%;
+        max-width: 350px;
+        height: 100vh;
+        background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-navy) 100%);
+        z-index: 10001;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 80px 20px 30px;
+        box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+        flex-direction: column;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+    
+    /* Scrollbar customizado para webkit */
+    .nav-menu::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .nav-menu::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-menu::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+    }
+    
+    .nav-menu::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    /* LOGOTIPO NO TOPO DO MENU HAMBÚRGUER */
+    .nav-menu::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 40px;
+        background-image: url('https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 1;
+    }
+    
+    .nav-menu .nav-item {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .nav-menu .nav-link {
+        color: white !important; /* Garantir cor branca nos links */
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+        font-size: 1.1rem;
+    }
+    
+    .nav-menu .nav-link:hover {
+        color: var(--color-cyan) !important;
+    }
+    
+    /* OTIMIZADO: MEGA MENU NO MOBILE - PERFORMANCE MELHORADA */
+    .nav-menu .mega-menu-wrapper {
+        position: static;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        box-shadow: none;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                    opacity 0.25s ease,
+                    max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 8px;
+        margin: 5px 0;
+        will-change: transform, opacity;
+    }
+    
+    .nav-menu .nav-item.open .mega-menu-wrapper {
+        max-height: 2000px; /* Altura suficiente para menus longos */
+        padding: 15px;
+        opacity: 1;
+        transform: scaleY(1);
+        overflow: visible;
+    }
+    
+    /* CORREÇÃO: MM-SIDEBAR-LAYOUT NO MOBILE - EMPILHADO VERTICALMENTE */
+    .nav-menu .mm-sidebar-layout {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+        max-height: none;
+        gap: 0;
+    }
+    
+    /* CORREÇÃO: MM-NAV-SIDEBAR NO MOBILE - SEM SCROLL, SEM ALTURA FIXA */
+    .nav-menu .mm-nav-sidebar {
+        flex: none;
+        border-right: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        padding-right: 0;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        overflow-y: visible;
+        height: auto;
+    }
+    
+    /* OTIMIZADO: MM-CONTENT-AREA NO MOBILE - SCROLL SUAVE */
+    .nav-menu .mm-content-area {
+        flex: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 0;
+        height: auto;
+        max-height: 400px; /* Limite para ativar scroll suave */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* Scroll suave iOS */
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+    
+    /* Customizar scrollbar para webkit */
+    .nav-menu .mm-content-area::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .nav-menu .mm-content-area::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .nav-menu .mm-content-area::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+    
+    .nav-menu .mm-content-area::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+    
+    /* CORREÇÃO: MM-SECTION-CONTENT - ALTURA AUTO PARA NÃO SOBREPOR */
+    .nav-menu .mm-section-content {
+        height: auto;
+        min-height: auto;
+    }
+    
+    /* OCULTAR IMAGEM LATERAL NO MOBILE */
+    .nav-menu .mm-sidebar-image {
+        display: none;
+    }
+    
+    /* MM-NAV-ITEM NO MOBILE - MENOR ESPAÇAMENTO */
+    .nav-menu .mm-nav-item {
+        padding: 10px 12px;
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+    }
+    
+    /* MM-LINK-ITEM NO MOBILE - ESTILO AJUSTADO */
+    .nav-menu .mm-link-item {
+        padding: 10px 0;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    .nav-menu .mm-link-item:hover {
+        color: var(--color-cyan) !important;
+        padding-left: 8px;
+    }
+    
+    /* MM-SECTION-TITLE NO MOBILE */
+    .nav-menu .mm-section-title {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        color: white;
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* OCULTAR TEXTO "MENU" NO NAV-LINK (caso exista) */
+    .nav-menu .nav-link::after {
+        content: none !important;
+    }
+    
+    /* Header right group */
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+    }
+    
+    /* OVERLAY QUANDO MENU ABERTO - CORRIGIDO Z-INDEX */
+    body.mobile-menu-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Sombra preta mais intensa */
+        z-index: 10000; /* ABAIXO DO MENU E DO BOTÃO HAMBÚRGUER */
+        animation: fadeIn 0.3s ease;
+        pointer-events: all; /* IMPORTANTE: permite cliques para fechar */
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Garantir que o menu hambúrguer fique acima do overlay */
+    .mobile-menu-toggle {
+        z-index: 10002 !important; /* ACIMA DE TUDO */
+    }
+}
+
+/* ===================================
+   VLIBRAS WIDGET MOBILE POSITION
+   =================================== */
+
+@media (max-width: 768px) {
+    /* Mover VLibras para não sobrepor botões */
+    .vw-access-button {
+        bottom: 140px !important;
+    }
+}

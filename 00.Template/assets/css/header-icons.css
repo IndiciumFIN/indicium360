@@ -1,0 +1,276 @@
+/**
+ * HEADER ICONS TRANSFORMATION SYSTEM
+ * ===================================
+ * Transform language selector and search into icon-based interface
+ * with expandable search functionality
+ */
+
+/* ===================================
+   LANGUAGE SELECTOR AS ICON
+   =================================== */
+
+/* Ocultar texto e flag, mostrar apenas ícone */
+.lang-selector .lang-trigger {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.lang-selector .lang-trigger:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+.lang-selector .lang-trigger .lang-flag,
+.lang-selector .lang-trigger span {
+    display: none;
+}
+
+.lang-selector .lang-trigger i {
+    display: block;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.lang-selector .lang-trigger i.fa-chevron-down {
+    display: none;
+}
+
+/* Transformar chevron em ícone de globo */
+.lang-selector .lang-trigger::before {
+    content: "\f57d"; /* fa-globe-americas */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* ===================================
+   SEARCH AS ICON (COLLAPSED STATE)
+   =================================== */
+
+.search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: visible;
+    z-index: 1000;
+}
+
+/* Estado inicial: apenas ícone visível */
+.search-wrap .search-input {
+    width: 0;
+    opacity: 0;
+    padding: 0;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.search-wrap .search-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.search-wrap .search-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
+
+.search-wrap .search-btn i {
+    color: white;
+    font-size: 1.1rem;
+}
+
+/* ===================================
+   EXPANDED SEARCH STATE
+   =================================== */
+
+.search-wrap.expanded {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 9999;
+}
+
+.search-wrap.expanded .search-input {
+    width: 100%;
+    opacity: 1;
+    padding: 12px 60px 12px 24px;
+    border: 2px solid var(--color-cyan);
+    border-radius: 50px;
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    background: white;
+    pointer-events: all;
+}
+
+.search-wrap.expanded .search-input::placeholder {
+    color: var(--color-grey-medium);
+}
+
+.search-wrap.expanded .search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.search-wrap.expanded .search-btn {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-cyan));
+}
+
+.search-wrap.expanded .search-btn:hover {
+    background: linear-gradient(135deg, var(--color-cyan), var(--color-primary));
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* ===================================
+   HIDE ELEMENTS WHEN SEARCH EXPANDED
+   =================================== */
+
+/* Desktop: esconder apenas nav-menu */
+body.search-active .nav-menu {
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Mobile: NÃO aplicar aqui - deixar para header-icons-mobile-fix.css */
+
+/* ===================================
+   CLOSE BUTTON (X) FOR SEARCH
+   =================================== */
+
+.search-wrap .search-close {
+    display: none;
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 11;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.search-wrap.expanded .search-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.search-wrap .search-close i {
+    color: var(--color-grey-medium);
+    font-size: 1.2rem;
+}
+
+.search-wrap .search-close:hover i {
+    color: var(--color-primary);
+}
+
+/* ===================================
+   SEARCH ICON CHANGES
+   =================================== */
+
+.search-wrap.expanded .search-btn i::before {
+    content: "\f002"; /* Mantém ícone de lupa quando expandido */
+}
+
+/* ===================================
+   RESPONSIVE ADJUSTMENTS
+   =================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .search-wrap.expanded {
+        width: 350px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Busca expandida mobile gerenciada em header-icons-mobile-fix.css */
+}
+
+/* ===================================
+   ANIMATION KEYFRAMES
+   =================================== */
+
+@keyframes expandSearch {
+    from {
+        width: 40px;
+        opacity: 0;
+    }
+    to {
+        width: 400px;
+        opacity: 1;
+    }
+}
+
+@keyframes collapseSearch {
+    from {
+        width: 400px;
+        opacity: 1;
+    }
+    to {
+        width: 40px;
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+.search-wrap .search-btn:focus-visible {
+    outline: 3px solid var(--color-cyan);
+    outline-offset: 2px;
+}
+
+.search-wrap.expanded .search-input:focus-visible {
+    outline: 3px solid var(--color-cyan);
+    outline-offset: -2px;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

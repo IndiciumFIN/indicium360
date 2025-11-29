@@ -1,0 +1,155 @@
+/* ================================================
+   TEMPLATE CONTEUDO/FERRAMENTAS - CSS COMPARTILHADO
+   ================================================
+   Arquivo: template-conteudoferramentas.css
+   Usado por: template-conteudo.html, template-ferramentas.html
+   Estilos específicos para modais institucionais
+   ================================================ */
+
+/* ================================================
+   MODAL CONTENT LAYOUT - MODULAR
+   ================================================ */
+.modal-content-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 30px;
+    align-items: start;
+}
+
+.modal-content-layout .modal-content-wrapper {
+    order: 1;
+}
+
+.modal-content-layout .modal-sidebar {
+    order: 2;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-sidebar .sidebar-card {
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.modal-sidebar .sidebar-card h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-sidebar .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-sidebar .toc-list li {
+    margin-bottom: 8px;
+}
+
+.modal-sidebar .toc-list a {
+    font-size: 13px;
+    line-height: 1.4;
+    display: block;
+    padding: 4px 0;
+    transition: opacity 0.2s;
+}
+
+.modal-sidebar .toc-list a:hover {
+    opacity: 0.8;
+}
+
+/* Share Buttons in Modal */
+.modal-sidebar .share-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.modal-sidebar .share-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.modal-sidebar .share-btn:hover {
+    transform: scale(1.1);
+}
+
+.modal-sidebar .share-btn.facebook { background: #1877f2; }
+.modal-sidebar .share-btn.twitter { background: #1da1f2; }
+.modal-sidebar .share-btn.linkedin { background: #0077b5; }
+.modal-sidebar .share-btn.whatsapp { background: #25d366; }
+
+/* Related Mini List */
+.related-mini-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.related-card-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.95);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.related-card-mini:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(3px);
+}
+
+.related-card-mini i {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Modal Tags */
+.modal-tags {
+    padding-top: 20px;
+    border-top: 1px solid var(--color-gray-light);
+}
+
+[data-theme="dark"] .modal-tags {
+    border-top-color: #333;
+}
+
+/* Responsive Modal Layout */
+@media (max-width: 900px) {
+    .modal-content-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content-layout .modal-sidebar {
+        order: 3;
+        position: static;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-sidebar .share-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+}

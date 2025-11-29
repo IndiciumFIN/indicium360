@@ -1,0 +1,408 @@
+/**
+ * SIDEBAR MENU SYSTEM
+ * ===================
+ * Menu lateral elegante para seções: Calculadoras, Escalas e Calendário Vacinal
+ */
+
+/* ===================================
+   SIDEBAR MENU - STRUCTURE
+   =================================== */
+
+.section-with-sidebar {
+    position: relative;
+    display: flex;
+    gap: 0;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.sidebar-menu {
+    width: 280px;
+    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-navy) 100%);
+    border-radius: 0 12px 12px 0;
+    padding: 30px 0;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s ease;
+    z-index: 100;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    will-change: width;
+}
+
+/* Scrollbar customizado para webkit */
+.sidebar-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-menu.collapsed {
+    width: 60px;
+}
+
+/* ===================================
+   SIDEBAR HEADER
+   =================================== */
+
+.sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-title {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-menu.collapsed .sidebar-title {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar-toggle-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.sidebar-toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-menu.collapsed .sidebar-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+/* ===================================
+   SIDEBAR NAVIGATION
+   =================================== */
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav-item {
+    margin: 0;
+}
+
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.25s ease,
+                color 0.25s ease,
+                padding-left 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    will-change: background, color;
+}
+
+.sidebar-nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--color-cyan);
+    transform: scaleY(0);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-nav-link:hover,
+.sidebar-nav-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.sidebar-nav-link:hover::before,
+.sidebar-nav-link.active::before {
+    transform: scaleY(1);
+}
+
+.sidebar-nav-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-cyan);
+}
+
+.sidebar-nav-text {
+    flex: 1;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-menu.collapsed .sidebar-nav-text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar-menu.collapsed .sidebar-nav-link {
+    padding: 12px;
+    justify-content: center;
+}
+
+/* ===================================
+   SIDEBAR CONTENT AREA
+   =================================== */
+
+.sidebar-content {
+    flex: 1;
+    padding: 30px;
+    transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Modo 1: Conteúdo empurrado para baixo */
+.section-with-sidebar.push-down .sidebar-content {
+    margin-top: 0;
+}
+
+.sidebar-menu.expanded ~ .sidebar-content {
+    margin-top: 20px;
+}
+
+/* Modo 2: Conteúdo fica atrás do menu */
+.section-with-sidebar.overlay-mode .sidebar-menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1000;
+}
+
+.section-with-sidebar.overlay-mode .sidebar-content {
+    width: 100%;
+    z-index: 1;
+}
+
+/* ===================================
+   SIDEBAR FOOTER
+   =================================== */
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}
+
+.sidebar-footer-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-menu.collapsed .sidebar-footer-text {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* ===================================
+   SECTION CONTENT - IMAGE LEFT, TEXT RIGHT
+   =================================== */
+
+.section-content-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.section-image-col {
+    flex: 0 0 45%;
+    max-width: 500px;
+}
+
+.section-image-col img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    object-fit: cover;
+}
+
+.section-text-col {
+    flex: 1;
+}
+
+/* ===================================
+   RESPONSIVE BEHAVIOR
+   =================================== */
+
+@media (max-width: 1024px) {
+    .sidebar-menu {
+        width: 240px;
+    }
+    
+    .sidebar-menu.collapsed {
+        width: 50px;
+    }
+    
+    .section-content-layout {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-with-sidebar {
+        flex-direction: column;
+    }
+    
+    .sidebar-menu {
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .sidebar-menu.collapsed {
+        width: 100%;
+        height: 60px;
+        overflow: hidden;
+    }
+    
+    .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .section-content-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .section-image-col {
+        flex: 0 0 auto;
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-content {
+        padding: 20px 15px;
+    }
+    
+    .sidebar-header {
+        padding: 0 15px 15px;
+    }
+    
+    .sidebar-nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar-nav-item {
+    animation: slideIn 0.3s ease forwards;
+}
+
+.sidebar-nav-item:nth-child(1) { animation-delay: 0.05s; }
+.sidebar-nav-item:nth-child(2) { animation-delay: 0.1s; }
+.sidebar-nav-item:nth-child(3) { animation-delay: 0.15s; }
+.sidebar-nav-item:nth-child(4) { animation-delay: 0.2s; }
+.sidebar-nav-item:nth-child(5) { animation-delay: 0.25s; }
+.sidebar-nav-item:nth-child(6) { animation-delay: 0.3s; }
+.sidebar-nav-item:nth-child(7) { animation-delay: 0.35s; }
+.sidebar-nav-item:nth-child(8) { animation-delay: 0.4s; }
+
+/* ===================================
+   ACCESSIBILITY
+   =================================== */
+
+.sidebar-nav-link:focus-visible {
+    outline: 3px solid var(--color-cyan);
+    outline-offset: -3px;
+}
+
+.sidebar-toggle-btn:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

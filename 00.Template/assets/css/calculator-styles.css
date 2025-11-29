@@ -1,0 +1,565 @@
+/**
+ * CSS Compartilhado para Calculadoras e Escalas Clínicas
+ * Este arquivo contém os estilos padrão para todos os componentes de calculadoras/escalas
+ * Baseado em: PADROES_COMPONENTES_CALCULADORAS.md
+ */
+
+/* ===========================
+   1. SEÇÃO DE RESULTADO
+   =========================== */
+
+/* Box padrão para exibição de resultados */
+.standard-result-box {
+  background-color: #ebf4ff;
+  color: #1a3e74;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+}
+
+/* Box de aviso/alerta (quando campos não preenchidos) */
+.bg-info-orange-light {
+  background-color: #ffeeba;
+  color: #856404;
+}
+
+/* ===========================
+   2. CARDS DE CRITÉRIOS
+   =========================== */
+
+/* Card para cada critério de avaliação */
+.criterion-card {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 2px 4px -2px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.criterion-card:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade para cards */
+@media (max-width: 640px) {
+  .criterion-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Título do critério */
+.criterion-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1a3e74;
+  margin: 0;
+}
+
+/* Container das opções */
+.options-container {
+  width: 100%;
+  max-width: 350px;
+}
+
+@media (max-width: 640px) {
+  .options-container {
+    max-width: 100%;
+  }
+}
+
+/* ===========================
+   3. SELECT PERSONALIZADO
+   =========================== */
+
+/* Select customizado com ícone de dropdown */
+.custom-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #374151;
+  background-color: #f9fafb;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5em 1.5em;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.custom-select:hover {
+  border-color: #9ca3af;
+  background-color: #ffffff;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: #1a3e74;
+  box-shadow: 0 0 0 3px rgba(26, 62, 116, 0.1);
+}
+
+/* ===========================
+   4. SEÇÃO DE INFORMAÇÕES
+   =========================== */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+
+.info-grid p {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-grid p:last-child {
+  border-bottom: none;
+}
+
+/* ===========================
+   5. INSTRUÇÕES
+   =========================== */
+
+.instruction {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #3b82f6;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .instruction {
+    font-size: 1.125rem;
+    text-align: left;
+  }
+}
+
+/* ===========================
+   6. LISTA DE CRITÉRIOS
+   =========================== */
+
+.criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* ===========================
+   7. GRUPO DE BOTÕES
+   =========================== */
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* ===========================
+   8. REFERÊNCIA BIBLIOGRÁFICA
+   =========================== */
+
+.reference {
+  font-family: 'Inter', sans-serif;
+  color: #6b7280;
+  text-align: left;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.reference strong {
+  color: #1f2937;
+}
+
+.reference p {
+  margin-top: 0.5rem;
+  line-height: 1.625;
+}
+
+.reference a {
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.reference a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* ===========================
+   9. ESTADOS DO RESULTADO
+   =========================== */
+
+/* Resultado oculto por padrão */
+.resultado.hidden {
+  display: none !important;
+}
+
+/* Resultado visível */
+.resultado {
+  display: block;
+}
+
+/* ===========================
+   10. CLASSES UTILITÁRIAS
+   =========================== */
+
+/* Espaçamento */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Container do card principal */
+.card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 2rem;
+  }
+}
+
+/* Descrição */
+.description {
+  font-family: 'Inter', sans-serif;
+  color: #1f2937;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .description {
+    font-size: 1.125rem;
+    text-align: left;
+  }
+}
+
+/* ===========================
+   11. CLASSES DE PÁGINA
+   =========================== */
+
+.page-content {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-content {
+    padding: 2rem;
+  }
+}
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+/* Títulos */
+.page-title {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  color: #1a3e74;
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .page-title {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+}
+
+.page-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #3b82f6;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .page-subtitle {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+/* Barra de título */
+.title-bar {
+  width: 100%;
+  height: 0.25rem;
+  background-color: #1a3e74;
+  margin: 0.5rem auto;
+}
+
+/* ===========================
+   12. ANIMAÇÕES E TRANSIÇÕES
+   =========================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resultado {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ===========================
+   13. ACESSIBILIDADE
+   =========================== */
+
+/* Foco visível para navegação por teclado */
+.custom-select:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 2px solid #1a3e74;
+  outline-offset: 2px;
+}
+
+/* Redução de movimento para usuários que preferem */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ===========================
+   14. DARK MODE
+   =========================== */
+
+/* Container principal em dark mode */
+.dark-mode {
+  background-color: #1a202c !important;
+  color: #e2e8f0 !important;
+}
+
+/* Cards e seções em dark mode */
+.dark-mode .bg-white {
+  background-color: #2d3748 !important;
+  color: #e2e8f0 !important;
+}
+
+.dark-mode .bg-gray-50,
+.dark-mode .bg-gray-100 {
+  background-color: #1a202c !important;
+}
+
+.dark-mode .bg-blue-50 {
+  background-color: #2c3e50 !important;
+  border-color: #34495e !important;
+}
+
+.dark-mode .bg-green-50 {
+  background-color: #1e3a28 !important;
+  border-color: #27543a !important;
+}
+
+.dark-mode .bg-yellow-50 {
+  background-color: #3e3419 !important;
+  border-color: #54471f !important;
+}
+
+.dark-mode .bg-purple-50 {
+  background-color: #2d2140 !important;
+  border-color: #3d2c54 !important;
+}
+
+/* Textos em dark mode */
+.dark-mode .text-gray-700,
+.dark-mode .text-gray-800,
+.dark-mode .text-gray-900 {
+  color: #e2e8f0 !important;
+}
+
+.dark-mode .text-gray-600 {
+  color: #cbd5e0 !important;
+}
+
+.dark-mode .text-gray-500 {
+  color: #a0aec0 !important;
+}
+
+.dark-mode .text-gray-400 {
+  color: #718096 !important;
+}
+
+/* Inputs em dark mode */
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode input[type="date"],
+.dark-mode select,
+.dark-mode .form-input {
+  background-color: #2d3748 !important;
+  color: #e2e8f0 !important;
+  border-color: #4a5568 !important;
+}
+
+.dark-mode input::placeholder {
+  color: #718096 !important;
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus {
+  border-color: #63b3ed !important;
+  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2) !important;
+}
+
+/* Bordas em dark mode */
+.dark-mode .border,
+.dark-mode .border-gray-200,
+.dark-mode .border-gray-300 {
+  border-color: #4a5568 !important;
+}
+
+.dark-mode .border-blue-200 {
+  border-color: #2c5282 !important;
+}
+
+.dark-mode .border-green-200 {
+  border-color: #276749 !important;
+}
+
+.dark-mode .border-yellow-300 {
+  border-color: #744210 !important;
+}
+
+.dark-mode .border-purple-200 {
+  border-color: #553c9a !important;
+}
+
+/* Sombras em dark mode */
+.dark-mode .shadow-md,
+.dark-mode .shadow-lg,
+.dark-mode .shadow-xl,
+.dark-mode .shadow-2xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Result boxes em dark mode */
+.dark-mode .result-box {
+  background-color: #2d3748 !important;
+  border: 1px solid #4a5568 !important;
+}
+
+.dark-mode .result-label {
+  color: #a0aec0 !important;
+}
+
+.dark-mode .result-value {
+  color: #e2e8f0 !important;
+}
+
+/* Botões em dark mode mantêm cores originais para contraste */
+.dark-mode .bg-\[\#1A3E74\],
+.dark-mode .bg-\[\#2a5a9e\] {
+  /* Mantém cores originais */
+}
+
+/* Aviso validation em dark mode */
+.dark-mode .aviso-validacao.bg-red-100 {
+  background-color: #742a2a !important;
+  border-color: #9b2c2c !important;
+}
+
+.dark-mode .aviso-validacao.bg-yellow-100 {
+  background-color: #744210 !important;
+  border-color: #975a16 !important;
+}
+
+.dark-mode .text-red-800 {
+  color: #feb2b2 !important;
+}
+
+.dark-mode .text-yellow-800 {
+  color: #fbd38d !important;
+}
+
+/* Histórico em dark mode */
+.dark-mode #historico-sidebar {
+  background-color: #2d2140 !important;
+  border-color: #553c9a !important;
+}
+
+.dark-mode #historico-calculos-container .bg-white {
+  background-color: #2d3748 !important;
+}
+
+.dark-mode #historico-calculos-container .border-gray-200 {
+  border-color: #4a5568 !important;
+}
+
+.dark-mode #historico-calculos-container .hover\:border-blue-300:hover {
+  border-color: #4299e1 !important;
+}
+
+/* Modal em dark mode */
+.dark-mode #modal-conversor-unidades > div,
+.dark-mode #modal-conversor-dose > div {
+  background-color: #2d3748 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Transições suaves */
+.dark-mode * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Fix para elementos específicos que precisam manter cores originais */
+.dark-mode [style*="background-color"] {
+  /* Mantém cores inline de categorias de resultado */
+}
