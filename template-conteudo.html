@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TÍTULO DO CONTEÚDO] - Calculadoras de Enfermagem</title>
+    <meta name="description" content="[DESCRIÇÃO DO CONTEÚDO - 150-160 caracteres]">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical - ATUALIZAR [CAMINHO-DA-PAGINA] -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO-DA-PAGINA]" />
+    
+    <!-- Hreflang - ATUALIZAR [CAMINHO] -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO]" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO]" />
+
+    <!-- Schema.org - Article (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "[TÍTULO DO CONTEÚDO]",
+            "description": "[DESCRIÇÃO DO CONTEÚDO]",
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-01-01",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": CONFIG.site.domain + "/[CAMINHO]"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta (animações e estilos compartilhados) -->
+    <link rel="stylesheet" href="assets/css/tool-page.css">
+    
+    <!-- CSS Modular da Página de Conteúdo -->
+    <link rel="stylesheet" href="assets/css/content-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="assets/css/sidebar-menu.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="decorative-background">
+        
+        <!-- Formas Flutuantes Decorativas -->
+        <div class="bg-floating-shapes">
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+            <div class="floating-shape"></div>
+        </div>
+        
+        <!-- Linhas Decorativas SVG -->
+        <svg class="bg-lines-decorative" width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+            <path d="M-100,200 C300,150 600,350 1500,250" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-100,600 C400,550 800,700 1600,500" fill="none" stroke="var(--color-cyan)" stroke-width="1.5" />
+            <path d="M-200,800 C200,750 500,850 1400,780" fill="none" stroke="var(--color-primary)" stroke-width="1" opacity="0.5" />
+        </svg>
+        
+        <div class="content-container">
+            
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Início</a>
+                <span class="breadcrumb-separator">›</span>
+                <a href="/biblioteca">Biblioteca</a>
+                <span class="breadcrumb-separator">›</span>
+                <span>[Título do Conteúdo]</span>
+            </nav>
+            
+            <!-- Article Header -->
+            <header class="article-header">
+                <span class="article-category">[CATEGORIA]</span>
+                <h1>[Título Principal do Conteúdo]</h1>
+                <div style="width: 80px; height: 4px; background: linear-gradient(90deg, var(--color-primary), var(--color-cyan)); border-radius: 2px; margin: 1rem 0 1.5rem 0;"></div>
+                <p class="article-subtitle">
+                    [Subtítulo ou resumo executivo do conteúdo. Deve ser atrativo e informativo, resumindo o que o leitor encontrará no artigo.]
+                </p>
+                <div class="article-meta">
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-calendar"></i>
+                        <span>Publicado em 01/01/2025</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Leitura: 8 min</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Por Calculadoras de Enfermagem</span>
+                    </div>
+                    <div class="article-meta-item">
+                        <i class="fa-solid fa-sync"></i>
+                        <span>Atualizado em 15/01/2025</span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Featured Image -->
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1200" 
+                 alt="[Descrição da imagem]" 
+                 class="featured-image">
+            
+            <!-- Layout: Content + Sidebar -->
+            <div class="content-layout">
+                
+                <!-- Main Article Content -->
+                <article class="article-content">
+                    
+                    <!-- Introdução -->
+                    <p>
+                        [Parágrafo introdutório que contextualiza o tema, apresenta a relevância do assunto e prepara o leitor para o conteúdo que será abordado. Deve capturar a atenção e estabelecer a importância do tema para a prática de enfermagem.]
+                    </p>
+                    
+                    <p>
+                        [Segundo parágrafo introdutório que pode apresentar estatísticas, dados relevantes ou uma breve contextualização histórica do tema.]
+                    </p>
+                    
+                    <!-- Alerta de Destaque -->
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+                        <div>
+                            <strong>Importante:</strong> Esta informação é destinada a profissionais de saúde e deve ser aplicada considerando o contexto clínico completo de cada paciente.
+                        </div>
+                    </div>
+                    
+                    <!-- Seção 1 -->
+                    <h2 id="secao-1">1. Primeira Seção Principal</h2>
+                    
+                    <p>
+                        [Conteúdo da primeira seção. Desenvolva o tema com profundidade, utilizando linguagem técnica apropriada mas acessível. Inclua exemplos práticos quando relevante.]
+                    </p>
+                    
+                    <h3>1.1 Subseção</h3>
+                    
+                    <p>
+                        [Conteúdo da subseção. Aprofunde aspectos específicos do tema.]
+                    </p>
+                    
+                    <ul>
+                        <li>Ponto importante 1 com explicação detalhada</li>
+                        <li>Ponto importante 2 com contexto clínico</li>
+                        <li>Ponto importante 3 com aplicação prática</li>
+                    </ul>
+                    
+                    <!-- Imagem Ilustrativa -->
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1584515933487-9bdb2f9883f1?w=800" 
+                             alt="Descrição da imagem">
+                        <figcaption>Legenda da imagem: descrição do que está sendo mostrado e sua relevância para o conteúdo</figcaption>
+                    </figure>
+                    
+                    <!-- Seção 2 -->
+                    <h2 id="secao-2">2. Segunda Seção Principal</h2>
+                    
+                    <p>
+                        [Conteúdo da segunda seção. Continue desenvolvendo o tema de forma lógica e progressiva.]
+                    </p>
+                    
+                    <!-- Box de Destaque -->
+                    <div class="highlight-box">
+                        <h4><i class="fa-solid fa-lightbulb"></i> Ponto de Destaque</h4>
+                        <p>
+                            [Informação especialmente importante que merece destaque visual. Pode ser uma dica prática, um conceito fundamental ou uma orientação crítica para a prática.]
+                        </p>
+                    </div>
+                    
+                    <!-- Tabela de Dados -->
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>Parâmetro</th>
+                                <th>Valor Normal</th>
+                                <th>Interpretação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Parâmetro 1</td>
+                                <td>X - Y unidades</td>
+                                <td>Descrição da interpretação</td>
+                            </tr>
+                            <tr>
+                                <td>Parâmetro 2</td>
+                                <td>X - Y unidades</td>
+                                <td>Descrição da interpretação</td>
+                            </tr>
+                            <tr>
+                                <td>Parâmetro 3</td>
+                                <td>X - Y unidades</td>
+                                <td>Descrição da interpretação</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Seção 3 -->
+                    <h2 id="secao-3">3. Terceira Seção Principal</h2>
+                    
+                    <p>
+                        [Conteúdo da terceira seção.]
+                    </p>
+                    
+                    <h3>3.1 Subseção com Lista Ordenada</h3>
+                    
+                    <ol>
+                        <li>Primeiro passo ou elemento importante</li>
+                        <li>Segundo passo ou elemento importante</li>
+                        <li>Terceiro passo ou elemento importante</li>
+                        <li>Quarto passo ou elemento importante</li>
+                    </ol>
+                    
+                    <!-- Citação em Bloco -->
+                    <blockquote>
+                        "Esta é uma citação importante de um autor relevante ou de uma fonte científica que reforça o ponto sendo discutido. Deve ser utilizada para dar autoridade ao conteúdo."
+                        <br><br>
+                        <strong>— Autor, Fonte (Ano)</strong>
+                    </blockquote>
+                    
+                    <!-- CTA Inline -->
+                    <div class="inline-cta">
+                        <h3>Explore Nossa Calculadora</h3>
+                        <p>Aplique esses conceitos na prática com nossa calculadora interativa</p>
+                        <a href="#" class="cta-button">
+                            <i class="fa-solid fa-calculator"></i>
+                            Acessar Calculadora
+                        </a>
+                    </div>
+                    
+                    <!-- Seção 4 -->
+                    <h2 id="secao-4">4. Aplicações Práticas</h2>
+                    
+                    <p>
+                        [Conteúdo focado em aplicações práticas do conhecimento apresentado. Esta seção é crucial para conectar teoria e prática.]
+                    </p>
+                    
+                    <h3>4.1 Caso Clínico Exemplo</h3>
+                    
+                    <div class="alert alert-success">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <div>
+                            <strong>Caso Clínico:</strong> [Apresente um caso clínico fictício mas realista que ilustra a aplicação prática dos conceitos discutidos.]
+                        </div>
+                    </div>
+                    
+                    <p>
+                        [Análise e discussão do caso clínico.]
+                    </p>
+                    
+                    <!-- Seção 5 -->
+                    <h2 id="secao-5">5. Considerações Finais</h2>
+                    
+                    <p>
+                        [Conclusão que sintetiza os pontos principais discutidos no artigo e reforça a importância do tema para a prática de enfermagem.]
+                    </p>
+                    
+                    <p>
+                        [Parágrafo final que pode incluir perspectivas futuras, novas pesquisas ou direcionamentos para aprofundamento do conhecimento.]
+                    </p>
+                    
+                    <div class="alert alert-warning">
+                        <i class="fa-solid fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Lembrete Importante:</strong> As informações apresentadas neste artigo são baseadas em evidências científicas atualizadas, mas devem sempre ser aplicadas com julgamento clínico apropriado e considerando as especificidades de cada paciente e instituição.
+                        </div>
+                    </div>
+                    
+                </article>
+                
+                <!-- Sidebar -->
+                <aside class="content-sidebar">
+                    
+                    <!-- Índice -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-list" aria-hidden="true"></i> Índice</h3>
+                        <ul class="toc-list" style="color: rgba(255,255,255,0.95);">
+                            <li><a href="#secao-1" style="color: rgba(255,255,255,0.95);">1. Primeira Seção Principal</a></li>
+                            <li><a href="#secao-2" style="color: rgba(255,255,255,0.95);">2. Segunda Seção Principal</a></li>
+                            <li><a href="#secao-3" style="color: rgba(255,255,255,0.95);">3. Terceira Seção Principal</a></li>
+                            <li><a href="#secao-4" style="color: rgba(255,255,255,0.95);">4. Aplicações Práticas</a></li>
+                            <li><a href="#secao-5" style="color: rgba(255,255,255,0.95);">5. Considerações Finais</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Compartilhar -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-share-nodes" aria-hidden="true"></i> Compartilhar</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="share-btn facebook" title="Facebook" aria-label="Compartilhar no Facebook">
+                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn twitter" title="Twitter" aria-label="Compartilhar no Twitter">
+                                <i class="fab fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn linkedin" title="LinkedIn" aria-label="Compartilhar no LinkedIn">
+                                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="share-btn whatsapp" title="WhatsApp" aria-label="Compartilhar no WhatsApp">
+                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Download PDF -->
+                    <div class="sidebar-card" style="background: linear-gradient(135deg, #1A3E74 0%, #2E5A9C 100%); color: white;">
+                        <h3 style="color: white;"><i class="fas fa-file-pdf" aria-hidden="true"></i> Baixar PDF</h3>
+                        <p style="font-size: 0.95rem; opacity: 0.95; margin-bottom: 1rem;">
+                            Salve este conteúdo para consulta offline
+                        </p>
+                        <button style="width: 100%; padding: 0.875rem; background: white; color: var(--color-primary); border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" aria-label="Baixar conteúdo em PDF">
+                            <i class="fa-solid fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                    
+                </aside>
+                
+            </div>
+            
+            <!-- Author Box -->
+            <div class="author-box">
+                <img src="https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp" 
+                     alt="Calculadoras de Enfermagem" 
+                     class="author-avatar"
+                     onerror="if(typeof CONFIG !== 'undefined') this.src = CONFIG.site.logo.url">
+                <div class="author-info">
+                    <h3>Calculadoras de Enfermagem</h3>
+                    <p>
+                        Ferramentas essenciais para profissionais e estudantes de enfermagem, oferecendo calculadoras de escalas clínicas e de dosagem de medicamentos para otimizar a prática diária e a segurança do paciente. São mais de 50 escalas clínicas disponíveis.
+                    </p>
+                    <blockquote style="margin-top: 1rem; font-style: italic; color: var(--color-grey-medium); border-left: 3px solid var(--color-primary); padding-left: 1rem;">
+                        "Conhecer e ter domínio em escalas clínicas é fundamental para o enfermeiro, auxilia na tomada de decisões, otimiza a assistência e empodera!"
+                    </blockquote>
+                </div>
+            </div>
+            
+            <!-- Referências Bibliográficas -->
+            <section class="references-section">
+                <h2><i class="fa-solid fa-book"></i> Referências Bibliográficas</h2>
+                
+                <div class="reference-item">
+                    1. Autor, A. A., Autor, B. B., & Autor, C. C. (2024). Título completo do artigo científico. <em>Nome da Revista Científica</em>, <strong>Volume</strong>(Número), páginas. https://doi.org/xxxxx
+                </div>
+                
+                <div class="reference-item">
+                    2. Autor, D. D., & Autor, E. E. (2023). Outro artigo relevante para o tema. <em>Revista de Enfermagem Brasileira</em>, <strong>45</strong>(3), 234-245.
+                </div>
+                
+                <div class="reference-item">
+                    3. Organização Internacional. (2024). <em>Título do documento ou protocolo</em>. Editora ou Organização. Disponível em: https://exemplo.com
+                </div>
+                
+                <div class="reference-item">
+                    4. Autor, F. F. (2023). <em>Título do livro: Subtítulo relevante</em> (3ª ed.). Editora Acadêmica.
+                </div>
+            </section>
+            
+            <!-- Tags -->
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--color-grey-medium); font-size: 0.875rem; margin-bottom: 1rem;">TAGS</h4>
+                <div class="tags-list">
+                    <a href="#" class="tag">Enfermagem</a>
+                    <a href="#" class="tag">Cuidados Clínicos</a>
+                    <a href="#" class="tag">Prática Baseada em Evidências</a>
+                    <a href="#" class="tag">Segurança do Paciente</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Curva Decorativa Superior -->
+        <svg class="bg-wave-top" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path d="M0,60 C320,100 420,100 740,60 C1060,20 1200,40 1440,60 L1440,0 L0,0 Z"></path>
+        </svg>
+        
+        <!-- Seção de Conteúdo Relacionado -->
+        <section class="related-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in" style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                    Conteúdos Relacionados
+                </h2>
+            </div>
+            
+            <div class="related-grid">
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-1">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400" 
+                         alt="Artigo 1" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Artigo</span>
+                        <h3>Título do Artigo Relacionado 1</h3>
+                        <p>Breve descrição do conteúdo e sua relevância para o tema principal.</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1584515933487-9bdb2f9883f1?w=400" 
+                         alt="Calculadora" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Calculadora</span>
+                        <h3>Calculadora Relacionada ao Tema</h3>
+                        <p>Ferramenta prática para aplicar os conceitos discutidos no artigo.</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="related-card animate-on-scroll scale-in delay-3">
+                    <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=400" 
+                         alt="Escala" 
+                         class="related-card-image">
+                    <div class="related-card-content">
+                        <span class="related-card-category">Escala</span>
+                        <h3>Escala de Avaliação Relacionada</h3>
+                        <p>Instrumento validado para avaliação clínica relacionada ao tema.</p>
+                    </div>
+                </a>
+                
+            </div>
+        </section>
+        
+        <!-- Curva Decorativa Inferior -->
+        <svg class="bg-wave-bottom" viewBox="0 0 1440 120" preserveAspectRatio="none" style="position: absolute; bottom: 0; left: 0;">
+            <path d="M0,60 C320,20 620,40 960,60 C1280,80 1360,80 1440,60 L1440,120 L0,120 Z"></path>
+        </svg>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- Container para Modais Institucionais -->
+    <div id="modals-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="assets/js/components.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades da Página de Conteúdo -->
+    <script src="assets/js/content-page.js"></script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="assets/js/cookie-banner-component.js"></script>
+    <script src="assets/js/cookie-consent.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[NOME DA FERRAMENTA] - Calculadoras de Enfermagem</title>
+    <meta name="description" content="[DESCRIÇÃO DA FERRAMENTA - 150-160 caracteres]">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical - ATUALIZAR [CAMINHO-DA-FERRAMENTA] -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO-DA-FERRAMENTA]" />
+    
+    <!-- Hreflang - ATUALIZAR [CAMINHO] -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO]" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/[CAMINHO]" />
+
+    <!-- Schema.org - WebApplication (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const toolSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "[NOME DA FERRAMENTA]",
+            "description": "[DESCRIÇÃO DA FERRAMENTA]",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            },
+            "author": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name
+            },
+            "publisher": {
+                "@type": CONFIG.site.organization.type,
+                "name": CONFIG.site.organization.name,
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": CONFIG.site.logo.url
+                }
+            },
+            "about": {
+                "@type": "MedicalProcedure",
+                "name": "[NOME DO PROCEDIMENTO/CÁLCULO]"
+            }
+        };
+        
+        const schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(toolSchema, null, 4);
+        document.head.appendChild(schemaScript);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta -->
+    <link rel="stylesheet" href="assets/css/tool-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="assets/css/page-styles.css">
+    
+    <!-- CSS Modais Institucionais (compartilhado) -->
+    <link rel="stylesheet" href="assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies (compartilhado) -->
+    <link rel="stylesheet" href="assets/css/cookie-consent.css">
+    
+    <!-- CSS Header Icons -->
+    <link rel="stylesheet" href="assets/css/header-icons.css">
+    
+    <!-- CSS Header Icons Mobile Fix -->
+    <link rel="stylesheet" href="assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="assets/css/sidebar-menu.css">
+    
+    <!-- CSS Modal de Feedback (Modular) -->
+    <link rel="stylesheet" href="assets/css/modal-feedback.css">
+</head>
+<body class="calculator-page">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- HERO SECTION -->
+    <section class="page-hero page-hero-compact">
+        <div class="page-hero-overlay"></div>
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb-wrapper" style="background: transparent; border: none; padding: 0; margin-bottom: 20px;">
+                <ol class="breadcrumb-list" style="color: rgba(255,255,255,0.8);">
+                    <li class="breadcrumb-item"><a href="/" style="color: white;">Início</a></li>
+                    <li class="breadcrumb-item"><i class="fas fa-chevron-right"></i></li>
+                    <li class="breadcrumb-item"><a href="/calculadoras" style="color: white;">[Categoria]</a></li>
+                    <li class="breadcrumb-item"><i class="fas fa-chevron-right"></i></li>
+                    <li class="breadcrumb-item active" style="color: rgba(255,255,255,0.9);">[Nome da Ferramenta]</li>
+                </ol>
+            </nav>
+            
+            <div class="page-hero-content">
+                <h1 class="page-hero-title">[Nome da Ferramenta]</h1>
+                <p class="page-hero-subtitle">
+                    [Descrição breve da ferramenta e sua utilidade na prática clínica de enfermagem]
+                </p>
+            </div>
+        </div>
+        <svg class="hero-bottom-curve" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path d="M0,40 C320,80 620,20 960,50 C1280,80 1360,60 1440,40 L1440,100 L0,100 Z"></path>
+        </svg>
+    </section>
+    
+    <!-- MAIN CONTENT -->
+    <main id="main-content">
+        <section class="calculator-section">
+            <div class="container">
+                <div class="calculator-layout">
+                    
+                    <!-- Sidebar de Informações -->
+                    <aside class="calc-sidebar">
+                        
+                        <!-- Card de Informações -->
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-info-circle"></i>
+                                <h3>Sobre a Ferramenta</h3>
+                            </div>
+                            <div class="info-card-body">
+                                <p>[Breve descrição sobre a ferramenta, sua origem, validação e aplicabilidade clínica.]</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Como Usar -->
+                        <div class="info-card">
+                            <div class="info-card-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <h3>Como Usar</h3>
+                            </div>
+                            <div class="info-card-body">
+                                <ul style="margin: 0; padding-left: 1.2rem;">
+                                    <li>Preencha todos os campos obrigatórios (*)</li>
+                                    <li>Clique em "Calcular" para obter o resultado</li>
+                                    <li>Interprete baseado nos valores de referência</li>
+                                    <li>Use "Gerar PDF" para documentar</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Card de Atenção -->
+                        <div class="info-card" style="border-left: 3px solid #f59e0b;">
+                            <div class="info-card-header">
+                                <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                                <h3>Atenção</h3>
+                            </div>
+                            <div class="info-card-body">
+                                <p>Esta ferramenta é um auxílio para tomada de decisão clínica. Sempre considere o contexto clínico completo do paciente e consulte protocolos institucionais.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Ferramentas Relacionadas -->
+                        <div class="related-tools-card">
+                            <h4 class="related-title">
+                                <i class="fas fa-calculator"></i>
+                                Ferramentas Relacionadas
+                            </h4>
+                            <a href="#" class="related-tool-item">
+                                <i class="fas fa-calculator"></i>
+                                <span>[Ferramenta Relacionada 1]</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#" class="related-tool-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>[Escala Relacionada 2]</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        
+                    </aside>
+                    
+                    <!-- Área Principal da Ferramenta -->
+                    <div class="calc-main">
+                        
+                        <!-- Seletor de Unidades (se aplicável) -->
+                        <div id="unit-selector-container"></div>
+                        
+                        <!-- Card da Calculadora/Escala -->
+                        <div class="calc-card">
+                            <form class="calc-form" id="tool-form">
+                                
+                                <!-- EXEMPLO: Campos COM conversão de unidades -->
+                                <div class="form-group">
+                                    <label class="form-label" for="peso">
+                                        Peso <span class="required">*</span>
+                                    </label>
+                                    <div class="input-with-unit">
+                                        <input type="number" 
+                                               id="peso" 
+                                               class="form-input" 
+                                               placeholder="Digite o peso"
+                                               required
+                                               step="0.1"
+                                               min="0"
+                                               data-convert-type="weight"
+                                               aria-describedby="peso-help">
+                                        <span class="unit-indicator" data-unit-type="weight">kg</span>
+                                    </div>
+                                    <span class="form-help" id="peso-help">O peso será convertido automaticamente</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="altura">
+                                        Altura <span class="required">*</span>
+                                    </label>
+                                    <div class="input-with-unit">
+                                        <input type="number" 
+                                               id="altura" 
+                                               class="form-input" 
+                                               placeholder="Digite a altura"
+                                               required
+                                               step="0.1"
+                                               min="0"
+                                               data-convert-type="height"
+                                               aria-describedby="altura-help">
+                                        <span class="unit-indicator" data-unit-type="height">cm</span>
+                                    </div>
+                                    <span class="form-help" id="altura-help">A altura será convertida automaticamente</span>
+                                </div>
+                                
+                                <!-- EXEMPLO: Campo simples SEM conversão -->
+                                <div class="form-group">
+                                    <label class="form-label" for="idade">
+                                        Idade <span class="required">*</span>
+                                    </label>
+                                    <input type="number" 
+                                           id="idade" 
+                                           class="form-input" 
+                                           placeholder="Ex: 45"
+                                           required
+                                           min="0"
+                                           max="150">
+                                    <span class="form-help">Idade em anos</span>
+                                </div>
+                                
+                                <!-- EXEMPLO: Campo Select -->
+                                <div class="form-group">
+                                    <label class="form-label" for="sexo">
+                                        Sexo <span class="required">*</span>
+                                    </label>
+                                    <select id="sexo" class="form-select" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- EXEMPLO: Campo Radio -->
+                                <div class="form-group">
+                                    <label class="form-label">Possui comorbidades? <span class="required">*</span></label>
+                                    <div class="radio-group">
+                                        <label class="radio-label">
+                                            <input type="radio" name="comorbidades" value="sim" required>
+                                            <span>Sim</span>
+                                        </label>
+                                        <label class="radio-label">
+                                            <input type="radio" name="comorbidades" value="nao">
+                                            <span>Não</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <!-- EXEMPLO: Textarea -->
+                                <div class="form-group">
+                                    <label class="form-label" for="observacoes">Observações Clínicas</label>
+                                    <textarea id="observacoes" 
+                                              class="form-input" 
+                                              rows="3"
+                                              placeholder="Adicione observações relevantes..."></textarea>
+                                </div>
+                                
+                                <!-- Botões de Ação -->
+                                <div class="calc-actions">
+                                    <button type="submit" class="btn-primary">
+                                        <i class="fas fa-calculator"></i>
+                                        Calcular
+                                    </button>
+                                    <button type="reset" class="btn-secondary">
+                                        <i class="fas fa-redo"></i>
+                                        Limpar
+                                    </button>
+                                </div>
+                                
+                            </form>
+                            
+                            <!-- Área de Resultado (inicialmente oculta) -->
+                            <div class="result-area" id="result-area" style="display: none;">
+                                <div class="result-header">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <h3>Resultado</h3>
+                                </div>
+                                <div class="result-content" id="result-content">
+                                    <!-- Resultado gerado dinamicamente via JS -->
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn-export" onclick="copyResult()">
+                                        <i class="fas fa-copy"></i>
+                                        Copiar
+                                    </button>
+                                    <button class="btn-export btn-pdf" onclick="exportPDF()">
+                                        <i class="fas fa-file-pdf"></i>
+                                        PDF
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Card de Gráficos/Tabelas (opcional) -->
+                        <div class="charts-area" id="charts-area" style="display: none;">
+                            <div class="chart-card">
+                                <h3 class="chart-title">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Visualização Gráfica
+                                </h3>
+                                <div id="chart-container"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tabela de Referência -->
+                        <div class="reference-table-card" style="margin-top: 2rem;">
+                            <h3 class="section-title">
+                                <i class="fas fa-table"></i>
+                                Valores de Referência
+                            </h3>
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Classificação</th>
+                                            <th>Valor</th>
+                                            <th>Interpretação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Normal</strong></td>
+                                            <td>0 - 10</td>
+                                            <td>Dentro dos parâmetros esperados</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Atenção</strong></td>
+                                            <td>11 - 20</td>
+                                            <td>Requer monitoramento contínuo</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Crítico</strong></td>
+                                            <td>> 20</td>
+                                            <td>Intervenção imediata necessária</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção NANDA/NIC/NOC -->
+        <section class="nursing-taxonomies-section">
+            <div class="container">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fas fa-stethoscope"></i>
+                    Diagnósticos e Intervenções de Enfermagem
+                </h2>
+                
+                <div class="taxonomy-tabs">
+                    <button class="tab-button active" data-tab="nanda">
+                        <i class="fas fa-notes-medical"></i>
+                        NANDA
+                    </button>
+                    <button class="tab-button" data-tab="nic">
+                        <i class="fas fa-hand-holding-medical"></i>
+                        NIC
+                    </button>
+                    <button class="tab-button" data-tab="noc">
+                        <i class="fas fa-chart-line"></i>
+                        NOC
+                    </button>
+                </div>
+                
+                <!-- Tab NANDA -->
+                <div class="tab-content active" id="tab-nanda">
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Diagnóstico de Enfermagem NANDA 1</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> 00XXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Domínio:</strong> [Domínio NANDA]
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Definição do diagnóstico de enfermagem segundo NANDA-I]
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Fatores Relacionados:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Fator relacionado 1</li>
+                                <li>Fator relacionado 2</li>
+                                <li>Fator relacionado 3</li>
+                            </ul>
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Características Definidoras:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Característica 1</li>
+                                <li>Característica 2</li>
+                                <li>Característica 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Diagnóstico de Enfermagem NANDA 2</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> 00XXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Segunda opção de diagnóstico relacionado]
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab NIC -->
+                <div class="tab-content" id="tab-nic">
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Intervenção de Enfermagem NIC 1</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> XXXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Definição da intervenção segundo NIC]
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Atividades:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Atividade de enfermagem 1</li>
+                                <li>Atividade de enfermagem 2</li>
+                                <li>Atividade de enfermagem 3</li>
+                                <li>Atividade de enfermagem 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Intervenção de Enfermagem NIC 2</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> XXXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Segunda intervenção relacionada]
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab NOC -->
+                <div class="tab-content" id="tab-noc">
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Resultado de Enfermagem NOC 1</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> XXXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Definição do resultado esperado segundo NOC]
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Indicadores:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Indicador de resultado 1</li>
+                                <li>Indicador de resultado 2</li>
+                                <li>Indicador de resultado 3</li>
+                                <li>Indicador de resultado 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="taxonomy-card">
+                        <h4 class="taxonomy-title">Resultado de Enfermagem NOC 2</h4>
+                        <div class="taxonomy-item">
+                            <strong>Código:</strong> XXXX
+                        </div>
+                        <div class="taxonomy-item">
+                            <strong>Definição:</strong> [Segundo resultado esperado]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Author Box -->
+        <section class="author-section">
+            <div class="container">
+                <div class="author-box">
+                    <img src="https://www.calculadorasdeenfermagem.com.br/icontopbar1.webp" 
+                         alt="Calculadoras de Enfermagem" 
+                         class="author-avatar">
+                    <div class="author-info">
+                        <h3>Calculadoras de Enfermagem</h3>
+                        <p>
+                            Ferramentas essenciais para profissionais e estudantes de enfermagem, oferecendo calculadoras de escalas clínicas e de dosagem de medicamentos para otimizar a prática diária e a segurança do paciente. São mais de 50 escalas clínicas disponíveis.
+                        </p>
+                        <blockquote style="margin-top: 1rem; font-style: italic; color: var(--color-grey-medium); border-left: 3px solid var(--color-primary); padding-left: 1rem;">
+                            "Conhecer e ter domínio em escalas clínicas é fundamental para o enfermeiro, auxilia na tomada de decisões, otimiza a assistência e empodera!"
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção de Referências -->
+        <section class="references-section">
+            <div class="container">
+                <div class="references-card">
+                    <h2 class="references-title">
+                        <i class="fas fa-book"></i>
+                        Referências Científicas
+                    </h2>
+                    <div class="references-list">
+                        <div class="reference-item">
+                            1. Autor, A. A., & Autor, B. B. (2024). Título do artigo original. <em>Nome do Periódico</em>, 00(0), 00-00. DOI: 10.0000/exemplo
+                        </div>
+                        <div class="reference-item">
+                            2. Organização de Saúde. (2024). <em>Título do documento ou protocolo</em>. Disponível em: https://exemplo.com
+                        </div>
+                        <div class="reference-item">
+                            3. Autor, C. C. (2023). <em>Título do livro: Subtítulo</em> (3ª ed.). Editora.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Conteúdo Relacionado -->
+        <section class="related-content-section">
+            <div class="container">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">
+                    <i class="fas fa-link"></i>
+                    Ferramentas e Escalas Relacionadas
+                </h2>
+                
+                <div class="related-grid">
+                    <a href="#" class="related-card">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400" alt="Calculadora Relacionada" class="related-card-image">
+                        <div class="related-card-content">
+                            <span class="related-card-category">Calculadora</span>
+                            <h3>Nome da Calculadora Relacionada</h3>
+                            <p>Breve descrição da calculadora e sua aplicação clínica na prática de enfermagem.</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="related-card">
+                        <img src="https://images.unsplash.com/photo-1584515933487-9bdb2f9883f1?w=400" alt="Escala Relacionada" class="related-card-image">
+                        <div class="related-card-content">
+                            <span class="related-card-category">Escala</span>
+                            <h3>Nome da Escala Relacionada</h3>
+                            <p>Breve descrição da escala e sua aplicação clínica na avaliação do paciente.</p>
+                        </div>
+                    </a>
+                    
+                    <a href="#" class="related-card">
+                        <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=400" alt="Artigo Relacionado" class="related-card-image">
+                        <div class="related-card-content">
+                            <span class="related-card-category">Artigo</span>
+                            <h3>Artigo Relacionado ao Tema</h3>
+                            <p>Conteúdo educativo sobre o tema da ferramenta e suas aplicações práticas.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- Container para Modais Institucionais -->
+    <div id="modals-container"></div>
+    
+    <!-- Modal de Feedback - Injetado automaticamente via modal-feedback.js -->
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="assets/js/components.js"></script>
+    
+    <!-- Conversor de Unidades -->
+    <script src="assets/js/unit-converter.js"></script>
+    
+    <!-- Modal de Feedback (Modular) -->
+    <script src="assets/js/modal-feedback.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false;
+            
+            function injectComponents() {
+                if (componentsInjected) return;
+                
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) skipLinksContainer.innerHTML = renderSkipLinks();
+                
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) topbarContainer.innerHTML = renderTopBar();
+                
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) headerContainer.innerHTML = renderHeader();
+                
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) footerContainer.innerHTML = renderFooter();
+                
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) consentContainer.innerHTML = renderConsentBanner();
+                
+                // Injetar seletor de unidades (se disponível)
+                const unitSelectorContainer = document.getElementById('unit-selector-container');
+                if (unitSelectorContainer && typeof renderUnitSelector === 'function') {
+                    unitSelectorContainer.innerHTML = renderUnitSelector();
+                }
+                
+                componentsInjected = true;
+                console.log('✓ Componentes modulares injetados');
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', injectComponents);
+            } else {
+                injectComponents();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidade de Tabs NANDA/NIC/NOC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Remove active de todos
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Adiciona active ao clicado
+                    this.classList.add('active');
+                    document.getElementById('tab-' + targetTab).classList.add('active');
+                });
+            });
+        });
+    </script>
+    
+    <!-- JavaScript Modular da Ferramenta -->
+    <script src="assets/js/tool-page.js"></script>
+    
+    <!-- Script específico da ferramenta -->
+    <script>
+        // ==========================================
+        // LÓGICA ESPECÍFICA DA CALCULADORA/ESCALA
+        // ==========================================
+        // Funções do Modal de Feedback agora são carregadas via modal-feedback.js
+        // SUBSTITUIR pela lógica real da ferramenta
+        
+        document.getElementById('tool-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Exemplo de captura de valores
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const idade = parseInt(document.getElementById('idade').value);
+            const sexo = document.getElementById('sexo').value;
+            
+            // Exemplo de cálculo (IMC)
+            const alturaMetros = altura / 100;
+            const imc = peso / (alturaMetros * alturaMetros);
+            
+            // Interpretação
+            let interpretacao = '';
+            if (imc < 18.5) {
+                interpretacao = '<strong>Abaixo do peso:</strong> Requer avaliação nutricional e acompanhamento.';
+            } else if (imc >= 18.5 && imc < 25) {
+                interpretacao = '<strong>Peso normal:</strong> Manter hábitos saudáveis.';
+            } else if (imc >= 25 && imc < 30) {
+                interpretacao = '<strong>Sobrepeso:</strong> Considerar orientação nutricional.';
+            } else {
+                interpretacao = '<strong>Obesidade:</strong> Acompanhamento multiprofissional recomendado.';
+            }
+            
+            // Mostrar resultado
+            const resultArea = document.getElementById('result-area');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.innerHTML = `
+                <div style="background: var(--color-bg-light); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary);">IMC Calculado</h4>
+                    <p style="font-size: 2rem; font-weight: bold; margin: 0; color: var(--color-text-primary);">${imc.toFixed(2)} kg/m²</p>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <h4 style="margin: 0 0 0.5rem 0;">Interpretação</h4>
+                    <p>${interpretacao}</p>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 4px;">
+                    <p style="margin: 0;"><strong>Nota:</strong> Este resultado deve ser interpretado por profissional de saúde considerando o contexto clínico completo.</p>
+                </div>
+            `;
+            
+            resultArea.style.display = 'block';
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        function copyResult() {
+            const resultContent = document.getElementById('result-content').innerText;
+            navigator.clipboard.writeText(resultContent).then(() => {
+                mostrarModalFeedback('✅ Resultado copiado com sucesso!', 'success');
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                mostrarModalFeedback('❌ Erro ao copiar resultados. Tente novamente.', 'error');
+            });
+        }
+        
+        function exportPDF() {
+            // TODO: Implementar exportação PDF com jsPDF
+            // Exemplo de uso do modal de feedback
+            mostrarModalFeedback('Funcionalidade de exportação PDF em desenvolvimento', 'error', 5000);
+        }
+    </script>
+    
+    <!-- Funcionalidades JS Globais -->
+    <script src="assets/js/scripts.js"></script>
+    
+    <!-- Header Icons System -->
+    <script src="assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+    <!-- Sistema de Modais Institucionais (compartilhado) -->
+    <script src="assets/js/template-conteudoferramentas.js"></script>
+
+    <!-- Sistema de Consentimento de Cookies (compartilhado) -->
+    <script src="assets/js/cookie-banner-component.js"></script>
+    <script src="assets/js/cookie-consent.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TOOL_TITLE}} - Calculadoras de Enfermagem</title>
+    <meta name="description" content="{{TOOL_DESCRIPTION}}">
+    <meta name="keywords" content="{{TOOL_KEYWORDS}}">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="../00.Template/assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+    
+    <!-- Hreflang (19 idiomas) - OPCIONAL: Configurar por ferramenta -->
+    <link rel="alternate" hreflang="pt-BR" href="{{CANONICAL_URL}}" />
+    <link rel="alternate" hreflang="x-default" href="{{CANONICAL_URL}}" />
+
+    <!-- Schema.org - Organization (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const orgSchema = {
+            "@context": "https://schema.org",
+            "@type": CONFIG.site.organization.type,
+            "name": CONFIG.site.organization.name,
+            "url": CONFIG.site.domain,
+            "logo": CONFIG.site.logo.url,
+            "description": "Ferramentas clínicas para profissionais de enfermagem",
+            "sameAs": [
+                "https://www.linkedin.com/company/calculadoras-de-enfermagem",
+                "https://www.instagram.com/calculadorasdeenfermagem/",
+                "https://www.youtube.com/channel/UC_6runTDHz8u5S1Yab842pg"
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "contato@calculadorasdeenfermagem.com.br",
+                "contactType": "customer support",
+                "availableLanguage": ["Portuguese", "English", "Spanish"]
+            }
+        };
+        
+        const schemaScript1 = document.createElement('script');
+        schemaScript1.type = 'application/ld+json';
+        schemaScript1.textContent = JSON.stringify(orgSchema, null, 4);
+        document.head.appendChild(schemaScript1);
+    }
+    </script>
+
+    <!-- Schema.org - WebApplication (para calculadoras) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const appSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "{{TOOL_TITLE}}",
+            "description": "{{TOOL_DESCRIPTION}}",
+            "url": "{{CANONICAL_URL}}",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            },
+            "provider": {
+                "@type": "Organization",
+                "name": CONFIG.site.organization.name,
+                "url": CONFIG.site.domain
+            }
+        };
+        
+        const schemaScript2 = document.createElement('script');
+        schemaScript2.type = 'application/ld+json';
+        schemaScript2.textContent = JSON.stringify(appSchema, null, 4);
+        document.head.appendChild(schemaScript2);
+    }
+    </script>
+
+    <!-- Schema.org - WebPage -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const pageSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "{{TOOL_TITLE}}",
+            "description": "{{TOOL_DESCRIPTION}}",
+            "url": "{{CANONICAL_URL}}",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": CONFIG.site.name,
+                "url": CONFIG.site.domain
+            }
+        };
+        
+        const schemaScript3 = document.createElement('script');
+        schemaScript3.type = 'application/ld+json';
+        schemaScript3.textContent = JSON.stringify(pageSchema, null, 4);
+        document.head.appendChild(schemaScript3);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="../00.Template/assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="../00.Template/assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="../00.Template/assets/css/styles.css">
+    
+    <!-- CSS Compartilhado entre Templates -->
+    <link rel="stylesheet" href="../00.Template/assets/css/shared-template.css">
+    
+    <!-- CSS Modular da Ferramenta -->
+    <link rel="stylesheet" href="../00.Template/assets/css/tool-page.css">
+    
+    <!-- CSS Modais e Estilos de Página -->
+    <link rel="stylesheet" href="../00.Template/assets/css/page-styles.css">
+    
+    <!-- Header Icons CSS - Desktop e Mobile -->
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons.css">
+    <link rel="stylesheet" href="../00.Template/assets/css/header-icons-mobile-fix.css">
+    
+    <!-- CSS Template Conteúdo Ferramentas -->
+    <link rel="stylesheet" href="../00.Template/assets/css/template-conteudoferramentas.css">
+    
+    <!-- CSS Sistema de Cookies -->
+    <link rel="stylesheet" href="../00.Template/assets/css/cookie-consent.css">
+    
+    <!-- CSS Footer Redesign -->
+    <link rel="stylesheet" href="../00.Template/assets/css/footer-redesign.css">
+    
+    <!-- CSS Sidebar Menu -->
+    <link rel="stylesheet" href="../00.Template/assets/css/sidebar-menu.css">
+    
+    <!-- CSS Modal de Feedback -->
+    <link rel="stylesheet" href="../00.Template/assets/css/modal-feedback.css">
+    
+    <!-- CSS Seções de Calculadoras -->
+    <link rel="stylesheet" href="../00.Template/assets/css/calculator-sections.css">
+    
+    <!-- CSS Tabs de Calculadoras -->
+    <link rel="stylesheet" href="../00.Template/assets/css/calculator-tabs.css">
+    
+    <!-- CSS Padronização (Standardization) -->
+    <link rel="stylesheet" href="../00.Template/assets/css/standardization.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- jsPDF para exportação de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        /* Esconde as setas de inputs do tipo número */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        /* Garante que o main não seja sobreposto pelo header */
+        #calculator-main-content {
+            margin-top: 0;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- BREADCRUMB - Injetado via JS -->
+    <div id="breadcrumb-container"></div>
+    
+    <!-- MAIN CONTENT - Área da Calculadora -->
+    <main id="calculator-main-content">
+        <!-- Estrutura será injetada via calculator-main.js -->
+    </main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- VLibras Widget - Injetado via JS -->
+    <div id="vlibras-container"></div>
+    
+    <!-- Cookie Banner - Injetado via JS -->
+    <div id="cookie-banner-container"></div>
+    
+    <!-- Botão Flutuante de Acesso Rápido - Injetado via JS -->
+    <div id="floating-quick-access-container"></div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS MODULARES - COMPONENTES REUTILIZÁVEIS -->
+    <!-- ============================================================ -->
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="../00.Template/assets/js/components.js"></script>
+    
+    <!-- Breadcrumb Modular -->
+    <script src="../00.Template/assets/js/breadcrumb.js"></script>
+    
+    <!-- Conversão de Unidades -->
+    <script src="../00.Template/assets/js/unit-converter.js"></script>
+    
+    <!-- Funcionalidades JS -->
+    <script src="../00.Template/assets/js/scripts.js"></script>
+    
+    <!-- Header Icons JS - Comportamento do cabeçalho mobile/desktop -->
+    <script src="../00.Template/assets/js/header-icons.js"></script>
+    
+    <!-- Floating Buttons Controller -->
+    <script src="../00.Template/assets/js/floating-buttons-controller.js"></script>
+    
+    <!-- Rotating Cards System -->
+    <script src="../00.Template/assets/js/rotating-cards.js"></script>
+    
+    <!-- Sidebar Menu Controller -->
+    <script src="../00.Template/assets/js/sidebar-menu-controller.js"></script>
+    
+    <!-- Template Conteúdo Ferramentas (Modais Institucionais) -->
+    <script src="../00.Template/assets/js/template-conteudoferramentas.js"></script>
+    
+    <!-- Cookie Consent -->
+    <script src="../00.Template/assets/js/cookie-banner-component.js"></script>
+    <script src="../00.Template/assets/js/cookie-consent.js"></script>
+    
+    <!-- Modal de Feedback -->
+    <script src="../00.Template/assets/js/modal-feedback.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- MÓDULOS DE CALCULADORAS -->
+    <!-- ============================================================ -->
+    
+    <!-- Calculator Tabs -->
+    <script src="../00.Template/assets/js/calculator-tabs.js"></script>
+    
+    <!-- Calculator Actions (Copiar, PDF, Limpar) -->
+    <script src="../00.Template/assets/js/calculator-actions.js"></script>
+    
+    <!-- Busca NANDA/NIC/NOC -->
+    <script src="../00.Template/assets/js/nanda-nic-noc-search.js"></script>
+    
+    <!-- Metas Internacionais de Segurança -->
+    <script src="../00.Template/assets/js/metas-seguranca.js"></script>
+    
+    <!-- 9 Acertos de Medicamentos -->
+    <script src="../00.Template/assets/js/9-acertos-medicamentos.js"></script>
+    
+    <!-- Auditoria de Cálculo -->
+    <script src="../00.Template/assets/js/auditoria-calculo.js"></script>
+    
+    <!-- Ferramentas Relacionadas -->
+    <script src="../00.Template/assets/js/related-tools.js"></script>
+    
+    <!-- Botão Flutuante de Acesso Rápido -->
+    <script src="../00.Template/assets/js/floating-quick-access.js"></script>
+    
+    <!-- Calculator Main (Estrutura Principal) -->
+    <script src="../00.Template/assets/js/calculator-main.js"></script>
+    
+    <!-- VLibras será carregado automaticamente via scripts.js -->
+    
+    <!-- Inicialização Global (CARREGAR POR ÚLTIMO) -->
+    <script src="../00.Template/assets/js/init-all.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- SCRIPT DE INICIALIZAÇÃO MODULAR DOS COMPONENTES -->
+    <!-- ============================================================ -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                // Injetar VLibras
+                const vlibrasContainer = document.getElementById('vlibras-container');
+                if (vlibrasContainer && typeof renderVLibras === 'function') {
+                    vlibrasContainer.innerHTML = renderVLibras();
+                }
+                
+                // Injetar Cookie Banner
+                const cookieBannerContainer = document.getElementById('cookie-banner-container');
+                if (cookieBannerContainer && typeof renderCookieBanner === 'function') {
+                    cookieBannerContainer.innerHTML = renderCookieBanner();
+                }
+                
+                // Injetar Botão Flutuante de Acesso Rápido
+                if (typeof FloatingQuickAccess !== 'undefined' && FloatingQuickAccess.inject) {
+                    FloatingQuickAccess.inject();
+                }
+                
+                // Breadcrumb será inicializado automaticamente por breadcrumb.js
+                // quando encontrar #breadcrumb-container
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT ESPECÍFICO DA CALCULADORA -->
+    <!-- Este bloco será substituído pelo código da calculadora -->
+    <!-- ============================================================ -->
+    {{CALCULATOR_JAVASCRIPT}}
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadoras de Enfermagem - Ferramentas e Recursos para Profissionais</title>
+    <meta name="description" content="Calculadoras clínicas, escalas de avaliação e recursos desenvolvidos para apoiar a prática baseada em evidências e o cuidado seguro ao paciente.">
+    
+    <!-- ============================================================ -->
+    <!-- CONFIGURAÇÕES CENTRALIZADAS - CARREGAR PRIMEIRO -->
+    <!-- ============================================================ -->
+    <script src="assets/js/config.js"></script>
+    
+    <!-- ============================================================ -->
+    <!-- GOOGLE ANALYTICS & CONSENT MODE V2 - MODULARIZADO -->
+    <!-- ============================================================ -->
+    <script>
+        // Inicializa Google Analytics usando configurações centralizadas
+        if (typeof CONFIG !== 'undefined') {
+            CONFIG.initGoogleAnalytics();
+        } else {
+            console.error('❌ CONFIG não encontrado! Verifique se config.js foi carregado.');
+        }
+    </script>
+    
+    <!-- Favicon - Usando CONFIG -->
+    <script>
+        if (typeof CONFIG !== 'undefined' && CONFIG.site.favicon) {
+            const favicon = document.createElement('link');
+            favicon.rel = 'icon';
+            favicon.href = CONFIG.site.favicon.url;
+            favicon.type = CONFIG.site.favicon.type;
+            document.head.appendChild(favicon);
+        }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://www.calculadorasdeenfermagem.com.br/" />
+    
+    <!-- Hreflang (19 idiomas) -->
+    <link rel="alternate" hreflang="pt-BR" href="https://www.calculadorasdeenfermagem.com.br/" />
+    <link rel="alternate" hreflang="en" href="https://www.calculadorasdeenfermagem.com.br/en/" />
+    <link rel="alternate" hreflang="es" href="https://www.calculadorasdeenfermagem.com.br/es/" />
+    <link rel="alternate" hreflang="fr" href="https://www.calculadorasdeenfermagem.com.br/fr/" />
+    <link rel="alternate" hreflang="de" href="https://www.calculadorasdeenfermagem.com.br/de/" />
+    <link rel="alternate" hreflang="it" href="https://www.calculadorasdeenfermagem.com.br/it/" />
+    <link rel="alternate" hreflang="ja" href="https://www.calculadorasdeenfermagem.com.br/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://www.calculadorasdeenfermagem.com.br/ko/" />
+    <link rel="alternate" hreflang="zh" href="https://www.calculadorasdeenfermagem.com.br/zh/" />
+    <link rel="alternate" hreflang="hi" href="https://www.calculadorasdeenfermagem.com.br/hi/" />
+    <link rel="alternate" hreflang="ar" href="https://www.calculadorasdeenfermagem.com.br/ar/" />
+    <link rel="alternate" hreflang="ru" href="https://www.calculadorasdeenfermagem.com.br/ru/" />
+    <link rel="alternate" hreflang="tr" href="https://www.calculadorasdeenfermagem.com.br/tr/" />
+    <link rel="alternate" hreflang="nl" href="https://www.calculadorasdeenfermagem.com.br/nl/" />
+    <link rel="alternate" hreflang="pl" href="https://www.calculadorasdeenfermagem.com.br/pl/" />
+    <link rel="alternate" hreflang="sv" href="https://www.calculadorasdeenfermagem.com.br/sv/" />
+    <link rel="alternate" hreflang="id" href="https://www.calculadorasdeenfermagem.com.br/id/" />
+    <link rel="alternate" hreflang="vi" href="https://www.calculadorasdeenfermagem.com.br/vi/" />
+    <link rel="alternate" hreflang="uk" href="https://www.calculadorasdeenfermagem.com.br/uk/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.calculadorasdeenfermagem.com.br/" />
+
+    <!-- Schema.org - Organization (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const orgSchema = {
+            "@context": "https://schema.org",
+            "@type": CONFIG.site.organization.type,
+            "name": CONFIG.site.organization.name,
+            "url": CONFIG.site.domain,
+            "logo": CONFIG.site.logo.url,
+            "description": "Ferramentas clínicas para profissionais de enfermagem",
+            "sameAs": [
+                "https://www.linkedin.com/company/calculadoras-de-enfermagem",
+                "https://www.instagram.com/calculadorasdeenfermagem/",
+                "https://www.youtube.com/channel/UC_6runTDHz8u5S1Yab842pg"
+            ],
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "contato@calculadorasdeenfermagem.com.br",
+                "contactType": "customer support",
+                "availableLanguage": ["Portuguese", "English", "Spanish"]
+            }
+        };
+        
+        const schemaScript1 = document.createElement('script');
+        schemaScript1.type = 'application/ld+json';
+        schemaScript1.textContent = JSON.stringify(orgSchema, null, 4);
+        document.head.appendChild(schemaScript1);
+    }
+    </script>
+
+    <!-- Schema.org - WebSite (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const siteSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": CONFIG.site.name,
+            "url": CONFIG.site.domain,
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": CONFIG.site.domain + "/busca?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        };
+        
+        const schemaScript2 = document.createElement('script');
+        schemaScript2.type = 'application/ld+json';
+        schemaScript2.textContent = JSON.stringify(siteSchema, null, 4);
+        document.head.appendChild(schemaScript2);
+    }
+    </script>
+
+    <!-- Schema.org - WebPage (configurado via CONFIG) -->
+    <script>
+    if (typeof CONFIG !== 'undefined') {
+        const pageSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": CONFIG.site.name + " - Página Inicial",
+            "description": "Ferramentas clínicas e recursos para profissionais de enfermagem",
+            "url": CONFIG.site.domain + "/",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": CONFIG.site.name,
+                "url": CONFIG.site.domain
+            }
+        };
+        
+        const schemaScript3 = document.createElement('script');
+        schemaScript3.type = 'application/ld+json';
+        schemaScript3.textContent = JSON.stringify(pageSchema, null, 4);
+        document.head.appendChild(schemaScript3);
+    }
+    </script>
+
+    <!-- Fontes Locais -->
+    <link rel="stylesheet" href="assets/fonts/google-fonts.css">
+    
+    <!-- Font Awesome Local -->
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    
+    <!-- CSS Centralizado -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <!-- Header Icons CSS - Desktop e Mobile -->
+    <link rel="stylesheet" href="assets/css/header-icons.css">
+    <link rel="stylesheet" href="assets/css/header-icons-mobile-fix.css">
+</head>
+<body>
+
+    <!-- SKIP LINKS - Injetado via JS -->
+    <div id="skip-links-container"></div>
+    
+    <!-- TOP BAR - Injetado via JS -->
+    <div id="topbar-container"></div>
+    
+    <!-- HEADER/NAV - Injetado via JS -->
+    <div id="header-container"></div>
+    
+    <!-- MAIN CONTENT - Carregado dinamicamente de home.html -->
+    <main id="main-content"></main>
+    
+    <!-- FOOTER - Injetado via JS -->
+    <div id="footer-container"></div>
+    
+    <!-- CONSENT BANNER - Injetado via JS -->
+    <div id="consent-container"></div>
+    
+    <!-- Componentes JS - DEVE carregar ANTES dos scripts -->
+    <script src="assets/js/components.js"></script>
+    
+    <!-- Script de inicialização ÚNICO dos componentes -->
+    <script>
+        /**
+         * INICIALIZAÇÃO MODULAR DE COMPONENTES
+         * ===================================
+         * Sistema de injeção automática de componentes modulares
+         * Executado UMA ÚNICA VEZ quando o DOM estiver pronto
+         */
+        
+        (function() {
+            'use strict';
+            
+            let componentsInjected = false; // Flag para evitar dupla injeção
+            
+            /**
+             * Injeta todos os componentes modulares na página
+             */
+            function injectComponents() {
+                // Prevenir execução duplicada
+                if (componentsInjected) {
+                    console.log('⚠️ Componentes já foram injetados, pulando reinjeção');
+                    return;
+                }
+                
+                // Verificar se as funções render estão disponíveis
+                if (typeof renderSkipLinks !== 'function') {
+                    console.error('❌ Funções render não encontradas em components.js');
+                    return;
+                }
+                
+                // Injetar Skip Links
+                const skipLinksContainer = document.getElementById('skip-links-container');
+                if (skipLinksContainer) {
+                    skipLinksContainer.innerHTML = renderSkipLinks();
+                }
+                
+                // Injetar Top Bar
+                const topbarContainer = document.getElementById('topbar-container');
+                if (topbarContainer) {
+                    topbarContainer.innerHTML = renderTopBar();
+                }
+                
+                // Injetar Header
+                const headerContainer = document.getElementById('header-container');
+                if (headerContainer) {
+                    headerContainer.innerHTML = renderHeader();
+                }
+                
+                // Injetar Footer
+                const footerContainer = document.getElementById('footer-container');
+                if (footerContainer) {
+                    footerContainer.innerHTML = renderFooter();
+                }
+                
+                // Injetar Consent Banner
+                const consentContainer = document.getElementById('consent-container');
+                if (consentContainer) {
+                    consentContainer.innerHTML = renderConsentBanner();
+                }
+                
+                componentsInjected = true; // Marcar como injetado
+                console.log('✓ Componentes modulares injetados com sucesso');
+            }
+            
+
+            /**
+             * Inicialização principal
+             * Garante que componentes sejam injetados apenas UMA vez
+             */
+            function initialize() {
+                injectComponents();
+            }
+            
+            // Executar quando DOM estiver pronto
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+        })();
+    </script>
+    
+    <!-- Funcionalidades JS -->
+    <script src="assets/js/scripts.js"></script>
+    
+    <!-- Header Icons JS - Comportamento do cabeçalho mobile/desktop -->
+    <script src="assets/js/header-icons.js"></script>
+    
+    <!-- VLibras Script -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+</body>
+</html>
