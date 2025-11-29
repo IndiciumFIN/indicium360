@@ -1,0 +1,502 @@
+/**
+ * CALCULATOR SECTIONS - Estilos das Seções Modulares
+ * Estilos padronizados para todas as seções das calculadoras
+ * Autor: Matrix Agent
+ * Data: 2025-11-29
+ */
+
+/* ============================================================ */
+/* BOTÕES DE AÇÃO */
+/* ============================================================ */
+
+#action-buttons button {
+    transition: all 0.3s ease;
+}
+
+#action-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#action-buttons button:active {
+    transform: translateY(0);
+}
+
+/* ============================================================ */
+/* CARDS DE SEÇÃO */
+/* ============================================================ */
+
+.section-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.section-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1A3E74;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.section-title svg {
+    margin-right: 0.5rem;
+}
+
+/* ============================================================ */
+/* FORMULÁRIO */
+/* ============================================================ */
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #3B82F6;
+    ring: 2px;
+    ring-color: rgba(59, 130, 246, 0.3);
+}
+
+.form-input:disabled,
+.form-select:disabled {
+    background-color: #F3F4F6;
+    cursor: not-allowed;
+}
+
+/* Remove setas de input number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* ============================================================ */
+/* ÁREA DE RESULTADOS */
+/* ============================================================ */
+
+.result-box {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.result-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1A3E74;
+    margin: 0.5rem 0;
+}
+
+.result-label {
+    font-size: 0.875rem;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.result-category {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.result-category.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #059669;
+}
+
+.result-category.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #D97706;
+}
+
+.result-category.danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+}
+
+.result-category.info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #2563EB;
+}
+
+/* ============================================================ */
+/* INTERPRETAÇÃO CLÍNICA */
+/* ============================================================ */
+
+.interpretation-box {
+    background: #F9FAFB;
+    border-left: 4px solid #3B82F6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.interpretation-title {
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 0.5rem;
+}
+
+.interpretation-text {
+    font-size: 0.875rem;
+    color: #4B5563;
+    line-height: 1.6;
+}
+
+/* ============================================================ */
+/* ALERTAS E AVISOS */
+/* ============================================================ */
+
+.alert {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items-start;
+}
+
+.alert svg {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.alert-info {
+    background-color: #EFF6FF;
+    border-left: 4px solid #3B82F6;
+    color: #1E40AF;
+}
+
+.alert-success {
+    background-color: #ECFDF5;
+    border-left: 4px solid #10B981;
+    color: #065F46;
+}
+
+.alert-warning {
+    background-color: #FFFBEB;
+    border-left: 4px solid #F59E0B;
+    color: #92400E;
+}
+
+.alert-danger {
+    background-color: #FEF2F2;
+    border-left: 4px solid #EF4444;
+    color: #991B1B;
+}
+
+/* ============================================================ */
+/* TABELAS DE VALORES DE REFERÊNCIA */
+/* ============================================================ */
+
+.reference-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+}
+
+.reference-table th {
+    background-color: #F3F4F6;
+    color: #1F2937;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #E5E7EB;
+}
+
+.reference-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #E5E7EB;
+    color: #4B5563;
+}
+
+.reference-table tr:hover {
+    background-color: #F9FAFB;
+}
+
+/* ============================================================ */
+/* BADGES E TAGS */
+/* ============================================================ */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.badge-primary {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+}
+
+.badge-success {
+    background-color: #D1FAE5;
+    color: #065F46;
+}
+
+.badge-warning {
+    background-color: #FEF3C7;
+    color: #92400E;
+}
+
+.badge-danger {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+/* ============================================================ */
+/* LISTAS COM ÍCONES */
+/* ============================================================ */
+
+.icon-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.icon-list li {
+    display: flex;
+    align-items: start;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: #4B5563;
+}
+
+.icon-list li svg,
+.icon-list li .icon {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+    margin-top: 0.125rem;
+}
+
+/* ============================================================ */
+/* SIDEBAR WIDGETS */
+/* ============================================================ */
+
+.sidebar-widget {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-widget-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1A3E74;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-widget-content {
+    font-size: 0.875rem;
+    color: #4B5563;
+}
+
+/* ============================================================ */
+/* LOADING STATE */
+/* ============================================================ */
+
+.loading-spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid #E5E7EB;
+    border-top-color: #3B82F6;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+}
+
+/* ============================================================ */
+/* ANIMAÇÕES */
+/* ============================================================ */
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVIDADE */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+    .result-value {
+        font-size: 2rem;
+    }
+    
+    .section-card {
+        padding: 1rem;
+    }
+    
+    #action-buttons {
+        flex-direction: column;
+    }
+    
+    #action-buttons button {
+        width: 100%;
+    }
+}
+
+/* ============================================================ */
+/* IMPRESSÃO */
+/* ============================================================ */
+
+@media print {
+    #action-buttons,
+    #btn-voltar,
+    #breadcrumb-container,
+    #unit-converter-container,
+    #nanda-search-container {
+        display: none !important;
+    }
+    
+    .section-card {
+        box-shadow: none;
+        border: 1px solid #E5E7EB;
+        page-break-inside: avoid;
+    }
+    
+    body {
+        background: white !important;
+    }
+}
+
+/* ============================================================ */
+/* ACESSIBILIDADE */
+/* ============================================================ */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid #3B82F6;
+    outline-offset: 2px;
+}
+
+/* ============================================================ */
+/* UTILIDADES */
+/* ============================================================ */
+
+.text-primary {
+    color: #1A3E74;
+}
+
+.bg-primary {
+    background-color: #1A3E74;
+}
+
+.border-primary {
+    border-color: #1A3E74;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.block {
+    display: block !important;
+}
+
+.flex {
+    display: flex !important;
+}
